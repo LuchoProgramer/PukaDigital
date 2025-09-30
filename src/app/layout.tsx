@@ -44,6 +44,18 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" 
           rel="stylesheet" 
         />
+        
+        {/* Favicons - Pegaso Rojo PukaDigital */}
+        <link rel="icon" href="/pegaso-rojo.svg" type="image/svg+xml" />
+        <link rel="icon" href="/pegaso-rojo-32x32.svg" type="image/svg+xml" sizes="32x32" />
+        <link rel="icon" href="/pegaso-rojo-16x16.svg" type="image/svg+xml" sizes="16x16" />
+        <link rel="apple-touch-icon" href="/pegaso-rojo-180x180.svg" sizes="180x180" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
+        {/* Theme color for mobile browsers */}
+        <meta name="theme-color" content="#D32F2F" />
+        <meta name="msapplication-TileColor" content="#D32F2F" />
+        <meta name="msapplication-TileImage" content="/pegaso-rojo-192x192.svg" />
       </head>
       <body className="font-inter antialiased bg-puka-black text-puka-white">
         {children}
