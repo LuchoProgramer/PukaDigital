@@ -1,0 +1,7 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" rx="24" fill="#D32F2F"/>
+  <text x="80" y="60" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="28">PUKA</text>
+  <text x="80" y="90" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="300" font-size="16">DIGITAL</text>
+  <circle cx="80" cy="110" r="20" fill="none" stroke="#FF5722" stroke-width="3"/>
+  <circle cx="80" cy="110" r="8" fill="#FF5722"/>
+</svg>
