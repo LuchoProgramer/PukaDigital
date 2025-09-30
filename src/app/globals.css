@@ -26,6 +26,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset específico para botones */
+button {
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Botón estilo Apple */
+.apple-button {
+  border: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+  background-clip: padding-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Estilo minimalista Apple */
 .apple-shadow {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);

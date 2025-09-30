@@ -34,7 +34,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="pt-8">
-            <button className="bg-puka-red text-white px-12 py-4 rounded-full text-lg font-medium apple-transition apple-hover apple-shadow">
+            <button className="apple-button bg-puka-red text-white px-12 py-4 rounded-full text-lg font-medium apple-transition apple-hover apple-shadow">
               Saber más
             </button>
           </div>
@@ -114,10 +114,10 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-puka-red text-white px-8 py-4 rounded-full text-lg font-medium apple-transition apple-hover">
+            <button className="apple-button bg-puka-red text-white px-8 py-4 rounded-full text-lg font-medium apple-transition apple-hover">
               Hablemos
             </button>
-            <button className="bg-white text-puka-red border-2 border-puka-red px-8 py-4 rounded-full text-lg font-medium apple-transition hover:bg-puka-red hover:text-white">
+            <button className="apple-button bg-white text-puka-red border-2 border-puka-red px-8 py-4 rounded-full text-lg font-medium apple-transition hover:bg-puka-red hover:text-white">
               Ver portafolio
             </button>
           </div>
