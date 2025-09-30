@@ -1,110 +1,150 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-export default function ComingSoon() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-puka-black relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-puka-red blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-puka-orange blur-3xl"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
-        
-        {/* Logo */}
-        <div className="mb-16 animate-fade-in">
-          <div className="w-32 h-32 md:w-40 md:h-40 bg-white rounded-2xl overflow-hidden p-4 animate-glow">
-            <Image 
-              src="/logo.svg" 
-              alt="PukaDigital Logo" 
-              width={160}
-              height={160}
-              className="w-full h-full object-contain"
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-6">
+        <div className="max-w-4xl mx-auto text-center space-y-12">
+          {/* Logo */}
+          <div className="flex justify-center mb-16">
+            <Image
+              src="/pegaso-rojo.svg"
+              alt="PukaDigital"
+              width={120}
+              height={120}
+              className="apple-transition hover:scale-105"
               priority
             />
           </div>
-        </div>
 
-        {/* Main Heading */}
-        <div className="text-center mb-8 animate-slide-up">
-          <h1 className="font-poppins font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight mb-6">
-            <span className="gradient-text text-shadow-glow">
-              ALGO DISRUPTIVO
-            </span>
-            <br />
-            <span className="text-puka-white">
-              ESTÁ POR LLEGAR
-            </span>
-          </h1>
-          
-          <div className="w-24 h-1 bg-gradient-to-r from-puka-red to-puka-orange mx-auto rounded-full mb-8"></div>
-          
-          <p className="text-puka-gray text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto font-inter font-medium leading-relaxed">
-            Transformamos negocios con <span className="text-puka-red font-semibold">marketing</span>, 
-            <span className="text-puka-orange font-semibold"> IA</span> y 
-            <span className="text-puka-red font-semibold"> software</span> para un crecimiento imparable.
-          </p>
-        </div>
-
-        {/* Mission Statement */}
-        <div className="text-center mb-12 animate-slide-up max-w-4xl">
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
+          {/* Título Principal */}
+          <div className="space-y-6">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-black">
+              Algo increíble
+              <br />
+              <span className="text-gradient">viene pronto</span>
+            </h1>
             
-            {/* Autenticidad */}
-            <div className="bg-puka-gray bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-puka-gray border-opacity-20 hover:border-puka-red hover:border-opacity-50 transition-all duration-300">
-              <div className="w-12 h-12 bg-puka-red rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <span className="text-white text-xl">✨</span>
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-puka-white mb-3">Autenticidad</h3>
-              <p className="text-puka-gray text-sm leading-relaxed">
-                Estrategias genuinas que reflejan tu esencia.
-              </p>
-            </div>
+            <p className="text-xl md:text-2xl text-puka-gray-medium max-w-2xl mx-auto leading-relaxed">
+              Estamos creando experiencias digitales que transformarán la manera 
+              en que tu marca conecta con el mundo.
+            </p>
+          </div>
 
-            {/* Innovación */}
-            <div className="bg-puka-gray bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-puka-gray border-opacity-20 hover:border-puka-orange hover:border-opacity-50 transition-all duration-300">
-              <div className="w-12 h-12 bg-puka-orange rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <span className="text-white text-xl">🚀</span>
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-puka-white mb-3">Innovación</h3>
-              <p className="text-puka-gray text-sm leading-relaxed">
-                Rompemos barreras con tecnología de vanguardia.
-              </p>
-            </div>
-
-            {/* Éxito Compartido */}
-            <div className="bg-puka-gray bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-puka-gray border-opacity-20 hover:border-puka-red hover:border-opacity-50 transition-all duration-300">
-              <div className="w-12 h-12 bg-puka-red rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <span className="text-white text-xl">🤝</span>
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-puka-white mb-3">Éxito Compartido</h3>
-              <p className="text-puka-gray text-sm leading-relaxed">
-                Tu triunfo es nuestro compromiso.
-              </p>
-            </div>
+          {/* CTA Button */}
+          <div className="pt-8">
+            <button className="bg-puka-red text-white px-12 py-4 rounded-full text-lg font-medium apple-transition apple-hover apple-shadow">
+              Saber más
+            </button>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center animate-slide-up">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-puka-red to-puka-orange px-8 py-4 rounded-full text-white font-poppins font-bold text-lg animate-pulse-slow">
-            <span>PRÓXIMAMENTE</span>
-            <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
-          </div>
-          
-          <p className="text-puka-gray text-sm mt-6">
-            Innovación sin límites, impulsando el crecimiento de negocios en la región.
-          </p>
-        </div>
-
-        {/* Bottom Text */}
+        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <p className="text-puka-gray text-xs text-center">
-            © 2024 PukaDigital. Preparando algo revolucionario.
-          </p>
+          <div className="w-px h-16 bg-puka-gray-light"></div>
         </div>
-      </div>
-    </div>
-  );
+      </section>
+
+      {/* Values Section */}
+      <section className="py-32 px-6 bg-puka-gray-light">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
+              Nuestra filosofía
+            </h2>
+            <p className="text-xl text-puka-gray-medium max-w-3xl mx-auto">
+              Creemos en el poder de la simplificación, la elegancia del diseño 
+              y la fuerza de las ideas bien ejecutadas.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Misión */}
+            <div className="bg-white p-8 rounded-3xl apple-shadow apple-transition apple-hover">
+              <div className="w-16 h-16 bg-puka-red-soft rounded-2xl flex items-center justify-center mb-6">
+                <div className="w-8 h-8 bg-puka-red rounded-lg"></div>
+              </div>
+              <h3 className="text-2xl font-bold text-black mb-4">Misión</h3>
+              <p className="text-puka-gray-medium leading-relaxed">
+                Transformamos ideas en experiencias digitales excepcionales que 
+                impulsan el crecimiento de nuestros clientes a través de la 
+                innovación y el diseño centrado en el usuario.
+              </p>
+            </div>
+
+            {/* Visión */}
+            <div className="bg-white p-8 rounded-3xl apple-shadow apple-transition apple-hover">
+              <div className="w-16 h-16 bg-puka-red-soft rounded-2xl flex items-center justify-center mb-6">
+                <div className="w-8 h-8 bg-puka-red rounded-lg"></div>
+              </div>
+              <h3 className="text-2xl font-bold text-black mb-4">Visión</h3>
+              <p className="text-puka-gray-medium leading-relaxed">
+                Ser la agencia de referencia en transformación digital, 
+                reconocida por crear soluciones que no solo resuelven problemas, 
+                sino que inspiran y generan valor real.
+              </p>
+            </div>
+
+            {/* Valores */}
+            <div className="bg-white p-8 rounded-3xl apple-shadow apple-transition apple-hover">
+              <div className="w-16 h-16 bg-puka-red-soft rounded-2xl flex items-center justify-center mb-6">
+                <div className="w-8 h-8 bg-puka-red rounded-lg"></div>
+              </div>
+              <h3 className="text-2xl font-bold text-black mb-4">Valores</h3>
+              <p className="text-puka-gray-medium leading-relaxed">
+                Excelencia en cada detalle, colaboración genuina, innovación 
+                constante y compromiso inquebrantable con el éxito de 
+                nuestros clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-8">
+            ¿Listo para comenzar?
+          </h2>
+          <p className="text-xl text-puka-gray-medium mb-12 max-w-2xl mx-auto">
+            Mientras preparamos nuestro lanzamiento oficial, estamos aquí para 
+            escuchar tu proyecto y explorar cómo podemos ayudarte.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-puka-red text-white px-8 py-4 rounded-full text-lg font-medium apple-transition apple-hover">
+              Hablemos
+            </button>
+            <button className="bg-white text-puka-red border-2 border-puka-red px-8 py-4 rounded-full text-lg font-medium apple-transition hover:bg-puka-red hover:text-white">
+              Ver portafolio
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 px-6 bg-puka-gray-light border-t apple-border">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
+            <div className="flex items-center space-x-4">
+              <Image
+                src="/pegaso-rojo.svg"
+                alt="PukaDigital"
+                width={40}
+                height={40}
+              />
+              <span className="text-2xl font-bold text-black">PukaDigital</span>
+            </div>
+            
+            <div className="text-puka-gray-medium text-center md:text-right">
+              <p>© 2024 PukaDigital. Algo increíble viene pronto.</p>
+              <p className="text-sm mt-2">Diseñado y desarrollado con ❤️</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  )
 }
