@@ -41,7 +41,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" 
           rel="stylesheet" 
         />
         
@@ -49,15 +49,29 @@ export default function RootLayout({
         <link rel="icon" href="/pegaso-rojo.svg" type="image/svg+xml" />
         <link rel="icon" href="/pegaso-rojo-32x32.svg" type="image/svg+xml" sizes="32x32" />
         <link rel="icon" href="/pegaso-rojo-16x16.svg" type="image/svg+xml" sizes="16x16" />
+        
+        {/* Apple Touch Icons */}
         <link rel="apple-touch-icon" href="/pegaso-rojo-180x180.svg" sizes="180x180" />
+        <link rel="apple-touch-icon" href="/pegaso-rojo-192x192.svg" sizes="192x192" />
+        
+        {/* PWA Manifest */}
         <link rel="manifest" href="/site.webmanifest" />
         
-        {/* Theme color for mobile browsers */}
+        {/* Microsoft Tiles */}
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Theme colors for mobile browsers */}
         <meta name="theme-color" content="#D32F2F" />
         <meta name="msapplication-TileColor" content="#D32F2F" />
         <meta name="msapplication-TileImage" content="/pegaso-rojo-192x192.svg" />
+        
+        {/* Additional meta for better mobile experience */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="PukaDigital" />
       </head>
-      <body className="font-inter antialiased bg-puka-black text-puka-white">
+      <body className="font-inter">
         {children}
       </body>
     </html>
