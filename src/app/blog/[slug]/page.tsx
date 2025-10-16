@@ -3,7 +3,7 @@ import React from 'react';
 import { Metadata } from "next";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Blog } from "@/types";
+import { Blog } from "../../../types";
 import Comments from "@/components/blogs/Comments";
 
 // Función para obtener un blog por su "slug" desde Firebase
@@ -165,7 +165,7 @@ const BlogDetail = async ({ params }: BlogDetailPageProps) => {
                 </p>
             </div>
 
-            <Comments blogId={blog.id} />
+            {blog.id && <Comments blogId={blog.id} />}
         </div>
     );
 };
