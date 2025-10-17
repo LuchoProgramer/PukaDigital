@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useRouter } from "next/navigation";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -117,10 +118,20 @@ const BlogEdit = ({ params }: BlogEditProps) => {
         return <div className="text-center py-12">Cargando autenticación...</div>;
     }
     if (!user) {
-        return <div className="text-center py-12 text-red-500">Debes iniciar sesión para editar un blog.</div>;
+        return (
+            <div className="text-center py-12 text-red-500">
+                Debes iniciar sesión para editar un blog.<br />
+                <Link href="/" className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Ir a la página principal</Link>
+            </div>
+        );
     }
     if (!isAdmin) {
-        return <div className="text-center py-12 text-red-500">No tienes permisos de administrador para editar blogs.</div>;
+        return (
+            <div className="text-center py-12 text-red-500">
+                No tienes permisos de administrador para editar blogs.<br />
+                <Link href="/" className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Ir a la página principal</Link>
+            </div>
+        );
     }
     // ...existing code...
     return (

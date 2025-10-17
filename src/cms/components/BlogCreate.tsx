@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { db } from "../../lib/firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
@@ -120,10 +121,20 @@ const BlogCreate: React.FC = () => {
         return <div className="text-center py-12">Cargando autenticación...</div>;
     }
     if (!user) {
-        return <div className="text-center py-12 text-red-500">Debes iniciar sesión para crear un blog.</div>;
+        return (
+            <div className="text-center py-12 text-red-500">
+                Debes iniciar sesión para crear un blog.<br />
+                <Link href="/" className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Ir a la página principal</Link>
+            </div>
+        );
     }
     if (!isAdmin) {
-        return <div className="text-center py-12 text-red-500">No tienes permisos de administrador para crear blogs.</div>;
+        return (
+            <div className="text-center py-12 text-red-500">
+                No tienes permisos de administrador para crear blogs.<br />
+                <Link href="/" className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Ir a la página principal</Link>
+            </div>
+        );
     }
     // ...existing code...
     return (
