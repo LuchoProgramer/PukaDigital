@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pukadigital.com'),
@@ -72,7 +73,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="PukaDigital" />
       </head>
       <body className="font-inter">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
