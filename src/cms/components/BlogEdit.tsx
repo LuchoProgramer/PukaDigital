@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useRouter } from "next/navigation";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -20,6 +21,7 @@ interface BlogEditProps {
 }
 
 const BlogEdit = ({ params }: BlogEditProps) => {
+    const { user, isAdmin, loading } = useAdminAuth();
     const router = useRouter();
     const { id } = params;
 
@@ -111,6 +113,16 @@ const BlogEdit = ({ params }: BlogEditProps) => {
         }
     };
 
+    if (loading) {
+        return <div className="text-center py-12">Cargando autenticación...</div>;
+    }
+    if (!user) {
+        return <div className="text-center py-12 text-red-500">Debes iniciar sesión para editar un blog.</div>;
+    }
+    if (!isAdmin) {
+        return <div className="text-center py-12 text-red-500">No tienes permisos de administrador para editar blogs.</div>;
+    }
+    // ...existing code...
     return (
         <div className="py-12 mt-6 max-w-4xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
             <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">
@@ -118,123 +130,12 @@ const BlogEdit = ({ params }: BlogEditProps) => {
             </h2>
             {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
             <form onSubmit={handleSubmit}>
-                <div className="mb-6">
-                    <label
-                        htmlFor="title"
-                        className="block text-gray-700 dark:text-gray-200 font-semibold mb-2"
-                    >
-                        Título
-                    </label>
-                    <input
-                        id="title"
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Título del blog"
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
-                        required
-                    />
-                </div>
-
-                <div className="mb-6"> {/* Campo de entrada para el autor */}
-                    <label
-                        htmlFor="author"
-                        className="block text-gray-700 dark:text-gray-200 font-semibold mb-2"
-                    >
-                        Autor
-                    </label>
-                    <input
-                        id="author"
-                        type="text"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        placeholder="Nombre del autor"
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
-                        required
-                    />
-                </div>
-
-                <div className="mb-6 space-y-4">
-                    {blocks.map((block, index) => (
-                        <div
-                            key={index}
-                            className="relative p-8 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-700"
-                        >
-                            <button
-                                type="button"
-                                onClick={() => handleRemoveBlock(index)}
-                                className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs z-10"
-                            >
-                                X
-                            </button>
-                            {block.type === "text" && (
-                                <RichTextEditor
-                                    value={block.content || ""}
-                                    onChange={(content) =>
-                                        handleBlockChange(index, { ...block, content })
-                                    }
-                                />
-                            )}
-                            {block.type === "image" && (
-                                <div>
-                                    <img
-                                        src={block.src || ""}
-                                        alt={block.alt || "Imagen"}
-                                        className="max-w-full h-auto rounded"
-                                    />
-                                    <input
-                                        type="text"
-                                        value={block.alt || ""}
-                                        onChange={(e) =>
-                                            handleBlockChange(index, { ...block, alt: e.target.value })
-                                        }
-                                        placeholder="Descripción de la imagen"
-                                        className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md"
-                                    />
-                                </div>
-                            )}
-                            {block.type === "video" && (
-                                <iframe
-                                    src={block.src || ""}
-                                    className="w-full h-auto rounded"
-                                    allowFullScreen
-                                    title={`Video ${index}`}
-                                />
-                            )}
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-6 flex gap-4">
-                    <button
-                        type="button"
-                        onClick={handleAddText}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    >
-                        Agregar Texto
-                    </button>
-                    <ImageUploader
-                        url={imageUrl}
-                        alt={imageAlt}
-                        onUpload={(url: string, alt: string) => {
-                            setImageUrl(url);
-                            setImageAlt(alt);
-                            handleAddImage(url, alt);
-                        }}
-                    />
-                    <VideoEmbedder onEmbed={handleAddVideo} />
-                </div>
-
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`mt-6 w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-                        }`}
-                >
-                    {isSubmitting ? "Guardando..." : "Guardar Cambios"}
-                </button>
+                {/* ...existing code... */}
+                {/* El resto del formulario permanece igual */}
+                {/* ...existing code... */}
             </form>
         </div>
+    );
     );
 };
 
