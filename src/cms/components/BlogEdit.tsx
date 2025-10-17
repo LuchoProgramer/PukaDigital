@@ -130,7 +130,7 @@ const BlogEdit = ({ params }: BlogEditProps) => {
             </h2>
             {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
             <form onSubmit={handleSubmit}>
-            </form>
+                </form>
         </div>
     );
 };
