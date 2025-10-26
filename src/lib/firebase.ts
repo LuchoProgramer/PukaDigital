@@ -8,6 +8,7 @@ import {
     updateDoc,
     deleteDoc,
     query,
+    where,
     orderBy,
     limit,
     Timestamp,
@@ -36,11 +37,15 @@ const db = getFirestore(app);
 // Función utilitaria para obtener referencias de blogs
 const getBlogRef = (id: string) => doc(db, "blogs", id);
 
-// Función para crear un blog
-export const createBlog = async (blogData: Blog): Promise<string> => {
+// Función para crear un blog (multitenant)
+export const createBlog = async (
+  tenantId: string, 
+  blogData: Blog
+): Promise<string> => {
     try {
-        const docRef = await addDoc(collection(db, "blogs"), {
+        const docRef = await addDoc(collection(db, "tenants", tenantId, "blogs"), {
             ...blogData,
+            tenantId,
             createdAt: Timestamp.fromDate(new Date()),
         });
         return docRef.id;
@@ -50,12 +55,15 @@ export const createBlog = async (blogData: Blog): Promise<string> => {
     }
 };
 
-// Función para leer todos los blogs
-export const getBlogs = async (limitNumber = 10): Promise<Blog[]> => {
+// Función para leer todos los blogs de un tenant
+export const getBlogs = async (
+  tenantId: string, 
+  limitNumber = 10
+): Promise<Blog[]> => {
     try {
         const blogs: Blog[] = [];
         const blogsQuery = query(
-            collection(db, "blogs"),
+            collection(db, "tenants", tenantId, "blogs"),
             orderBy("createdAt", "desc"),
             limit(limitNumber)
         );
@@ -64,15 +72,17 @@ export const getBlogs = async (limitNumber = 10): Promise<Blog[]> => {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             blogs.push({
-                id: doc.id, // Firebase siempre proporciona `doc.id`
+                id: doc.id,
                 title: data.title || "Sin título",
                 content: data.content || "Contenido no disponible",
-                createdAt: data.createdAt ? data.createdAt.toDate() : null, // Convierte `Timestamp` a `Date`
-                slug: data.slug || data.title.toLowerCase().replace(/ /g, "-") || doc.id, // Genera un slug si no está presente
-                image: data.image || null, // Opcional
-                alt: data.alt || "Imagen del blog", // Opcional
-                excerpt: data.excerpt || data.content?.substring(0, 150) || "No hay descripción disponible.", // Opcional
-                blocks: data.blocks || [], // Agregado: si no hay bloques, asigna un array vacío
+                createdAt: data.createdAt ? data.createdAt.toDate() : null,
+                slug: data.slug || data.title?.toLowerCase().replace(/ /g, "-") || doc.id,
+                image: data.image || null,
+                alt: data.alt || "Imagen del blog",
+                excerpt: data.excerpt || data.content?.substring(0, 150) || "No hay descripción disponible.",
+                blocks: data.blocks || [],
+                tenantId: data.tenantId || tenantId,
+                author: data.author || null,
             });
         });
 
@@ -83,13 +93,14 @@ export const getBlogs = async (limitNumber = 10): Promise<Blog[]> => {
     }
 };
 
-// Función para actualizar un blog
+// Función para actualizar un blog (multitenant)
 export const updateBlog = async (
+    tenantId: string,
     id: string,
     updatedData: Partial<Blog>
 ): Promise<void> => {
     try {
-        const blogRef = getBlogRef(id);
+        const blogRef = doc(db, "tenants", tenantId, "blogs", id);
         await updateDoc(blogRef, updatedData);
     } catch (error) {
         console.error("Error al actualizar el blog: ", error);
@@ -97,14 +108,42 @@ export const updateBlog = async (
     }
 };
 
-// Función para eliminar un blog
-export const deleteBlog = async (id: string): Promise<void> => {
+// Función para eliminar un blog (multitenant)
+export const deleteBlog = async (tenantId: string, id: string): Promise<void> => {
     try {
-        const blogRef = getBlogRef(id);
+        const blogRef = doc(db, "tenants", tenantId, "blogs", id);
         await deleteDoc(blogRef);
     } catch (error) {
         console.error("Error al eliminar el blog: ", error);
         throw new Error("No se pudo eliminar el blog.");
+    }
+};
+
+// Función para obtener un blog por slug (multitenant)
+export const getBlogBySlug = async (
+    tenantId: string, 
+    slug: string
+): Promise<Blog | null> => {
+    try {
+        const blogsRef = collection(db, "tenants", tenantId, "blogs");
+        const q = query(blogsRef, where("slug", "==", slug));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            const blogDoc = querySnapshot.docs[0];
+            const data = blogDoc.data();
+            return { 
+                id: blogDoc.id, 
+                ...data,
+                createdAt: data.createdAt ? data.createdAt.toDate() : null,
+                tenantId: data.tenantId || tenantId,
+            } as Blog;
+        }
+
+        return null;
+    } catch (error) {
+        console.error("Error al obtener el blog:", error);
+        return null;
     }
 };
 

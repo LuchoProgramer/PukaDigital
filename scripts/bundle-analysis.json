@@ -1,0 +1,27 @@
+{
+  "name": "analyze",
+  "description": "Analyze bundle size and optimization opportunities",
+  "scripts": {
+    "analyze": "cross-env ANALYZE=true npm run build",
+    "analyze:dev": "cross-env ANALYZE=true npm run dev",
+    "bundle:size": "npx bundlesize",
+    "webpack:analyze": "npx webpack-bundle-analyzer .next/static/chunks/*.js"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^4.9.1",
+    "bundlesize": "^0.18.1",
+    "cross-env": "^7.0.3"
+  },
+  "bundlesize": [
+    {
+      "path": ".next/static/chunks/pages/*.js",
+      "maxSize": "250 KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/*.js",
+      "maxSize": "150 KB",
+      "compression": "gzip"
+    }
+  ]
+}

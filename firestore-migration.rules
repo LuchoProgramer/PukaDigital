@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // REGLAS TEMPORALES PARA MIGRACIÓN - REEMPLAZAR DESPUÉS
+    // Permitir acceso completo a usuarios autenticados SOLO DURANTE MIGRACIÓN
+    
+    // Colección de usuarios (estructura antigua)
+    match /users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Colección de blogs (estructura antigua)
+    match /blogs/{blogId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Nueva estructura multitenant
+    
+    // Colección de tenants
+    match /tenants/{tenantId} {
+      allow read, write: if request.auth != null;
+      
+      // Usuarios dentro de cada tenant
+      match /users/{userId} {
+        allow read, write: if request.auth != null;
+      }
+      
+      // Blogs dentro de cada tenant
+      match /blogs/{blogId} {
+        allow read, write: if request.auth != null;
+      }
+    }
+    
+    // Permitir todo lo demás para usuarios autenticados (TEMPORAL)
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

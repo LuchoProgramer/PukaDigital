@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { TenantProvider } from "@/context/TenantContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pukadigital.com'),
@@ -74,7 +75,9 @@ export default function RootLayout({
       </head>
       <body className="font-inter">
         <ThemeProvider>
-          {children}
+          <TenantProvider tenantId="default">
+            {children}
+          </TenantProvider>
         </ThemeProvider>
       </body>
     </html>
