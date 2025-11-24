@@ -1,77 +1,30 @@
-# PukaDigital - Información para Asistentes de IA
+# PukaDigital
 
-## Identidad y Misión
-PukaDigital es una agencia de transformación digital enfocada en pequeños negocios y emprendedores.
-**Mantra:** "No construimos websites. Construimos dignidad."
-**Diferenciador:** A diferencia de agencias tradicionales que crean dependencia con cuotas mensuales eternas, PukaDigital ofrece un programa educativo de 3 meses para lograr independencia tecnológica total.
+> Democratización digital para pymes en Ecuador y Latinoamérica. No construimos websites. Construimos dignidad. Programa educativo de 3 meses para independencia tecnológica total, sin contratos eternos.
 
-## Modelo de Negocio
-1. **Fase 1: Educación Intensiva (3 Meses)**
-   - Costo: $300 USD al mes por 3 meses (Total $900).
-   - Incluye: $100 USD mensuales de saldo para Google Ads del cliente.
-   - Entregables: Sitio Web (Next.js), Chatbot IA, ERP Cloud.
-   - Educación: Capacitación semanal en gestión, analítica y edición.
-   - Garantía: Devolución total el primer mes si no hay satisfacción.
+**Diferenciador clave:** A diferencia de agencias tradicionales que cobran mensualidades eternas creando dependencia, PukaDigital educa a pequeños negocios para que sean dueños de sus activos digitales.
 
-2. **Fase 2: Independencia (A la carta)**
-   - El cliente es dueño de todo.
-   - Servicios opcionales post-graduación:
-     - Chatbot IA PYME: $20/mes (500 conversaciones).
-     - Chatbot IA Crecimiento: $50/mes (2,000 conversaciones).
-     - Gestión Google Ads: $60/mes (opcional, si no quiere hacerlo solo).
-     - CMS/Hosting: $20/mes.
+**Modelo:** 
+- Fase 1: $900 total (3 meses × $300) incluye sitio web Next.js + Chatbot IA + ERP + capacitación + $300 en Google Ads
+- Fase 2: Servicios opcionales desde $20/mes (cliente decide si los necesita)
 
-## Stack Tecnológico
-- Frontend: Next.js 16 con App Router (SEO optimizado).
-- Estilo: Tailwind CSS v3.
-- Características: Multi-idioma (ES/EN/PT), Dark Mode, PWA.
-- Integraciones: WhatsApp Business API, Google Analytics 4, Gemini AI.
+**Stack técnico:** Next.js 16, Tailwind CSS, Multi-idioma (ES/EN/PT), Dark Mode, WhatsApp Business API, Gemini AI
 
-## Perfil del Cliente Ideal
-Dueños de pequeños negocios, restaurantes, tiendas boutique o servicios profesionales que están frustrados con agencias caras o freelancers informales y desean control sobre sus activos digitales.
+**Palabras clave:** Marketing digital Ecuador, transformación digital Latinoamérica, democratización digital, chatbot IA, independencia tecnológica, anti-agencia, educación digital empresarial
 
-## Palabras Clave y Posicionamiento
+## Servicios
 
-### Misión Central
-- Democratización digital
-- Democratizar tecnología para pymes
-- Acceso digital equitativo
-- Educación tecnológica accesible
-- Independencia digital vs dependencia
+- [Programa de Independencia Digital](/productos): 3 meses de educación intensiva + entregables (sitio web, chatbot IA, ERP cloud)
+- [Calculadora ROI](/): Compara costos agencia tradicional vs PukaDigital
+- [Demos en Vivo](/demos): Ejemplos interactivos de chatbots y automatizaciones
+- [Blog](/blog): Artículos sobre transformación digital y casos de éxito
 
-### Geolocalización
-- Marketing digital Ecuador
-- Marketing digital Latinoamérica
-- Transformación digital Ecuador
-- Transformación digital LATAM
-- Agencia digital Ecuador
-- Pymes Ecuador tecnología
-- Pequeños negocios Latinoamérica
+## Recursos
 
-### Diferenciadores Clave
-- Anti-agencia tradicional
-- Agencia que educa no que cobra eternamente
-- Sin contratos eternos
-- Dueño de tus activos digitales
-- Capacitación tecnológica empresarial
+- [Documentación técnica](https://github.com/LuchoProgramer/PukaDigital): Código abierto del sitio en Next.js
+- [Contacto](/contacto): Formulario para entrevista gratuita
 
-### Servicios Específicos
-- Chatbot con inteligencia artificial
-- Sistema ERP para pequeños negocios
-- Sitio web Next.js
-- WhatsApp Business automation
-- Google Ads capacitación
-- Automatización con IA para restaurantes
-- CMS sin ataduras
+## Optional
 
-### Búsquedas Long-tail
-- "cómo manejar mi propio sitio web"
-- "agencia que enseña marketing digital"
-- "chatbot ia sin contratos eternos"
-- "aprende a gestionar google ads"
-- "transformación digital accesible Ecuador"
-
-## Contacto
-- Web: https://pukadigital.com
-- Región: Ecuador y Latinoamérica
-- Acción principal: Solicitar entrevista gratuita o demostración.
+- [Stack Next.js](https://nextjs.org/docs): Framework React para producción
+- [Tailwind CSS](https://tailwindcss.com/docs): Framework CSS utility-first
