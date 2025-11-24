@@ -2,6 +2,90 @@ import { BlogPost } from '../types';
 
 export const LOCAL_POSTS: BlogPost[] = [
   {
+    id: 'local-5',
+    title: 'Google Ads para Principiantes: Deja de quemar dinero en clics que no venden',
+    excerpt: 'Te enseñamos a configurar tu primera campaña de Google Ads sin intermediarios. Los $100 mensuales que incluimos son tuyos, no de una agencia.',
+    content: `
+## La verdad sobre Google Ads
+
+Las agencias te hacen creer que Google Ads es magia negra que solo ellos entienden. La realidad: **es un sistema que puedes aprender en una tarde**.
+
+¿Por qué te cobran $200-$500/mes por "gestionar" tus anuncios? Porque no quieren que sepas que es tan fácil como configurar una publicación en Facebook.
+
+### Lo básico que las agencias ocultan
+
+Google Ads funciona con 3 conceptos simples:
+
+1. **Palabras clave**: Lo que la gente busca ("fontanero urgente", "pizza a domicilio")
+2. **Presupuesto diario**: Cuánto estás dispuesto a gastar ($5, $10, $20)
+3. **Anuncio**: Un título, una descripción y un enlace
+
+**Eso es todo.** El resto son detalles que se aprenden haciendo.
+
+### El modelo honesto de PukaDigital
+
+En nuestro programa de 3 meses:
+
+- **Mes 1**: Te damos $100 de saldo para tus anuncios (no para nosotros)
+- **Mes 2**: Configuramos juntos tu primera campaña (tú aprendes viendo)
+- **Mes 3**: Ya estás corriendo tus propios anuncios
+
+**Total invertido en publicidad real: $300** (tuyo, no nuestro)
+
+> "Las agencias tradicionales cobran $300/mes de gestión y te dan $0 en anuncios. Nosotros cobramos $300/mes y te damos $100 en anuncios. Además, te enseñamos."
+
+### Errores típicos que te hacen perder dinero
+
+1. **No usar palabras clave negativas**: Si vendes "zapatos de cuero", debes excluir "gratis", "usados", "baratos"
+2. **Anuncios genéricos**: "Somos los mejores" no vende. "Entrega en 2 horas garantizada" sí.
+3. **Página de destino mala**: De nada sirve un buen anuncio si tu web tarda 10 segundos en cargar.
+
+### La autonomía es más barata
+
+Si pagas a una agencia $300/mes por Google Ads, en un año gastas **$3,600**.
+
+Con PukaDigital:
+- Pagas $900 una sola vez (3 meses de educación)
+- Administras tus propios $100/mes de publicidad ($1,200/año)
+- **Ahorras $2,400 anuales**
+
+Y lo mejor: **controlas todo**. Si quieres pausar los anuncios en vacaciones, lo haces tú. Si quieres aumentar el presupuesto en temporada alta, lo haces tú.
+
+### Herramientas gratuitas que debes conocer
+
+Google te da todo gratis:
+- **Google Keyword Planner**: Para investigar qué busca la gente
+- **Google Analytics**: Para saber qué anuncios funcionan
+- **Google Ads Editor**: Para hacer cambios masivos sin internet
+
+No necesitas software de $500/mes. Google mismo te da las herramientas.
+
+### Tu primer anuncio en 5 pasos
+
+1. **Crea tu cuenta** en ads.google.com
+2. **Define tu objetivo**: ¿Llamadas? ¿Visitas a la tienda? ¿Ventas online?
+3. **Elige tus palabras**: Usa el Keyword Planner
+4. **Escribe el anuncio**: Título (30 caracteres), Descripción (90 caracteres)
+5. **Establece presupuesto**: Empieza con $5/día y ajusta según resultados
+
+¿Cuánto tarda esto? **30 minutos**. ¿Cuánto te cobran las agencias por esto? **$500 de setup**.
+
+### La trampa del "mantenimiento"
+
+Las agencias te dicen: *"Necesitas optimización constante, análisis semanal, ajustes diarios..."*
+
+La verdad: Una vez configurado, solo necesitas revisar los resultados **una vez por semana**. Toma 15 minutos.
+
+No dejes que te cobren un salario mensual por 1 hora de trabajo al mes.
+    `,
+    coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+    date: '2024-11-24',
+    category: 'Publicidad',
+    slug: 'google-ads-principiantes',
+    source: 'local',
+    author: 'Equipo Puka'
+  },
+  {
     id: 'local-1',
     title: 'Por qué tu negocio no necesita una "Página Web", necesita un Sistema',
     excerpt: 'La mayoría de PYMES gastan dinero en folletos digitales que nadie visita. Descubre la diferencia entre tener una web y tener un activo digital.',
