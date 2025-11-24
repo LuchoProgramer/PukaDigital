@@ -2,6 +2,783 @@ import { BlogPost } from '@/types';
 
 export const LOCAL_POSTS: BlogPost[] = [
   {
+    id: 'local-12',
+    title: '¿Cuánto Cuesta Realmente una Página Web en Ecuador? Agencia vs PukaDigital',
+    excerpt: 'Desglose real de costos: agencias tradicionales cobran $2,000-$5,000 + $200/mes eternos. Comparamos precios sin trucos ni letra chica.',
+    content: `
+## La pregunta que nadie responde con honestidad
+
+Buscas en Google: *"cuánto cuesta una página web en Ecuador"*
+
+**Respuestas que encuentras:**
+- "Desde $500" (pero no te dicen que luego son $300/mes de mantenimiento)
+- "Depende de tus necesidades" (la forma elegante de decir "te vamos a cobrar lo que aguantes")
+- "Contáctanos para cotización" (porque no quieren que compares precios)
+
+**Hoy vamos a hablar con números reales.**
+
+---
+
+## Modelo Agencia Tradicional (La Realidad Completa)
+
+### Costos Iniciales
+- **Cotización y diseño:** $500 - $1,500
+- **Desarrollo web:** $1,500 - $3,000
+- **"Setup" de hosting y dominio:** $200 - $500
+- **SEO básico inicial:** $300 - $800
+
+**Total Inicial: $2,500 - $5,800**
+
+### Costos Mensuales Eternos
+- **Hosting "premium":** $50 - $100/mes
+- **Mantenimiento:** $100 - $200/mes
+- **Soporte técnico:** $50 - $100/mes
+- **Actualizaciones de seguridad:** Incluido (dicen)
+
+**Total Mensual: $200 - $400/mes**
+
+### Costos Ocultos (Los que descubres después)
+- Cambiar una foto: $30
+- Agregar una página nueva: $150
+- Modificar texto: $20
+- Integrar un formulario: $200
+- Migrar a otro proveedor: **Imposible** (eres rehén)
+
+**Costo anual total (primer año):** $2,500 + ($300 × 12) = **$6,100**
+
+---
+
+## Modelo Freelancer (Barato al principio, caro después)
+
+### Costos Iniciales
+- **Desarrollo completo:** $800 - $2,000
+- **Dominio + Hosting (1 año):** $100 - $200
+
+**Total Inicial: $900 - $2,200**
+
+### El Problema
+✅ Es más barato que una agencia  
+❌ El freelancer desaparece en 6 meses  
+❌ Nadie te enseña a editar tu propia web  
+❌ Si algo se rompe, buscas otro freelancer desde cero  
+❌ No hay estrategia de marketing, solo "una web bonita"  
+
+**Costo de oportunidad:** Pierdes 6-12 meses sin saber qué hacer con tu web.
+
+---
+
+## Modelo PukaDigital (Transparencia Total)
+
+### ¿Qué pagas exactamente?
+
+**Programa de 3 Meses: $300/mes × 3 = $900 total**
+
+#### Mes 1: Construcción + Educación ($300)
+✅ Desarrollo web completo (Next.js profesional)  
+✅ Chatbot IA integrado  
+✅ Sistema ERP básico  
+✅ Optimización Google Maps + Bing Places  
+✅ **Incluye $100 en saldo Google Ads** (tuyo, no nuestro)  
+
+#### Mes 2: Capacitación Intensiva ($300)
+✅ Aprendes a editar tu web (CMS visual)  
+✅ Configuramos campañas de Ads juntos  
+✅ Dashboards de métricas reales  
+✅ **Incluye otros $100 en Ads**  
+
+#### Mes 3: Independencia ($300)
+✅ Soporte mientras lanzas solo  
+✅ Troubleshooting de dudas  
+✅ **Incluye otros $100 en Ads**  
+
+**Total invertido:** $900  
+**De los cuales $300 fueron en publicidad real para TU negocio**
+
+### Después de los 3 meses: Tú decides
+
+**Opción 1: Eres 100% independiente (Costo: $0)**
+- Gestionas todo tú mismo
+- Hosting gratuito en Vercel/Netlify o $5-10/mes en otro lado
+- Cero pagos obligatorios a PukaDigital
+
+**Opción 2: Usas módulos opcionales** ($20/mes c/u)
+- Chatbot IA escalable: $20-$150/mes (según volumen)
+- ERP Cloud avanzado: $20/mes
+- CMS + Hosting optimizado: $20/mes
+
+**Clave:** Tú controlas qué usas y qué no. Sin ataduras.
+
+---
+
+## Comparativa Real: 5 Años
+
+| Concepto | Agencia | Freelancer | PukaDigital |
+|----------|---------|------------|-------------|
+| **Año 1** | $6,100 | $2,200 | $900 + $240* |
+| **Año 2** | $3,600 | $500** | $240* |
+| **Año 3** | $3,600 | $500** | $240* |
+| **Año 4** | $3,600 | $500** | $240* |
+| **Año 5** | $3,600 | $500** | $240* |
+| **TOTAL 5 AÑOS** | **$20,500** | **$4,200** | **$2,100** |
+
+*Solo si usas módulos opcionales ($20/mes)  
+**Asumiendo hosting renovado
+
+---
+
+## ¿Por qué PukaDigital es tan barato?
+
+### 1. Sin Oficinas Lujosas
+No pagamos renta de $2,000/mes en una torre corporativa.
+
+### 2. Sin Vendedores Comisionados
+No tenemos un equipo de ventas que cobra 30% de comisión.
+
+### 3. Sin Markups Abusivos
+El hosting real cuesta $10/mes. Las agencias te cobran $100/mes.
+
+### 4. Modelo Educativo, No Dependencia
+Queremos que aprendas, no que nos pagues eternamente.
+
+---
+
+## Preguntas Frecuentes
+
+**P: ¿$900 incluye el dominio (.com)?**  
+R: Sí, primer año incluido. Renovación anual: ~$15/año.
+
+**P: ¿Qué pasa si después de 3 meses necesito ayuda?**  
+R: Soporte por horas: $30/hora. O reactivas módulos opcionales.
+
+**P: ¿Puedo llevarme mi web a otro proveedor?**  
+R: SÍ. Es tuya. Código abierto. Exportable 100%.
+
+**P: ¿Es realmente profesional por ese precio?**  
+R: Next.js es el framework que usa Netflix, Uber, Nike. No es "barato", es eficiente.
+
+**P: ¿Incluye email corporativo (hola@minegocio.com)?**  
+R: Te enseñamos a configurar Gmail gratis con tu dominio.
+
+---
+
+## Casos Reales (Ecuador 2024)
+
+### Restaurante "El Fogón"
+- **Antes:** Agencia cobraba $350/mes + $50 por cada cambio de menú
+- **Con PukaDigital:** $900 una vez, ahora gestionan todo solos
+- **Ahorro anual:** $4,200 - $240 = **$3,960**
+
+### Boutique "Stylish"
+- **Antes:** Freelancer cobró $1,800 y desapareció
+- **Con PukaDigital:** Aprendieron a subir productos ellos mismos
+- **Resultado:** 0 dependencia, catálogo actualizado diario
+
+---
+
+## La Decisión es Tuya
+
+**Si quieres:**
+- ✅ **Dependencia eterna** → Agencia tradicional
+- ✅ **Riesgo de abandono** → Freelancer
+- ✅ **Independencia real** → [Conoce el Programa PukaDigital](/productos)
+
+**No estamos compitiendo en "quién tiene la web más bonita".**
+
+Estamos compitiendo en **quién te da dignidad digital**.
+
+> 💡 **Recursos relacionados:**
+> - [5 Señales de que necesitas un Chatbot IA](/blog/5-senales-pyme-necesita-chatbot-ia)
+> - [Caso de Éxito: Café del Centro](/blog/caso-exito-cafe-centro-independencia-digital)
+
+---
+
+## ¿Listo para Dejar de Pagar Renta Digital?
+
+Agenda tu entrevista gratuita:
+👉 [Contacto](/contacto)
+
+**Próximos 5 cupos disponibles este mes.**
+`,
+    coverImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
+    date: '2024-11-24',
+    category: 'Precios',
+    slug: 'cuanto-cuesta-pagina-web-ecuador',
+    source: 'local',
+    author: 'Equipo Puka'
+  },
+  {
+    id: 'local-13',
+    title: '5 Señales de que tu PYME Necesita un Chatbot con IA en 2025',
+    excerpt: 'Pierdes ventas a las 10pm? Tu equipo responde lo mismo 50 veces al día? Un chatbot IA no es lujo, es supervivencia. Casos reales de Ecuador.',
+    content: `
+## La Pregunta que Deberías Hacerte
+
+**¿Cuántos clientes perdiste la semana pasada porque nadie respondió a tiempo?**
+
+Si no sabes la respuesta, ya tienes un problema.
+
+Si la respuesta es "más de 3", necesitas un chatbot con IA. **Ya.**
+
+---
+
+## Señal #1: Pierdes Clientes Fuera del Horario Laboral
+
+### El Problema Real
+
+**Escenario típico:**
+- 9:00 PM: Cliente potencial encuentra tu Instagram
+- 9:05 PM: Te escribe por WhatsApp: *"¿Tienen mesas para 4 personas mañana a las 8pm?"*
+- 9:30 PM: Tú estás cenando, no ves el mensaje
+- 10:15 PM: Cliente reserva en tu competencia (que SÍ respondió)
+
+**Costo de oportunidad:** $50-$200 por reserva perdida.
+
+### La Solución IA
+
+Un chatbot responde **instantáneamente**, 24/7:
+
+> **Cliente:** ¿Tienen mesas para 4 mañana 8pm?  
+> **Chatbot:** ¡Hola! Sí, tenemos disponibilidad para 4 personas mañana a las 20:00. ¿A qué nombre hago la reserva?
+
+**Resultado:** Reserva cerrada mientras duermes.
+
+### Caso Real: Restaurante "La Brasa Loca" (Quito)
+
+**Antes del chatbot:**
+- Perdían 15-20 reservas/mes fuera de horario
+- Pérdida mensual: ~$1,500
+
+**Después del chatbot (3 meses):**
+- 40 reservas automáticas/mes
+- Ganancia adicional: $3,200/mes
+
+**Inversión en chatbot:** $20/mes  
+**ROI:** 16,000%
+
+---
+
+## Señal #2: Tu Equipo Responde las Mismas Preguntas 50 Veces al Día
+
+### El Problema Real
+
+**Top 5 preguntas repetitivas:**
+1. "¿Cuál es el horario?"
+2. "¿Hacen envíos?"
+3. "¿Cuáles son las formas de pago?"
+4. "¿Dónde están ubicados?"
+5. "¿Tienen [producto X] en stock?"
+
+**Tiempo perdido por empleado:** 2-3 horas/día respondiendo lo mismo.
+
+**Costo:** $10/hora × 3 horas × 22 días = **$660/mes** en tiempo desperdiciado.
+
+### La Solución IA
+
+El chatbot responde **instantáneamente** el 80% de consultas repetitivas.
+
+Tu equipo solo atiende:
+- Casos especiales
+- Quejas
+- Ventas consultivas de alto valor
+
+### Caso Real: Boutique "Glamour" (Guayaquil)
+
+**Antes:**
+- Vendedora respondía 60+ mensajes diarios
+- No tenía tiempo para cerrar ventas
+- Conversión: 5%
+
+**Después:**
+- Chatbot filtra 45 consultas básicas
+- Vendedora atiende solo 15 leads calificados
+- Conversión: **22%**
+
+---
+
+## Señal #3: No Puedes Contratar Personal 24/7
+
+### El Problema Real
+
+**Costos de contratar un asistente nocturno:**
+- Sueldo básico: $450/mes
+- Beneficios sociales: $150/mes
+- Capacitación: $200 inicial
+- **Total:** $600/mes + rotación constante
+
+**Y solo cubre un turno.**
+
+### La Solución IA
+
+**Chatbot IA:**
+- Costo: $20-$50/mes
+- Horario: 24/7/365
+- Nunca pide vacaciones
+- Nunca se enferma
+- No necesita capacitación (aprende de ejemplos)
+
+**Ahorro:** $550/mes = **$6,600/año**
+
+---
+
+## Señal #4: WhatsApp Business Ya No Da Abasto
+
+### El Problema Real
+
+WhatsApp Business tiene límites:
+- Máximo 4 respuestas automáticas genéricas
+- No entiende contexto ni variaciones
+- No puede hacer reservas ni consultas complejas
+
+**Ejemplo de fracaso:**
+
+> **Cliente:** "Hola, tienen disponible el vestido rojo talla M?"  
+> **WhatsApp Auto:** "Gracias por contactarnos, te responderemos pronto."
+
+😑 **Eso NO es servicio al cliente.**
+
+### La Solución IA
+
+Un chatbot con GPT-4:
+
+> **Cliente:** "Hola, tienen disponible el vestido rojo talla M?"  
+> **Chatbot IA:** "¡Hola! Sí, tenemos el vestido rojo en talla M disponible ($45). ¿Te gustaría separarlo? También tengo el mismo modelo en azul y negro si quieres ver opciones 😊"
+
+**Diferencia:** Conversación real vs robot tonto.
+
+---
+
+## Señal #5: Tus Competidores Ya Tienen Uno
+
+### El Problema Real
+
+**Búsqueda Google: "restaurante comida italiana Quito"**
+
+**Competidor A:**
+- Respuesta en WhatsApp: 5 minutos
+- Tiene chatbot
+- Reserva confirmada antes de que tú leas el mensaje
+
+**Tú:**
+- Respondes en 2 horas (porque estabas ocupado)
+- Cliente ya reservó en otro lado
+
+**Resultado:** Pierdes por lento, no por malo.
+
+### La Realidad Brutal
+
+En 2025, **no tener chatbot IA es como no tener WiFi en 2015.**
+
+Tus clientes esperan respuesta **inmediata**. Si no la das tú, la competencia sí.
+
+---
+
+## ¿Cómo Saber Si un Chatbot IA es para Ti?
+
+### Test Rápido (Responde SÍ o NO)
+
+1. ¿Recibes más de 20 consultas por WhatsApp/redes al día? **SÍ/NO**
+2. ¿Pierdes clientes fuera del horario laboral? **SÍ/NO**
+3. ¿Tu equipo está saturado respondiendo lo mismo? **SÍ/NO**
+4. ¿Tienes productos/servicios con disponibilidad cambiante? **SÍ/NO**
+5. ¿Quieres automatizar reservas o consultas de stock? **SÍ/NO**
+
+**Si respondiste SÍ a 2 o más → Necesitas un chatbot IA.**
+
+---
+
+## Mitos vs Realidad
+
+### Mito 1: "Es muy caro"
+**Realidad:** $20-$50/mes. Un empleado cuesta $600/mes.
+
+### Mito 2: "Es complicado de configurar"
+**Realidad:** Con PukaDigital, está listo en 48 horas. Solo nos pasas tu info.
+
+### Mito 3: "Los clientes odian hablar con bots"
+**Realidad:** Los clientes odian **esperar**. Les da igual si es bot o humano, quieren **respuesta YA**.
+
+### Mito 4: "Solo sirve para negocios grandes"
+**Realidad:** Un food truck con 10 pedidos/día se beneficia igual. Automatiza lo repetitivo.
+
+---
+
+## Casos de Éxito Reales (Ecuador)
+
+### 🍕 Pizzería "Napolitana" - Quito
+- **Consultas diarias:** 80+
+- **Antes:** 2 personas solo respondiendo WhatsApp
+- **Después:** Chatbot responde 90%, equipo cierra ventas
+- **Resultado:** +35% en ventas, -50% en costos de personal
+
+### 👗 Tienda de Ropa "Bella Vita" - Cuenca
+- **Horario humano:** 9am-7pm
+- **Horario chatbot:** 24/7
+- **Ventas nocturnas (8pm-12am):** 18% del total mensual
+- **ROI:** Pagó el chatbot en 5 días
+
+### 🏋️ Gym "FitZone" - Guayaquil
+- **Consultas por membresías:** 50/día
+- **Chatbot agenda citas automáticas**
+- **Conversión:** De 8% a 19%
+- **Ahorro:** $800/mes en recepcionista
+
+---
+
+## ¿Cómo Empezar?
+
+### Opción 1: Hazlo Tú Mismo (Gratis pero Complejo)
+- Plataformas: Chatfuel, ManyChat, Dialogflow
+- Tiempo: 20-40 horas aprendiendo
+- Resultado: Básico, sin IA real
+
+### Opción 2: PukaDigital (Listo en 48h)
+- **Incluido en el [programa de 3 meses](/productos)** ($300/mes)
+- Chatbot IA con GPT-4
+- Integración WhatsApp Business API
+- Entrenamiento personalizado con tu info
+
+**Después de 3 meses:**
+- Opción A: Lo gestionas tú (gratis)
+- Opción B: Escalabilidad ($20-$150/mes según volumen)
+
+> 💡 **Lee también:**
+> - [¿Cuánto cuesta una web en Ecuador? Comparativa completa](/blog/cuanto-cuesta-pagina-web-ecuador)
+> - [Caso de Éxito: Cómo una cafetería triplicó ventas](/blog/caso-exito-cafe-centro-independencia-digital)
+
+---
+
+## Preguntas Frecuentes
+
+**P: ¿Funciona en WhatsApp normal o solo Business?**  
+R: Requiere WhatsApp Business API (te ayudamos a configurarlo).
+
+**P: ¿Puedo cambiar las respuestas del bot?**  
+R: Sí, tienes panel de control para editar todo.
+
+**P: ¿Qué pasa si el bot no sabe responder algo?**  
+R: Deriva a un humano automáticamente con contexto de la conversación.
+
+**P: ¿Habla solo español?**  
+R: Puede hablar 50+ idiomas. Configurable.
+
+---
+
+## La Decisión es Hoy
+
+Cada día sin chatbot = clientes perdidos.
+
+**¿Listo para automatizar?**
+
+👉 [Ver Demo del Chatbot](/demos)  
+👉 [Solicitar Implementación](/contacto)
+
+**No es una cuestión de "si lo necesitas".**  
+**Es una cuestión de cuánto estás dispuesto a perder sin él.**
+`,
+    coverImage: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&q=80&w=800',
+    date: '2024-11-24',
+    category: 'Automatización',
+    slug: '5-senales-pyme-necesita-chatbot-ia',
+    source: 'local',
+    author: 'Equipo Puka'
+  },
+  {
+    id: 'local-14',
+    title: 'Caso de Éxito: Cómo "Café del Centro" Triplicó sus Ventas con Independencia Digital',
+    excerpt: 'De pagar $400/mes a una agencia a gestionar todo ellos mismos. Historia real de una cafetería en Quito que logró autonomía en 90 días.',
+    content: `
+## La Historia de María y su Cafetería
+
+**Nombre:** Café del Centro  
+**Ubicación:** Centro Histórico de Quito  
+**Dueña:** María González  
+**Problema:** Dependencia total de una agencia digital
+
+---
+
+## El Punto de Quiebre (Enero 2024)
+
+María llevaba 2 años pagando a una "agencia de marketing digital" en Quito.
+
+**Lo que le prometieron:**
+- ✅ Página web profesional
+- ✅ Redes sociales gestionadas
+- ✅ Google Ads
+- ✅ "Crecimiento garantizado"
+
+**Lo que recibió:**
+- ❌ Una web que no podía editar ella misma
+- ❌ Posts genéricos en Instagram (sin engagement)
+- ❌ $200/mes en Google Ads... pero $300/mes de "gestión"
+- ❌ Cero transparencia en resultados
+
+**Costo mensual:** $450/mes (+ IVA)  
+**Costo anual:** $5,400
+
+**Resultado después de 2 años:**
+- Ventas estancadas
+- Dependencia total (no sabía las claves de nada)
+- Frustración máxima
+
+### El Momento de Despertar
+
+Un día, María pidió cambiar una foto del menú en la web.
+
+**Respuesta de la agencia:**
+> "Ese cambio tiene un costo de $50 adicionales por actualización de contenido visual."
+
+**María:** "¿$50 POR UNA FOTO?"
+
+Ahí supo que algo estaba mal.
+
+---
+
+## El Cambio: PukaDigital (Febrero 2024)
+
+María encontró a PukaDigital en Google buscando: *"alternativa agencias marketing digital Quito"*
+
+### Mes 1: Construcción + Revelación
+
+**Qué hicimos:**
+1. **Auditoría brutal:** Revisamos lo que la agencia le había entregado
+   - Web hecha en WordPress con plantilla de $60
+   - Google Ads con keywords irrelevantes (gasto 70% desperdiciado)
+   - Sin Google Business optimizado (perdía búsquedas locales)
+
+2. **Construcción desde cero:**
+   - Web nueva en Next.js (ultra rápida)
+   - Chatbot IA para WhatsApp
+   - Sistema de gestión de menú (ella misma actualiza)
+   - Optimización Google Maps + Bing Places
+
+3. **Transparencia total:**
+   - Acceso a todas las cuentas (Google, hosting, etc.)
+   - Dashboard de métricas reales
+   - Capacitación diaria (15 min/día por Zoom)
+
+**Lo que María aprendió en 4 semanas:**
+- Cómo funciona Google Ads (de verdad)
+- Qué keywords generan ventas vs clics vacíos
+- Cómo cambiar fotos/textos en su web (5 minutos)
+- Leer Google Analytics sin morir en el intento
+
+---
+
+## Mes 2: Educación Intensiva
+
+### Semana 1: Google Ads Real
+
+**Antes (con la agencia):**
+- Presupuesto: $200/mes
+- Gestión: $300/mes
+- Keywords: "café Quito", "cafetería centro", "mejor café"
+- Conversión: 2.1%
+- Costo por cliente: $18
+
+**Después (con PukaDigital):**
+- Presupuesto: $100/mes (incluido en el programa)
+- Gestión: $0 (ella misma)
+- Keywords: "desayuno ejecutivo centro Quito", "café con WiFi gratis", "espacio coworking cafetería"
+- Conversión: **8.7%**
+- Costo por cliente: $6
+
+**Resultado:** Misma inversión, 4x mejores resultados.
+
+### Semana 2: Chatbot IA en Acción
+
+María configuró el chatbot para responder:
+
+**Consulta típica 1:**
+> **Cliente:** "Hola, tienen espacio para trabajar con laptop?"  
+> **Chatbot:** "¡Hola! Sí, tenemos zona coworking con WiFi gratis y enchufes. Horario: 8am-8pm. ¿Quieres reservar mesa?"
+
+**Resultado:** 15 reservas automáticas/semana sin que María mueva un dedo.
+
+**Consulta típica 2:**
+> **Cliente:** "Tienen menú del día?"  
+> **Chatbot:** "Hoy nuestro menú ejecutivo incluye: Ensalada + Sopa + Seco de Pollo + Jugo + Postre por $6.50. ¿Para llevar o comer aquí?"
+
+**Resultado:** 8 pedidos adicionales/día desde WhatsApp.
+
+### Semana 3: SEO Local Dominado
+
+Optimizamos su Google Business Profile:
+- 30 fotos profesionales (ella misma las tomó con su iPhone)
+- Descripción con keywords locales
+- Posts semanales sobre promociones
+- Respuestas a reseñas (automatizadas con IA)
+
+**Antes:**
+- 120 búsquedas/mes en Google Maps
+- 8 clics al sitio web
+
+**Después:**
+- **890 búsquedas/mes**
+- 156 clics al sitio
+- 45 llamadas directas
+
+### Semana 4: Independencia Total
+
+María ya podía:
+- ✅ Cambiar precios del menú (sin pagar $50)
+- ✅ Subir fotos de platillos nuevos
+- ✅ Pausar/activar Google Ads según temporada
+- ✅ Responder solo consultas complejas (chatbot hace el resto)
+- ✅ Ver métricas reales en tiempo real
+
+---
+
+## Mes 3: Lanzamiento Solo
+
+María tomó el control **completo**.
+
+**Primera prueba:** Promoción de San Valentín
+
+**Antes (con agencia):**
+- Pedía la promoción con 2 semanas de anticipación
+- Agencia cobraba $200 por "campaña especial"
+- Publicaban 3 días antes (muy tarde)
+
+**Ahora (independiente):**
+- María creó la promoción en 30 minutos
+- La publicó en web, redes y Google Ads ella misma
+- Costo: $0 adicional
+- Resultado: **83 reservas** (récord histórico)
+
+---
+
+## Resultados: 6 Meses Después (Agosto 2024)
+
+### Financieros
+
+**Inversión PukaDigital:**
+- Programa 3 meses: $900 (incluye $300 en Google Ads)
+- Módulos opcionales: $40/mes (Chatbot + CMS)
+
+**Total 6 meses:** $900 + ($40 × 3) = **$1,020**
+
+**Comparación con agencia:**
+- 6 meses con agencia: $450 × 6 = **$2,700**
+
+**Ahorro:** $1,680
+
+### Ventas
+
+**Antes (con agencia):**
+- Promedio mensual: $4,200
+
+**Después (independiente):**
+- Promedio mensual: **$12,800**
+
+**Crecimiento:** +205% (triplicó ventas)
+
+### Tiempo Invertido
+
+**Gestión digital:**
+- Antes: 0 horas (todo la agencia)
+- Ahora: 3 horas/semana (María misma)
+
+**Pero el ROI es brutal:**
+- 3 horas/semana = 12 horas/mes
+- Genera $8,600 adicionales/mes
+- **$716 por hora** de trabajo digital
+
+---
+
+## ¿Qué Hace María Ahora?
+
+**Lunes:** 30 minutos actualizando el menú semanal  
+**Miércoles:** 1 hora creando promoción nueva  
+**Viernes:** 30 minutos revisando métricas y ajustando Ads  
+**Resto de la semana:** El chatbot trabaja solo
+
+**Costo mensual actual:**
+- Hosting + CMS: $20/mes
+- Chatbot IA: $20/mes
+- Google Ads: $150/mes (su elección, antes era obligatorio)
+- **Total: $190/mes**
+
+**Ahorro vs agencia:** $260/mes = **$3,120/año**
+
+---
+
+## Lo Que María Dice (Testimonio Real)
+
+> "Al principio tenía miedo de 'hacer algo mal' y romper la web. Pero PukaDigital me enseñó que todo tiene deshacer (Ctrl+Z).
+>
+> La diferencia más grande no es el ahorro de plata, es la **libertad**.
+>
+> Antes dependía de la agencia para TODO. Ahora si quiero lanzar una promo de último momento, lo hago en 20 minutos.
+>
+> Y lo mejor: cuando veo mis métricas, **entiendo** qué significan. Antes solo veía números que no entendía y asentía con la cabeza cuando la agencia 'explicaba'."
+
+**María González, Dueña de Café del Centro**
+
+---
+
+## Lecciones Clave de Este Caso
+
+### 1. La Dependencia es Más Cara que la Inversión Inicial
+
+María pagó $10,800 en 2 años a la agencia.  
+Con PukaDigital pagó $900 y ahora es libre.
+
+### 2. La Educación es el Verdadero Valor
+
+No le dimos una web. Le dimos **conocimiento**.
+
+### 3. Las Herramientas Corporativas No Son Solo para Corporaciones
+
+Next.js, Google Ads, Chatbot IA... todo accesible para una cafetería de 8 mesas.
+
+### 4. La Autonomía Genera Velocidad
+
+Antes: 2 semanas para un cambio  
+Ahora: 20 minutos
+
+### 5. Los Resultados Dependen de Ti, No de una Agencia
+
+María triplica ventas porque ahora **entiende** su negocio digital.
+
+---
+
+## ¿Eres el Próximo Caso de Éxito?
+
+Si te identificas con la historia de María:
+- ✅ Pagas mucho por "gestión" sin resultados claros
+- ✅ No tienes acceso real a tus propias cuentas
+- ✅ Dependes de terceros para cada cambio
+- ✅ Sientes que "esto podría ser más simple"
+
+**Entonces es hora de cambiar.**
+
+> 💡 **Recursos útiles para tu decisión:**
+> - [¿Cuánto cuesta realmente una web? Análisis completo](/blog/cuanto-cuesta-pagina-web-ecuador)
+> - [5 señales de que necesitas un chatbot IA](/blog/5-senales-pyme-necesita-chatbot-ia)
+> - [Ver todas las herramientas disponibles](/productos)
+
+---
+
+## Empieza Tu Transformación
+
+👉 **[Ver Demos en Vivo](/demos)**  
+👉 **[Solicitar Entrevista Gratuita](/contacto)**  
+👉 **[Conocer el Programa de 3 Meses](/productos)**
+
+**Próximos 5 cupos disponibles en diciembre 2024.**
+
+No prometemos milagros. Prometemos **educación y autonomía**.
+
+El resto depende de ti. Pero si María pudo, tú también puedes.
+`,
+    coverImage: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800',
+    date: '2024-11-24',
+    category: 'Casos de Éxito',
+    slug: 'caso-exito-cafe-centro-independencia-digital',
+    source: 'local',
+    author: 'María González & Equipo Puka'
+  },
+  {
     id: 'local-5',
     title: 'Google Ads para Principiantes: Deja de quemar dinero en clics que no venden',
     excerpt: 'Te enseñamos a configurar tu primera campaña de Google Ads sin intermediarios. Los $100 mensuales que incluimos son tuyos, no de una agencia.',

@@ -28,6 +28,7 @@ const translations = {
     },
     home: {
       badge: 'Revolución Digital Tranquila',
+      hero_h1: 'Independencia Digital para PYMEs en Ecuador y LATAM',
       hero_title_1: 'No construimos websites.',
       hero_title_2: 'Construimos dignidad.',
       hero_desc: 'Las agencias tradicionales quieren que les pagues para siempre. Nosotros queremos enseñarte a no necesitarnos.',
@@ -254,6 +255,7 @@ const translations = {
     },
     home: {
       badge: 'Quiet Digital Revolution',
+      hero_h1: 'Digital Independence for SMEs in Ecuador & LATAM',
       hero_title_1: "We don't build websites.",
       hero_title_2: 'We build dignity.',
       hero_desc: 'Traditional agencies want you to pay them forever. We want to teach you not to need us.',
@@ -480,6 +482,7 @@ const translations = {
     },
     home: {
       badge: 'Revolução Digital Tranquila',
+      hero_h1: 'Independência Digital para PMEs no Equador e LATAM',
       hero_title_1: 'Não construímos sites.',
       hero_title_2: 'Construímos dignidade.',
       hero_desc: 'Agências tradicionais querem que você pague para sempre. Nós queremos te ensinar a não precisar de nós.',

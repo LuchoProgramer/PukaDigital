@@ -38,9 +38,9 @@ export async function generateMetadata({
   };
   
   const descriptions = {
-    es: "No construimos websites. Construimos dignidad. 3 meses de educación intensiva = Independencia tecnológica de por vida.",
-    en: "We don't build websites. We build dignity. 3 months of intensive education = Lifelong technological independence.",
-    pt: "Não construímos sites. Construímos dignidade. 3 meses de educação intensiva = Independência tecnológica para toda a vida."
+    es: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
+    en: "Tech independence for SMEs in Ecuador. Learn to manage your web, chatbot & ERP in 3 months. No eternal contracts.",
+    pt: "Independência tecnológica para PMEs no Equador. Aprenda a gerir web, chatbot e ERP em 3 meses. Sem contratos eternos."
   };
   
   const localeMap = {
@@ -56,7 +56,23 @@ export async function generateMetadata({
       template: `%s | PukaDigital`
     },
     description: descriptions[locale],
-    keywords: ["independencia digital", "agencia marketing", "chatbot ia", "sistema erp", "puka digital", "desarrollo web", "transformación digital", "consultoría tecnológica"],
+    keywords: [
+      // Propuesta de valor principal
+      "independencia digital", "autonomía tecnológica", "educación digital pymes",
+      // Servicios específicos
+      "chatbot ia whatsapp", "chatbot para restaurantes", "chatbot pymes ecuador",
+      "sistema erp pymes", "erp fácil ecuador", "gestión inventario automática",
+      "desarrollo web ecuador", "página web profesional", "sitio web pymes",
+      // Localización
+      "agencia marketing digital ecuador", "transformación digital quito", "consultoría tecnológica latam",
+      "servicios digitales ecuador", "marketing digital latinoamérica",
+      // Diferenciadores
+      "sin contratos eternos", "precios transparentes tecnología", "aprende a gestionar tu web",
+      "programa 3 meses independencia digital", "educación intensiva marketing",
+      // Long-tail específicas
+      "como automatizar whatsapp negocio", "gestionar inventario sin excel",
+      "dejar de depender agencias marketing", "aprender marketing digital desde cero"
+    ],
     authors: [{ name: "PukaDigital", url: "https://pukadigital.com" }],
     creator: "PukaDigital",
     publisher: "PukaDigital",
@@ -134,6 +150,156 @@ export default async function LangLayout({
   const { lang } = await params;
   const locale = lang as Locale;
 
+  // Organization Schema (sitewide)
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://pukadigital.com/#organization",
+    "name": "PukaDigital",
+    "url": "https://pukadigital.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pukadigital.com/logo-Puka.svg",
+      "width": 512,
+      "height": 512
+    },
+    "image": "https://pukadigital.com/pegaso-rojo-512x512.svg",
+    "description": "Educación digital para PYMEs. 3 meses de capacitación intensiva = Independencia tecnológica de por vida. No construimos dependencia, construimos dignidad.",
+    "email": "hola@pukadigital.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "EC",
+      "addressRegion": "Pichincha",
+      "addressLocality": "Quito"
+    },
+    "areaServed": [
+      {
+        "@type": "Country",
+        "name": "Ecuador"
+      },
+      {
+        "@type": "Place",
+        "name": "Latin America"
+      }
+    ],
+    "knowsAbout": [
+      "Digital Marketing",
+      "Web Development",
+      "AI Chatbots",
+      "ERP Systems",
+      "Digital Independence",
+      "SME Technology Education"
+    ],
+    "sameAs": [
+      "https://github.com/LuchoProgramer/PukaDigital"
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "PukaDigital Team"
+    }
+  };
+
+  // Service Schema
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://pukadigital.com/#service",
+    "serviceType": "Digital Independence Program",
+    "provider": {
+      "@id": "https://pukadigital.com/#organization"
+    },
+    "name": "Programa de Independencia Digital 3 Meses",
+    "description": "Programa educativo intensivo que enseña a PYMEs a gestionar su propia presencia digital: desarrollo web, chatbots IA, sistemas ERP y marketing digital.",
+    "offers": {
+      "@type": "Offer",
+      "price": "900",
+      "priceCurrency": "USD",
+      "description": "$300/mes por 3 meses. Incluye $100/mes en Google Ads.",
+      "availability": "https://schema.org/InStock",
+      "url": "https://pukadigital.com/productos"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Ecuador"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios Modulares Post-Programa",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Chatbot IA WhatsApp",
+            "description": "Asistente virtual con inteligencia artificial para automatización 24/7"
+          },
+          "price": "20",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sistema ERP Cloud",
+            "description": "Gestión de inventario, CRM y facturación en la nube"
+          },
+          "price": "20",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "CMS + Hosting Optimizado",
+            "description": "Alojamiento Next.js con editor visual y SEO automático"
+          },
+          "price": "20",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          }
+        }
+      ]
+    }
+  };
+
+  // WebSite Schema with SearchAction
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://pukadigital.com/#website",
+    "url": "https://pukadigital.com",
+    "name": "PukaDigital",
+    "description": "Independencia Digital para PYMEs en Ecuador y LATAM",
+    "publisher": {
+      "@id": "https://pukadigital.com/#organization"
+    },
+    "inLanguage": ["es", "en", "pt"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://pukadigital.com/blog?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
@@ -145,6 +311,17 @@ export default async function LangLayout({
         <link rel="alternate" hrefLang="en" href="https://pukadigital.com/en" />
         <link rel="alternate" hrefLang="pt" href="https://pukadigital.com/pt" />
         <link rel="alternate" hrefLang="x-default" href="https://pukadigital.com/es" />
+        
+        {/* Organization + Service + WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [organizationSchema, serviceSchema, websiteSchema]
+            })
+          }}
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>

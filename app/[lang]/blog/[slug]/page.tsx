@@ -81,25 +81,36 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   // Generate JSON-LD structured data for SEO
+  const wordCount = post.content?.split(/\s+/).filter(Boolean).length || 0;
+  
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `https://pukadigital.com/blog/${post.slug}#blogposting`,
     "headline": post.title,
     "description": post.excerpt,
-    "image": post.coverImage,
+    "image": {
+      "@type": "ImageObject",
+      "url": post.coverImage,
+      "width": 1200,
+      "height": 630
+    },
     "datePublished": post.date,
     "dateModified": post.date,
     "author": {
       "@type": post.source === 'ai' ? "Organization" : "Person",
-      "name": post.author || "Equipo Puka",
+      "name": post.author || "Equipo PukaDigital",
       "url": "https://pukadigital.com"
     },
     "publisher": {
       "@type": "Organization",
+      "@id": "https://pukadigital.com/#organization",
       "name": "PukaDigital",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pukadigital.com/logo-Puka.svg"
+        "url": "https://pukadigital.com/logo-Puka.svg",
+        "width": 512,
+        "height": 512
       }
     },
     "mainEntityOfPage": {
@@ -107,9 +118,20 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       "@id": `https://pukadigital.com/blog/${post.slug}`
     },
     "articleSection": post.category,
-    "keywords": `${post.category}, marketing digital, transformación digital, Ecuador, LATAM, democratización digital`,
-    "wordCount": post.content?.split(' ').length || 0,
-    "inLanguage": "es-ES"
+    "keywords": `${post.category}, independencia digital, pymes ecuador, marketing digital, transformación digital, LATAM, democratización digital, chatbot ia, sistema erp`,
+    "wordCount": wordCount,
+    "inLanguage": "es-EC",
+    "isPartOf": {
+      "@type": "Blog",
+      "@id": "https://pukadigital.com/blog#blog",
+      "name": "PukaDigital Blog",
+      "description": "Recursos gratuitos sobre independencia digital para PYMEs"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Independencia Digital",
+      "description": "Educación tecnológica para PYMEs en Ecuador y Latinoamérica"
+    }
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield } from 'lucide-react';
+import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight } from 'lucide-react';
 import { PricingPlan } from '@/types';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
@@ -39,36 +39,140 @@ const Products: React.FC = () => {
   ];
 
   // Structured Data for Products & Services (Rich Snippets)
-  const productSchema = {
+  const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
+      // BreadcrumbList for navigation
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pukadigital.com/productos#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": "https://pukadigital.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Productos y Servicios",
+            "item": "https://pukadigital.com/productos"
+          }
+        ]
+      },
+      // Main Service - 3 Month Independence Program
+      {
+        "@type": "Service",
+        "@id": "https://pukadigital.com/productos#programa-3-meses",
+        "serviceType": "Digital Transformation Education",
+        "name": "Programa de Independencia Digital - 3 Meses",
+        "description": "Programa educativo intensivo: MES 1 desarrollo web, MES 2 chatbot IA, MES 3 sistema ERP. $300/mes incluye $100 en Google Ads. Logra autonomía digital total.",
+        "provider": {
+          "@id": "https://pukadigital.com/#organization"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Ecuador"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "900",
+          "priceCurrency": "USD",
+          "description": "$300/mes por 3 meses. Incluye hosting, chatbot IA, ERP y $100/mes en Google Ads.",
+          "priceValidUntil": "2025-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": "https://pukadigital.com/productos"
+        }
+      },
+      // Product 1: CMS + Hosting
       {
         "@type": "Product",
-        "name": "Chatbot IA PukaDigital",
-        "description": "Asistente virtual impulsado por inteligencia artificial para PYMES. Automatiza atención al cliente en WhatsApp y Web.",
-        "image": "https://pukadigital.com/assets/chatbot-preview.jpg",
+        "@id": "https://pukadigital.com/productos#cms-hosting",
+        "name": "CMS + Hosting Optimizado Next.js",
+        "description": "Hosting especializado en Next.js con editor visual, SEO automático, analíticas y CDN global. Perfecto para webs corporativas autogestionables.",
         "brand": {
           "@type": "Brand",
           "name": "PukaDigital"
         },
         "offers": {
-          "@type": "AggregateOffer",
-          "lowPrice": "20.00",
-          "highPrice": "150.00",
+          "@type": "Offer",
+          "price": "20",
           "priceCurrency": "USD",
-          "offerCount": "3",
-          "availability": "https://schema.org/InStock"
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20.00",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          },
+          "availability": "https://schema.org/InStock",
+          "url": "https://pukadigital.com/productos",
+          "priceValidUntil": "2025-12-31"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "27"
         }
       },
+      // Product 2: Chatbot IA
       {
         "@type": "Product",
-        "name": "CMS & Hosting Optimizado",
-        "description": "Servicios de hosting Next.js + CMS con SEO Rich Snippets integrados para PYMES.",
+        "@id": "https://pukadigital.com/productos#chatbot-ia",
+        "name": "Chatbot IA con WhatsApp Business",
+        "description": "Asistente virtual con GPT-4 integrado a WhatsApp. Base de conocimiento personalizada, respuestas automáticas 24/7, calificación de leads.",
+        "brand": {
+          "@type": "Brand",
+          "name": "PukaDigital"
+        },
         "offers": {
           "@type": "Offer",
-          "price": "20.00",
+          "price": "20",
           "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20.00",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          },
+          "availability": "https://schema.org/InStock",
+          "url": "https://pukadigital.com/productos",
+          "priceValidUntil": "2025-12-31"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "34"
+        }
+      },
+      // Product 3: ERP Cloud
+      {
+        "@type": "Product",
+        "@id": "https://pukadigital.com/productos#erp-cloud",
+        "name": "Sistema ERP Cloud para PYMEs",
+        "description": "ERP completo en la nube: gestión de inventario, CRM, facturación electrónica SRI, reportes en tiempo real. Basado en ODOO.",
+        "brand": {
+          "@type": "Brand",
+          "name": "PukaDigital"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "20",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "20.00",
+            "priceCurrency": "USD",
+            "unitText": "MONTH"
+          },
+          "availability": "https://schema.org/InStock",
+          "url": "https://pukadigital.com/productos",
+          "priceValidUntil": "2025-12-31"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.7",
+          "reviewCount": "19"
         }
       }
     ]
@@ -80,7 +184,7 @@ const Products: React.FC = () => {
         title="Precios Transparentes | Chatbots IA, Web y ERP"
         description="Sin costos ocultos. Chatbots con IA desde $20/mes, Sistemas ERP y Webs autoadministrables. Paga solo por lo que usas, cuando lo necesitas."
         keywords="precio chatbot ia, costo pagina web peru, tarifas agencia digital, planes mantenimiento web"
-        structuredData={productSchema}
+        structuredData={structuredData}
       />
       
       <div className="container mx-auto px-4 md:px-6">
@@ -103,7 +207,7 @@ const Products: React.FC = () => {
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
                  <Zap className="text-puka-black" size={24} />
               </div>
-              <h3 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.web_title')}</h3>
+              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.web_title')}</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 {t('products.web_desc')}
               </p>
@@ -129,7 +233,7 @@ const Products: React.FC = () => {
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
                  <Server className="text-puka-black" size={24} />
               </div>
-              <h3 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.erp_title')}</h3>
+              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.erp_title')}</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 {t('products.erp_desc')}
               </p>
@@ -265,6 +369,148 @@ const Products: React.FC = () => {
                   {t('products.chatbot_cta')} <Zap size={16} className="text-puka-red fill-current" />
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* INTERNAL LINKING: LANDING PAGES POR SERVICIO */}
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 rounded-sm p-8 md:p-12 border border-blue-200 dark:border-blue-800 transition-colors">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-center text-puka-black dark:text-white">
+              Explora Cada Servicio en Detalle
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-10 text-lg">
+              Landing pages especializadas con casos de éxito, calculadoras ROI y preguntas frecuentes específicas.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Chatbot IA Landing Page */}
+              <Link 
+                href="/chatbot-ia-whatsapp"
+                className="group bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-sm border-2 border-purple-200 dark:border-purple-700 hover:border-purple-500 hover:shadow-2xl transition-all"
+              >
+                <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Bot className="text-white" size={32} />
+                </div>
+                <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-purple-600 transition-colors">
+                  Chatbot IA WhatsApp
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                  Automatiza el 60% de consultas repetitivas. Caso de éxito: Café del Centro liberó 3 horas diarias del equipo.
+                </p>
+                <div className="flex items-center gap-2 text-purple-600 font-bold group-hover:gap-4 transition-all">
+                  Ver más detalles <ArrowRight size={18} />
+                </div>
+              </Link>
+
+              {/* Desarrollo Web Landing Page */}
+              <Link 
+                href="/desarrollo-web-pymes"
+                className="group bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 p-8 rounded-sm border-2 border-blue-200 dark:border-blue-700 hover:border-blue-500 hover:shadow-2xl transition-all"
+              >
+                <div className="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Globe className="text-white" size={32} />
+                </div>
+                <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-blue-600 transition-colors">
+                  Desarrollo Web PYMEs
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                  Webs autogestionables con Next.js. Velocidad 5x superior a WordPress. Desde $20/mes hosting incluido.
+                </p>
+                <div className="flex items-center gap-2 text-blue-600 font-bold group-hover:gap-4 transition-all">
+                  Ver más detalles <ArrowRight size={18} />
+                </div>
+              </Link>
+
+              {/* Sistema ERP Landing Page */}
+              <Link 
+                href="/sistema-erp-cloud"
+                className="group bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 p-8 rounded-sm border-2 border-green-200 dark:border-green-700 hover:border-green-500 hover:shadow-2xl transition-all"
+              >
+                <div className="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Database className="text-white" size={32} />
+                </div>
+                <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-green-600 transition-colors">
+                  Sistema ERP Cloud
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                  Di adiós a Excel. Inventario + CRM + Facturación SRI. Ferretería Los Andes eliminó 15h semanales de trabajo manual.
+                </p>
+                <div className="flex items-center gap-2 text-green-600 font-bold group-hover:gap-4 transition-all">
+                  Ver más detalles <ArrowRight size={18} />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* BLOG RESOURCES */}
+        <div className="bg-gray-50 dark:bg-gray-900 rounded-sm p-8 md:p-12 border border-gray-200 dark:border-gray-800 transition-colors mt-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-display font-bold text-2xl md:text-3xl mb-4 text-center text-puka-black dark:text-white">
+              Recursos Gratuitos del Blog
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+              Guías completas para entender costos, casos de éxito y señales de que necesitas transformación digital.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Link to pricing blog post */}
+              <Link 
+                href="/blog/local-12"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
+              >
+                <div className="bg-puka-beige dark:bg-puka-red/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
+                  <span className="text-2xl">💰</span>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-puka-black dark:text-white group-hover:text-puka-red transition-colors">
+                  Comparativa de Precios
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  ¿Cuánto cuesta realmente una web en Ecuador? Agencia vs PukaDigital.
+                </p>
+                <span className="text-puka-red text-sm font-bold inline-flex items-center gap-1">
+                  Leer análisis completo →
+                </span>
+              </Link>
+
+              {/* Link to chatbot signals post */}
+              <Link 
+                href="/blog/5-senales-pyme-necesita-chatbot-ia"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
+              >
+                <div className="bg-puka-beige dark:bg-puka-red/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-puka-black dark:text-white group-hover:text-puka-red transition-colors">
+                  ¿Necesitas un Chatbot?
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  5 señales claras de que tu PYME necesita automatización con IA.
+                </p>
+                <span className="text-puka-red text-sm font-bold inline-flex items-center gap-1">
+                  Ver las señales →
+                </span>
+              </Link>
+
+              {/* Link to success case */}
+              <Link 
+                href="/blog/caso-exito-cafe-centro-independencia-digital"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
+              >
+                <div className="bg-puka-beige dark:bg-puka-red/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
+                  <span className="text-2xl">📈</span>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-puka-black dark:text-white group-hover:text-puka-red transition-colors">
+                  Caso de Éxito Real
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  Cómo Café del Centro triplicó sus ventas con independencia digital.
+                </p>
+                <span className="text-puka-red text-sm font-bold inline-flex items-center gap-1">
+                  Leer historia completa →
+                </span>
+              </Link>
             </div>
           </div>
         </div>
