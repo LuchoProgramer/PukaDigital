@@ -1,0 +1,44 @@
+{
+  "name": "PukaDigital - Construimos Dignidad Digital",
+  "short_name": "PukaDigital",
+  "description": "No construimos websites. Construimos dignidad. 3 meses de educación intensiva = Independencia tecnológica de por vida.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c7171e",
+  "icons": [
+    {
+      "src": "/pegaso-rojo-16x16.svg",
+      "sizes": "16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/pegaso-rojo-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/pegaso-rojo-48x48.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/pegaso-rojo-180x180.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "apple-touch-icon"
+    },
+    {
+      "src": "/pegaso-rojo-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pegaso-rojo-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
