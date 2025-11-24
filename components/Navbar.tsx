@@ -9,7 +9,11 @@ import { NavItem } from '@/types';
 import { useTheme } from '@/lib/theme';
 import { useTranslation } from '@/lib/i18n';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  lang?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -18,11 +22,11 @@ const Navbar: React.FC = () => {
 
   // Dynamic Nav Items based on current language
   const navItems: NavItem[] = [
-    { label: t('nav.method'), path: '/' },
-    { label: t('nav.products'), path: '/productos' },
-    { label: t('nav.blog'), path: '/blog' },
-    { label: t('nav.demos'), path: '/demos' },
-    { label: t('nav.contact'), path: '/contacto' },
+    { label: t('nav.method'), path: `/${lang}` },
+    { label: t('nav.products'), path: `/${lang}/productos` },
+    { label: t('nav.blog'), path: `/${lang}/blog` },
+    { label: t('nav.demos'), path: `/${lang}/demos` },
+    { label: t('nav.contact'), path: `/${lang}/contacto` },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -38,7 +42,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
+          <Link href={`/${lang}`} className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
             <div className="relative h-12 w-12 flex-shrink-0">
               <Image 
                 src="/pegaso-rojo.svg" 

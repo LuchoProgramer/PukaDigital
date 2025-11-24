@@ -6,7 +6,11 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Home, Package, BookOpen, PlayCircle } from 'lucide-react';
 
-const MobileBottomNav: React.FC = () => {
+interface MobileBottomNavProps {
+  lang?: string;
+}
+
+const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -14,28 +18,28 @@ const MobileBottomNav: React.FC = () => {
   const navItems = [
     { 
       label: 'Inicio', 
-      path: '/', 
+      path: `/${lang}`, 
       icon: Home 
     },
     { 
       label: 'Productos', 
-      path: '/productos', 
+      path: `/${lang}/productos`, 
       icon: Package 
     },
     { 
       label: 'Empezar', 
-      path: '/contacto', 
+      path: `/${lang}/contacto`, 
       icon: Home, // No se usa porque isPrimary usa pegaso-rojo.svg
       isPrimary: true 
     },
     { 
       label: 'Blog', 
-      path: '/blog', 
+      path: `/${lang}/blog`, 
       icon: BookOpen 
     },
     { 
       label: 'Demos', 
-      path: '/demos', 
+      path: `/${lang}/demos`, 
       icon: PlayCircle 
     }
   ];

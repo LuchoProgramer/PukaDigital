@@ -10,6 +10,11 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
+interface LanguageProviderProps {
+  children: React.ReactNode;
+  initialLanguage?: Language;
+}
+
 const translations = {
   es: {
     nav: {
@@ -693,10 +698,17 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('es');
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children, initialLanguage }) => {
+  const [language, setLanguageState] = useState<Language>(initialLanguage || 'es');
 
   useEffect(() => {
+    // Si hay initialLanguage (desde la URL), usarlo
+    if (initialLanguage) {
+      setLanguageState(initialLanguage);
+      localStorage.setItem('language', initialLanguage);
+      return;
+    }
+
     // 1. Check Local Storage
     const storedLang = localStorage.getItem('language') as Language;
     if (storedLang && ['es', 'en', 'pt'].includes(storedLang)) {
@@ -709,11 +721,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (browserLang === 'pt') setLanguageState('pt');
     else if (browserLang === 'en') setLanguageState('en');
     else setLanguageState('es'); // Default fallback
-  }, []);
+  }, [initialLanguage]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
+    // Redirigir a la nueva URL con el idioma cambiado
+    if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname;
+      const pathWithoutLang = currentPath.replace(/^\/(es|en|pt)/, '');
+      window.location.href = `/${lang}${pathWithoutLang}`;
+    }
   };
 
   // Helper to get nested properties safely (e.g., 'home.hero_title')

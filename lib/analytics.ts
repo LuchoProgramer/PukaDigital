@@ -1,6 +1,17 @@
 // Replace with your actual Measurement ID
 export const GA_TRACKING_ID = 'G-PUKADIGITAL';
 
+// Extend Window interface for gtag
+declare global {
+  interface Window {
+    gtag?: (
+      command: string,
+      targetId: string,
+      config?: Record<string, any>
+    ) => void;
+  }
+}
+
 // Log the page view with their URL
 export const pageview = (url: string) => {
   if (typeof window.gtag !== 'undefined') {

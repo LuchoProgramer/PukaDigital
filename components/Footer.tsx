@@ -5,7 +5,11 @@ import Link from 'next/link';
 import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  lang?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
   const { t } = useTranslation();
 
   return (
@@ -36,7 +40,7 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href={`/${lang}`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Home size={18} />
                   </div>
@@ -45,7 +49,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/productos" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href={`/${lang}/productos`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Package size={18} />
                   </div>
@@ -54,7 +58,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href={`/${lang}/blog`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <FileText size={18} />
                   </div>
@@ -63,7 +67,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/demos" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href={`/${lang}/demos`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <PlayCircle size={18} />
                   </div>
@@ -72,7 +76,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/contacto" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href={`/${lang}/contacto`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Mail size={18} />
                   </div>

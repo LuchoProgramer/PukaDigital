@@ -1,4 +1,4 @@
-import { BlogPost, CMSStatus } from '../types';
+import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
 
 // Configuración (Idealmente vendría de process.env)

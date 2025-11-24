@@ -12,21 +12,27 @@ const Products: React.FC = () => {
 
   const independentServices: PricingPlan[] = [
     {
-      title: t('products.plan_1_title'),
+      id: 'cms',
+      name: t('products.plan_1_title'),
       price: "$20",
+      period: '/mes',
       features: [t('products.plan_1_feat_1'), t('products.plan_1_feat_2'), t('products.plan_1_feat_3'), t('products.plan_1_feat_4')],
       cta: t('products.plan_1_cta')
     },
     {
-      title: t('products.plan_2_title'),
+      id: 'chatbot',
+      name: t('products.plan_2_title'),
       price: "$20",
+      period: '/mes',
       features: [t('products.plan_2_feat_1'), t('products.plan_2_feat_2'), t('products.plan_2_feat_3'), t('products.plan_2_feat_4')],
       cta: t('products.plan_2_cta'),
-      highlight: true
+      highlighted: true
     },
     {
-      title: t('products.plan_3_title'),
+      id: 'erp',
+      name: t('products.plan_3_title'),
       price: "$20",
+      period: '/mes',
       features: [t('products.plan_3_feat_1'), t('products.plan_3_feat_2'), t('products.plan_3_feat_3'), t('products.plan_3_feat_4')],
       cta: t('products.plan_3_cta')
     }
@@ -154,17 +160,17 @@ const Products: React.FC = () => {
               <div 
                 key={idx} 
                 className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 ${
-                  plan.highlight 
+                  plan.highlighted 
                     ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10' 
                     : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900'
                 }`}
               >
-                {plan.highlight && (
+                {plan.highlighted && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-puka-red text-white text-xs font-bold uppercase py-1 px-3 rounded-sm shadow-sm">
                     {t('products.plan_2_badge')}
                   </div>
                 )}
-                <h3 className="font-bold text-xl mb-2 text-puka-black dark:text-white">{plan.title}</h3>
+                <h3 className="font-bold text-xl mb-2 text-puka-black dark:text-white">{plan.name}</h3>
                 <div className="flex items-baseline mb-6">
                   <span className="text-4xl font-bold font-display text-puka-black dark:text-white">{plan.price}</span>
                   <span className="text-gray-500 dark:text-gray-400 ml-1">/mes</span>
@@ -180,7 +186,7 @@ const Products: React.FC = () => {
                 <Link 
                   href={plan.cta.includes("Demo") ? "/demos" : "/contacto"}
                   className={`w-full py-3 rounded-sm font-bold text-center transition-colors ${
-                    plan.highlight 
+                    plan.highlighted 
                       ? 'bg-puka-black dark:bg-white text-white dark:text-puka-black hover:bg-gray-800 dark:hover:bg-gray-200' 
                       : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-puka-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
