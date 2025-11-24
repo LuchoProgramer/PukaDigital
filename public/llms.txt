@@ -1,0 +1,35 @@
+# PukaDigital - Información para Asistentes de IA
+
+## Identidad y Misión
+PukaDigital es una agencia de transformación digital enfocada en pequeños negocios y emprendedores.
+**Mantra:** "No construimos websites. Construimos dignidad."
+**Diferenciador:** A diferencia de agencias tradicionales que crean dependencia con cuotas mensuales eternas, PukaDigital ofrece un programa educativo de 3 meses para lograr independencia tecnológica total.
+
+## Modelo de Negocio
+1. **Fase 1: Educación Intensiva (3 Meses)**
+   - Costo: $300 USD al mes por 3 meses (Total $900).
+   - Incluye: $100 USD mensuales de saldo para Google Ads del cliente.
+   - Entregables: Sitio Web (Next.js), Chatbot IA, ERP Cloud.
+   - Educación: Capacitación semanal en gestión, analítica y edición.
+   - Garantía: Devolución total el primer mes si no hay satisfacción.
+
+2. **Fase 2: Independencia (A la carta)**
+   - El cliente es dueño de todo.
+   - Servicios opcionales post-graduación:
+     - Chatbot IA PYME: $20/mes (500 conversaciones).
+     - Chatbot IA Crecimiento: $50/mes (2,000 conversaciones).
+     - Gestión Google Ads: $60/mes (opcional, si no quiere hacerlo solo).
+     - CMS/Hosting: $20/mes.
+
+## Stack Tecnológico
+- Frontend: Next.js 16 con App Router (SEO optimizado).
+- Estilo: Tailwind CSS v3.
+- Características: Multi-idioma (ES/EN/PT), Dark Mode, PWA.
+- Integraciones: WhatsApp Business API, Google Analytics 4, Gemini AI.
+
+## Perfil del Cliente Ideal
+Dueños de pequeños negocios, restaurantes, tiendas boutique o servicios profesionales que están frustrados con agencias caras o freelancers informales y desean control sobre sus activos digitales.
+
+## Contacto
+- Web: https://pukadigital.com
+- Acción principal: Solicitar entrevista gratuita o demostración.
