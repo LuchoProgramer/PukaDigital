@@ -29,7 +29,7 @@ function getLocale(request: NextRequest): string {
   return i18n.defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
   // Ignorar archivos estáticos y API routes
