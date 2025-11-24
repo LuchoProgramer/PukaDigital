@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BlogPost } from '@/types';
@@ -12,12 +12,13 @@ import OptimizedImage from '@/components/OptimizedImage';
 import { useTranslation } from '@/lib/i18n';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const resolvedParams = use(params);
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   useEffect(() => {
     const fetchPost = async () => {
       const { posts } = await HybridCMSService.getAllPosts();
-      const foundPost = posts.find(p => p.slug === params.slug);
+      const foundPost = posts.find(p => p.slug === resolvedParams.slug);
       
       if (!foundPost) {
         setLoading(false);
@@ -44,7 +45,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     };
 
     fetchPost();
-  }, [params.slug]);
+  }, [resolvedParams.slug]);
 
   const handleShare = async () => {
     if (navigator.share && post) {
