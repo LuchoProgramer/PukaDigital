@@ -79,11 +79,49 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Generate JSON-LD structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.coverImage,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": post.source === 'ai' ? "Organization" : "Person",
+      "name": post.author || "Equipo Puka",
+      "url": "https://pukadigital.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PukaDigital",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pukadigital.com/logo-Puka.svg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://pukadigital.com/blog/${post.slug}`
+    },
+    "articleSection": post.category,
+    "keywords": `${post.category}, marketing digital, transformación digital, Ecuador, LATAM, democratización digital`,
+    "wordCount": post.content?.split(' ').length || 0,
+    "inLanguage": "es-ES"
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-black min-h-screen transition-colors">
       <SEO 
         title={`${post.title} | PukaDigital Blog`}
         description={post.excerpt}
+      />
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* HERO IMAGE */}

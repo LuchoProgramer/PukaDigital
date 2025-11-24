@@ -112,11 +112,35 @@ const Blog: React.FC = () => {
     currentPage * POSTS_PER_PAGE
   );
 
+  // JSON-LD Structured Data for Blog List
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "PukaDigital Blog - Academia Digital",
+    "description": "Recursos gratuitos, guías y estrategias para dueños de negocios que quieren independencia digital. Marketing, Tecnología y Gestión Real.",
+    "url": "https://pukadigital.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "PukaDigital",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pukadigital.com/logo-Puka.svg"
+      }
+    },
+    "inLanguage": "es-ES"
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-black min-h-screen transition-colors">
       <SEO 
         title="Blog & Academia | Educación para la Libertad Digital"
         description="Recursos gratuitos, guías y estrategias para dueños de negocios que quieren dejar de depender de terceros. Marketing, Tecnología y Gestión Real."
+      />
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* HEADER & STATUS */}
