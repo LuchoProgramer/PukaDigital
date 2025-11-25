@@ -1,0 +1,334 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { ArrowRight, ArrowLeft, CheckCircle, Clock, Rocket, ExternalLink, Calendar } from 'lucide-react';
+
+const CasoCarla = () => {
+  // Timeline del proceso
+  const timeline = [
+    {
+      month: 'Mes 1',
+      title: 'Construcción de Base',
+      date: 'Octubre 2025',
+      completed: true,
+      items: [
+        'Web profesional en healppypets.com',
+        'Google Business Profile optimizado',
+        'Chatbot IA para WhatsApp configurado',
+        'Fotos profesionales de la clínica',
+        'Capacitación inicial completada',
+      ],
+    },
+    {
+      month: 'Mes 2',
+      title: 'Activación de Google Ads',
+      date: 'Noviembre 2025',
+      completed: false,
+      current: true,
+      items: [
+        'Configurando campañas Google Ads',
+        'Keywords: "veterinaria Quito", "emergencias mascotas"',
+        'Optimizando landing pages',
+        'Aprendiendo a leer métricas',
+      ],
+    },
+    {
+      month: 'Mes 3',
+      title: 'Optimización y Graduación',
+      date: 'Diciembre 2025',
+      completed: false,
+      items: [
+        'Ajuste de campañas según resultados',
+        'Automatización completa',
+        'Independencia digital total',
+        'Graduación del programa',
+      ],
+    },
+  ];
+
+  // Lo que ya tiene
+  const achieved = [
+    { icon: '🌐', title: 'Web Profesional', desc: 'healppypets.com activo y funcionando' },
+    { icon: '🤖', title: 'Chatbot IA', desc: 'Responde consultas 24/7 en WhatsApp' },
+    { icon: '📍', title: 'Google Business', desc: 'Perfil optimizado y verificado' },
+    { icon: '📸', title: 'Contenido Visual', desc: 'Fotos profesionales de la clínica' },
+  ];
+
+  // Próximos pasos
+  const nextSteps = [
+    'Lanzar primera campaña Google Ads',
+    'Conseguir primeras conversiones pagadas',
+    'Aumentar reseñas en Google',
+    'Optimizar chatbot según consultas reales',
+  ];
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      
+      {/* Hero */}
+      <section className="bg-gradient-to-r from-yellow-500 to-amber-600 text-white py-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-6xl mx-auto">
+            {/* Breadcrumb */}
+            <Link href="/es/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm">
+              <ArrowLeft size={16} /> Volver a Casos Reales
+            </Link>
+
+            <div className="text-center">
+              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+                🟡 En Progreso — Mes 2 de 3
+              </span>
+              
+              <div className="text-7xl mb-6">🐕</div>
+              
+              <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
+                Carla Vanesa Tutistar
+              </h1>
+              <p className="text-2xl md:text-3xl opacity-90 mb-2">
+                HealppyPets
+              </p>
+              <p className="text-lg opacity-80">
+                Veterinaria • Quito, Ecuador
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Update más reciente */}
+      <section className="py-8 bg-yellow-50 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-start gap-4">
+              <div className="bg-yellow-500 text-white p-2 rounded-full">
+                <Clock size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-puka-black dark:text-white">
+                  Update Más Reciente — 25 Nov 2025
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mt-2">
+                  Carla completó su capacitación en gestión de Google Business. Esta semana comenzamos con la configuración de su primera campaña de Google Ads enfocada en emergencias veterinarias.
+                </p>
+                <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-3 font-medium">
+                  📅 Próximo update: 2 Diciembre 2025
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Estado actual */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
+              Lo Que Ya Tiene Carla
+            </h2>
+            
+            <div className="grid md:grid-cols-4 gap-6">
+              {achieved.map((item, i) => (
+                <div key={i} className="bg-green-50 dark:bg-green-900/20 p-6 rounded-sm text-center border border-green-200 dark:border-green-800">
+                  <div className="text-4xl mb-3">{item.icon}</div>
+                  <h3 className="font-bold text-puka-black dark:text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
+                  <CheckCircle className="mx-auto mt-3 text-green-500" size={24} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center text-puka-black dark:text-white">
+              Timeline del Proceso
+            </h2>
+            
+            <div className="relative">
+              {/* Línea vertical */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600" />
+              
+              {timeline.map((phase, index) => (
+                <div key={index} className="relative pl-20 pb-12 last:pb-0">
+                  {/* Dot */}
+                  <div className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${
+                    phase.completed 
+                      ? 'bg-green-500' 
+                      : phase.current 
+                        ? 'bg-yellow-500 animate-pulse' 
+                        : 'bg-gray-300 dark:bg-gray-600'
+                  }`} />
+                  
+                  {/* Contenido */}
+                  <div className={`p-6 rounded-sm ${
+                    phase.current 
+                      ? 'bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400' 
+                      : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
+                  }`}>
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                      <span className={`px-3 py-1 rounded-sm text-sm font-bold ${
+                        phase.current 
+                          ? 'bg-yellow-500 text-white' 
+                          : phase.completed 
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                      }`}>
+                        {phase.month}
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400 text-sm">
+                        {phase.date}
+                      </span>
+                      {phase.current && (
+                        <span className="text-yellow-600 dark:text-yellow-400 text-sm font-bold">
+                          ← ESTAMOS AQUÍ
+                        </span>
+                      )}
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-puka-black dark:text-white mb-4">
+                      {phase.title}
+                    </h3>
+                    
+                    <ul className="space-y-2">
+                      {phase.items.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                          {phase.completed ? (
+                            <CheckCircle size={16} className="text-green-500 mt-1 shrink-0" />
+                          ) : phase.current ? (
+                            <Rocket size={16} className="text-yellow-500 mt-1 shrink-0" />
+                          ) : (
+                            <Clock size={16} className="text-gray-400 mt-1 shrink-0" />
+                          )}
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Próximos pasos */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center text-puka-black dark:text-white">
+              Próximos Pasos Esta Semana
+            </h2>
+            
+            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-sm border border-yellow-200 dark:border-yellow-800">
+              <ul className="space-y-4">
+                {nextSteps.map((step, i) => (
+                  <li key={i} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                    <div className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                      {i + 1}
+                    </div>
+                    {step}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visita su web */}
+      <section className="py-12 bg-gray-50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl font-bold mb-4 text-puka-black dark:text-white">
+              Visita el Sitio de Carla
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Ya puedes ver su web funcionando y su Google Business activo.
+            </p>
+            <a 
+              href="https://healppypets.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors inline-flex items-center gap-2"
+            >
+              Visitar healppypets.com <ExternalLink size={20} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-puka-red text-white">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+            ¿Quieres Tu Propio Proceso Documentado?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            Documenta tu transformación digital desde el día 1.
+          </p>
+          <Link 
+            href="/es/contacto"
+            className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+          >
+            Aplicar al Programa <ArrowRight size={24} />
+          </Link>
+          <p className="text-sm mt-6 opacity-80">
+            Solo 2 cupos disponibles este mes
+          </p>
+        </div>
+      </section>
+
+      {/* Otros Casos */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl font-bold mb-8 text-puka-black dark:text-white">
+              Ver Otros Casos
+            </h3>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <Link 
+                href="/es/casos/podoclinicec-cristina-munoz"
+                className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
+              >
+                <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
+                  <img 
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg" 
+                    alt="Cristina"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h4 className="font-bold text-lg text-puka-black dark:text-white">Cristina - PodoclinicEC</h4>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Podología • Quito Norte</p>
+                <span className="inline-block mt-3 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded font-bold">
+                  ✅ Graduándose
+                </span>
+              </Link>
+              
+              <Link 
+                href="/es/casos/hotel-eudiq-cafeteria-viviantes"
+                className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
+              >
+                <span className="text-3xl">🏨</span>
+                <h4 className="font-bold text-lg mt-3 text-puka-black dark:text-white">Hotel Eudiq + Viviantes</h4>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Hotel & Cafetería • Loja</p>
+                <span className="inline-block mt-3 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded font-bold">
+                  🟢 Semana 2
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+};
+
+export default CasoCarla;

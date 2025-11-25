@@ -20,7 +20,8 @@ const translations = {
     nav: {
       method: 'El Método',
       products: 'El Programa',
-      blog: 'Casos Reales',
+      cases: 'Casos Reales',
+      blog: 'Blog',
       demos: 'Demos',
       contact: 'Contacto',
       cta: 'Aplicar',
@@ -399,7 +400,8 @@ const translations = {
     nav: {
       method: 'The Method',
       products: 'The Program',
-      blog: 'Real Cases',
+      cases: 'Real Cases',
+      blog: 'Blog',
       demos: 'Demos',
       contact: 'Contact',
       cta: 'Apply',
@@ -778,7 +780,8 @@ const translations = {
     nav: {
       method: 'O Método',
       products: 'O Programa',
-      blog: 'Casos Reais',
+      cases: 'Casos Reais',
+      blog: 'Blog',
       demos: 'Demos',
       contact: 'Contato',
       cta: 'Aplicar',
