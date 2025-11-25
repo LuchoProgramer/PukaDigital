@@ -515,7 +515,7 @@ const Home: React.FC = () => {
               <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
                 <div className="flex items-center gap-4 mb-4">
                   <img 
-                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg" 
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg" 
                     alt="Yadira Cristina Muñoz" 
                     className="w-16 h-16 rounded-full object-cover border-2 border-puka-red"
                   />
