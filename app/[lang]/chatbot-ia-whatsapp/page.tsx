@@ -122,7 +122,7 @@ export default function ChatbotIAPage() {
             "name": "¿El chatbot puede realmente reemplazar a un empleado de atención al cliente?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El chatbot NO reemplaza empleados, los POTENCIA. Automatiza el 60-80% de consultas repetitivas (horarios, precios, ubicación, disponibilidad) permitiendo que tu equipo se enfoque en ventas complejas y atención personalizada. Caso real: Café del Centro redujo tiempo de respuesta de 15min a 30seg, liberando 3 horas diarias del equipo."
+              "text": "El chatbot NO reemplaza empleados, los POTENCIA. Automatiza el 60-80% de consultas repetitivas (horarios, precios, ubicación, disponibilidad) permitiendo que tu equipo se enfoque en ventas complejas y atención personalizada. Caso real: PodoclinicEC automatizó consultas de servicios a domicilio, generando 53 conversiones mensuales."
             }
           },
           {
@@ -300,7 +300,7 @@ export default function ChatbotIAPage() {
             <div className="text-center mb-12">
               <span className="text-purple-600 font-bold uppercase text-sm tracking-wider">Caso de Éxito Real</span>
               <h2 className="font-display font-bold text-4xl mt-2 text-puka-black dark:text-white">
-                Café del Centro: 40% Menos Tiempo en Atención
+                PodoclinicEC: 53 Conversiones Mensuales
               </h2>
             </div>
 
@@ -308,20 +308,20 @@ export default function ChatbotIAPage() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <div className="bg-purple-600 text-white inline-block px-4 py-2 rounded-sm font-bold mb-4">
-                    Cafetería - Quito
+                    Podología - Quito Norte
                   </div>
                   <h3 className="font-bold text-2xl mb-4 text-puka-black dark:text-white">
-                    "El chatbot responde horarios, menú y ubicación mientras nosotros atendemos mesas"
+                    "Ahora los pacientes me encuentran solos y agendan servicios a domicilio"
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                    Antes: 40+ mensajes diarios con preguntas repetitivas interrumpían el servicio presencial. 
-                    Ahora: El chatbot filtra consultas básicas, agenda reservas y solo deriva casos que requieren atención humana.
+                    Antes: Cristina no tenía presencia digital y solo llegaban pacientes por recomendación.
+                    Ahora: 33 conversiones por Google Ads + 20 orgánicas mensuales, servicios a domicilio explotaron.
                   </p>
                   
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
-                      <span className="text-gray-700 dark:text-gray-300"><strong>60% de mensajes</strong> automatizados (horarios, menú, delivery)</span>
+                      <span className="text-gray-700 dark:text-gray-300"><strong>53 conversiones/mes</strong> (33 Ads + 20 orgánicas)</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
@@ -560,8 +560,8 @@ export default function ChatbotIAPage() {
                 </summary>
                 <p className="text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
                   El chatbot NO reemplaza empleados, los POTENCIA. Automatiza el 60-80% de consultas repetitivas (horarios, precios, ubicación, disponibilidad) 
-                  permitiendo que tu equipo se enfoque en ventas complejas y atención personalizada. Caso real: Café del Centro redujo tiempo de respuesta de 15min a 30seg, 
-                  liberando 3 horas diarias del equipo.
+                  permitiendo que tu equipo se enfoque en ventas complejas y atención personalizada. Caso real: PodoclinicEC automatizó consultas de servicios a domicilio, 
+                  generando 53 conversiones mensuales.
                 </p>
               </details>
 
@@ -633,13 +633,13 @@ export default function ChatbotIAPage() {
                 </p>
               </Link>
 
-              <Link href="/blog/local-14" className="group bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 rounded-sm border border-blue-200 dark:border-blue-800 hover:shadow-lg transition-all">
+              <Link href="/blog/caso-exito-podoclinicec-independencia-digital" className="group bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 rounded-sm border border-blue-200 dark:border-blue-800 hover:shadow-lg transition-all">
                 <div className="text-4xl mb-3">📊</div>
                 <h3 className="font-bold text-lg mb-2 text-puka-black dark:text-white group-hover:text-blue-600">
-                  Caso de Éxito: Café del Centro
+                  Caso de Éxito: PodoclinicEC
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Cómo un chatbot liberó 3 horas diarias del equipo y mejoró la experiencia del cliente.
+                  Cómo una podóloga logró 53 conversiones mensuales y dominó Google Maps en Quito Norte.
                 </p>
               </Link>
 

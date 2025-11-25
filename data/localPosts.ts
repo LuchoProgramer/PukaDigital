@@ -188,7 +188,7 @@ Estamos compitiendo en **quién te da dignidad digital**.
 
 > 💡 **Recursos relacionados:**
 > - [5 Señales de que necesitas un Chatbot IA](/blog/5-senales-pyme-necesita-chatbot-ia)
-> - [Caso de Éxito: Café del Centro](/blog/caso-exito-cafe-centro-independencia-digital)
+> - [Caso de Éxito: PodoclinicEC](/blog/caso-exito-podoclinicec-independencia-digital)
 
 ---
 
@@ -443,7 +443,7 @@ Tus clientes esperan respuesta **inmediata**. Si no la das tú, la competencia s
 
 > 💡 **Lee también:**
 > - [¿Cuánto cuesta una web en Ecuador? Comparativa completa](/blog/cuanto-cuesta-pagina-web-ecuador)
-> - [Caso de Éxito: Cómo una cafetería triplicó ventas](/blog/caso-exito-cafe-centro-independencia-digital)
+> - [Caso de Éxito: PodoclinicEC - 53 conversiones/mes](/blog/caso-exito-podoclinicec-independencia-digital)
 
 ---
 
@@ -484,278 +484,199 @@ Cada día sin chatbot = clientes perdidos.
   },
   {
     id: 'local-14',
-    title: 'Caso de Éxito: Cómo "Café del Centro" Triplicó sus Ventas con Independencia Digital',
-    excerpt: 'De pagar $400/mes a una agencia a gestionar todo ellos mismos. Historia real de una cafetería en Quito que logró autonomía en 90 días.',
+    title: 'Caso de Éxito: Cómo PodoclinicEC Pasó de 3 a 15 Reseñas y 53 Conversiones Mensuales',
+    excerpt: 'De no tener presencia digital a dominar Google Maps en Quito Norte. Historia real de una podóloga que logró independencia digital en 3 meses.',
     content: `
-## La Historia de María y su Cafetería
+## La Historia de Cristina y PodoclinicEC
 
-**Nombre:** Café del Centro  
-**Ubicación:** Centro Histórico de Quito  
-**Dueña:** María González  
-**Problema:** Dependencia total de una agencia digital
-
----
-
-## El Punto de Quiebre (Enero 2024)
-
-María llevaba 2 años pagando a una "agencia de marketing digital" en Quito.
-
-**Lo que le prometieron:**
-- ✅ Página web profesional
-- ✅ Redes sociales gestionadas
-- ✅ Google Ads
-- ✅ "Crecimiento garantizado"
-
-**Lo que recibió:**
-- ❌ Una web que no podía editar ella misma
-- ❌ Posts genéricos en Instagram (sin engagement)
-- ❌ $200/mes en Google Ads... pero $300/mes de "gestión"
-- ❌ Cero transparencia en resultados
-
-**Costo mensual:** $450/mes (+ IVA)  
-**Costo anual:** $5,400
-
-**Resultado después de 2 años:**
-- Ventas estancadas
-- Dependencia total (no sabía las claves de nada)
-- Frustración máxima
-
-### El Momento de Despertar
-
-Un día, María pidió cambiar una foto del menú en la web.
-
-**Respuesta de la agencia:**
-> "Ese cambio tiene un costo de $50 adicionales por actualización de contenido visual."
-
-**María:** "¿$50 POR UNA FOTO?"
-
-Ahí supo que algo estaba mal.
+**Nombre:** PodoclinicEC  
+**Ubicación:** Manuel Jordan y Av La Florida, Quito Norte  
+**Dueña:** Yadira Cristina Muñoz  
+**Especialidad:** Podología profesional + servicios a domicilio
 
 ---
 
-## El Cambio: PukaDigital (Febrero 2024)
+## El Punto de Partida (Septiembre 2024)
 
-María encontró a PukaDigital en Google buscando: *"alternativa agencias marketing digital Quito"*
+Cristina tenía un consultorio de podología establecido pero prácticamente invisible en internet.
 
-### Mes 1: Construcción + Revelación
+**La situación antes de PukaDigital:**
+- ❌ Sin página web
+- ❌ Google Business sin optimizar
+- ❌ Solo 3 reseñas en Google
+- ❌ Clientes llegaban solo por recomendación boca a boca
+- ❌ Los servicios a domicilio casi no existían
+
+**El problema real:**
+> "Sabía que necesitaba estar en internet, pero no sabía por dónde empezar. Las agencias me pedían $500/mes y ni siquiera me explicaban qué harían."
+
+### El Momento de Cambio
+
+Cristina buscaba una solución que no la atrapara en pagos eternos. Encontró a PukaDigital con una propuesta diferente: **independencia, no dependencia**.
+
+---
+
+## El Proceso: 3 Meses de Transformación
+
+### Mes 1: Construcción de Base
 
 **Qué hicimos:**
-1. **Auditoría brutal:** Revisamos lo que la agencia le había entregado
-   - Web hecha en WordPress con plantilla de $60
-   - Google Ads con keywords irrelevantes (gasto 70% desperdiciado)
-   - Sin Google Business optimizado (perdía búsquedas locales)
+1. **Web profesional** en podoclinicec.com
+   - Diseño limpio y profesional
+   - Optimizada para SEO local
+   - Formulario de contacto + WhatsApp integrado
+   
+2. **Google Business Profile** completamente optimizado
+   - Fotos profesionales del consultorio
+   - Servicios detallados con precios
+   - Horarios de atención actualizados
+   
+3. **Capacitación inicial:**
+   - Cómo responder reseñas
+   - Cómo actualizar horarios y servicios
+   - Entender Google Analytics básico
 
-2. **Construcción desde cero:**
-   - Web nueva en Next.js (ultra rápida)
-   - Chatbot IA para WhatsApp
-   - Sistema de gestión de menú (ella misma actualiza)
-   - Optimización Google Maps + Bing Places
+### Mes 2: Activación de Google Ads
 
-3. **Transparencia total:**
-   - Acceso a todas las cuentas (Google, hosting, etc.)
-   - Dashboard de métricas reales
-   - Capacitación diaria (15 min/día por Zoom)
+**Configuración de campaña:**
+- Keywords: "podóloga Quito Norte", "uñas encarnadas Quito", "podología a domicilio"
+- Presupuesto inicial: Incluido en el programa
+- Segmentación: Norte de Quito (su zona de influencia)
 
-**Lo que María aprendió en 4 semanas:**
-- Cómo funciona Google Ads (de verdad)
-- Qué keywords generan ventas vs clics vacíos
-- Cómo cambiar fotos/textos en su web (5 minutos)
-- Leer Google Analytics sin morir en el intento
+**Resultados en 30 días:**
+- 33 conversiones por Google Ads
+- Costo por conversión: eficiente y medible
 
----
+**Lo más importante:** Cristina aprendió a leer las métricas y a pausar/activar campañas según su agenda.
 
-## Mes 2: Educación Intensiva
+### Mes 3: Explosión Orgánica
 
-### Semana 1: Google Ads Real
+Algo inesperado sucedió: además de Google Ads, empezaron a llegar pacientes por **búsqueda orgánica**.
 
-**Antes (con la agencia):**
-- Presupuesto: $200/mes
-- Gestión: $300/mes
-- Keywords: "café Quito", "cafetería centro", "mejor café"
-- Conversión: 2.1%
-- Costo por cliente: $18
+**20 conversiones orgánicas adicionales:**
+- Pacientes que encontraban su web directamente en Google
+- Personas buscando "podóloga cerca de mí"
+- Referencias de Google Maps
 
-**Después (con PukaDigital):**
-- Presupuesto: $100/mes (incluido en el programa)
-- Gestión: $0 (ella misma)
-- Keywords: "desayuno ejecutivo centro Quito", "café con WiFi gratis", "espacio coworking cafetería"
-- Conversión: **8.7%**
-- Costo por cliente: $6
-
-**Resultado:** Misma inversión, 4x mejores resultados.
-
-### Semana 2: Chatbot IA en Acción
-
-María configuró el chatbot para responder:
-
-**Consulta típica 1:**
-> **Cliente:** "Hola, tienen espacio para trabajar con laptop?"  
-> **Chatbot:** "¡Hola! Sí, tenemos zona coworking con WiFi gratis y enchufes. Horario: 8am-8pm. ¿Quieres reservar mesa?"
-
-**Resultado:** 15 reservas automáticas/semana sin que María mueva un dedo.
-
-**Consulta típica 2:**
-> **Cliente:** "Tienen menú del día?"  
-> **Chatbot:** "Hoy nuestro menú ejecutivo incluye: Ensalada + Sopa + Seco de Pollo + Jugo + Postre por $6.50. ¿Para llevar o comer aquí?"
-
-**Resultado:** 8 pedidos adicionales/día desde WhatsApp.
-
-### Semana 3: SEO Local Dominado
-
-Optimizamos su Google Business Profile:
-- 30 fotos profesionales (ella misma las tomó con su iPhone)
-- Descripción con keywords locales
-- Posts semanales sobre promociones
-- Respuestas a reseñas (automatizadas con IA)
-
-**Antes:**
-- 120 búsquedas/mes en Google Maps
-- 8 clics al sitio web
-
-**Después:**
-- **890 búsquedas/mes**
-- 156 clics al sitio
-- 45 llamadas directas
-
-### Semana 4: Independencia Total
-
-María ya podía:
-- ✅ Cambiar precios del menú (sin pagar $50)
-- ✅ Subir fotos de platillos nuevos
-- ✅ Pausar/activar Google Ads según temporada
-- ✅ Responder solo consultas complejas (chatbot hace el resto)
-- ✅ Ver métricas reales en tiempo real
+**Total de conversiones mensuales: 53** (33 Ads + 20 orgánicas)
 
 ---
 
-## Mes 3: Lanzamiento Solo
+## El Cambio en Reseñas de Google
 
-María tomó el control **completo**.
+**Antes de PukaDigital:**
+- 3 reseñas en Google
+- Casi invisible en búsquedas locales
 
-**Primera prueba:** Promoción de San Valentín
+**Después de 3 meses:**
+- 15 reseñas (5x más)
+- Aparece en top de búsquedas de podología en Quito Norte
+- Reseñas reales de pacientes satisfechos
 
-**Antes (con agencia):**
-- Pedía la promoción con 2 semanas de anticipación
-- Agencia cobraba $200 por "campaña especial"
-- Publicaban 3 días antes (muy tarde)
-
-**Ahora (independiente):**
-- María creó la promoción en 30 minutos
-- La publicó en web, redes y Google Ads ella misma
-- Costo: $0 adicional
-- Resultado: **83 reservas** (récord histórico)
+**La estrategia fue simple:**
+> "Aprendí a pedirles a mis pacientes satisfechos que dejaran una reseña. Antes me daba vergüenza. Ahora entiendo que es parte normal del negocio digital."
 
 ---
 
-## Resultados: 6 Meses Después (Agosto 2024)
+## Los Servicios a Domicilio: El Gran Ganador
 
-### Financieros
+Cristina ofrecía servicios a domicilio, pero casi nadie los conocía.
 
-**Inversión PukaDigital:**
-- Programa 3 meses: $900 (incluye $300 en Google Ads)
-- Módulos opcionales: $40/mes (Chatbot + CMS)
+**Después de optimizar la web y Google Ads:**
+- Los servicios a domicilio **explotaron**
+- Pacientes de toda el área norte de Quito la contactan
+- Agenda completa con anticipación
 
-**Total 6 meses:** $900 + ($40 × 3) = **$1,020**
-
-**Comparación con agencia:**
-- 6 meses con agencia: $450 × 6 = **$2,700**
-
-**Ahorro:** $1,680
-
-### Ventas
-
-**Antes (con agencia):**
-- Promedio mensual: $4,200
-
-**Después (independiente):**
-- Promedio mensual: **$12,800**
-
-**Crecimiento:** +205% (triplicó ventas)
-
-### Tiempo Invertido
-
-**Gestión digital:**
-- Antes: 0 horas (todo la agencia)
-- Ahora: 3 horas/semana (María misma)
-
-**Pero el ROI es brutal:**
-- 3 horas/semana = 12 horas/mes
-- Genera $8,600 adicionales/mes
-- **$716 por hora** de trabajo digital
+> "Nunca pensé que la gente buscara 'podóloga a domicilio' en Google. Ahora es una de mis fuentes principales de ingresos."
 
 ---
 
-## ¿Qué Hace María Ahora?
+## Lo Que Cristina Aprendió
 
-**Lunes:** 30 minutos actualizando el menú semanal  
-**Miércoles:** 1 hora creando promoción nueva  
-**Viernes:** 30 minutos revisando métricas y ajustando Ads  
-**Resto de la semana:** El chatbot trabaja solo
+### 1. Gestionar su Google Business
+- Actualiza horarios según temporada
+- Responde cada reseña (positiva y negativa)
+- Sube fotos de tratamientos (con permiso)
 
-**Costo mensual actual:**
-- Hosting + CMS: $20/mes
-- Chatbot IA: $20/mes
-- Google Ads: $150/mes (su elección, antes era obligatorio)
-- **Total: $190/mes**
+### 2. Entender Google Ads
+- Sabe qué keywords funcionan
+- Puede pausar campañas cuando está llena de citas
+- Entiende el costo por conversión
 
-**Ahorro vs agencia:** $260/mes = **$3,120/año**
+### 3. Independencia Real
+- No depende de ninguna agencia
+- Puede hacer cambios ella misma
+- Entiende qué significan sus métricas
 
 ---
 
-## Lo Que María Dice (Testimonio Real)
+## Resultados Concretos
 
-> "Al principio tenía miedo de 'hacer algo mal' y romper la web. Pero PukaDigital me enseñó que todo tiene deshacer (Ctrl+Z).
+| Métrica | Antes | Después |
+|---------|-------|---------|
+| Reseñas Google | 3 | 15 |
+| Presencia web | Ninguna | podoclinicec.com |
+| Conversiones Ads | 0 | 33/mes |
+| Conversiones orgánicas | 0 | 20/mes |
+| Servicios a domicilio | Casi cero | Principal fuente de ingresos |
+
+---
+
+## Testimonio de Cristina
+
+> "Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15. Ahora recibo pacientes por Google Ads, búsquedas orgánicas, y los servicios a domicilio explotaron.
 >
-> La diferencia más grande no es el ahorro de plata, es la **libertad**.
->
-> Antes dependía de la agencia para TODO. Ahora si quiero lanzar una promo de último momento, lo hago en 20 minutos.
->
-> Y lo mejor: cuando veo mis métricas, **entiendo** qué significan. Antes solo veía números que no entendía y asentía con la cabeza cuando la agencia 'explicaba'."
+> La diferencia más grande es que ahora **entiendo** lo que está pasando. No es magia, es conocimiento."
 
-**María González, Dueña de Café del Centro**
+**Yadira Cristina Muñoz, PodoclinicEC**
 
 ---
 
-## Lecciones Clave de Este Caso
+## ¿Qué Hace Cristina Diferente Ahora?
 
-### 1. La Dependencia es Más Cara que la Inversión Inicial
+**Cada semana dedica:**
+- 20 minutos revisando métricas de Google Ads
+- 10 minutos respondiendo reseñas nuevas
+- 5 minutos ajustando horarios si es necesario
 
-María pagó $10,800 en 2 años a la agencia.  
-Con PukaDigital pagó $900 y ahora es libre.
+**Total: menos de 1 hora semanal** de gestión digital.
 
-### 2. La Educación es el Verdadero Valor
+El resto lo hacen las herramientas que aprendió a usar.
 
-No le dimos una web. Le dimos **conocimiento**.
+---
 
-### 3. Las Herramientas Corporativas No Son Solo para Corporaciones
+## Graduación: 2 de Diciembre 2025
 
-Next.js, Google Ads, Chatbot IA... todo accesible para una cafetería de 8 mesas.
+Cristina está en el proceso final de graduación del programa. En diciembre será oficialmente **independiente digital**.
 
-### 4. La Autonomía Genera Velocidad
-
-Antes: 2 semanas para un cambio  
-Ahora: 20 minutos
-
-### 5. Los Resultados Dependen de Ti, No de una Agencia
-
-María triplica ventas porque ahora **entiende** su negocio digital.
+Significa que:
+- ✅ Maneja TODO ella misma
+- ✅ No paga fees mensuales a agencias
+- ✅ Tiene control total de sus cuentas
+- ✅ Puede crecer a su propio ritmo
 
 ---
 
 ## ¿Eres el Próximo Caso de Éxito?
 
-Si te identificas con la historia de María:
-- ✅ Pagas mucho por "gestión" sin resultados claros
-- ✅ No tienes acceso real a tus propias cuentas
-- ✅ Dependes de terceros para cada cambio
-- ✅ Sientes que "esto podría ser más simple"
+Si te identificas con la historia de Cristina:
+- ✅ Tienes un negocio pero poca presencia digital
+- ✅ No sabes por dónde empezar
+- ✅ Las agencias te parecen caras y confusas
+- ✅ Quieres entender, no solo "tener"
 
-**Entonces es hora de cambiar.**
+**Entonces el programa PukaDigital es para ti.**
 
-> 💡 **Recursos útiles para tu decisión:**
+> 💡 **Recursos útiles:**
 > - [¿Cuánto cuesta realmente una web? Análisis completo](/blog/cuanto-cuesta-pagina-web-ecuador)
 > - [5 señales de que necesitas un chatbot IA](/blog/5-senales-pyme-necesita-chatbot-ia)
 > - [Ver todas las herramientas disponibles](/productos)
+
+---
+
+## Visita el Sitio de Cristina
+
+👉 **[podoclinicec.com](https://podoclinicec.com)**
 
 ---
 
@@ -765,18 +686,18 @@ Si te identificas con la historia de María:
 👉 **[Solicitar Entrevista Gratuita](/contacto)**  
 👉 **[Conocer el Programa de 3 Meses](/productos)**
 
-**Próximos 5 cupos disponibles en diciembre 2024.**
+**Solo 2 cupos disponibles este mes.**
 
 No prometemos milagros. Prometemos **educación y autonomía**.
 
-El resto depende de ti. Pero si María pudo, tú también puedes.
+Si Cristina pudo pasar de cero a 53 conversiones mensuales, tú también puedes.
 `,
-    coverImage: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800',
+    coverImage: 'https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg',
     date: '2024-11-24',
     category: 'Casos de Éxito',
-    slug: 'caso-exito-cafe-centro-independencia-digital',
+    slug: 'caso-exito-podoclinicec-independencia-digital',
     source: 'local',
-    author: 'María González & Equipo Puka'
+    author: 'Cristina Muñoz & Equipo Puka'
   },
   {
     id: 'local-5',
@@ -1039,7 +960,7 @@ La gente hace lo que ve que otros hacen. Simple.
 - "Somos los mejores del mercado" (dice quién?)
 
 **Buen uso:**
-- "María González aumentó sus ventas 300% en 3 meses"
+- "Cristina Muñoz pasó de 3 a 15 reseñas Google en 3 meses"
 - Foto real + testimonio específico + resultado medible
 
 #### 2. Escasez y Urgencia

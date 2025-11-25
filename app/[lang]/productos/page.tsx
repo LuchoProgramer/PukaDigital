@@ -396,7 +396,7 @@ const Products: React.FC = () => {
                   Chatbot IA WhatsApp
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  Automatiza el 60% de consultas repetitivas. Caso de éxito: Café del Centro liberó 3 horas diarias del equipo.
+                  Automatiza consultas repetitivas. Caso real: PodoclinicEC automatizó servicios a domicilio con 53 conversiones/mes.
                 </p>
                 <div className="flex items-center gap-2 text-purple-600 font-bold group-hover:gap-4 transition-all">
                   Ver más detalles <ArrowRight size={18} />
@@ -495,7 +495,7 @@ const Products: React.FC = () => {
 
               {/* Link to success case */}
               <Link 
-                href="/blog/caso-exito-cafe-centro-independencia-digital"
+                href="/blog/caso-exito-podoclinicec-independencia-digital"
                 className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
               >
                 <div className="bg-puka-beige dark:bg-puka-red/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
@@ -505,7 +505,7 @@ const Products: React.FC = () => {
                   Caso de Éxito Real
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  Cómo Café del Centro triplicó sus ventas con independencia digital.
+                  Cómo PodoclinicEC logró 53 conversiones mensuales con independencia digital.
                 </p>
                 <span className="text-puka-red text-sm font-bold inline-flex items-center gap-1">
                   Leer historia completa →

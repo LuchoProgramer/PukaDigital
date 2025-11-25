@@ -67,7 +67,7 @@ const Home: React.FC = () => {
         "name": "¿Funciona para cualquier tipo de negocio o solo para tech startups?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El programa está diseñado específicamente para PYMEs tradicionales: restaurantes, tiendas, consultorías, talleres mecánicos, salones de belleza, cafeterías, distribuidoras, etc. Ejemplos reales: Café del Centro (40% menos tiempo en atención), Ferretería Los Andes (inventario en tiempo real), Consultora Legal Mora (chatbot responde consultas básicas 24/7). Si tu negocio atiende clientes, vende productos o necesita organizar operaciones, este programa es para ti."
+          "text": "El programa está diseñado específicamente para PYMEs tradicionales: restaurantes, tiendas, consultorías, talleres mecánicos, salones de belleza, cafeterías, distribuidoras, etc. Ejemplos reales: PodoclinicEC (53 conversiones mensuales), HealppyPets veterinaria (web + chatbot + Google Business en mes 2), Hotel Eudiq (sistema completo en semana 2). Si tu negocio atiende clientes, vende productos o necesita organizar operaciones, este programa es para ti."
         }
       },
       {
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
         "name": "¿El chatbot IA realmente puede atender clientes como un humano?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El chatbot usa GPT-4 con base de conocimiento personalizada de tu negocio. Puede: responder preguntas frecuentes, dar información de productos/precios, agendar citas, calificar leads, derivar casos complejos a humanos. Limitaciones: no maneja quejas emocionales complejas ni negociaciones de alto valor. Caso real: Café del Centro redujo 60% de consultas repetitivas (horarios, ubicación, menú), liberando tiempo del equipo para atención presencial de calidad."
+          "text": "El chatbot usa GPT-4 con base de conocimiento personalizada de tu negocio. Puede: responder preguntas frecuentes, dar información de productos/precios, agendar citas, calificar leads, derivar casos complejos a humanos. Limitaciones: no maneja quejas emocionales complejas ni negociaciones de alto valor. Caso real: PodoclinicEC automatizó consultas de servicios a domicilio, aumentando 33 conversiones por Google Ads y 20 orgánicas."
         }
       },
       {
@@ -219,14 +219,21 @@ const Home: React.FC = () => {
       <section className="py-16 bg-puka-black dark:bg-black text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            {/* Video Placeholder */}
-            <div className="aspect-video bg-gray-800 rounded-sm flex items-center justify-center border border-gray-700">
-              <div className="text-center">
-                <div className="w-20 h-20 rounded-full bg-puka-red/20 flex items-center justify-center mx-auto mb-4">
-                  <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-white border-b-8 border-b-transparent ml-1"></div>
+            {/* Photo + Video Placeholder */}
+            <div className="relative">
+              <div className="aspect-video bg-gray-800 rounded-sm flex items-center justify-center border border-gray-700 overflow-hidden">
+                <img 
+                  src="https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg" 
+                  alt="Yadira Cristina Muñoz - PodoclinicEC" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                  <div className="w-16 h-16 rounded-full bg-puka-red flex items-center justify-center">
+                    <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-white border-b-6 border-b-transparent ml-1"></div>
+                  </div>
                 </div>
-                <p className="text-gray-400 text-sm">Video testimonial próximamente</p>
               </div>
+              <p className="text-gray-400 text-xs text-center mt-2">{t('home.testimonial_video_coming')}</p>
             </div>
 
             {/* Quote */}
@@ -494,24 +501,80 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SOCIAL PROOF */}
+      {/* NUESTROS 3 PRIMEROS ALIADOS */}
       <section className="py-24 bg-puka-beige dark:bg-amber-900/20 transition-colors">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-display font-bold text-3xl mb-12 text-puka-black dark:text-white">{t('home.proof_title')}</h2>
-            <div className="bg-white dark:bg-gray-900 p-8 md:p-12 rounded-sm shadow-xl relative transition-colors">
-              <div className="text-puka-red text-6xl font-serif absolute top-4 left-6 opacity-20">"</div>
-              <p className="text-xl md:text-2xl font-medium text-gray-800 dark:text-gray-200 mb-8 relative z-10">
-                {t('home.proof_quote')}
-              </p>
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center font-bold text-puka-black dark:text-white">MG</div>
-                <div className="text-left">
-                  <div className="font-bold text-puka-black dark:text-white">María González</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">{t('home.proof_author_role')}</div>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">{t('home.allies_title')}</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-lg">{t('home.allies_subtitle')}</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Ally 1 - Cristina */}
+              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
+                <div className="flex items-center gap-4 mb-4">
+                  <img 
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg" 
+                    alt="Yadira Cristina Muñoz" 
+                    className="w-16 h-16 rounded-full object-cover border-2 border-puka-red"
+                  />
+                  <div>
+                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_1_name')}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_1_business')}</p>
+                  </div>
                 </div>
+                <div className="mb-4">
+                  <span className="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded text-xs font-bold">
+                    ✅ {t('home.allies_1_status')}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_1_result')}</p>
+                <a href="https://podoclinicec.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">podoclinicec.com →</a>
+              </div>
+
+              {/* Ally 2 - Carla */}
+              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-2xl border-2 border-yellow-500">
+                    🐕
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_2_name')}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_2_business')}</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <span className="inline-flex items-center gap-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded text-xs font-bold">
+                    🟡 {t('home.allies_2_status')}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_2_result')}</p>
+                <a href="https://healppypets.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">{t('home.allies_2_website')} →</a>
+              </div>
+
+              {/* Ally 3 - Hotel Eudiq */}
+              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-2xl border-2 border-green-500">
+                    🏨
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_3_name')}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_3_business')}</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <span className="inline-flex items-center gap-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded text-xs font-bold">
+                    🟢 {t('home.allies_3_status')}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_3_result')}</p>
+                <a href="https://hoteleudiq.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">{t('home.allies_3_website')} →</a>
               </div>
             </div>
+
+            <p className="text-center text-gray-500 dark:text-gray-400 mt-8 text-sm">{t('home.allies_note')}</p>
           </div>
         </div>
       </section>
@@ -575,6 +638,44 @@ const Home: React.FC = () => {
             <a href="#start-now" className="inline-block mt-8 bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors">
               {t('home.why_limit_cta')}
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* QUIÉN ESTÁ DETRÁS - FOUNDER SECTION */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Photo */}
+            <div className="relative">
+              <div className="aspect-square max-w-sm mx-auto">
+                <img 
+                  src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759786002/LuisViteri_rwyq16.png" 
+                  alt="Luis Omar Viteri - Fundador de Puka Digital" 
+                  className="w-full h-full object-cover rounded-sm shadow-xl"
+                />
+              </div>
+              <div className="absolute -bottom-4 -right-4 bg-puka-red text-white px-4 py-2 rounded-sm font-bold text-sm shadow-lg">
+                {t('home.founder_years')}
+              </div>
+            </div>
+            
+            {/* Bio */}
+            <div>
+              <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">
+                {t('home.founder_title')}
+              </h2>
+              <p className="text-puka-red font-bold text-lg mb-6">{t('home.founder_name')}</p>
+              <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                {t('home.founder_bio_1')}
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                {t('home.founder_bio_2')}
+              </p>
+              <blockquote className="border-l-4 border-puka-red pl-4 italic text-gray-500 dark:text-gray-400">
+                "{t('home.founder_quote')}"
+              </blockquote>
+            </div>
           </div>
         </div>
       </section>
@@ -725,7 +826,7 @@ const Home: React.FC = () => {
 
             {/* Featured Post 3 */}
             <Link 
-              href="/blog/caso-exito-cafe-centro-independencia-digital"
+              href="/blog/caso-exito-podoclinicec-independencia-digital"
               className="group bg-gray-50 dark:bg-gray-800 rounded-sm overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-xl transition-all"
             >
               <div className="h-48 bg-gradient-to-br from-green-600 to-green-800 flex items-center justify-center">
@@ -734,10 +835,10 @@ const Home: React.FC = () => {
               <div className="p-6">
                 <div className="text-xs font-bold text-puka-red mb-2 uppercase tracking-wide">Caso de Éxito</div>
                 <h3 className="font-bold text-xl mb-3 text-puka-black dark:text-white group-hover:text-puka-red transition-colors">
-                  Café del Centro: +205% en Ventas
+                  PodoclinicEC: 53 Conversiones/Mes
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  De pagar $450/mes a una agencia a gestionar todo ellos mismos en 90 días.
+                  De 3 a 15 reseñas en Google y 33 conversiones de Google Ads + 20 orgánicas.
                 </p>
                 <span className="text-puka-red text-sm font-bold inline-flex items-center gap-1">
                   Leer historia completa <ArrowRight size={14} />
