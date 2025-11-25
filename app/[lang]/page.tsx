@@ -118,36 +118,217 @@ const Home: React.FC = () => {
       <section className="relative pt-20 pb-32 md:pt-32 md:pb-48 overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
-            <span className="inline-block py-1 px-3 bg-puka-beige text-puka-black font-semibold text-xs tracking-wider uppercase mb-6 rounded-sm">
+            <span className="inline-block py-1 px-3 bg-puka-red/10 text-puka-red font-semibold text-xs tracking-wider uppercase mb-6 rounded-sm border border-puka-red/20">
               {t('home.badge')}
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl leading-tight text-puka-black dark:text-white mb-4 transition-colors">
+            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl leading-tight text-puka-black dark:text-white mb-6 transition-colors">
               {t('home.hero_h1')}
             </h1>
-            <p className="font-display font-bold text-3xl md:text-5xl lg:text-7xl leading-[0.95] text-gray-700 dark:text-gray-300 mb-8 transition-colors">
-              {t('home.hero_title_1')} <br />
-              <span className="text-puka-red">{t('home.hero_title_2')}</span>
-            </p>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mb-10 leading-relaxed transition-colors">
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mb-6 leading-relaxed transition-colors">
               {t('home.hero_desc')}
-              <span className="block mt-4 font-semibold text-puka-black dark:text-white"> {t('home.hero_formula')}</span>
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button onClick={scrollToForm} className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div className="bg-puka-beige dark:bg-amber-900/50 inline-block px-6 py-3 rounded-sm mb-6">
+              <p className="font-bold text-xl text-puka-black dark:text-white">
+                {t('home.hero_formula')}
+              </p>
+              <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                💡 {t('home.hero_ads_note')}
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <a href="#start-now" className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                 {t('home.cta_primary')}
-              </button>
-              <Link href="/demos" className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+              </a>
+              <a href="#como-funciona" className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
                 {t('home.cta_secondary')}
-              </Link>
+              </a>
             </div>
-            <div className="mt-8 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-               {t('home.ads_note')}
+            <div className="flex flex-col md:flex-row gap-4 text-sm">
+              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                🟢 {t('home.indicator_1')}
+              </span>
+              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
+                🟢 {t('home.indicator_2')}
+              </span>
+              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
+                🟢 {t('home.indicator_3')}
+              </span>
             </div>
+
+            {/* HERO COMPARISON - Agencia vs Puka */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-center max-w-4xl">
+              {/* Agency Side */}
+              <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-1">
+                  <XCircle size={14} className="text-red-500" /> {t('home.compare_agency_title')}
+                </p>
+                <p className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  {t('home.compare_agency_price')}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  {t('home.compare_agency_result')}
+                </p>
+                <div className="text-xs text-gray-500 dark:text-gray-500 space-y-1">
+                  <p>{t('home.compare_agency_3years')}</p>
+                  <p className="text-red-500 font-semibold">{t('home.compare_agency_end')}</p>
+                </div>
+              </div>
+
+              {/* VS */}
+              <div className="text-center">
+                <span className="text-2xl font-bold text-gray-400 dark:text-gray-500">{t('home.compare_vs')}</span>
+              </div>
+
+              {/* Puka Side */}
+              <div className="bg-puka-red/10 dark:bg-puka-red/20 p-6 rounded-sm border-2 border-puka-red">
+                <p className="text-xs text-puka-red mb-2 flex items-center gap-1 font-semibold">
+                  <CheckCircle size={14} /> {t('home.compare_puka_title')}
+                </p>
+                <p className="text-2xl font-bold text-puka-black dark:text-white mb-2">
+                  {t('home.compare_puka_price')}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                  {t('home.compare_puka_result')}
+                </p>
+                <div className="text-xs space-y-1">
+                  <p className="text-gray-600 dark:text-gray-400">{t('home.compare_puka_total')}</p>
+                  <p className="text-green-600 dark:text-green-400 font-semibold">{t('home.compare_puka_end')}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Savings highlight */}
+            <p className="mt-8 text-center text-lg text-gray-600 dark:text-gray-400">
+              {t('home.compare_savings')} <span className="text-puka-red font-bold text-2xl">{t('home.compare_savings_amount')}</span>
+            </p>
+
+            {/* Cupos visual */}
+            <div className="mt-8 text-center">
+              <p className="text-3xl tracking-widest mb-2">🔴🔴🔴🟢🟢</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Último cupo tomado hace 4 días</p>
+            </div>
+
           </div>
         </div>
         {/* Abstract Background Element */}
         <div className="absolute right-0 top-0 w-1/3 h-full bg-gray-50 dark:bg-gray-800/30 -z-10 hidden lg:block skew-x-12 translate-x-32 transition-colors duration-300" />
+      </section>
+
+      {/* TESTIMONIAL HERO - Cristina */}
+      <section className="py-16 bg-puka-black dark:bg-black text-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            {/* Video Placeholder */}
+            <div className="aspect-video bg-gray-800 rounded-sm flex items-center justify-center border border-gray-700">
+              <div className="text-center">
+                <div className="w-20 h-20 rounded-full bg-puka-red/20 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-white border-b-8 border-b-transparent ml-1"></div>
+                </div>
+                <p className="text-gray-400 text-sm">Video testimonial próximamente</p>
+              </div>
+            </div>
+
+            {/* Quote */}
+            <div>
+              <h3 className="font-display font-bold text-2xl md:text-3xl mb-6 text-puka-beige">
+                {t('home.testimonial_video_title')}
+              </h3>
+              <blockquote className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed italic">
+                "{t('home.testimonial_quote')}"
+              </blockquote>
+              <div className="mb-6">
+                <p className="font-bold text-white text-lg">{t('home.testimonial_author')}</p>
+                <p className="text-gray-400">{t('home.testimonial_role')}</p>
+                <p className="text-puka-red text-sm mt-1">{t('home.testimonial_result')}</p>
+              </div>
+              <a href="/blog" className="inline-flex items-center gap-2 text-puka-red hover:text-red-400 font-semibold transition-colors">
+                {t('home.testimonial_cta')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* THE ENEMY - EL VERDADERO ENEMIGO */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl text-center">
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-8 text-puka-black dark:text-white">
+            {t('home.enemy_title')}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+            {t('home.enemy_not')}
+          </p>
+          <p className="text-2xl md:text-3xl font-bold text-puka-red mb-8">
+            {t('home.enemy_is')}
+          </p>
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-sm p-8 mb-8 text-left shadow-sm">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{t('home.enemy_model_says')}</p>
+            <p className="text-puka-black dark:text-white font-medium italic mb-6">"{t('home.enemy_quote')}"</p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">{t('home.enemy_sounds_good')}</p>
+            <ul className="space-y-3 text-gray-700 dark:text-gray-300">
+              <li className="flex items-start gap-2">
+                <span className="text-puka-red">→</span> {t('home.enemy_point_1')}
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-puka-red">→</span> {t('home.enemy_point_2')}
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-puka-red">→</span> {t('home.enemy_point_3')}
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-puka-red">→</span> {t('home.enemy_point_4')}
+              </li>
+            </ul>
+          </div>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-2">{t('home.enemy_not_service')}</p>
+          <p className="text-2xl font-bold text-puka-black dark:text-white mb-8">{t('home.enemy_perpetual_rent')}</p>
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
+            <p className="text-gray-500 dark:text-gray-400 mb-2">{t('home.enemy_puka_exists')}</p>
+            <p className="text-xl text-puka-black dark:text-white font-medium mb-4">{t('home.enemy_teach_independence')}</p>
+            <p className="text-puka-red font-bold text-lg">{t('home.enemy_dignity')}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY PUKA EXISTS - ORIGEN STORY */}
+      <section className="py-20 bg-puka-beige dark:bg-amber-900/20 transition-colors duration-300">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-12 text-center text-puka-black dark:text-white">
+            {t('home.origin_title')}
+          </h2>
+          
+          <div className="prose prose-lg max-w-none">
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              {t('home.origin_story_1')}
+            </p>
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              {t('home.origin_story_2')}
+            </p>
+            <blockquote className="border-l-4 border-puka-red pl-6 my-8">
+              <p className="text-xl italic text-gray-600 dark:text-gray-400">
+                "{t('home.origin_quote')}"
+              </p>
+              <footer className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+                — {t('home.origin_quote_author')}
+              </footer>
+            </blockquote>
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              {t('home.origin_story_3')}
+            </p>
+            <div className="bg-white dark:bg-gray-900 rounded-sm p-8 mt-8 text-center border border-gray-200 dark:border-gray-700">
+              <p className="text-2xl font-bold text-puka-black dark:text-white mb-2">
+                {t('home.origin_mission_1')}
+              </p>
+              <p className="text-2xl font-bold text-puka-red">
+                {t('home.origin_mission_2')}
+              </p>
+              <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
+                {t('home.origin_tagline')}
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* THE PROBLEM VS SOLUTION */}
@@ -282,14 +463,14 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="bg-white dark:bg-gray-900 p-8 border border-gray-200 dark:border-gray-700 shadow-sm rounded-sm transition-colors">
-              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100 dark:border-gray-700">
+              <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100 dark:border-gray-700">
                 <Cpu className="text-puka-red" size={32} />
                 <div>
-                  <h3 className="font-bold text-puka-black dark:text-white">{t('home.stack_title')}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.stack_subtitle')}</p>
+                  <h3 className="font-bold text-xl text-puka-black dark:text-white">{t('home.stack_title')}</h3>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{t('home.stack_subtitle')}</p>
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm transition-colors">
                   <span className="block font-bold mb-1 text-puka-black dark:text-gray-200">{t('home.stack_web')}</span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_web_desc')}</span>
@@ -307,6 +488,7 @@ const Home: React.FC = () => {
                   <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_analytics_desc')}</span>
                 </div>
               </div>
+              <p className="text-sm text-puka-red font-medium">{t('home.stack_democratization')}</p>
             </div>
           </div>
         </div>
@@ -330,6 +512,69 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY ONLY 3 CLIENTS - POR QUÉ SOLO 3 CLIENTES */}
+      <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-8 text-center text-puka-black dark:text-white">
+            {t('home.why_limit_title')}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 text-center mb-8">
+            {t('home.why_limit_could')}
+          </p>
+          <p className="text-2xl font-bold text-puka-red text-center mb-12">
+            {t('home.why_limit_dont')}
+          </p>
+          
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-sm p-8 mb-12">
+            <p className="text-gray-700 dark:text-gray-300 mb-6">{t('home.why_limit_because')}</p>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <span className="text-puka-red font-bold">→</span>
+                {t('home.why_limit_point_1')}
+              </li>
+              <li className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <span className="text-puka-red font-bold">→</span>
+                {t('home.why_limit_point_2')}
+              </li>
+              <li className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <span className="text-puka-red font-bold">→</span>
+                {t('home.why_limit_point_3')}
+              </li>
+              <li className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <span className="text-puka-red font-bold">→</span>
+                {t('home.why_limit_point_4')}
+              </li>
+            </ul>
+          </div>
+
+          <p className="text-lg text-gray-600 dark:text-gray-400 text-center mb-8">
+            {t('home.why_limit_no_scale')}
+          </p>
+
+          {/* CONTADOR VISUAL DE CUPOS */}
+          <div className="bg-puka-beige dark:bg-amber-900/20 rounded-sm p-8 text-center">
+            <p className="font-bold text-puka-black dark:text-white mb-4">{t('home.why_limit_status')}</p>
+            <div className="flex justify-center gap-2 mb-6 text-3xl">
+              <span title="Cristina - Graduada">🔴</span>
+              <span title="Carla - Mes 2">🔴</span>
+              <span title="Hotel Loja - Semana 2">🔴</span>
+              <span title="Disponible">🟢</span>
+              <span title="Disponible">🟢</span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              <p>🔴 {t('home.why_limit_slot_1')}</p>
+              <p>🔴 {t('home.why_limit_slot_2')}</p>
+              <p>🔴 {t('home.why_limit_slot_3')}</p>
+              <p className="text-green-600 dark:text-green-400 font-bold">🟢 {t('home.why_limit_slot_4')}</p>
+              <p className="text-green-600 dark:text-green-400 font-bold">🟢 {t('home.why_limit_slot_5')}</p>
+            </div>
+            <a href="#start-now" className="inline-block mt-8 bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors">
+              {t('home.why_limit_cta')}
+            </a>
           </div>
         </div>
       </section>

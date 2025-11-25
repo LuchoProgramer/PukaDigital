@@ -5,7 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#c7171e",
+  "theme_color": "#E30613",
   "icons": [
     {
       "src": "/pegaso-rojo-16x16.svg",

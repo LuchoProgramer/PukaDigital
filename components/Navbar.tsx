@@ -80,6 +80,14 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
             ))}
             
             <div className="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-6">
+              {/* Slots Badge */}
+              <div className="hidden lg:flex items-center gap-2 bg-puka-red/10 dark:bg-puka-red/20 px-3 py-1.5 rounded-full border border-puka-red/30">
+                <span className="text-sm tracking-wider">🔴🔴🔴🟢🟢</span>
+                <span className="text-xs font-bold text-puka-red">
+                  {t('nav.slots_badge')} {t('nav.slots_available')}
+                </span>
+              </div>
+
               {/* Language Selector */}
               <div className="relative">
                 <button 

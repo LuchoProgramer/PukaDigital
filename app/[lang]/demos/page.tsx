@@ -160,8 +160,8 @@ const Demos: React.FC = () => {
                   <AreaChart data={data}>
                     <defs>
                       <linearGradient id="colorVentas" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#c7171e" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#c7171e" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#E30613" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#E30613" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
@@ -174,13 +174,13 @@ const Demos: React.FC = () => {
                         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
                         padding: '12px'
                       }}
-                      itemStyle={{color: '#c7171e', fontWeight: 'bold'}}
-                      cursor={{stroke: '#c7171e', strokeWidth: 1, strokeDasharray: '4 4'}}
+                      itemStyle={{color: '#E30613', fontWeight: 'bold'}}
+                      cursor={{stroke: '#E30613', strokeWidth: 1, strokeDasharray: '4 4'}}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="ventas" 
-                      stroke="#c7171e" 
+                      stroke="#E30613" 
                       strokeWidth={3} 
                       fillOpacity={1} 
                       fill="url(#colorVentas)" 

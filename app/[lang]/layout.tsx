@@ -91,7 +91,7 @@ export async function generateMetadata({
         { url: '/pegaso-rojo-180x180.svg', sizes: '180x180', type: 'image/svg+xml' },
       ],
       other: [
-        { rel: 'mask-icon', url: '/pegaso-rojo.svg', color: '#c7171e' },
+        { rel: 'mask-icon', url: '/pegaso-rojo.svg', color: '#E30613' },
       ],
     },
     manifest: '/manifest.json',
@@ -303,7 +303,7 @@ export default async function LangLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#c7171e" />
+        <meta name="theme-color" content="#E30613" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="canonical" href={`https://pukadigital.com/${locale}`} />

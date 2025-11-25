@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'puka-red': '#c7171e',
+        'puka-red': '#E30613',
         'puka-black': '#000000',
         'puka-beige': '#EBDFC9',
       },

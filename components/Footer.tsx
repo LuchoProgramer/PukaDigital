@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle } from 'lucide-react';
+import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
 interface FooterProps {
@@ -12,9 +12,75 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
   const { t } = useTranslation();
 
+  // Simulated slot availability - can be connected to real data later
+  const totalSlots = 5;
+  const occupiedSlots = 3;
+  const availableSlots = totalSlots - occupiedSlots;
+
   return (
     <footer className="bg-puka-black dark:bg-black text-white py-16 md:py-20 border-t border-gray-900 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
+        
+        {/* Manifesto Section - NEW */}
+        <div className="mb-16 pb-16 border-b border-gray-800">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 mb-6">
+              <Flag className="text-puka-red" size={24} />
+              <h3 className="font-display font-bold text-2xl text-puka-beige">
+                {t('footer.manifesto_title')}
+              </h3>
+            </div>
+            <div className="space-y-4 text-lg text-gray-300 italic">
+              <p className="relative">
+                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_1')}
+              </p>
+              <p className="relative">
+                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_2')}
+              </p>
+              <p className="relative">
+                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_3')}
+              </p>
+              <p className="relative font-bold text-white not-italic">
+                <span className="text-puka-red">•</span> {t('footer.manifesto_4')}
+              </p>
+            </div>
+            <p className="mt-8 font-display font-bold text-puka-red text-xl">
+              {t('footer.signature')}
+            </p>
+          </div>
+        </div>
+
+        {/* Slots Counter - Visual */}
+        <div className="mb-16 text-center">
+          <h4 className="font-display font-bold text-lg mb-4 text-gray-400">
+            {t('footer.slots_title')}
+          </h4>
+          <div className="flex justify-center items-center gap-2 mb-3">
+            {/* Red circles for occupied */}
+            {Array.from({ length: occupiedSlots }).map((_, i) => (
+              <div
+                key={`occupied-${i}`}
+                className="w-8 h-8 rounded-full bg-puka-red flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-puka-red/30"
+              >
+                ✗
+              </div>
+            ))}
+            {/* Green circles for available */}
+            {Array.from({ length: availableSlots }).map((_, i) => (
+              <div
+                key={`available-${i}`}
+                className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-sm font-bold animate-pulse shadow-lg shadow-green-500/30"
+              >
+                ✓
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-gray-500">
+            <span className="text-puka-red font-bold">{occupiedSlots}</span> {t('footer.slots_occupied')} · 
+            <span className="text-green-500 font-bold ml-1">{availableSlots}</span> {t('footer.slots_available')}
+          </p>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
           
           {/* Brand Column */}
