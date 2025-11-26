@@ -9,7 +9,9 @@ import { Calendar, User, ArrowLeft, Share2, Sparkles, Database } from 'lucide-re
 import ReactMarkdown from 'react-markdown';
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { useTranslation } from '@/lib/i18n';
+import { getArticleSchema, getBreadcrumbSchema, type SupportedLocale } from '@/lib/schema';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -22,7 +24,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -82,11 +84,33 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   // Generate JSON-LD structured data for SEO
   const wordCount = post.content?.split(/\s+/).filter(Boolean).length || 0;
+  const lang = (language || 'es') as SupportedLocale;
+  
+  // Breadcrumbs data
+  const breadcrumbItems = [
+    { name: lang === 'es' ? 'Inicio' : lang === 'en' ? 'Home' : 'Início', url: `https://pukadigital.com/${lang}` },
+    { name: 'Blog', url: `https://pukadigital.com/${lang}/blog` },
+    { name: post.title, url: `https://pukadigital.com/${lang}/blog/${post.slug}` }
+  ];
+  
+  // Article schema from centralized lib
+  const articleSchema = getArticleSchema({
+    title: post.title,
+    description: post.excerpt,
+    slug: post.slug,
+    datePublished: post.date,
+    author: post.author || 'Equipo PukaDigital',
+    image: post.coverImage,
+    lang
+  });
+
+  // Breadcrumb schema
+  const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
   
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "@id": `https://pukadigital.com/blog/${post.slug}#blogposting`,
+    "@id": `https://pukadigital.com/${lang}/blog/${post.slug}#blogposting`,
     "headline": post.title,
     "description": post.excerpt,
     "image": {
@@ -115,15 +139,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://pukadigital.com/blog/${post.slug}`
+      "@id": `https://pukadigital.com/${lang}/blog/${post.slug}`
     },
     "articleSection": post.category,
     "keywords": `${post.category}, independencia digital, pymes ecuador, marketing digital, transformación digital, LATAM, democratización digital, chatbot ia, sistema erp`,
     "wordCount": wordCount,
-    "inLanguage": "es-EC",
+    "inLanguage": lang === 'es' ? 'es-EC' : lang === 'en' ? 'en-US' : 'pt-BR',
     "isPartOf": {
       "@type": "Blog",
-      "@id": "https://pukadigital.com/blog#blog",
+      "@id": `https://pukadigital.com/${lang}/blog#blog`,
       "name": "PukaDigital Blog",
       "description": "Recursos gratuitos sobre independencia digital para PYMEs"
     },
@@ -146,6 +170,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* HERO IMAGE */}
       <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
@@ -156,8 +186,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         
-        {/* Back Button */}
-        <div className="absolute top-6 left-6 z-20">
+        {/* Back Button & Breadcrumbs */}
+        <div className="absolute top-6 left-6 z-20 flex flex-col gap-2">
+          <Breadcrumbs 
+            items={breadcrumbItems} 
+            className="text-white/80 [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-white"
+          />
           <Link 
             href="/blog"
             className="bg-white/90 dark:bg-gray-900/90 backdrop-blur text-puka-black dark:text-white px-4 py-2 rounded-sm shadow-lg hover:bg-white dark:hover:bg-gray-900 transition-all flex items-center gap-2 font-medium"

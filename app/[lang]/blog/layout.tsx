@@ -24,7 +24,16 @@ export async function generateMetadata({
   return {
     title: titles[locale],
     description: descriptions[locale],
-    keywords: ["blog marketing digital", "guías chatbot", "automatización", "independencia digital", "tutoriales gratis", "Ecuador", "LATAM"],
+    keywords: [
+      "como crear chatbot whatsapp gratis",
+      "tutorial automatización negocios",
+      "guía erp para pymes",
+      "como dejar de depender agencias marketing",
+      "marketing digital sin agencias",
+      "herramientas gratis negocios pequeños",
+      "que es un chatbot y como funciona",
+      "automatizar respuestas whatsapp business"
+    ],
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],

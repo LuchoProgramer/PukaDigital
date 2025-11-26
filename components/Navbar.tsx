@@ -27,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
     { label: t('nav.cases'), path: `/${lang}/casos` },
     { label: t('nav.blog'), path: `/${lang}/blog` },
     { label: t('nav.demos'), path: `/${lang}/demos` },
+    { label: t('nav.about'), path: `/${lang}/nosotros` },
     { label: t('nav.contact'), path: `/${lang}/contacto` },
   ];
 

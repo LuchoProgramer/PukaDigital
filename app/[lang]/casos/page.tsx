@@ -4,6 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Clock, Rocket, ExternalLink, Search, Star } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import { useTranslation } from '@/lib/i18n';
+import type { SupportedLocale } from '@/lib/schema';
 
 // Datos de los casos (después podemos moverlo a un archivo separado)
 const cases = [
@@ -62,9 +65,18 @@ const cases = [
 ];
 
 const CasosPage = () => {
+  const { language } = useTranslation();
+  const lang = (language || 'es') as SupportedLocale;
+  
   const completedCases = cases.filter(c => c.status === 'graduating' || c.status === 'completed');
   const inProgressCases = cases.filter(c => c.status === 'in-progress');
   const justStartedCases = cases.filter(c => c.status === 'just-started');
+
+  // Breadcrumbs
+  const breadcrumbItems = [
+    { name: lang === 'es' ? 'Inicio' : lang === 'en' ? 'Home' : 'Início', url: `https://pukadigital.com/${lang}` },
+    { name: lang === 'es' ? 'Casos Reales' : lang === 'en' ? 'Case Studies' : 'Casos Reais', url: `https://pukadigital.com/${lang}/casos` }
+  ];
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -72,6 +84,14 @@ const CasosPage = () => {
       {/* Hero dramático */}
       <section className="py-20 text-center bg-gradient-to-b from-puka-black to-gray-900 text-white">
         <div className="container mx-auto px-4 md:px-6">
+          {/* Breadcrumbs */}
+          <div className="mb-8">
+            <Breadcrumbs 
+              items={breadcrumbItems} 
+              className="justify-center text-gray-400 [&_a]:text-gray-400 [&_a:hover]:text-white"
+            />
+          </div>
+          
           <span className="text-sm uppercase tracking-widest text-gray-400 font-medium">
             Transparencia Radical
           </span>

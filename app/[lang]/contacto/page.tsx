@@ -1,10 +1,18 @@
 'use client';
 
 import React from 'react';
-import { Mail, MessageCircle } from 'lucide-react';
+import { Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
+
+// Contact info centralized
+const CONTACT = {
+  whatsapp: 'https://wa.me/593964065880',
+  whatsappDisplay: '+593 96 406 5880',
+  email: 'luis.viteri@pukadigital.com',
+  location: 'Quito, Carcelén, Ecuador'
+};
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
@@ -27,24 +35,56 @@ const Contact: React.FC = () => {
             </p>
 
             <div className="space-y-8">
-              <div className="flex items-start gap-4 group cursor-pointer">
+              {/* WhatsApp */}
+              <a 
+                href={CONTACT.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 group cursor-pointer"
+              >
                 <div className="bg-puka-beige p-3 rounded-sm group-hover:bg-puka-red transition-colors">
                   <MessageCircle size={24} className="text-puka-black group-hover:text-white transition-colors" />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-puka-black dark:text-white">{t('contact.whatsapp_title')}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-2">{t('contact.whatsapp_desc')}</p>
-                  <a href="https://wa.me/" className="text-puka-red font-bold hover:underline">{t('contact.whatsapp_link')} &rarr;</a>
+                  <p className="text-gray-600 dark:text-gray-400 mb-1">{t('contact.whatsapp_desc')}</p>
+                  <span className="text-puka-red font-bold group-hover:underline">{CONTACT.whatsappDisplay} &rarr;</span>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-start gap-4">
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-sm transition-colors">
-                  <Mail size={24} className="text-gray-600 dark:text-gray-400" />
+              {/* Email */}
+              <a 
+                href={`mailto:${CONTACT.email}`}
+                className="flex items-start gap-4 group cursor-pointer"
+              >
+                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-sm group-hover:bg-puka-red transition-colors">
+                  <Mail size={24} className="text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors" />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-puka-black dark:text-white">{t('contact.email_title')}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">hola@pukadigital.com</p>
+                  <p className="text-puka-red font-medium group-hover:underline">{CONTACT.email}</p>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-start gap-4">
+                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-sm">
+                  <MapPin size={24} className="text-gray-600 dark:text-gray-400" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-puka-black dark:text-white">Ubicación</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{CONTACT.location}</p>
+                </div>
+              </div>
+
+              {/* Response time */}
+              <div className="flex items-start gap-4">
+                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-sm">
+                  <Clock size={24} className="text-gray-600 dark:text-gray-400" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-puka-black dark:text-white">Tiempo de respuesta</h3>
+                  <p className="text-gray-600 dark:text-gray-400">Menos de 2 horas en horario laboral</p>
                 </div>
               </div>
             </div>

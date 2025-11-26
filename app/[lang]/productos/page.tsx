@@ -183,7 +183,7 @@ const Products: React.FC = () => {
       <SEO 
         title="Precios Transparentes | Chatbots IA, Web y ERP"
         description="Sin costos ocultos. Chatbots con IA desde $20/mes, Sistemas ERP y Webs autoadministrables. Paga solo por lo que usas, cuando lo necesitas."
-        keywords="precio chatbot ia, costo pagina web peru, tarifas agencia digital, planes mantenimiento web"
+        keywords="precio chatbot ia ecuador, cuanto cuesta pagina web ecuador, tarifas agencia digital quito, planes mantenimiento web"
         structuredData={structuredData}
       />
       

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag } from 'lucide-react';
+import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag, Users } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
 interface FooterProps {
@@ -138,6 +138,15 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                     <PlayCircle size={18} />
                   </div>
                   <span className="text-sm font-medium transform group-hover:translate-x-1 transition-transform">{t('nav.demos')}</span>
+                  <ChevronRight size={16} className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-puka-red" />
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}/nosotros`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                  <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <Users size={18} />
+                  </div>
+                  <span className="text-sm font-medium transform group-hover:translate-x-1 transition-transform">{t('nav.about')}</span>
                   <ChevronRight size={16} className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-puka-red" />
                 </Link>
               </li>

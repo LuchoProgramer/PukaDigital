@@ -110,7 +110,7 @@ const Home: React.FC = () => {
       <SEO 
         title={t('home.hero_title_2')}
         description={t('home.hero_desc')}
-        keywords="independencia digital, agencia marketing lima, chatbot ia pymes, sistema erp facil, puka digital"
+        keywords="independencia digital, agencia marketing digital ecuador, chatbot ia pymes, sistema erp ecuador, puka digital quito"
         structuredData={faqSchema}
       />
 

@@ -24,7 +24,17 @@ export async function generateMetadata({
   return {
     title: titles[locale],
     description: descriptions[locale],
-    keywords: ["chatbot precio", "ERP pymes", "desarrollo web económico", "servicios digitales Ecuador", "precios transparentes"],
+    keywords: [
+      "cuanto cuesta chatbot whatsapp",
+      "precio erp para pymes ecuador",
+      "páginas web $20 mensuales",
+      "chatbot ia precios ecuador",
+      "sistema facturación electrónica sri precio",
+      "mejor precio desarrollo web quito",
+      "erp sin contratos ecuador",
+      "chatbot restaurantes precio",
+      "programa transformación digital 3 meses"
+    ],
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],

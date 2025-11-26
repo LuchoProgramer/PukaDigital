@@ -5,6 +5,10 @@ import { MessageCircle } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 import { useTranslation } from '@/lib/i18n';
 
+// WhatsApp number centralized
+const WHATSAPP_NUMBER = '593964065880';
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
+
 const FloatingWhatsApp: React.FC = () => {
   const { t } = useTranslation();
 
@@ -22,7 +26,7 @@ const FloatingWhatsApp: React.FC = () => {
       <div className="absolute inset-0 bg-puka-red rounded-full opacity-20 animate-[ping_2s_ease-in-out_infinite] group-hover:animate-none"></div>
       
       <a 
-        href="https://wa.me/" // Reemplazar con número real
+        href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}

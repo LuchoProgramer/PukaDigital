@@ -24,7 +24,15 @@ export async function generateMetadata({
   return {
     title: titles[locale],
     description: descriptions[locale],
-    keywords: ["contacto puka", "consulta gratis", "asesoría digital", "whatsapp puka", "entrevista gratuita"],
+    keywords: [
+      "consultoría digital gratuita ecuador",
+      "asesoría chatbot gratis",
+      "cotizar chatbot whatsapp",
+      "presupuesto página web ecuador",
+      "consulta gratis marketing digital",
+      "contactar agencia digital quito",
+      "pedir demo chatbot ia"
+    ],
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],

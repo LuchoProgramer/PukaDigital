@@ -24,7 +24,15 @@ export async function generateMetadata({
   return {
     title: titles[locale],
     description: descriptions[locale],
-    keywords: ["demo chatbot", "prueba erp", "calculadora roi", "demostración gratis", "sistemas en vivo"],
+    keywords: [
+      "probar chatbot whatsapp gratis",
+      "demo chatbot ia restaurante",
+      "calculadora retorno inversión marketing",
+      "prueba gratis erp pymes",
+      "demo sistema facturación sri",
+      "ver chatbot funcionando",
+      "ejemplo chatbot whatsapp business"
+    ],
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],
