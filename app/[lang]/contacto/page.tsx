@@ -5,6 +5,7 @@ import { Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 // Contact info centralized
 const CONTACT = {
@@ -16,6 +17,10 @@ const CONTACT = {
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
+
+  const handleWhatsAppClick = () => {
+    ga.trackWhatsAppDirectoClick('contact_page');
+  };
 
   return (
     <div className="py-20 bg-white dark:bg-gray-900 transition-colors">
@@ -40,6 +45,7 @@ const Contact: React.FC = () => {
                 href={CONTACT.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleWhatsAppClick}
                 className="flex items-start gap-4 group cursor-pointer"
               >
                 <div className="bg-puka-beige p-3 rounded-sm group-hover:bg-puka-red transition-colors">

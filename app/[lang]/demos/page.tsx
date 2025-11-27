@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Send, MoreVertical, Search, Phone, ArrowLeft, Check, CheckCheck, Paperclip, Smile, Loader2 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 // Configuración del API de Agentes IA
 const AGENTES_IA_API = 'https://messages-uq7ypdzlda-uc.a.run.app';
@@ -13,6 +14,11 @@ const DEMO_CODE = 'PUKA2024'; // Código de demo para Puka Digital
 
 const Demos: React.FC = () => {
   const { t, language } = useTranslation();
+  
+  // Track demo page view on mount
+  useEffect(() => {
+    ga.trackDemoPaginaVista('chatbot_whatsapp', 'viewed');
+  }, []);
   
   const data = [
     { name: '1 May', ventas: 4000, leads: 24 },

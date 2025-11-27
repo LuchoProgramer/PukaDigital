@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState, use, useRef } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BlogPost } from '@/types';
@@ -12,6 +12,7 @@ import OptimizedImage from '@/components/OptimizedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useTranslation } from '@/lib/i18n';
 import { getArticleSchema, getBreadcrumbSchema, type SupportedLocale } from '@/lib/schema';
+import * as ga from '@/lib/analytics';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -25,6 +26,44 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const { t, language } = useTranslation();
+  
+  // Scroll tracking refs
+  const startTime = useRef<number>(Date.now());
+  const scrollMilestones = useRef<Set<25 | 50 | 75 | 100>>(new Set());
+
+  // Scroll tracking effect
+  useEffect(() => {
+    if (!post) return;
+    
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (window.scrollY / scrollHeight) * 100;
+      const timeOnPage = Math.round((Date.now() - startTime.current) / 1000);
+      
+      const milestones: (25 | 50 | 75 | 100)[] = [25, 50, 75, 100];
+      for (const milestone of milestones) {
+        if (scrollPercent >= milestone && !scrollMilestones.current.has(milestone)) {
+          scrollMilestones.current.add(milestone);
+          
+          // Determine article category
+          const category = post.category?.toLowerCase().includes('precio') ? 'precios' 
+            : post.category?.toLowerCase().includes('automat') ? 'automatizacion'
+            : post.category?.toLowerCase().includes('caso') ? 'casos_exito'
+            : 'general';
+          
+          ga.trackBlogArticleLectura(
+            post.title,
+            category as 'precios' | 'automatizacion' | 'casos_exito' | 'general',
+            milestone,
+            timeOnPage
+          );
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [post]);
 
   useEffect(() => {
     const fetchPost = async () => {

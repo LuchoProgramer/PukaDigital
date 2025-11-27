@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 import { useTranslation } from '@/lib/i18n';
@@ -11,21 +11,38 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
 }) => {
   const { t } = useTranslation();
   
+  // Form state
+  const [businessName, setBusinessName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [growthBlocker, setGrowthBlocker] = useState('');
+  
   // Use prop title if provided, otherwise fallback to translated default title
   const displayTitle = title || t('form.title');
 
+  // Track scarcity indicator view
+  useEffect(() => {
+    ga.trackCuposDisponiblesVisto(5, 2);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // En una aplicación real, aquí iría la lógica de envío al servidor
     
-    // Track Conversión con híbrido (cliente + servidor)
-    // Esto asegura que la conversión se registre incluso con ad-blockers
-    await ga.trackConversion('generate_lead', {
-      form_name: displayTitle,
-      form_location: typeof window !== 'undefined' ? window.location.pathname : '',
+    // Track Conversión CRÍTICA con todos los datos
+    await ga.trackSolicitarEntrevista({
+      business_name: businessName,
+      user_name: userName,
+      whatsapp: whatsapp,
+      growth_blocker: growthBlocker || t('form.challenge_opt_1'),
     });
     
     alert("¡Gracias! Hemos recibido tu solicitud. Te contactaremos pronto.");
+    
+    // Reset form
+    setBusinessName('');
+    setUserName('');
+    setWhatsapp('');
+    setGrowthBlocker('');
   };
 
   return (
@@ -43,28 +60,53 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.business_name')}</label>
-          <input type="text" required className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" placeholder={t('form.business_placeholder')} />
+          <input 
+            type="text" 
+            required 
+            value={businessName}
+            onChange={(e) => setBusinessName(e.target.value)}
+            className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" 
+            placeholder={t('form.business_placeholder')} 
+          />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.your_name')}</label>
-            <input type="text" required className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" placeholder={t('form.name_placeholder')} />
+            <input 
+              type="text" 
+              required 
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" 
+              placeholder={t('form.name_placeholder')} 
+            />
           </div>
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.whatsapp')}</label>
-            <input type="tel" required className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" placeholder={t('form.whatsapp_placeholder')} />
+            <input 
+              type="tel" 
+              required 
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors placeholder-gray-400" 
+              placeholder={t('form.whatsapp_placeholder')} 
+            />
           </div>
         </div>
 
         <div>
            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.challenge')}</label>
-           <select className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors text-gray-700">
-             <option>{t('form.challenge_opt_1')}</option>
-             <option>{t('form.challenge_opt_2')}</option>
-             <option>{t('form.challenge_opt_3')}</option>
-             <option>{t('form.challenge_opt_4')}</option>
-             <option>{t('form.challenge_opt_5')}</option>
+           <select 
+             value={growthBlocker}
+             onChange={(e) => setGrowthBlocker(e.target.value)}
+             className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors text-gray-700"
+           >
+             <option value="">{t('form.challenge_opt_1')}</option>
+             <option value="no_web">{t('form.challenge_opt_2')}</option>
+             <option value="no_clients">{t('form.challenge_opt_3')}</option>
+             <option value="no_time">{t('form.challenge_opt_4')}</option>
+             <option value="other">{t('form.challenge_opt_5')}</option>
            </select>
         </div>
 

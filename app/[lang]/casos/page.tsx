@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ArrowRight, CheckCircle, Clock, Rocket, ExternalLink, Search, Star } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 import type { SupportedLocale } from '@/lib/schema';
 
 // Datos de los casos (después podemos moverlo a un archivo separado)
@@ -71,6 +72,16 @@ const CasosPage = () => {
   const completedCases = cases.filter(c => c.status === 'graduating' || c.status === 'completed');
   const inProgressCases = cases.filter(c => c.status === 'in-progress');
   const justStartedCases = cases.filter(c => c.status === 'just-started');
+
+  // Track case clicks
+  const handleCaseClick = async (caseName: 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq', industry: 'healthcare' | 'veterinary' | 'hospitality') => {
+    await ga.trackCasoExitoView(caseName, industry);
+  };
+
+  // Track external website clicks
+  const handleWebsiteClick = (caseName: string, websiteUrl: string) => {
+    ga.trackCasoLinkClick(caseName, websiteUrl, 'casos_page');
+  };
 
   // Breadcrumbs
   const breadcrumbItems = [
@@ -175,6 +186,10 @@ const CasosPage = () => {
                   <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                     <Link 
                       href={`/es/casos/${caso.slug}`}
+                      onClick={() => handleCaseClick(
+                        caso.business as 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq',
+                        caso.industry === 'Podología' ? 'healthcare' : caso.industry === 'Veterinaria' ? 'veterinary' : 'hospitality'
+                      )}
                       className="bg-puka-red text-white px-6 py-3 rounded-sm font-bold hover:bg-red-700 transition-colors inline-flex items-center gap-2"
                     >
                       Ver caso completo <ArrowRight size={18} />
@@ -183,6 +198,7 @@ const CasosPage = () => {
                       href={caso.website}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => handleWebsiteClick(caso.business, caso.website)}
                       className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-sm font-bold hover:border-puka-red hover:text-puka-red transition-colors inline-flex items-center gap-2"
                     >
                       Visitar web <ExternalLink size={18} />

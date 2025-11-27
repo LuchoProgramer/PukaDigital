@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Calculator, AlertTriangle, Skull, DollarSign } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 const ROICalculator: React.FC = () => {
   const { t } = useTranslation();
+  const hasTracked = useRef(false);
   
   // Estado inicial: Pago mensual y años
   const [monthlyPayment, setMonthlyPayment] = useState(200);
@@ -26,6 +28,16 @@ const ROICalculator: React.FC = () => {
     const calculatedDebt = monthlyPayment * totalMonths;
     setTotalDebt(calculatedDebt);
     setTimesCouldGraduate(Math.floor(calculatedDebt / pukaTotal));
+    
+    // Track calculator interaction (only once after user modifies values)
+    if (!hasTracked.current && (monthlyPayment !== 200 || yearsPayingSetter !== 2)) {
+      hasTracked.current = true;
+      ga.trackCalculadoraDeuda(
+        monthlyPayment,
+        `${yearsPayingSetter} años`,
+        calculatedDebt
+      );
+    }
     
     // Generar datos para el gráfico
     for (let month = 0; month <= totalMonths; month++) {

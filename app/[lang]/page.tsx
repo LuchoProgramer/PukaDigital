@@ -7,6 +7,7 @@ import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
 import ROICalculator from '@/components/ROICalculator';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -14,6 +15,15 @@ const Home: React.FC = () => {
   const scrollToForm = () => {
     const formElement = document.getElementById('start-now');
     formElement?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Track Hero CTA clicks
+  const handleAplicarClick = async () => {
+    await ga.trackAplicarPrograma('hero_section');
+  };
+
+  const handleVerSistemaClick = () => {
+    ga.trackVerSistemaGraduacion();
   };
 
   // Structured Data for FAQ - Comprehensive FAQ about Digital Independence Program
@@ -136,10 +146,18 @@ const Home: React.FC = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <a href="#start-now" className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              <a 
+                href="#start-now" 
+                onClick={handleAplicarClick}
+                className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
                 {t('home.cta_primary')}
               </a>
-              <a href="#como-funciona" className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+              <a 
+                href="#como-funciona" 
+                onClick={handleVerSistemaClick}
+                className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
+              >
                 {t('home.cta_secondary')}
               </a>
             </div>

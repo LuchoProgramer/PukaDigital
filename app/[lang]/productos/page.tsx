@@ -6,9 +6,15 @@ import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight
 import { PricingPlan } from '@/types';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
+
+  // Track module clicks
+  const handleModuleClick = (moduloName: 'CMS, Mapas & SEO' | 'ERP Cloud' | 'Chatbot IA', moduloNumber: 1 | 2 | 3) => {
+    ga.trackProductoModuloClick(moduloName, moduloNumber);
+  };
 
   const independentServices: PricingPlan[] = [
     {
@@ -263,7 +269,11 @@ const Products: React.FC = () => {
             {independentServices.map((plan, idx) => (
               <div 
                 key={idx} 
-                className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 ${
+                onClick={() => handleModuleClick(
+                  plan.id === 'cms' ? 'CMS, Mapas & SEO' : plan.id === 'erp' ? 'ERP Cloud' : 'Chatbot IA',
+                  (idx + 1) as 1 | 2 | 3
+                )}
+                className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 cursor-pointer ${
                   plan.highlighted 
                     ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10' 
                     : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900'

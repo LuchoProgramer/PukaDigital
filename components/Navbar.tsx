@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { NavItem } from '@/types';
 import { useTheme } from '@/lib/theme';
 import { useTranslation } from '@/lib/i18n';
+import * as ga from '@/lib/analytics';
 
 interface NavbarProps {
   lang?: string;
@@ -19,6 +20,23 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { t, language, setLanguage } = useTranslation();
+
+  // Track navigation
+  const handleNavClick = (toSection: string) => {
+    const currentSection = pathname.split('/').pop() || 'inicio';
+    ga.trackSeccionNavega(
+      currentSection, 
+      toSection as 'metodo' | 'programa' | 'casos' | 'blog' | 'demos' | 'nosotros' | 'productos' | 'contacto',
+      'menu'
+    );
+  };
+
+  // Track language change
+  const handleLanguageChange = (newLang: 'es' | 'en' | 'pt') => {
+    const oldLang = language as 'es' | 'en' | 'pt';
+    ga.trackIdiomaCambiado(oldLang, newLang);
+    setLanguage(newLang);
+  };
 
   // Dynamic Nav Items based on current language
   const navItems: NavItem[] = [
@@ -71,6 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               <Link
                 key={item.path}
                 href={item.path}
+                onClick={() => handleNavClick(item.path.split('/').pop() || 'inicio')}
                 className={`text-sm font-medium transition-colors hover:text-puka-red ${
                   pathname === item.path 
                     ? 'text-puka-red font-semibold' 
@@ -106,7 +125,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
                       <button
                         key={lang.code}
                         onClick={() => {
-                          setLanguage(lang.code);
+                          handleLanguageChange(lang.code);
                           setIsLangMenuOpen(false);
                         }}
                         className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 ${
@@ -145,7 +164,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               onClick={() => {
                 const order: ('es'|'en'|'pt')[] = ['es', 'en', 'pt'];
                 const nextIndex = (order.indexOf(language) + 1) % order.length;
-                setLanguage(order[nextIndex]);
+                handleLanguageChange(order[nextIndex]);
               }}
               className="p-2 text-puka-black dark:text-white font-bold text-xs border border-gray-200 dark:border-gray-700 rounded-sm"
             >

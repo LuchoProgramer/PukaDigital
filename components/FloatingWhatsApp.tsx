@@ -13,11 +13,7 @@ const FloatingWhatsApp: React.FC = () => {
   const { t } = useTranslation();
 
   const handleClick = () => {
-    ga.event({
-      action: 'click_whatsapp',
-      category: 'Contact',
-      label: 'Floating Widget',
-    });
+    ga.trackWhatsAppDirectoClick('float');
   };
 
   return (
