@@ -2,9 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Send, MoreVertical, Search, Phone, ArrowLeft, Check, CheckCheck, Paperclip, Smile } from 'lucide-react';
+import { Send, MoreVertical, Search, Phone, ArrowLeft, Check, CheckCheck, Paperclip, Smile, Loader2 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
+
+// Configuración del API de Agentes IA
+const AGENTES_IA_API = 'https://messages-uq7ypdzlda-uc.a.run.app';
+const DEMO_BOT_ID = 'demo-bot';
+const DEMO_CODE = 'PUKA2024'; // Código de demo para Puka Digital
 
 const Demos: React.FC = () => {
   const { t, language } = useTranslation();
@@ -22,6 +27,8 @@ const Demos: React.FC = () => {
   // Chat Demo State
   const [messages, setMessages] = useState<{role: 'user' | 'bot', text: string, time: string}[]>([]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [sessionId] = useState(() => `puka_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
   // Reset messages when language changes
   useEffect(() => {
@@ -34,22 +41,63 @@ const Demos: React.FC = () => {
     return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
   };
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const sendMessageToAPI = async (userMessage: string): Promise<string> => {
+    try {
+      const response = await fetch(AGENTES_IA_API, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          botId: DEMO_BOT_ID,
+          message: userMessage,
+          demoCode: DEMO_CODE,
+          sessionId: sessionId,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (response.status === 429) {
+          return errorData.message || 'Has alcanzado el límite de mensajes de la demo. ¡Contáctanos para más información!';
+        }
+        throw new Error(errorData.error || 'Error en el servidor');
+      }
+
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error al enviar mensaje:', error);
+      return 'Lo siento, hubo un error al procesar tu mensaje. Por favor intenta de nuevo.';
+    }
+  };
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+    
     const userMsg = input;
     const time = getCurrentTime();
     
     setMessages(prev => [...prev, { role: 'user', text: userMsg, time }]);
     setInput('');
+    setIsLoading(true);
     
-    // Simulate latency
-    setTimeout(() => {
+    try {
+      const botResponse = await sendMessageToAPI(userMsg);
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        text: t('demos.chat_auto_reply'), 
+        text: botResponse, 
         time: getCurrentTime()
       }]);
-    }, 1500);
+    } catch (error) {
+      setMessages(prev => [...prev, { 
+        role: 'bot', 
+        text: 'Lo siento, hubo un error. Por favor intenta de nuevo.', 
+        time: getCurrentTime()
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -116,6 +164,18 @@ const Demos: React.FC = () => {
                    </div>
                  </div>
                ))}
+               {/* Indicador de escritura */}
+               {isLoading && (
+                 <div className="flex justify-start">
+                   <div className="bg-white rounded-lg rounded-tl-none px-4 py-2 shadow-sm">
+                     <div className="flex items-center gap-1">
+                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                     </div>
+                   </div>
+                 </div>
+               )}
              </div>
 
              {/* Input Area */}
