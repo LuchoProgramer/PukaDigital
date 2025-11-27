@@ -22,7 +22,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
       icon: Home 
     },
     { 
-      label: 'Casos Reales', 
+      label: 'Casos de Éxito', 
       path: `/${lang}/casos`, 
       icon: Trophy 
     },
@@ -88,7 +88,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
                 strokeWidth={active ? 2.5 : 2} 
                 className={`mb-1 transition-transform ${active ? '-translate-y-0.5' : ''}`}
               />
-              <span className={`text-[10px] font-medium leading-none ${active ? 'font-bold' : ''}`}>
+              <span className={`text-[10px] font-medium leading-none text-center ${active ? 'font-bold' : ''}`}>
                 {item.label}
               </span>
             </Link>
