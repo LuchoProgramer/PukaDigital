@@ -14,15 +14,15 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   // Use prop title if provided, otherwise fallback to translated default title
   const displayTitle = title || t('form.title');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // En una aplicación real, aquí iría la lógica de envío al servidor
     
-    // Track Conversión
-    ga.event({
-      action: 'generate_lead',
-      category: 'Form',
-      label: displayTitle,
+    // Track Conversión con híbrido (cliente + servidor)
+    // Esto asegura que la conversión se registre incluso con ad-blockers
+    await ga.trackConversion('generate_lead', {
+      form_name: displayTitle,
+      form_location: typeof window !== 'undefined' ? window.location.pathname : '',
     });
     
     alert("¡Gracias! Hemos recibido tu solicitud. Te contactaremos pronto.");
