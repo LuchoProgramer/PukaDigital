@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'PukaDigital Leads <leads@pukadigital.com>',
+        from: 'PukaDigital Leads <leads@leads.pukadigital.com>',
         to: TO_EMAIL,
         subject: `🔴 Nuevo Lead: ${data.businessName} - ${data.userName}`,
         html: emailHtml,
