@@ -89,11 +89,17 @@ const CasoCristina = () => {
     'Servicios a domicilio: principal fuente de ingresos',
   ];
 
+  // Colores de marca PodoclinicEC
+  const brandColors = {
+    primary: '#60BEC3',    // Turquesa
+    secondary: '#79A373',  // Verde
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      {/* Hero con gradiente */}
-      <section className="bg-gradient-to-r from-puka-red to-red-700 text-white py-20">
+      {/* Hero con gradiente - Colores PodoclinicEC */}
+      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
@@ -135,7 +141,7 @@ const CasoCristina = () => {
               {/* Video overlay - para cuando tengas el video */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-sm opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
                 <div className="bg-white rounded-full p-6 shadow-xl">
-                  <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-puka-red border-b-8 border-b-transparent ml-1"></div>
+                  <div style={{ borderLeftColor: brandColors.primary }} className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-b-8 border-b-transparent ml-1"></div>
                 </div>
               </div>
             </div>
@@ -155,9 +161,9 @@ const CasoCristina = () => {
             </h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-6 rounded-sm text-center">
-                <TrendingUp className="mx-auto text-puka-red mb-3" size={32} />
-                <div className="text-4xl font-bold text-puka-red">33</div>
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900/20 dark:to-teal-800/20 p-6 rounded-sm text-center">
+                <TrendingUp style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
+                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">33</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Conversiones Google Ads</div>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-6 rounded-sm text-center">
@@ -181,10 +187,10 @@ const CasoCristina = () => {
       </section>
 
       {/* Cita destacada */}
-      <section className="py-16 bg-puka-beige dark:bg-amber-900/20">
+      <section style={{ backgroundColor: '#e8f5f5' }} className="py-16 dark:bg-teal-900/20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="text-6xl text-puka-red opacity-30 font-serif">"</div>
+            <div style={{ color: brandColors.primary }} className="text-6xl opacity-30 font-serif">"</div>
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-200 -mt-8">
               Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15. Ahora recibo pacientes por Google Ads, búsquedas orgánicas, y los servicios a domicilio explotaron.
             </blockquote>
@@ -194,7 +200,8 @@ const CasoCristina = () => {
                 alt="Cristina Muñoz"
                 width={60}
                 height={60}
-                className="rounded-full border-2 border-puka-red"
+                style={{ borderColor: brandColors.primary }}
+                className="rounded-full border-2"
               />
               <div className="text-left">
                 <p className="font-bold text-puka-black dark:text-white">Yadira Cristina Muñoz</p>
@@ -220,14 +227,17 @@ const CasoCristina = () => {
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-12 last:pb-0">
                   {/* Dot */}
-                  <div className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
-                    phase.completed ? 'bg-green-500' : 'bg-puka-red animate-pulse'
-                  }`} />
+                  <div 
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
+                      phase.completed ? 'bg-green-500' : 'animate-pulse'
+                    }`}
+                    style={!phase.completed ? { backgroundColor: brandColors.primary } : {}}
+                  />
                   
                   {/* Contenido */}
                   <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-sm">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className="bg-puka-red text-white px-3 py-1 rounded-sm text-sm font-bold">
+                      <span style={{ backgroundColor: brandColors.primary }} className="text-white px-3 py-1 rounded-sm text-sm font-bold">
                         {phase.month}
                       </span>
                       <span className="text-gray-500 dark:text-gray-400 text-sm">
@@ -255,7 +265,7 @@ const CasoCristina = () => {
                       <div className="flex gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         {phase.metrics.map((m, i) => (
                           <div key={i} className="bg-white dark:bg-gray-900 px-4 py-2 rounded-sm">
-                            <span className="text-2xl font-bold text-puka-red">{m.value}</span>
+                            <span style={{ color: brandColors.primary }} className="text-2xl font-bold">{m.value}</span>
                             <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">{m.label}</span>
                           </div>
                         ))}
@@ -380,7 +390,7 @@ const CasoCristina = () => {
             
             <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg">
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                Cada semana dedica <span className="font-bold text-puka-red">menos de 1 hora</span> a su gestión digital:
+                Cada semana dedica <span style={{ color: brandColors.primary }} className="font-bold">menos de 1 hora</span> a su gestión digital:
               </p>
               
               <div className="grid md:grid-cols-3 gap-4 mb-8">
@@ -407,7 +417,7 @@ const CasoCristina = () => {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 bg-puka-red text-white">
+      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="py-20 text-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             ¿Quieres Resultados Como Este?
@@ -417,7 +427,8 @@ const CasoCristina = () => {
           </p>
           <Link 
             href="/es/contacto"
-            className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            style={{ color: brandColors.primary }}
+            className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >
             Aplicar al Programa <ArrowRight size={24} />
           </Link>
