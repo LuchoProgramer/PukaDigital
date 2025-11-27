@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Loader2 } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 import { useTranslation } from '@/lib/i18n';
 
@@ -16,6 +16,8 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   const [userName, setUserName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [growthBlocker, setGrowthBlocker] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
   // Use prop title if provided, otherwise fallback to translated default title
   const displayTitle = title || t('form.title');
@@ -27,23 +29,75 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
     
-    // Track Conversión CRÍTICA con todos los datos
-    await ga.trackSolicitarEntrevista({
-      business_name: businessName,
-      user_name: userName,
-      whatsapp: whatsapp,
-      growth_blocker: growthBlocker || t('form.challenge_opt_1'),
-    });
-    
-    alert("¡Gracias! Hemos recibido tu solicitud. Te contactaremos pronto.");
-    
-    // Reset form
-    setBusinessName('');
-    setUserName('');
-    setWhatsapp('');
-    setGrowthBlocker('');
+    try {
+      // Track Conversión CRÍTICA con todos los datos
+      await ga.trackSolicitarEntrevista({
+        business_name: businessName,
+        user_name: userName,
+        whatsapp: whatsapp,
+        growth_blocker: growthBlocker || 'no_selection',
+      });
+      
+      // Send lead to email
+      const response = await fetch('/api/send-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName,
+          userName,
+          whatsapp,
+          growthBlocker,
+          source: typeof window !== 'undefined' ? window.location.pathname : 'unknown',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar');
+      }
+
+      setSubmitStatus('success');
+      
+      // Reset form after success
+      setBusinessName('');
+      setUserName('');
+      setWhatsapp('');
+      setGrowthBlocker('');
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  // Success message
+  if (submitStatus === 'success') {
+    return (
+      <div className={`bg-white p-6 md:p-8 rounded-sm shadow-xl border-t-4 border-green-500 ${className}`}>
+        <div className="text-center py-8">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle2 size={32} className="text-green-600" />
+          </div>
+          <h3 className="font-display font-bold text-2xl mb-2 text-puka-black">
+            ¡Solicitud Recibida!
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Te contactaremos en menos de 2 horas por WhatsApp.
+          </p>
+          <button 
+            onClick={() => setSubmitStatus('idle')}
+            className="text-puka-red font-medium hover:underline"
+          >
+            Enviar otra solicitud
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`bg-white p-6 md:p-8 rounded-sm shadow-xl border-t-4 border-puka-red ${className}`}>
@@ -110,8 +164,26 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
            </select>
         </div>
 
-        <button type="submit" className="w-full bg-puka-red text-white font-bold text-lg py-4 rounded-sm hover:bg-red-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200 flex items-center justify-center gap-2">
-          {t('form.submit')}
+        {/* Error message */}
+        {submitStatus === 'error' && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-sm text-sm">
+            Hubo un error al enviar. Por favor intenta de nuevo o escríbenos directamente por WhatsApp.
+          </div>
+        )}
+
+        <button 
+          type="submit" 
+          disabled={isSubmitting}
+          className="w-full bg-puka-red text-white font-bold text-lg py-4 rounded-sm hover:bg-red-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 size={20} className="animate-spin" />
+              Enviando...
+            </>
+          ) : (
+            t('form.submit')
+          )}
         </button>
         
         <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 uppercase tracking-wide">
