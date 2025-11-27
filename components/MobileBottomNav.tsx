@@ -23,7 +23,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
     },
     { 
       label: 'Casos Reales', 
-      path: `/${lang}/casos-exito`, 
+      path: `/${lang}/casos`, 
       icon: Trophy 
     },
     { 
