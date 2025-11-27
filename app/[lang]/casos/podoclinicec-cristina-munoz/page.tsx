@@ -323,7 +323,7 @@ const CasoCristina = () => {
       </section>
 
       {/* Sección de Verificación */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="py-16 text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">
