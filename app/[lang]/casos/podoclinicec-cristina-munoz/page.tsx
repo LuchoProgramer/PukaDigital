@@ -176,9 +176,9 @@ const CasoCristina = () => {
                 <div className="text-4xl font-bold text-yellow-600">3→15</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Reseñas Google</div>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-6 rounded-sm text-center">
-                <Globe className="mx-auto text-blue-600 mb-3" size={32} />
-                <div className="text-4xl font-bold text-blue-600">Top 3</div>
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900/20 dark:to-teal-800/20 p-6 rounded-sm text-center">
+                <Globe style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
+                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">Top 3</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Google Maps Quito Norte</div>
               </div>
             </div>
