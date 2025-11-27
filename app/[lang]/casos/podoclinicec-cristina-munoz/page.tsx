@@ -161,22 +161,22 @@ const CasoCristina = () => {
             </h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900/20 dark:to-teal-800/20 p-6 rounded-sm text-center">
+              <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <TrendingUp style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
                 <div style={{ color: brandColors.primary }} className="text-4xl font-bold">33</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Conversiones Google Ads</div>
               </div>
-              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-6 rounded-sm text-center">
-                <Users className="mx-auto text-green-600 mb-3" size={32} />
-                <div className="text-4xl font-bold text-green-600">+20</div>
+              <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
+                <Users style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
+                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">+20</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Pacientes Orgánicos/Mes</div>
               </div>
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 p-6 rounded-sm text-center">
-                <Star className="mx-auto text-yellow-600 mb-3" size={32} />
-                <div className="text-4xl font-bold text-yellow-600">3→15</div>
+              <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
+                <Star style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
+                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">3→15</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Reseñas Google</div>
               </div>
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900/20 dark:to-teal-800/20 p-6 rounded-sm text-center">
+              <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Globe style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
                 <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">Top 3</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Google Maps Quito Norte</div>
@@ -280,7 +280,7 @@ const CasoCristina = () => {
       </section>
 
       {/* Antes vs Después */}
-      <section className="py-16 bg-puka-black text-white">
+      <section style={{ backgroundColor: '#1a1a2e' }} className="py-16 text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">
@@ -289,14 +289,14 @@ const CasoCristina = () => {
             
             <div className="grid md:grid-cols-2 gap-8">
               {/* ANTES */}
-              <div className="bg-red-900/30 p-8 rounded-sm border border-red-500/30">
-                <h3 className="text-2xl font-bold mb-6 text-red-400 flex items-center gap-2">
+              <div className="bg-gray-800/50 p-8 rounded-sm border border-gray-600/30">
+                <h3 className="text-2xl font-bold mb-6 text-gray-400 flex items-center gap-2">
                   <X size={28} /> ANTES de Puka Digital
                 </h3>
                 <ul className="space-y-4">
                   {before.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <X className="text-red-400 shrink-0 mt-1" size={20} />
+                      <X className="text-gray-500 shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">{item}</span>
                     </li>
                   ))}
@@ -304,14 +304,14 @@ const CasoCristina = () => {
               </div>
               
               {/* DESPUÉS */}
-              <div className="bg-green-900/30 p-8 rounded-sm border border-green-500/30">
-                <h3 className="text-2xl font-bold mb-6 text-green-400 flex items-center gap-2">
+              <div style={{ backgroundColor: 'rgba(96, 190, 195, 0.15)', borderColor: brandColors.primary }} className="p-8 rounded-sm border">
+                <h3 style={{ color: brandColors.primary }} className="text-2xl font-bold mb-6 flex items-center gap-2">
                   <CheckCircle size={28} /> DESPUÉS de 90 Días
                 </h3>
                 <ul className="space-y-4">
                   {after.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle className="text-green-400 shrink-0 mt-1" size={20} />
+                      <CheckCircle style={{ color: brandColors.primary }} className="shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">{item}</span>
                     </li>
                   ))}
