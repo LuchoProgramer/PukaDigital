@@ -1,5 +1,5 @@
-// Replace with your actual Measurement ID
-export const GA_TRACKING_ID = 'G-PUKADIGITAL';
+// Google Analytics Measurement ID
+export const GA_TRACKING_ID = 'G-VSGYR0EJSZ';
 
 // Extend Window interface for gtag
 declare global {

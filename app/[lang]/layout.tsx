@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { LanguageProvider } from "@/lib/i18n";
@@ -9,6 +10,7 @@ import MobileBottomNav from "@/components/MobileBottomNav";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { i18n, type Locale } from "@/i18n.config";
 import { getGlobalSchemaGraph } from "@/lib/schema";
+import { GA_TRACKING_ID } from "@/lib/analytics";
 
 const geistSans = Geist({
   variable: "--font-futura",
@@ -174,6 +176,22 @@ export default async function LangLayout({
         <link rel="alternate" hrefLang="en" href="https://pukadigital.com/en" />
         <link rel="alternate" hrefLang="pt" href="https://pukadigital.com/pt" />
         <link rel="alternate" hrefLang="x-default" href="https://pukadigital.com/es" />
+        
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
         
         {/* Global Schema: Organization + LocalBusiness + WebSite */}
         <script
