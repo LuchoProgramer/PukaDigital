@@ -8,19 +8,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Get all blog posts dynamically
   const { posts } = await HybridCMSService.getAllPosts();
   
-  // Páginas estáticas para cada idioma
-  const staticPages = ['', '/productos', '/demos', '/blog', '/contacto'];
+  // Páginas estáticas principales para cada idioma
+  const staticPages = [
+    { path: '', priority: 1.0, changeFreq: 'weekly' as const },
+    { path: '/productos', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/demos', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/blog', priority: 0.8, changeFreq: 'daily' as const },
+    { path: '/contacto', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/nosotros', priority: 0.7, changeFreq: 'monthly' as const },
+    { path: '/casos', priority: 0.8, changeFreq: 'weekly' as const },
+  ];
+
+  // Páginas de productos específicos
+  const productPages = [
+    { path: '/chatbot-ia-whatsapp', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/desarrollo-web-pymes', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/sistema-erp-cloud', priority: 0.9, changeFreq: 'weekly' as const },
+  ];
+
+  // Casos de estudio (actualizados frecuentemente mientras están en progreso)
+  const caseStudyPages = [
+    { path: '/casos/podoclinicec-cristina-munoz', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/casos/healppypets-carla-tutistar', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/casos/hotel-eudiq-cafeteria-viviantes', priority: 0.8, changeFreq: 'weekly' as const },
+  ];
   
-  // Generar URLs para cada idioma
+  // Generar URLs para páginas estáticas en cada idioma
   const staticUrls: MetadataRoute.Sitemap = [];
   
   for (const locale of i18n.locales) {
+    // Páginas principales
     for (const page of staticPages) {
       staticUrls.push({
-        url: `${baseUrl}/${locale}${page}`,
+        url: `${baseUrl}/${locale}${page.path}`,
         lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: page === '' ? 1.0 : 0.8,
+        changeFrequency: page.changeFreq,
+        priority: page.priority,
+      });
+    }
+
+    // Páginas de productos
+    for (const page of productPages) {
+      staticUrls.push({
+        url: `${baseUrl}/${locale}${page.path}`,
+        lastModified: new Date(),
+        changeFrequency: page.changeFreq,
+        priority: page.priority,
+      });
+    }
+
+    // Casos de estudio
+    for (const page of caseStudyPages) {
+      staticUrls.push({
+        url: `${baseUrl}/${locale}${page.path}`,
+        lastModified: new Date(),
+        changeFrequency: page.changeFreq,
+        priority: page.priority,
       });
     }
   }
