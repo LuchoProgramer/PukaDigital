@@ -5,6 +5,16 @@ import Link from 'next/link';
 import { ArrowRight, ArrowLeft, CheckCircle, Clock, Rocket, ExternalLink, Calendar } from 'lucide-react';
 
 const CasoCarla = () => {
+  // Colores de marca HealppyPets
+  const brandColors = {
+    primary: '#FFB6C1',      // Rosa claro
+    primaryDark: '#FF8FA3',  // Rosa intenso
+    secondary: '#87CEEB',    // Celeste
+    accent: '#FFA500',       // Naranja
+    success: '#4CAF50',      // Verde
+    dark: '#2C3E50',         // Azul oscuro
+  };
+
   // Timeline del proceso
   const timeline = [
     {
@@ -67,7 +77,7 @@ const CasoCarla = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-yellow-500 to-amber-600 text-white py-20">
+      <section style={{ background: `linear-gradient(to right, ${brandColors.primaryDark}, ${brandColors.secondary})` }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
@@ -97,11 +107,11 @@ const CasoCarla = () => {
       </section>
 
       {/* Update más reciente */}
-      <section className="py-8 bg-yellow-50 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-800">
+      <section style={{ backgroundColor: '#FFF0F3' }} className="py-8 dark:bg-pink-900/20 border-b border-pink-200 dark:border-pink-800">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-start gap-4">
-              <div className="bg-yellow-500 text-white p-2 rounded-full">
+              <div style={{ backgroundColor: brandColors.primaryDark }} className="text-white p-2 rounded-full">
                 <Clock size={24} />
               </div>
               <div>
@@ -111,7 +121,7 @@ const CasoCarla = () => {
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
                   Carla completó su capacitación en gestión de Google Business. Esta semana comenzamos con la configuración de su primera campaña de Google Ads enfocada en emergencias veterinarias.
                 </p>
-                <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-3 font-medium">
+                <p style={{ color: brandColors.primaryDark }} className="text-sm dark:text-pink-400 mt-3 font-medium">
                   📅 Próximo update: 2 Diciembre 2025
                 </p>
               </div>
@@ -130,11 +140,11 @@ const CasoCarla = () => {
             
             <div className="grid md:grid-cols-4 gap-6">
               {achieved.map((item, i) => (
-                <div key={i} className="bg-green-50 dark:bg-green-900/20 p-6 rounded-sm text-center border border-green-200 dark:border-green-800">
+                <div key={i} style={{ backgroundColor: '#FFF0F3', borderColor: brandColors.primary }} className="dark:bg-pink-900/20 p-6 rounded-sm text-center border dark:border-pink-800">
                   <div className="text-4xl mb-3">{item.icon}</div>
                   <h3 className="font-bold text-puka-black dark:text-white mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
-                  <CheckCircle className="mx-auto mt-3 text-green-500" size={24} />
+                  <CheckCircle style={{ color: brandColors.primaryDark }} className="mx-auto mt-3" size={24} />
                 </div>
               ))}
             </div>
@@ -157,35 +167,44 @@ const CasoCarla = () => {
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-12 last:pb-0">
                   {/* Dot */}
-                  <div className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${
-                    phase.completed 
-                      ? 'bg-green-500' 
-                      : phase.current 
-                        ? 'bg-yellow-500 animate-pulse' 
-                        : 'bg-gray-300 dark:bg-gray-600'
-                  }`} />
+                  <div 
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${
+                      phase.completed 
+                        ? 'bg-green-500' 
+                        : phase.current 
+                          ? 'animate-pulse' 
+                          : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
+                    style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
+                  />
                   
                   {/* Contenido */}
-                  <div className={`p-6 rounded-sm ${
-                    phase.current 
-                      ? 'bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400' 
-                      : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
-                  }`}>
+                  <div 
+                    className={`p-6 rounded-sm ${
+                      phase.current 
+                        ? 'dark:bg-pink-900/20' 
+                        : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
+                    }`}
+                    style={phase.current ? { backgroundColor: '#FFF0F3', border: `2px solid ${brandColors.primaryDark}` } : {}}
+                  >
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className={`px-3 py-1 rounded-sm text-sm font-bold ${
-                        phase.current 
-                          ? 'bg-yellow-500 text-white' 
-                          : phase.completed 
-                            ? 'bg-green-500 text-white'
-                            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                      }`}>
+                      <span 
+                        className={`px-3 py-1 rounded-sm text-sm font-bold ${
+                          phase.current 
+                            ? 'text-white' 
+                            : phase.completed 
+                              ? 'bg-green-500 text-white'
+                              : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                        }`}
+                        style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
+                      >
                         {phase.month}
                       </span>
                       <span className="text-gray-500 dark:text-gray-400 text-sm">
                         {phase.date}
                       </span>
                       {phase.current && (
-                        <span className="text-yellow-600 dark:text-yellow-400 text-sm font-bold">
+                        <span style={{ color: brandColors.primaryDark }} className="dark:text-pink-400 text-sm font-bold">
                           ← ESTAMOS AQUÍ
                         </span>
                       )}
@@ -201,7 +220,7 @@ const CasoCarla = () => {
                           {phase.completed ? (
                             <CheckCircle size={16} className="text-green-500 mt-1 shrink-0" />
                           ) : phase.current ? (
-                            <Rocket size={16} className="text-yellow-500 mt-1 shrink-0" />
+                            <Rocket size={16} style={{ color: brandColors.primaryDark }} className="mt-1 shrink-0" />
                           ) : (
                             <Clock size={16} className="text-gray-400 mt-1 shrink-0" />
                           )}
@@ -225,11 +244,11 @@ const CasoCarla = () => {
               Próximos Pasos Esta Semana
             </h2>
             
-            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-sm border border-yellow-200 dark:border-yellow-800">
+            <div style={{ background: 'linear-gradient(to bottom right, #FFF0F3, #E6F7FF)' }} className="dark:from-pink-900/20 dark:to-cyan-900/20 p-8 rounded-sm border border-pink-200 dark:border-pink-800">
               <ul className="space-y-4">
                 {nextSteps.map((step, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                    <div className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div style={{ backgroundColor: brandColors.primaryDark }} className="w-8 h-8 text-white rounded-full flex items-center justify-center font-bold text-sm">
                       {i + 1}
                     </div>
                     {step}
@@ -255,7 +274,8 @@ const CasoCarla = () => {
               href="https://healppypets.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors inline-flex items-center gap-2"
+              style={{ backgroundColor: brandColors.primaryDark }}
+              className="text-white px-8 py-4 rounded-sm font-bold hover:opacity-90 transition-opacity inline-flex items-center gap-2"
             >
               Visitar healppypets.com <ExternalLink size={20} />
             </a>
@@ -264,7 +284,7 @@ const CasoCarla = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-puka-red text-white">
+      <section style={{ background: `linear-gradient(to right, ${brandColors.primaryDark}, ${brandColors.secondary})` }} className="py-20 text-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             ¿Quieres Tu Propio Proceso Documentado?
@@ -274,7 +294,8 @@ const CasoCarla = () => {
           </p>
           <Link 
             href="/es/contacto"
-            className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            style={{ color: brandColors.primaryDark }}
+            className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >
             Aplicar al Programa <ArrowRight size={24} />
           </Link>
