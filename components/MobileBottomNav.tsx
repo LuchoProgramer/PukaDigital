@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Package, BookOpen, PlayCircle } from 'lucide-react';
+import { Home, Package, BookOpen, PlayCircle, Trophy } from 'lucide-react';
 
 interface MobileBottomNavProps {
   lang?: string;
@@ -22,9 +22,9 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
       icon: Home 
     },
     { 
-      label: 'Productos', 
-      path: `/${lang}/productos`, 
-      icon: Package 
+      label: 'Casos Reales', 
+      path: `/${lang}/casos-exito`, 
+      icon: Trophy 
     },
     { 
       label: 'Empezar', 
