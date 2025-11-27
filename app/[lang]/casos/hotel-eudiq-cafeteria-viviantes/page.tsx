@@ -5,6 +5,13 @@ import Link from 'next/link';
 import { ArrowRight, ArrowLeft, CheckCircle, Clock, Rocket, ExternalLink, Calendar, Building, Coffee } from 'lucide-react';
 
 const CasoHotelEudiq = () => {
+  // Colores de marca Hotel Eudiq
+  const brandColors = {
+    primary: '#03A688',    // Verde/Teal
+    secondary: '#95BF39',  // Verde lima
+    light: '#F2F2F2',      // Gris muy claro
+  };
+
   // Timeline del proceso
   const timeline = [
     {
@@ -71,8 +78,8 @@ const CasoHotelEudiq = () => {
 
   // Lo que ya tienen
   const achieved = [
-    { icon: <Building className="text-blue-600" size={32} />, title: 'Web Hotel Eudiq', desc: 'Sitio profesional con SEO' },
-    { icon: <Coffee className="text-amber-600" size={32} />, title: 'Landing Viviantes', desc: 'Cafetería con menú digital' },
+    { icon: <Building style={{ color: brandColors.primary }} size={32} />, title: 'Web Hotel Eudiq', desc: 'Sitio profesional con SEO' },
+    { icon: <Coffee style={{ color: brandColors.secondary }} size={32} />, title: 'Landing Viviantes', desc: 'Cafetería con menú digital' },
     { icon: '📊', title: 'Analytics', desc: 'Métricas desde día 1' },
     { icon: '📝', title: 'Blog', desc: 'Contenido SEO activo' },
   ];
@@ -81,7 +88,7 @@ const CasoHotelEudiq = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-20">
+      <section style={{ backgroundColor: brandColors.primary }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
@@ -114,11 +121,11 @@ const CasoHotelEudiq = () => {
       </section>
 
       {/* Update más reciente */}
-      <section className="py-8 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
+      <section style={{ backgroundColor: '#E8F5F1' }} className="py-8 dark:bg-teal-900/20 border-b dark:border-teal-800" >
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-start gap-4">
-              <div className="bg-blue-600 text-white p-2 rounded-full">
+              <div style={{ backgroundColor: brandColors.primary }} className="text-white p-2 rounded-full">
                 <Rocket size={24} />
               </div>
               <div>
@@ -128,7 +135,7 @@ const CasoHotelEudiq = () => {
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
                   ¡Proyecto arrancado! En solo 1 semana ya tienen web del hotel con SEO, landing de la cafetería con menú digital, analytics configurado y blog activo. Esta semana nos enfocamos en entender por qué cada elemento es una herramienta de conversión.
                 </p>
-                <p className="text-sm text-blue-600 dark:text-blue-400 mt-3 font-medium">
+                <p style={{ color: brandColors.primary }} className="text-sm dark:text-teal-400 mt-3 font-medium">
                   📅 Próximo update: 2 Diciembre 2025
                 </p>
               </div>
@@ -150,7 +157,7 @@ const CasoHotelEudiq = () => {
             
             <div className="grid md:grid-cols-4 gap-6">
               {achieved.map((item, i) => (
-                <div key={i} className="bg-green-50 dark:bg-green-900/20 p-6 rounded-sm text-center border border-green-200 dark:border-green-800">
+                <div key={i} style={{ backgroundColor: '#E8F5F1', borderColor: brandColors.primary }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center border dark:border-teal-800">
                   <div className="flex justify-center mb-3">
                     {typeof item.icon === 'string' ? (
                       <span className="text-4xl">{item.icon}</span>
@@ -160,7 +167,7 @@ const CasoHotelEudiq = () => {
                   </div>
                   <h3 className="font-bold text-puka-black dark:text-white mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
-                  <CheckCircle className="mx-auto mt-3 text-green-500" size={24} />
+                  <CheckCircle style={{ color: brandColors.primary }} className="mx-auto mt-3" size={24} />
                 </div>
               ))}
             </div>
@@ -178,9 +185,9 @@ const CasoHotelEudiq = () => {
             
             <div className="grid md:grid-cols-2 gap-8">
               {/* Hotel Eudiq */}
-              <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border-2 border-blue-200 dark:border-blue-800">
+              <div style={{ borderColor: brandColors.primary }} className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border-2 dark:border-teal-800">
                 <div className="flex items-center gap-4 mb-6">
-                  <Building className="text-blue-600" size={40} />
+                  <Building style={{ color: brandColors.primary }} size={40} />
                   <div>
                     <h3 className="text-2xl font-bold text-puka-black dark:text-white">Hotel Eudiq</h3>
                     <p className="text-gray-600 dark:text-gray-400">Hospedaje en Loja</p>
@@ -210,16 +217,17 @@ const CasoHotelEudiq = () => {
                   href="https://hoteleudiq.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 font-bold hover:underline inline-flex items-center gap-1"
+                  style={{ color: brandColors.primary }}
+                  className="font-bold hover:underline inline-flex items-center gap-1"
                 >
                   hoteleudiq.com <ExternalLink size={16} />
                 </a>
               </div>
 
               {/* Cafetería Viviantes */}
-              <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border-2 border-amber-200 dark:border-amber-800">
+              <div style={{ borderColor: brandColors.secondary }} className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border-2 dark:border-lime-800">
                 <div className="flex items-center gap-4 mb-6">
-                  <Coffee className="text-amber-600" size={40} />
+                  <Coffee style={{ color: brandColors.secondary }} size={40} />
                   <div>
                     <h3 className="text-2xl font-bold text-puka-black dark:text-white">Cafetería Viviantes</h3>
                     <p className="text-gray-600 dark:text-gray-400">Gastronomía en Loja</p>
@@ -249,7 +257,8 @@ const CasoHotelEudiq = () => {
                   href="https://hoteleudiq.com/viviantes"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-amber-600 font-bold hover:underline inline-flex items-center gap-1"
+                  style={{ color: brandColors.secondary }}
+                  className="font-bold hover:underline inline-flex items-center gap-1"
                 >
                   Ver menú <ExternalLink size={16} />
                 </a>
@@ -274,37 +283,46 @@ const CasoHotelEudiq = () => {
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-10 last:pb-0">
                   {/* Dot */}
-                  <div className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
-                    phase.completed 
-                      ? 'bg-green-500' 
-                      : phase.current 
-                        ? 'bg-blue-500 animate-pulse' 
-                        : 'bg-gray-300 dark:bg-gray-600'
-                  }`} />
+                  <div 
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
+                      phase.completed 
+                        ? '' 
+                        : phase.current 
+                          ? 'animate-pulse' 
+                          : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
+                    style={phase.completed ? { backgroundColor: brandColors.primary } : phase.current ? { backgroundColor: brandColors.secondary } : {}}
+                  />
                   
                   {/* Contenido */}
-                  <div className={`p-5 rounded-sm ${
-                    phase.current 
-                      ? 'bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-400' 
-                      : phase.completed
-                        ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-                        : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
-                  }`}>
+                  <div 
+                    className={`p-5 rounded-sm ${
+                      phase.current 
+                        ? 'dark:bg-teal-900/20' 
+                        : phase.completed
+                          ? 'dark:bg-teal-900/20'
+                          : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                    }`}
+                    style={phase.current ? { backgroundColor: '#E8F5F1', border: `2px solid ${brandColors.secondary}` } : phase.completed ? { backgroundColor: '#E8F5F1', border: `1px solid ${brandColors.primary}` } : {}}
+                  >
                     <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <span className={`px-3 py-1 rounded-sm text-sm font-bold ${
-                        phase.current 
-                          ? 'bg-blue-500 text-white' 
-                          : phase.completed 
-                            ? 'bg-green-500 text-white'
-                            : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
-                      }`}>
+                      <span 
+                        className={`px-3 py-1 rounded-sm text-sm font-bold ${
+                          phase.current 
+                            ? 'text-white' 
+                            : phase.completed 
+                              ? 'text-white'
+                              : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
+                        }`}
+                        style={phase.current ? { backgroundColor: brandColors.secondary } : phase.completed ? { backgroundColor: brandColors.primary } : {}}
+                      >
                         {phase.week}
                       </span>
                       <span className="text-gray-500 dark:text-gray-400 text-sm">
                         {phase.date}
                       </span>
                       {phase.current && (
-                        <span className="text-blue-600 dark:text-blue-400 text-sm font-bold">
+                        <span style={{ color: brandColors.secondary }} className="dark:text-lime-400 text-sm font-bold">
                           ← AQUÍ
                         </span>
                       )}
@@ -318,9 +336,9 @@ const CasoHotelEudiq = () => {
                       {phase.items.map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
                           {phase.completed ? (
-                            <CheckCircle size={14} className="text-green-500 mt-0.5 shrink-0" />
+                            <CheckCircle size={14} style={{ color: brandColors.primary }} className="mt-0.5 shrink-0" />
                           ) : phase.current ? (
-                            <Rocket size={14} className="text-blue-500 mt-0.5 shrink-0" />
+                            <Rocket size={14} style={{ color: brandColors.secondary }} className="mt-0.5 shrink-0" />
                           ) : (
                             <Clock size={14} className="text-gray-400 mt-0.5 shrink-0" />
                           )}
@@ -337,7 +355,7 @@ const CasoHotelEudiq = () => {
       </section>
 
       {/* Esta semana */}
-      <section className="py-16 bg-blue-50 dark:bg-blue-900/20">
+      <section style={{ backgroundColor: '#E8F5F1' }} className="py-16 dark:bg-teal-900/20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6 text-puka-black dark:text-white">
@@ -345,7 +363,7 @@ const CasoHotelEudiq = () => {
             </h2>
             <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg max-w-2xl mx-auto">
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-4">
-                <strong className="text-puka-red">"¿Por qué una web es una máquina de conversiones?"</strong>
+                <strong style={{ color: brandColors.primary }}>"¿Por qué una web es una máquina de conversiones?"</strong>
               </p>
               <p className="text-gray-600 dark:text-gray-400">
                 No es un catálogo digital. Es un vendedor 24/7 que trabaja mientras duermes. 
@@ -358,7 +376,7 @@ const CasoHotelEudiq = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-puka-red text-white">
+      <section style={{ backgroundColor: brandColors.primary }} className="py-20 text-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             ¿Tienes un Negocio en Loja o Ecuador?
@@ -369,7 +387,8 @@ const CasoHotelEudiq = () => {
           </p>
           <Link 
             href="/es/contacto"
-            className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            style={{ color: brandColors.primary }}
+            className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >
             Aplicar al Programa <ArrowRight size={24} />
           </Link>

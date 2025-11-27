@@ -77,7 +77,7 @@ const CasoCarla = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
       {/* Hero */}
-      <section style={{ background: `linear-gradient(to right, ${brandColors.primaryDark}, ${brandColors.secondary})` }} className="text-white py-20">
+      <section style={{ backgroundColor: brandColors.primaryDark }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
@@ -244,7 +244,7 @@ const CasoCarla = () => {
               Próximos Pasos Esta Semana
             </h2>
             
-            <div style={{ background: 'linear-gradient(to bottom right, #FFF0F3, #E6F7FF)' }} className="dark:from-pink-900/20 dark:to-cyan-900/20 p-8 rounded-sm border border-pink-200 dark:border-pink-800">
+            <div style={{ backgroundColor: '#FFF0F3' }} className="dark:bg-pink-900/20 p-8 rounded-sm border border-pink-200 dark:border-pink-800">
               <ul className="space-y-4">
                 {nextSteps.map((step, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
@@ -284,7 +284,7 @@ const CasoCarla = () => {
       </section>
 
       {/* CTA */}
-      <section style={{ background: `linear-gradient(to right, ${brandColors.primaryDark}, ${brandColors.secondary})` }} className="py-20 text-white">
+      <section style={{ backgroundColor: brandColors.primaryDark }} className="py-20 text-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             ¿Quieres Tu Propio Proceso Documentado?

@@ -98,8 +98,8 @@ const CasoCristina = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      {/* Hero con gradiente - Colores PodoclinicEC */}
-      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="text-white py-20">
+      {/* Hero - Colores PodoclinicEC */}
+      <section style={{ backgroundColor: brandColors.primary }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
@@ -323,7 +323,7 @@ const CasoCristina = () => {
       </section>
 
       {/* Sección de Verificación */}
-      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="py-16 text-white">
+      <section style={{ backgroundColor: brandColors.primary }} className="py-16 text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">
@@ -417,7 +417,7 @@ const CasoCristina = () => {
       </section>
 
       {/* CTA Final */}
-      <section style={{ background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})` }} className="py-20 text-white">
+      <section style={{ backgroundColor: brandColors.primary }} className="py-20 text-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
             ¿Quieres Resultados Como Este?
