@@ -17,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/contacto', priority: 0.8, changeFreq: 'monthly' as const },
     { path: '/nosotros', priority: 0.7, changeFreq: 'monthly' as const },
     { path: '/casos', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/preguntas-frecuentes', priority: 0.8, changeFreq: 'monthly' as const },
   ];
 
   // Páginas de productos específicos

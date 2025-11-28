@@ -164,6 +164,7 @@ R: Sí. PodoclinicEC (podología en Quito): 53 consultas mensuales. HealppyPets 
 
 - [Inicio](https://pukadigital.com/es)
 - [Productos y Precios](https://pukadigital.com/es/productos)
+- [Preguntas Frecuentes](https://pukadigital.com/es/preguntas-frecuentes)
 - [Blog](https://pukadigital.com/es/blog)
 - [Demos](https://pukadigital.com/es/demos)
 - [Contacto](https://pukadigital.com/es/contacto)
