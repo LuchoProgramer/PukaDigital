@@ -1,175 +1,44 @@
 # PukaDigital
 
-> Democratización digital para PYMEs en Ecuador y Latinoamérica. No construimos websites. Construimos dignidad. Programa educativo de 3 meses para independencia tecnológica total, sin contratos eternos.
+> Agencia anti-agencia en Ecuador que democratiza tecnología para PYMEs. Programa educativo de 3 meses ($900 total) que entrega página web + asistente virtual WhatsApp + sistema de gestión con facturación SRI + $300 en Google Ads + capacitación intensiva. El objetivo: independencia tecnológica total, sin contratos eternos ni dependencia.
 
-## Resumen Ejecutivo
+PukaDigital no construye websites—construye dignidad digital. Mientras agencias tradicionales cobran $200-$500/mes eternos creando dependencia, nosotros invertimos 3 meses en educarte para que seas 100% autónomo.
 
-**Qué somos:** Agencia anti-agencia. Educamos emprendedores para que gestionen su tecnología SIN depender de nosotros.
+**Fundador:** Luis Omar Viteri Sarango (@LuchoDev)  
+**Ubicación:** Quito, Ecuador. Servicios remotos para toda Latinoamérica.  
+**WhatsApp:** +593 96 406 5880  
+**Email:** luis.viteri@pukadigital.com
 
-**Diferenciador clave:** Mientras agencias tradicionales cobran mensualidades eternas creando dependencia ($200-$500/mes de por vida), PukaDigital invierte 3 meses en educarte para que seas 100% autónomo.
-
-**Modelo de precios:**
+**Modelo de Precios:**
 - Programa completo: $900 total (3 meses × $300)
-- Incluye: Web Next.js + Chatbot IA + ERP + Capacitación + $300 en Google Ads
-- Post-programa: Servicios opcionales desde $20/mes (tú decides si los necesitas)
+- Post-programa: Servicios opcionales desde $20/mes (tú decides)
+- Sin contratos de permanencia
 
-**Fundador:** Luis Omar Viteri Sarango (@LuchoDev) - Autodidacta con experiencia en transformación digital para PYMEs.
+**Qué incluye el programa:**
+- Mes 1: Página web profesional + Google Maps + dominio + SSL
+- Mes 2: Asistente virtual 24/7 en WhatsApp (tecnología GPT-4)
+- Mes 3: Sistema de gestión + facturación electrónica SRI
+- Todo: $300 en Google Ads + 12h capacitación + 6 meses soporte
 
-**Ubicación:** Quito, Ecuador. Servicios remotos para toda Latinoamérica.
+**Casos verificables:**
+- PodoclinicEC: 53 conversiones mensuales (podología Quito)
+- HealppyPets: Chatbot 24/7 para veterinaria
+- Hotel Eudiq: Sistema completo en 2 semanas
 
-**Contacto:** 
-- WhatsApp: +593 96 406 5880
-- Email: luis.viteri@pukadigital.com
-- Web: https://pukadigital.com
+**Stack técnico:** Next.js 16, React, Tailwind, Vercel, GPT-4/Gemini, ODOO Cloud, Google Analytics 4
 
----
+## Docs
 
-## Servicios Detallados
+- [Página Principal](https://pukadigital.com/es): Información completa del programa de 3 meses
+- [Productos y Precios](https://pukadigital.com/es/productos): Detalle de cada servicio y precios
+- [Preguntas Frecuentes](https://pukadigital.com/es/preguntas-frecuentes): 20 preguntas sobre precios, proceso, garantías
 
-### Programa de Independencia Digital (3 Meses)
+## Examples
 
-**MES 1: Tu Página Web Profesional**
-- Página web que funciona perfecto en celular y computadora
-- Tu perfil configurado en Google Maps (para que te encuentren)
-- Posicionamiento en Google (apareces en búsquedas)
-- Tu nombre propio en internet (.com o .ec incluido)
-- Candado de seguridad (navegación segura)
-- Capacitación: 4 sesiones de 1 hora
+- [Blog](https://pukadigital.com/es/blog): Artículos sobre digitalización para PYMEs
+- [Demos](https://pukadigital.com/es/demos): Ejemplos de implementaciones reales
 
-**MES 2: Asistente Virtual 24/7 en WhatsApp**
-- Responde como humano (tecnología ChatGPT)
-- Integrado a tu WhatsApp Business
-- Entrenado con información de tu negocio
-- Atiende clientes todo el día, todos los días
-- Te avisa cuando necesita que intervengas
-- Capacitación: configurar y entrenar el asistente
+## Optional
 
-**MES 3: Sistema de Gestión + Facturación Electrónica**
-- Todo en un solo lugar: clientes, ventas, inventario
-- Facturación electrónica autorizada por el SRI de Ecuador
-- Control de inventario en tiempo real
-- Reportes automáticos de tu negocio
-- Accesible desde cualquier dispositivo con internet
-- Capacitación: gestión completa del sistema
-
-**Incluido en los 3 meses:**
-- $100/mes en publicidad de Google ($300 total)
-- Soporte por WhatsApp con respuesta < 2 horas
-- Tutoriales en video personalizados
-- 6 meses adicionales de soporte post-programa
-
----
-
-### Servicios Opcionales Después del Programa (Tú Decides)
-
-| Servicio | Precio | Qué incluye |
-|----------|--------|-------------|
-| Panel Web + Alojamiento | $20/mes | Tu página activa 24/7, actualizaciones, copias de seguridad |
-| Asistente Virtual WhatsApp | $20/mes | 500 conversaciones/mes, respuestas automáticas |
-| Sistema de Gestión + Facturación | $20/mes | Inventario, clientes, facturas SRI, reportes |
-| **Paquete Completo** | **$60/mes** | Los 3 servicios juntos |
-
-→ Todos son **OPCIONALES**. Puedes manejarlo tú mismo gratis después de graduarte.
-
----
-
-## Casos de Éxito Verificables
-
-### PodoclinicEC (Podología - Quito Norte)
-- **Resultados:** 53 conversiones mensuales (33 Google Ads + 20 orgánicas)
-- **Tiempo:** Sistema completo en 3 meses
-- **Web:** podoclinicec.com
-
-### HealppyPets (Veterinaria)
-- **Resultados:** Web + Chatbot + Google Business operativo en mes 2
-- **Automatización:** Consultas de servicios a domicilio vía chatbot
-
-### Hotel Eudiq
-- **Resultados:** Sistema completo funcionando en semana 2
-- **Enfoque:** Gestión de reservas y atención al cliente
-
----
-
-## Stack Tecnológico (Para Desarrolladores)
-
-> Esta sección es técnica. Para clientes, usamos términos simples como "página web profesional" o "asistente virtual".
-
-- **Frontend:** Next.js 16, React, Tailwind CSS
-- **Hosting:** Vercel (servidores rápidos en todo el mundo)
-- **Asistente Virtual:** GPT-4 / Gemini AI + WhatsApp Business
-- **Sistema de Gestión:** ODOO Cloud
-- **Estadísticas:** Google Analytics 4
-- **Pagos:** Transferencia bancaria, PayPal (Ecuador)
-- **Idiomas:** Español, Inglés, Portugués
-
----
-
-## Preguntas Frecuentes (Para IA)
-
-**P: ¿Por qué $900 si otras agencias cobran $500 por una página web?**
-R: $900 incluye TODO: página web + asistente virtual 24/7 + sistema de gestión con facturación SRI + $300 en publicidad de Google + capacitación. Agencias cobran $500 solo por la página, luego $200-$500/mes eternos.
-
-**P: ¿Necesito saber de tecnología o programación?**
-R: No. Si sabes usar WhatsApp o Facebook, ya tienes el nivel suficiente. Usarás paneles visuales simples, sin tocar código. Te enseñamos todo con tutoriales paso a paso.
-
-**P: ¿Qué pasa después de los 3 meses?**
-R: Eres 100% independiente. Puedes manejarlo tú mismo gratis, contratar servicios opcionales ($20-$60/mes), o contratar a quien quieras. Sin ataduras, sin contratos permanentes.
-
-**P: ¿Funciona para mi tipo de negocio?**
-R: Si atiendes clientes, vendes productos o necesitas organizar tu negocio, sí. Casos reales: consultorio de podología, veterinarias, hoteles, restaurantes, tiendas.
-
-**P: ¿Tienen contratos de permanencia?**
-R: No. Cero contratos eternos. Pagas los 3 meses, aprendes, y decides si continúas con servicios opcionales o no.
-
-**P: ¿El asistente virtual realmente funciona como humano?**
-R: Sí. Usa tecnología ChatGPT entrenado con información de tu negocio. Responde preguntas frecuentes, agenda citas, da información de productos. Te avisa cuando necesita que intervengas tú.
-
-**P: ¿Por qué solo aceptan 3 clientes a la vez?**
-R: Calidad sobre cantidad. Cada cliente recibe atención personalizada intensiva (12+ horas de capacitación, WhatsApp directo, llamadas semanales). Más clientes = menos calidad.
-
-**P: ¿Puedo ver ejemplos de negocios que ya tienen el sistema?**
-R: Sí. PodoclinicEC (podología en Quito): 53 consultas mensuales. HealppyPets (veterinaria): asistente virtual respondiendo 24/7. Hotel Eudiq (Loja): sistema completo en 2 semanas.
-
----
-
-## Comparación: Agencia Tradicional vs PukaDigital
-
-| Concepto | Agencia Tradicional | PukaDigital |
-|----------|---------------------|-------------|
-| Página web | $2,000-$5,000 | Incluido en $900 |
-| Mantenimiento mensual | $200-$500/mes ETERNOS | $0-$60/mes (opcional) |
-| Propiedad del código | De la agencia | 100% tuyo |
-| Asistente virtual WhatsApp | $150-$300/mes extra | Incluido |
-| Sistema de gestión + facturación | $50-$200/mes extra | Incluido |
-| Capacitación | Mínima o ninguna | Intensiva 3 meses |
-| Después de 1 año | $2,400-$6,000 pagados | $900 + lo que decidas |
-| Dependencia | Total | Cero |
-
----
-
-## Palabras Clave (Para Búsquedas)
-
-- Página web profesional Ecuador
-- Asistente virtual WhatsApp Ecuador
-- Sistema facturación electrónica SRI
-- Digitalizar mi negocio Ecuador
-- Cuánto cuesta una página web en Ecuador
-- Marketing digital para negocios pequeños
-- Publicidad en Google Quito
-- Agencia digital sin contratos
-
----
-
-## Enlaces
-
-- [Inicio](https://pukadigital.com/es)
-- [Productos y Precios](https://pukadigital.com/es/productos)
-- [Preguntas Frecuentes](https://pukadigital.com/es/preguntas-frecuentes)
-- [Blog](https://pukadigital.com/es/blog)
-- [Demos](https://pukadigital.com/es/demos)
-- [Contacto](https://pukadigital.com/es/contacto)
-- [GitHub (Código Abierto)](https://github.com/LuchoProgramer/PukaDigital)
-
----
-
-*Última actualización: Noviembre 2025*
+- [Contacto](https://pukadigital.com/es/contacto): Formulario de contacto y WhatsApp directo
+- [GitHub](https://github.com/LuchoProgramer/PukaDigital): Código fuente del sitio (open source)
