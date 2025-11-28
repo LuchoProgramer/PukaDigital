@@ -26,93 +26,62 @@ const Home: React.FC = () => {
     ga.trackVerSistemaGraduacion();
   };
 
-  // Structured Data for FAQ - Comprehensive FAQ about Digital Independence Program
-  const faqSchema = {
+  // Service Schema for homepage - Better than FAQPage for our business type
+  // FAQPage is now restricted to government/health sites per Google Nov 2025 guidelines
+  const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": "https://pukadigital.com/#faqpage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "¿Cuánto cuesta realmente una página web en Ecuador con PukaDigital?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El programa de 3 meses cuesta $300 mensuales ($900 total) e incluye: desarrollo web completo, chatbot IA, sistema ERP, capacitación intensiva y $100/mes en Google Ads. A diferencia de agencias tradicionales que cobran entre $800-$5000 solo por diseño, nosotros enseñamos a gestionar todo tu ecosistema digital con independencia total."
+    "@type": "Service",
+    "@id": "https://pukadigital.com/#programa-independencia",
+    "serviceType": "Digital Transformation Education",
+    "name": "Programa de Independencia Digital",
+    "description": "3 meses de capacitación intensiva para que PYMEs gestionen su tecnología sin depender de agencias. Incluye sitio web, chatbot IA, ERP y $300 en Google Ads.",
+    "provider": {
+      "@id": "https://pukadigital.com/#organization"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Ecuador"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Módulos del Programa",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mes 1: Desarrollo Web",
+            "description": "Sitio web Next.js, hosting Vercel, dominio, SEO básico"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mes 2: Chatbot IA",
+            "description": "Asistente virtual GPT-4, WhatsApp Business, respuestas 24/7"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mes 3: ERP Cloud",
+            "description": "Sistema ODOO, inventario, CRM, facturación electrónica SRI"
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Qué incluye el programa de Independencia Digital de 3 meses?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "MES 1: Desarrollo web completo con Next.js, hosting en Vercel, dominio personalizado y SEO básico. MES 2: Chatbot IA conectado a WhatsApp con base de conocimiento personalizada y respuestas automáticas 24/7. MES 3: Sistema ERP cloud con gestión de inventario, CRM, facturación electrónica e integración con ODOO. Todo incluye capacitación para que gestiones tu tecnología sin dependencias."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Necesito conocimientos técnicos previos para el programa?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No se requieren conocimientos técnicos previos. El programa está diseñado para dueños de PYMEs sin experiencia en programación. Enseñamos todo desde cero: editar tu sitio web, configurar respuestas del chatbot, gestionar inventario en el ERP, interpretar analíticas y administrar campañas de Google Ads. Al finalizar los 3 meses, tendrás autonomía total sobre tu infraestructura digital."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Cuánto cuesta mantener los servicios después del programa de 3 meses?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Después del programa inicial, puedes elegir módulos según necesites: CMS + Hosting ($20/mes), Chatbot IA WhatsApp ($20/mes), Sistema ERP Cloud ($20/mes). Total máximo: $60 mensuales por los 3 módulos. Esto reemplaza costos típicos de: hosting ($15-50), mantenimiento web ($100-300), licencia CRM ($50-200) y soporte técnico ($150-400). Ahorras más del 80% mensual versus agencias tradicionales."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿En qué se diferencia PukaDigital de otras agencias digitales en Ecuador?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "La diferencia fundamental es nuestra filosofía de INDEPENDENCIA vs DEPENDENCIA. Agencias tradicionales: te cobran $2000-$5000 por diseño inicial, luego $200-$500 mensuales eternos por mantenimiento, actualizaciones y soporte. PukaDigital: invertimos 3 meses en educarte para gestionar TODO tú mismo. No queremos clientes cautivos, queremos emprendedores digitalmente autónomos. No construimos dependencia, construimos dignidad."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Funciona para cualquier tipo de negocio o solo para tech startups?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El programa está diseñado específicamente para PYMEs tradicionales: restaurantes, tiendas, consultorías, talleres mecánicos, salones de belleza, cafeterías, distribuidoras, etc. Ejemplos reales: PodoclinicEC (53 conversiones mensuales), HealppyPets veterinaria (web + chatbot + Google Business en mes 2), Hotel Eudiq (sistema completo en semana 2). Si tu negocio atiende clientes, vende productos o necesita organizar operaciones, este programa es para ti."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Qué pasa si no logro aprender en 3 meses?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El programa incluye soporte extendido de 6 meses adicionales sin costo. Sesiones semanales de capacitación en vivo, acceso ilimitado a documentación en video, grupo privado de WhatsApp con respuesta en menos de 2 horas. Nuestro récord: 94% de clientes gestionan su web de forma autónoma al mes 2. Si después de 9 meses totales no logras autonomía, evaluamos caso por caso para garantizar tu éxito."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿El chatbot IA realmente puede atender clientes como un humano?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El chatbot usa GPT-4 con base de conocimiento personalizada de tu negocio. Puede: responder preguntas frecuentes, dar información de productos/precios, agendar citas, calificar leads, derivar casos complejos a humanos. Limitaciones: no maneja quejas emocionales complejas ni negociaciones de alto valor. Caso real: PodoclinicEC automatizó consultas de servicios a domicilio, aumentando 33 conversiones por Google Ads y 20 orgánicas."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Puedo migrar mi web actual o debo empezar desde cero?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Analizamos tu sitio actual sin costo en la entrevista inicial. Si está en WordPress, Wix o similar, migramos contenido (textos, imágenes, estructura) manteniendo tu identidad visual. Si está en tecnología obsoleta o con código propietario de agencia, recomendamos reconstrucción con Next.js para garantizar que TÚ tengas control total del código. La migración está incluida en el programa sin costos extra."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Los $100/mes en Google Ads están incluidos para siempre?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Los $100 mensuales en Google Ads están incluidos SOLO durante el programa de 3 meses (total $300 en publicidad gratis). Esto permite probar campañas reales, aprender gestión de presupuesto y validar keywords rentables para tu negocio. Después del mes 3, decides si continúas invirtiendo en Ads (recomendado $150-300/mes) o te enfocas solo en tráfico orgánico SEO. Te enseñamos ambas estrategias para que elijas según tu ROI."
-        }
-      }
-    ]
+      ]
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "900",
+      "priceCurrency": "USD",
+      "description": "$300/mes por 3 meses. Incluye $100/mes en Google Ads.",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/LimitedAvailability",
+      "availabilityStarts": "2025-01-01",
+      "url": "https://pukadigital.com/contacto"
+    }
   };
 
   return (
@@ -121,7 +90,7 @@ const Home: React.FC = () => {
         title={t('home.hero_title_2')}
         description={t('home.hero_desc')}
         keywords="independencia digital, agencia marketing digital ecuador, chatbot ia pymes, sistema erp ecuador, puka digital quito"
-        structuredData={faqSchema}
+        structuredData={serviceSchema}
       />
 
       {/* HERO SECTION */}

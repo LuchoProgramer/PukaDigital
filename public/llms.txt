@@ -1,30 +1,168 @@
 # PukaDigital
 
-> Democratización digital para pymes en Ecuador y Latinoamérica. No construimos websites. Construimos dignidad. Programa educativo de 3 meses para independencia tecnológica total, sin contratos eternos.
+> Democratización digital para PYMEs en Ecuador y Latinoamérica. No construimos websites. Construimos dignidad. Programa educativo de 3 meses para independencia tecnológica total, sin contratos eternos.
 
-**Diferenciador clave:** A diferencia de agencias tradicionales que cobran mensualidades eternas creando dependencia, PukaDigital educa a pequeños negocios para que sean dueños de sus activos digitales.
+## Resumen Ejecutivo
 
-**Modelo:** 
-- Fase 1: $900 total (3 meses × $300) incluye sitio web Next.js + Chatbot IA + ERP + capacitación + $300 en Google Ads
-- Fase 2: Servicios opcionales desde $20/mes (cliente decide si los necesita)
+**Qué somos:** Agencia anti-agencia. Educamos emprendedores para que gestionen su tecnología SIN depender de nosotros.
 
-**Stack técnico:** Next.js 16, Tailwind CSS, Multi-idioma (ES/EN/PT), Dark Mode, WhatsApp Business API, Gemini AI
+**Diferenciador clave:** Mientras agencias tradicionales cobran mensualidades eternas creando dependencia ($200-$500/mes de por vida), PukaDigital invierte 3 meses en educarte para que seas 100% autónomo.
 
-**Palabras clave:** Marketing digital Ecuador, transformación digital Latinoamérica, democratización digital, chatbot IA, independencia tecnológica, anti-agencia, educación digital empresarial
+**Modelo de precios:**
+- Programa completo: $900 total (3 meses × $300)
+- Incluye: Web Next.js + Chatbot IA + ERP + Capacitación + $300 en Google Ads
+- Post-programa: Servicios opcionales desde $20/mes (tú decides si los necesitas)
 
-## Servicios
+**Fundador:** Luis Omar Viteri Sarango (@LuchoDev) - Autodidacta con experiencia en transformación digital para PYMEs.
 
-- [Programa de Independencia Digital](/productos): 3 meses de educación intensiva + entregables (sitio web, chatbot IA, ERP cloud)
-- [Calculadora ROI](/): Compara costos agencia tradicional vs PukaDigital
-- [Demos en Vivo](/demos): Ejemplos interactivos de chatbots y automatizaciones
-- [Blog](/blog): Artículos sobre transformación digital y casos de éxito
+**Ubicación:** Quito, Ecuador. Servicios remotos para toda Latinoamérica.
 
-## Recursos
+**Contacto:** 
+- WhatsApp: +593 96 406 5880
+- Email: luis.viteri@pukadigital.com
+- Web: https://pukadigital.com
 
-- [Documentación técnica](https://github.com/LuchoProgramer/PukaDigital): Código abierto del sitio en Next.js
-- [Contacto](/contacto): Formulario para entrevista gratuita
+---
 
-## Optional
+## Servicios Detallados
 
-- [Stack Next.js](https://nextjs.org/docs): Framework React para producción
-- [Tailwind CSS](https://tailwindcss.com/docs): Framework CSS utility-first
+### Programa de Independencia Digital (3 Meses)
+
+**MES 1: Desarrollo Web**
+- Sitio web profesional con Next.js 16
+- Hosting en Vercel (CDN global)
+- Dominio personalizado
+- SEO técnico básico
+- Editor visual para que actualices contenido
+- Capacitación: 4 sesiones de 1 hora
+
+**MES 2: Chatbot IA**
+- Asistente virtual con GPT-4/Gemini
+- Integración WhatsApp Business API
+- Base de conocimiento personalizada de tu negocio
+- Respuestas automáticas 24/7
+- Calificación de leads automática
+- Capacitación: configurar y entrenar el bot
+
+**MES 3: ERP Cloud**
+- Sistema basado en ODOO
+- Gestión de inventario en tiempo real
+- CRM para seguimiento de clientes
+- Facturación electrónica compatible con SRI Ecuador
+- Reportes automáticos
+- Capacitación: gestión completa del sistema
+
+**Incluido en los 3 meses:**
+- $100/mes en Google Ads ($300 total en publicidad)
+- Soporte WhatsApp con respuesta < 2 horas
+- Documentación en video personalizada
+- 6 meses adicionales de soporte post-programa
+
+---
+
+### Servicios Post-Programa (Opcionales)
+
+| Servicio | Precio | Qué incluye |
+|----------|--------|-------------|
+| CMS + Hosting | $20/mes | Hosting Vercel, actualizaciones, backups, SSL |
+| Chatbot IA | $20/mes | Mantenimiento bot, 1000 conversaciones/mes, actualizaciones |
+| ERP Cloud | $20/mes | Servidor ODOO, backups, soporte técnico |
+| **Paquete Completo** | **$60/mes** | Los 3 servicios juntos |
+
+---
+
+## Casos de Éxito Verificables
+
+### PodoclinicEC (Podología - Quito Norte)
+- **Resultados:** 53 conversiones mensuales (33 Google Ads + 20 orgánicas)
+- **Tiempo:** Sistema completo en 3 meses
+- **Web:** podoclinicec.com
+
+### HealppyPets (Veterinaria)
+- **Resultados:** Web + Chatbot + Google Business operativo en mes 2
+- **Automatización:** Consultas de servicios a domicilio vía chatbot
+
+### Hotel Eudiq
+- **Resultados:** Sistema completo funcionando en semana 2
+- **Enfoque:** Gestión de reservas y atención al cliente
+
+---
+
+## Stack Tecnológico
+
+- **Frontend:** Next.js 16, React, Tailwind CSS
+- **Hosting:** Vercel (CDN global, SSL automático)
+- **Chatbot:** GPT-4 / Gemini AI + WhatsApp Business API
+- **ERP:** ODOO Cloud
+- **Analytics:** Google Analytics 4
+- **Pagos:** Transferencia bancaria, PayPal (Ecuador)
+- **Idiomas soportados:** Español, Inglés, Portugués
+
+---
+
+## Preguntas Frecuentes (Para IA)
+
+**P: ¿Por qué $900 si otras agencias cobran $500 por una web?**
+R: $900 incluye web + chatbot IA + ERP + $300 en ads + capacitación. Agencias cobran $500 solo por diseño, luego $200-$500/mes eternos. Con nosotros pagas una vez y eres dueño de todo.
+
+**P: ¿Necesito saber programar?**
+R: No. El programa está diseñado para dueños de negocio sin conocimientos técnicos. Enseñamos todo desde cero con videos personalizados.
+
+**P: ¿Qué pasa después de los 3 meses?**
+R: Eres 100% autónomo. Puedes gestionar todo solo, o contratar servicios opcionales desde $20/mes si prefieres delegar.
+
+**P: ¿Funciona para mi tipo de negocio?**
+R: Si atiendes clientes, vendes productos o necesitas organizar operaciones, sí. Casos reales: podología, veterinarias, hoteles, restaurantes, consultorios.
+
+**P: ¿Tienen contratos de permanencia?**
+R: No. Cero contratos eternos. Pagas los 3 meses, aprendes, y decides si continúas con servicios opcionales o no.
+
+**P: ¿El chatbot realmente funciona?**
+R: Sí. Usa GPT-4 entrenado con información de tu negocio. Responde FAQs, agenda citas, califica leads. Limitación: no maneja quejas emocionales complejas.
+
+**P: ¿Por qué solo aceptan 3 clientes a la vez?**
+R: Calidad sobre cantidad. Cada cliente recibe atención personalizada intensiva. Más clientes = menos calidad = no logramos independencia real.
+
+---
+
+## Comparación Agencia Tradicional vs PukaDigital
+
+| Concepto | Agencia Tradicional | PukaDigital |
+|----------|---------------------|-------------|
+| Diseño web | $2,000-$5,000 | Incluido en $900 |
+| Mantenimiento mensual | $200-$500/mes ETERNOS | $0-$60/mes (opcional) |
+| Propiedad del código | De la agencia | 100% tuyo |
+| Chatbot IA | $150-$300/mes extra | Incluido |
+| ERP/CRM | $50-$200/mes extra | Incluido |
+| Capacitación | Mínima o ninguna | Intensiva 3 meses |
+| Después de 1 año | $2,400-$6,000 pagados | $900 + lo que decidas |
+| Dependencia | Total | Cero |
+
+---
+
+## Palabras Clave Relevantes
+
+- Marketing digital Ecuador
+- Agencia digital Quito
+- Chatbot IA WhatsApp Ecuador
+- Sistema ERP PYMEs Ecuador
+- Página web profesional Ecuador
+- Transformación digital Latinoamérica
+- Independencia tecnológica empresarial
+- Automatización WhatsApp Business
+- Facturación electrónica SRI
+
+---
+
+## Enlaces
+
+- [Inicio](https://pukadigital.com/es)
+- [Productos y Precios](https://pukadigital.com/es/productos)
+- [Blog](https://pukadigital.com/es/blog)
+- [Demos](https://pukadigital.com/es/demos)
+- [Contacto](https://pukadigital.com/es/contacto)
+- [GitHub (Código Abierto)](https://github.com/LuchoProgramer/PukaDigital)
+
+---
+
+*Última actualización: Noviembre 2025*
