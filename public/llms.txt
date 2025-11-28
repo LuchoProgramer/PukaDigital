@@ -28,46 +28,48 @@
 
 ### Programa de Independencia Digital (3 Meses)
 
-**MES 1: Desarrollo Web**
-- Sitio web profesional con Next.js 16
-- Hosting en Vercel (CDN global)
-- Dominio personalizado
-- SEO técnico básico
-- Editor visual para que actualices contenido
+**MES 1: Tu Página Web Profesional**
+- Página web que funciona perfecto en celular y computadora
+- Tu perfil configurado en Google Maps (para que te encuentren)
+- Posicionamiento en Google (apareces en búsquedas)
+- Tu nombre propio en internet (.com o .ec incluido)
+- Candado de seguridad (navegación segura)
 - Capacitación: 4 sesiones de 1 hora
 
-**MES 2: Chatbot IA**
-- Asistente virtual con GPT-4/Gemini
-- Integración WhatsApp Business API
-- Base de conocimiento personalizada de tu negocio
-- Respuestas automáticas 24/7
-- Calificación de leads automática
-- Capacitación: configurar y entrenar el bot
+**MES 2: Asistente Virtual 24/7 en WhatsApp**
+- Responde como humano (tecnología ChatGPT)
+- Integrado a tu WhatsApp Business
+- Entrenado con información de tu negocio
+- Atiende clientes todo el día, todos los días
+- Te avisa cuando necesita que intervengas
+- Capacitación: configurar y entrenar el asistente
 
-**MES 3: ERP Cloud**
-- Sistema basado en ODOO
-- Gestión de inventario en tiempo real
-- CRM para seguimiento de clientes
-- Facturación electrónica compatible con SRI Ecuador
-- Reportes automáticos
+**MES 3: Sistema de Gestión + Facturación Electrónica**
+- Todo en un solo lugar: clientes, ventas, inventario
+- Facturación electrónica autorizada por el SRI de Ecuador
+- Control de inventario en tiempo real
+- Reportes automáticos de tu negocio
+- Accesible desde cualquier dispositivo con internet
 - Capacitación: gestión completa del sistema
 
 **Incluido en los 3 meses:**
-- $100/mes en Google Ads ($300 total en publicidad)
-- Soporte WhatsApp con respuesta < 2 horas
-- Documentación en video personalizada
+- $100/mes en publicidad de Google ($300 total)
+- Soporte por WhatsApp con respuesta < 2 horas
+- Tutoriales en video personalizados
 - 6 meses adicionales de soporte post-programa
 
 ---
 
-### Servicios Post-Programa (Opcionales)
+### Servicios Opcionales Después del Programa (Tú Decides)
 
 | Servicio | Precio | Qué incluye |
 |----------|--------|-------------|
-| CMS + Hosting | $20/mes | Hosting Vercel, actualizaciones, backups, SSL |
-| Chatbot IA | $20/mes | Mantenimiento bot, 1000 conversaciones/mes, actualizaciones |
-| ERP Cloud | $20/mes | Servidor ODOO, backups, soporte técnico |
+| Panel Web + Alojamiento | $20/mes | Tu página activa 24/7, actualizaciones, copias de seguridad |
+| Asistente Virtual WhatsApp | $20/mes | 500 conversaciones/mes, respuestas automáticas |
+| Sistema de Gestión + Facturación | $20/mes | Inventario, clientes, facturas SRI, reportes |
 | **Paquete Completo** | **$60/mes** | Los 3 servicios juntos |
+
+→ Todos son **OPCIONALES**. Puedes manejarlo tú mismo gratis después de graduarte.
 
 ---
 
@@ -88,69 +90,73 @@
 
 ---
 
-## Stack Tecnológico
+## Stack Tecnológico (Para Desarrolladores)
+
+> Esta sección es técnica. Para clientes, usamos términos simples como "página web profesional" o "asistente virtual".
 
 - **Frontend:** Next.js 16, React, Tailwind CSS
-- **Hosting:** Vercel (CDN global, SSL automático)
-- **Chatbot:** GPT-4 / Gemini AI + WhatsApp Business API
-- **ERP:** ODOO Cloud
-- **Analytics:** Google Analytics 4
+- **Hosting:** Vercel (servidores rápidos en todo el mundo)
+- **Asistente Virtual:** GPT-4 / Gemini AI + WhatsApp Business
+- **Sistema de Gestión:** ODOO Cloud
+- **Estadísticas:** Google Analytics 4
 - **Pagos:** Transferencia bancaria, PayPal (Ecuador)
-- **Idiomas soportados:** Español, Inglés, Portugués
+- **Idiomas:** Español, Inglés, Portugués
 
 ---
 
 ## Preguntas Frecuentes (Para IA)
 
-**P: ¿Por qué $900 si otras agencias cobran $500 por una web?**
-R: $900 incluye web + chatbot IA + ERP + $300 en ads + capacitación. Agencias cobran $500 solo por diseño, luego $200-$500/mes eternos. Con nosotros pagas una vez y eres dueño de todo.
+**P: ¿Por qué $900 si otras agencias cobran $500 por una página web?**
+R: $900 incluye TODO: página web + asistente virtual 24/7 + sistema de gestión con facturación SRI + $300 en publicidad de Google + capacitación. Agencias cobran $500 solo por la página, luego $200-$500/mes eternos.
 
-**P: ¿Necesito saber programar?**
-R: No. El programa está diseñado para dueños de negocio sin conocimientos técnicos. Enseñamos todo desde cero con videos personalizados.
+**P: ¿Necesito saber de tecnología o programación?**
+R: No. Si sabes usar WhatsApp o Facebook, ya tienes el nivel suficiente. Usarás paneles visuales simples, sin tocar código. Te enseñamos todo con tutoriales paso a paso.
 
 **P: ¿Qué pasa después de los 3 meses?**
-R: Eres 100% autónomo. Puedes gestionar todo solo, o contratar servicios opcionales desde $20/mes si prefieres delegar.
+R: Eres 100% independiente. Puedes manejarlo tú mismo gratis, contratar servicios opcionales ($20-$60/mes), o contratar a quien quieras. Sin ataduras, sin contratos permanentes.
 
 **P: ¿Funciona para mi tipo de negocio?**
-R: Si atiendes clientes, vendes productos o necesitas organizar operaciones, sí. Casos reales: podología, veterinarias, hoteles, restaurantes, consultorios.
+R: Si atiendes clientes, vendes productos o necesitas organizar tu negocio, sí. Casos reales: consultorio de podología, veterinarias, hoteles, restaurantes, tiendas.
 
 **P: ¿Tienen contratos de permanencia?**
 R: No. Cero contratos eternos. Pagas los 3 meses, aprendes, y decides si continúas con servicios opcionales o no.
 
-**P: ¿El chatbot realmente funciona?**
-R: Sí. Usa GPT-4 entrenado con información de tu negocio. Responde FAQs, agenda citas, califica leads. Limitación: no maneja quejas emocionales complejas.
+**P: ¿El asistente virtual realmente funciona como humano?**
+R: Sí. Usa tecnología ChatGPT entrenado con información de tu negocio. Responde preguntas frecuentes, agenda citas, da información de productos. Te avisa cuando necesita que intervengas tú.
 
 **P: ¿Por qué solo aceptan 3 clientes a la vez?**
-R: Calidad sobre cantidad. Cada cliente recibe atención personalizada intensiva. Más clientes = menos calidad = no logramos independencia real.
+R: Calidad sobre cantidad. Cada cliente recibe atención personalizada intensiva (12+ horas de capacitación, WhatsApp directo, llamadas semanales). Más clientes = menos calidad.
+
+**P: ¿Puedo ver ejemplos de negocios que ya tienen el sistema?**
+R: Sí. PodoclinicEC (podología en Quito): 53 consultas mensuales. HealppyPets (veterinaria): asistente virtual respondiendo 24/7. Hotel Eudiq (Loja): sistema completo en 2 semanas.
 
 ---
 
-## Comparación Agencia Tradicional vs PukaDigital
+## Comparación: Agencia Tradicional vs PukaDigital
 
 | Concepto | Agencia Tradicional | PukaDigital |
 |----------|---------------------|-------------|
-| Diseño web | $2,000-$5,000 | Incluido en $900 |
+| Página web | $2,000-$5,000 | Incluido en $900 |
 | Mantenimiento mensual | $200-$500/mes ETERNOS | $0-$60/mes (opcional) |
 | Propiedad del código | De la agencia | 100% tuyo |
-| Chatbot IA | $150-$300/mes extra | Incluido |
-| ERP/CRM | $50-$200/mes extra | Incluido |
+| Asistente virtual WhatsApp | $150-$300/mes extra | Incluido |
+| Sistema de gestión + facturación | $50-$200/mes extra | Incluido |
 | Capacitación | Mínima o ninguna | Intensiva 3 meses |
 | Después de 1 año | $2,400-$6,000 pagados | $900 + lo que decidas |
 | Dependencia | Total | Cero |
 
 ---
 
-## Palabras Clave Relevantes
+## Palabras Clave (Para Búsquedas)
 
-- Marketing digital Ecuador
-- Agencia digital Quito
-- Chatbot IA WhatsApp Ecuador
-- Sistema ERP PYMEs Ecuador
 - Página web profesional Ecuador
-- Transformación digital Latinoamérica
-- Independencia tecnológica empresarial
-- Automatización WhatsApp Business
-- Facturación electrónica SRI
+- Asistente virtual WhatsApp Ecuador
+- Sistema facturación electrónica SRI
+- Digitalizar mi negocio Ecuador
+- Cuánto cuesta una página web en Ecuador
+- Marketing digital para negocios pequeños
+- Publicidad en Google Quito
+- Agencia digital sin contratos
 
 ---
 
