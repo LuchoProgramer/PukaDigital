@@ -5,6 +5,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export interface GeneratedPostData {
   title: string;
+  slug: string;
   excerpt: string;
   content: string;
   category: string;
@@ -13,7 +14,7 @@ export interface GeneratedPostData {
 
 export async function generateBlogPost(topic: string): Promise<GeneratedPostData> {
   const model = "gemini-2.5-flash";
-  
+
   const response = await ai.models.generateContent({
     model: model,
     contents: `Actúa como un experto redactor de contenido para PukaDigital, una agencia que busca la independencia tecnológica de las PYMES.
@@ -26,19 +27,20 @@ export async function generateBlogPost(topic: string): Promise<GeneratedPostData
     3. Formato: Markdown (usa h2, h3, bold, listas).
     4. Longitud: Aproximadamente 400-600 palabras.
     
-    Devuelve un JSON estricto con la estructura solicitada. Para 'imagePrompt', crea un prompt en inglés para generar una imagen minimalista y abstracta relacionada con el tema.`,
+    Devuelve un JSON estricto con la estructura solicitada. Para 'imagePrompt', crea un prompt en inglés para generar una imagen minimalista y abstracta relacionada con el tema. Para 'slug', genera un slug SEO-friendly basado en el título.`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.OBJECT,
         properties: {
           title: { type: Type.STRING },
+          slug: { type: Type.STRING },
           excerpt: { type: Type.STRING },
           content: { type: Type.STRING },
           category: { type: Type.STRING },
           imagePrompt: { type: Type.STRING }
         },
-        required: ["title", "excerpt", "content", "category", "imagePrompt"]
+        required: ["title", "slug", "excerpt", "content", "category", "imagePrompt"]
       }
     }
   });

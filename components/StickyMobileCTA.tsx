@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 
@@ -19,7 +19,7 @@ const StickyMobileCTA: React.FC = () => {
     <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 md:hidden z-40 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] pb-safe">
       <div className="flex gap-3">
         <Link 
-          to="/contacto"
+          href="/contacto"
           className="flex-[2] bg-puka-red text-white font-bold py-3.5 px-4 rounded-sm text-center shadow-md active:scale-95 transition-transform flex items-center justify-center text-sm uppercase tracking-wide"
         >
           Independízate
