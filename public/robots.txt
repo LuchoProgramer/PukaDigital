@@ -2,5 +2,40 @@
 User-agent: *
 Allow: /
 
+# OpenAI Bots - https://platform.openai.com/docs/bots
+# Allow search and user-triggered requests
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# GPTBot - Training AI models (optional: allow or disallow)
+# Currently allowing for visibility in ChatGPT responses
+User-agent: GPTBot
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google AI (Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl (used by many AI companies)
+User-agent: CCBot
+Allow: /
+
+# Apple Siri/Spotlight
+User-agent: Applebot
+Allow: /
+
 # Sitemap
 Sitemap: https://pukadigital.com/sitemap.xml
+
+# LLMs.txt for AI assistants
+# See: https://pukadigital.com/llms.txt
