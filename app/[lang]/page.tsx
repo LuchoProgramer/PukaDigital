@@ -6,6 +6,7 @@ import { ShieldCheck, TrendingUp, Cpu, Users, ArrowRight, CheckCircle, XCircle }
 import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
 import ROICalculator from '@/components/ROICalculator';
+import VideoTestimonial from '@/components/VideoTestimonial';
 import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
@@ -86,7 +87,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      <SEO 
+      <SEO
         title={t('home.hero_title_2')}
         description={t('home.hero_desc')}
         keywords="independencia digital, agencia marketing digital ecuador, chatbot ia pymes, sistema erp ecuador, puka digital quito"
@@ -115,15 +116,15 @@ const Home: React.FC = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <a 
-                href="#start-now" 
+              <a
+                href="#start-now"
                 onClick={handleAplicarClick}
                 className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 {t('home.cta_primary')}
               </a>
-              <a 
-                href="#como-funciona" 
+              <a
+                href="#como-funciona"
                 onClick={handleVerSistemaClick}
                 className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
               >
@@ -208,19 +209,10 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             {/* Photo + Video Placeholder */}
             <div className="relative">
-              <div className="aspect-video bg-gray-800 rounded-sm flex items-center justify-center border border-gray-700 overflow-hidden">
-                <img 
-                  src="https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg" 
-                  alt="Yadira Cristina Muñoz - PodoclinicEC" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
-                  <div className="w-16 h-16 rounded-full bg-puka-red flex items-center justify-center">
-                    <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-white border-b-6 border-b-transparent ml-1"></div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-gray-400 text-xs text-center mt-2">{t('home.testimonial_video_coming')}</p>
+              <VideoTestimonial
+                videoId="bSge9e1Se4w"
+                title="Testimonio Yadira Cristina Muñoz - PodoclinicEC"
+              />
             </div>
 
             {/* Quote */}
@@ -291,7 +283,7 @@ const Home: React.FC = () => {
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-12 text-center text-puka-black dark:text-white">
             {t('home.origin_title')}
           </h2>
-          
+
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
               {t('home.origin_story_1')}
@@ -329,7 +321,7 @@ const Home: React.FC = () => {
       <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-16 text-center text-puka-black dark:text-white">{t('home.problem_title')}</h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
             {/* Old Way */}
             <div className="border border-gray-200 dark:border-gray-800 p-8 rounded-sm bg-gray-50 dark:bg-gray-800/50 opacity-75 transition-colors">
@@ -392,7 +384,7 @@ const Home: React.FC = () => {
               </div>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-2 text-puka-black dark:text-gray-200 font-medium">
-                  <CheckCircle size={18} className="text-green-600 mt-1 shrink-0" /> 
+                  <CheckCircle size={18} className="text-green-600 mt-1 shrink-0" />
                   <div>
                     {t('home.puka_item_1')}
                     <span className="block text-sm text-puka-red font-bold mt-1 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-sm inline-block">{t('home.puka_item_1_note')}</span>
@@ -416,7 +408,7 @@ const Home: React.FC = () => {
 
           {/* ROI CALCULATOR INSERTION */}
           <div className="max-w-5xl mx-auto mt-24">
-             <ROICalculator />
+            <ROICalculator />
           </div>
 
         </div>
@@ -431,7 +423,7 @@ const Home: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-8">
                 {t('home.system_subtitle')}
               </p>
-              
+
               <div className="space-y-8">
                 <div className="flex gap-4">
                   <div className="bg-puka-black dark:bg-gray-700 text-white w-10 h-10 flex items-center justify-center font-bold rounded-sm shrink-0">1</div>
@@ -496,14 +488,14 @@ const Home: React.FC = () => {
               <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">{t('home.allies_title')}</h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg">{t('home.allies_subtitle')}</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Ally 1 - Cristina */}
               <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
                 <div className="flex items-center gap-4 mb-4">
-                  <img 
-                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg" 
-                    alt="Yadira Cristina Muñoz" 
+                  <img
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg"
+                    alt="Yadira Cristina Muñoz"
                     className="w-16 h-16 rounded-full object-cover border-2 border-puka-red"
                   />
                   <div>
@@ -578,7 +570,7 @@ const Home: React.FC = () => {
           <p className="text-2xl font-bold text-puka-red text-center mb-12">
             {t('home.why_limit_dont')}
           </p>
-          
+
           <div className="bg-gray-50 dark:bg-gray-800 rounded-sm p-8 mb-12">
             <p className="text-gray-700 dark:text-gray-300 mb-6">{t('home.why_limit_because')}</p>
             <ul className="space-y-4">
@@ -636,9 +628,9 @@ const Home: React.FC = () => {
             {/* Photo */}
             <div className="relative">
               <div className="aspect-square max-w-sm mx-auto">
-                <img 
-                  src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759786002/LuisViteri_rwyq16.png" 
-                  alt="Luis Omar Viteri - Fundador de Puka Digital" 
+                <img
+                  src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759786002/LuisViteri_rwyq16.png"
+                  alt="Luis Omar Viteri - Fundador de Puka Digital"
                   className="w-full h-full object-cover rounded-sm shadow-xl"
                 />
               </div>
@@ -646,7 +638,7 @@ const Home: React.FC = () => {
                 {t('home.founder_years')}
               </div>
             </div>
-            
+
             {/* Bio */}
             <div>
               <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">
@@ -671,7 +663,7 @@ const Home: React.FC = () => {
       <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl">
           <h2 className="font-display font-bold text-3xl mb-12 text-center text-puka-black dark:text-white">{t('home.faq_title')}</h2>
-          
+
           <div className="space-y-6">
             <details className="group border border-gray-200 dark:border-gray-700 rounded-sm p-6 cursor-pointer bg-white dark:bg-gray-800 transition-colors">
               <summary className="font-bold text-lg list-none flex justify-between items-center text-puka-black dark:text-white">
@@ -710,14 +702,14 @@ const Home: React.FC = () => {
       <section id="start-now" className="py-24 bg-puka-black dark:bg-black relative overflow-hidden transition-colors">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             {/* Left Copy */}
             <div className="text-white">
               <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">{t('home.cta_final_title')}</h2>
               <p className="text-xl text-gray-400 mb-8 max-w-lg">
                 {t('home.cta_final_subtitle')}
               </p>
-              
+
               <ul className="space-y-6 mb-10">
                 <li className="flex items-center gap-4">
                   <div className="bg-puka-red/20 p-2 rounded-full">
@@ -738,9 +730,9 @@ const Home: React.FC = () => {
                   </div>
                 </li>
               </ul>
-              
+
               <div className="hidden lg:block">
-                 <ArrowRight className="text-white opacity-20" size={120} />
+                <ArrowRight className="text-white opacity-20" size={120} />
               </div>
             </div>
 
@@ -768,7 +760,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Featured Post 1 */}
-            <Link 
+            <Link
               href="/blog/cuanto-cuesta-pagina-web-ecuador"
               className="group bg-gray-50 dark:bg-gray-800 rounded-sm overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-xl transition-all"
             >
@@ -790,7 +782,7 @@ const Home: React.FC = () => {
             </Link>
 
             {/* Featured Post 2 */}
-            <Link 
+            <Link
               href="/blog/5-senales-pyme-necesita-chatbot-ia"
               className="group bg-gray-50 dark:bg-gray-800 rounded-sm overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-xl transition-all"
             >
@@ -812,7 +804,7 @@ const Home: React.FC = () => {
             </Link>
 
             {/* Featured Post 3 */}
-            <Link 
+            <Link
               href="/blog/caso-exito-podoclinicec-independencia-digital"
               className="group bg-gray-50 dark:bg-gray-800 rounded-sm overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-xl transition-all"
             >
@@ -835,7 +827,7 @@ const Home: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link 
+            <Link
               href="/blog"
               className="inline-flex items-center gap-2 bg-puka-black dark:bg-white text-white dark:text-puka-black px-8 py-4 rounded-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >

@@ -43,7 +43,7 @@ const translations = {
       indicator_1: '3 empresas activas en el programa',
       indicator_2: '2 cupos disponibles este mes',
       indicator_3: '100% satisfacción hasta ahora',
-      
+
       // HERO COMPARISON
       compare_title: '¿Cuál modelo prefieres?',
       compare_agency_title: 'Agencia Tradicional',
@@ -59,16 +59,16 @@ const translations = {
       compare_puka_end: 'Al terminar llevas: TODO',
       compare_savings: 'Tu ahorro en 3 años:',
       compare_savings_amount: '$11,700',
-      
+
       // TESTIMONIAL SECTION - CRISTINA REAL DATA
       testimonial_video_title: '"Ahora los pacientes me encuentran solos"',
-      testimonial_quote: 'Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15. Ahora recibo pacientes por Google Ads, búsquedas orgánicas, y los servicios a domicilio explotaron.',
+      testimonial_quote: 'Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente.',
       testimonial_author: 'Yadira Cristina Muñoz',
       testimonial_role: 'PodoclinicEC • Quito Norte',
-      testimonial_result: '+33 conversiones Google Ads • +20 orgánicas • 3→15 reseñas Google',
+      testimonial_result: 'De 20 pacientes/mes a 3-4 diarios • +33 conversiones Google Ads',
       testimonial_cta: 'Ver su sitio: podoclinicec.com →',
       testimonial_graduating: 'Se gradúa el 2 de diciembre 2025',
-      testimonial_video_coming: 'Video testimonial próximamente',
+      testimonial_video_coming: 'Ver testimonio completo',
 
       // EL ENEMIGO
       enemy_title: 'El Verdadero Enemigo',
@@ -97,7 +97,7 @@ const translations = {
       origin_mission_1: 'No construimos websites.',
       origin_mission_2: 'Construimos independencia.',
       origin_tagline: 'Y te graduamos para que ya no nos necesites. Eso es dignidad digital.',
-      
+
       problem_title: 'La Trampa de la Dependencia Eterna',
       agency_title: 'Agencia Tradicional',
       agency_item_1: '$2,000+ costo inicial de "Setup"',
@@ -130,7 +130,7 @@ const translations = {
       phase_2_desc_end: '. Tomas el control.',
       phase_3_title: 'Sistema de Gestión + Facturación (Mes 3)',
       phase_3_desc: 'Instalamos tu sistema completo: control de clientes, inventario, y facturación electrónica SRI. Gestionas todo tú mismo. Nosotros pasamos a ser soporte opcional.',
-      
+
       stack_title: 'Las Mismas Herramientas que los Grandes',
       stack_subtitle: 'Las corporaciones gastan $50,000+ en estas herramientas. Tú las dominas en 90 días por $900.',
       stack_democratization: 'Eso es democratización real. No Wix. No Canva. Tecnología profesional que aprendes a usar como profesional.',
@@ -146,7 +146,7 @@ const translations = {
       proof_title: 'Nuestros Primeros 3 Aliados',
       proof_subtitle: 'Diferentes industrias. Diferentes desafíos. Mismo sistema de independencia.',
       proof_transparency: 'Actualizamos estos casos semanalmente. Transparencia radical.',
-      
+
       // CRISTINA - CASO COMPLETO
       proof_cristina_name: 'Yadira Cristina Muñoz',
       proof_cristina_business: 'PodoclinicEC',
@@ -157,7 +157,7 @@ const translations = {
       proof_cristina_result_3: 'De 3 a 15 reseñas en Google (14 de 5★)',
       proof_cristina_result_4: 'Servicios a domicilio en auge',
       proof_cristina_cta: 'Ver sitio: podoclinicec.com',
-      
+
       // CARLA - EN PROGRESO
       proof_carla_name: 'Carla Vanesa Tutistar',
       proof_carla_business: 'HealppyPets Veterinaria',
@@ -167,7 +167,7 @@ const translations = {
       proof_carla_next: 'Este mes: Campañas Google Ads',
       proof_carla_result: 'Ya la buscan por digital',
       proof_carla_cta: 'Seguir su progreso',
-      
+
       // HOTEL EUDIQ - RECIEN INICIADO
       proof_hotel_name: 'Eudalia Jadán & Diego Quezada',
       proof_hotel_business: 'Hotel Eudiq + Cafetería Viviantes',
@@ -176,7 +176,7 @@ const translations = {
       proof_hotel_done: 'Entregado: Web optimizada para SEO + Analytics + Landing cafetería + Menú digital + Blog',
       proof_hotel_learning: 'Aprendiendo: Por qué un sitio web es una máquina de conversiones, no un catálogo',
       proof_hotel_cta: 'Ver estrategia',
-      
+
       proof_next_cta: '¿Quieres ser el #4?',
 
       // POR QUÉ SOLO 3 CLIENTES
@@ -425,7 +425,7 @@ const translations = {
       indicator_1: '3 businesses active in the program',
       indicator_2: '2 spots available this month',
       indicator_3: '100% satisfaction so far',
-      
+
       // HERO COMPARISON
       compare_title: 'Which model do you prefer?',
       compare_agency_title: 'Traditional Agency',
@@ -441,7 +441,7 @@ const translations = {
       compare_puka_end: 'When you leave: EVERYTHING',
       compare_savings: 'Your savings in 3 years:',
       compare_savings_amount: '$11,700',
-      
+
       // TESTIMONIAL SECTION - CRISTINA REAL DATA
       testimonial_video_title: '"Now patients find me on their own"',
       testimonial_quote: 'I never had any digital presence. With Puka, in 3 months I went from 3 Google reviews to 15. Now I get patients from Google Ads, organic searches, and home services exploded.',
@@ -479,7 +479,7 @@ const translations = {
       origin_mission_1: "We don't build websites.",
       origin_mission_2: 'We build independence.',
       origin_tagline: "And we graduate you so you don't need us anymore. That's digital dignity.",
-      
+
       problem_title: 'The Eternal Dependency Trap',
       agency_title: 'Traditional Agency',
       agency_item_1: '$2,000+ initial "Setup" cost',
@@ -512,7 +512,7 @@ const translations = {
       phase_2_desc_end: '. You take control.',
       phase_3_title: 'Independence (Month 3)',
       phase_3_desc: 'You launch your offers. You manage your clients. We become optional support, not a monthly burden.',
-      
+
       stack_title: 'The Same Weapons as the Big Players',
       stack_subtitle: 'Corporations spend $50,000+ on these tools. You master them in 90 days for $900.',
       stack_democratization: "That's real democratization. Not Wix. Not Canva. Professional technology you learn to use like a professional.",
@@ -528,7 +528,7 @@ const translations = {
       proof_title: 'Our First 3 Allies',
       proof_subtitle: 'Different industries. Different challenges. Same independence system.',
       proof_transparency: 'We update these cases weekly. Radical transparency.',
-      
+
       // CRISTINA - FULL CASE
       proof_cristina_name: 'Yadira Cristina Muñoz',
       proof_cristina_business: 'PodoclinicEC',
@@ -539,7 +539,7 @@ const translations = {
       proof_cristina_result_3: 'From 3 to 15 Google reviews (14 at 5★)',
       proof_cristina_result_4: 'Home services booming',
       proof_cristina_cta: 'See site: podoclinicec.com',
-      
+
       // CARLA - IN PROGRESS
       proof_carla_name: 'Carla Vanesa Tutistar',
       proof_carla_business: 'HealppyPets Veterinary',
@@ -549,7 +549,7 @@ const translations = {
       proof_carla_next: 'This month: Google Ads campaigns',
       proof_carla_result: 'Already being found digitally',
       proof_carla_cta: 'Follow her progress',
-      
+
       // HOTEL EUDIQ - JUST STARTED
       proof_hotel_name: 'Eudalia Jadán & Diego Quezada',
       proof_hotel_business: 'Hotel Eudiq + Café Viviantes',
@@ -558,7 +558,7 @@ const translations = {
       proof_hotel_done: 'Delivered: SEO-optimized web + Analytics + Café landing + Digital menu + Blog',
       proof_hotel_learning: 'Learning: Why a website is a conversion machine, not a catalog',
       proof_hotel_cta: 'See strategy',
-      
+
       proof_next_cta: 'Want to be #4?',
 
       // WHY ONLY 3 CLIENTS
@@ -807,7 +807,7 @@ const translations = {
       indicator_1: '3 empresas ativas no programa',
       indicator_2: '2 vagas disponíveis este mês',
       indicator_3: '100% satisfação até agora',
-      
+
       // HERO COMPARISON
       compare_title: 'Qual modelo você prefere?',
       compare_agency_title: 'Agência Tradicional',
@@ -823,7 +823,7 @@ const translations = {
       compare_puka_end: 'Quando sair leva: TUDO',
       compare_savings: 'Sua economia em 3 anos:',
       compare_savings_amount: '$11.700',
-      
+
       // TESTIMONIAL SECTION - CRISTINA REAL DATA
       testimonial_video_title: '"Agora os pacientes me encontram sozinhos"',
       testimonial_quote: 'Eu nunca tinha presença digital. Com a Puka, em 3 meses passei de 3 avaliações no Google para 15. Agora recebo pacientes por Google Ads, buscas orgânicas, e os serviços a domicílio explodiram.',
@@ -861,7 +861,7 @@ const translations = {
       origin_mission_1: 'Não construímos sites.',
       origin_mission_2: 'Construímos independência.',
       origin_tagline: 'E te graduamos para que você não precise mais de nós. Isso é dignidade digital.',
-      
+
       problem_title: 'A Armadilha da Dependência Eterna',
       agency_title: 'Agência Tradicional',
       agency_item_1: '$2,000+ custo inicial de "Setup"',
@@ -894,7 +894,7 @@ const translations = {
       phase_2_desc_end: '. Você assume o controle.',
       phase_3_title: 'Independência (Mês 3)',
       phase_3_desc: 'Você lança suas ofertas. Gerencia seus clientes. Nós viramos suporte opcional, não um fardo mensal.',
-      
+
       stack_title: 'As Mesmas Armas dos Grandes',
       stack_subtitle: 'Corporações gastam $50.000+ nessas ferramentas. Você as domina em 90 dias por $900.',
       stack_democratization: 'Isso é democratização real. Não Wix. Não Canva. Tecnologia profissional que você aprende a usar como profissional.',
@@ -910,7 +910,7 @@ const translations = {
       proof_title: 'Nossos Primeiros 3 Aliados',
       proof_subtitle: 'Diferentes indústrias. Diferentes desafios. Mesmo sistema de independência.',
       proof_transparency: 'Atualizamos esses casos semanalmente. Transparência radical.',
-      
+
       // CRISTINA - CASO COMPLETO
       proof_cristina_name: 'Yadira Cristina Muñoz',
       proof_cristina_business: 'PodoclinicEC',
@@ -921,7 +921,7 @@ const translations = {
       proof_cristina_result_3: 'De 3 para 15 avaliações Google (14 de 5★)',
       proof_cristina_result_4: 'Serviços a domicílio em alta',
       proof_cristina_cta: 'Ver site: podoclinicec.com',
-      
+
       // CARLA - EM PROGRESSO
       proof_carla_name: 'Carla Vanesa Tutistar',
       proof_carla_business: 'HealppyPets Veterinária',
@@ -931,7 +931,7 @@ const translations = {
       proof_carla_next: 'Este mês: Campanhas Google Ads',
       proof_carla_result: 'Já é encontrada digitalmente',
       proof_carla_cta: 'Acompanhar progresso',
-      
+
       // HOTEL EUDIQ - RECEM INICIADO
       proof_hotel_name: 'Eudalia Jadán & Diego Quezada',
       proof_hotel_business: 'Hotel Eudiq + Café Viviantes',
@@ -940,7 +940,7 @@ const translations = {
       proof_hotel_done: 'Entregue: Web otimizada para SEO + Analytics + Landing café + Menu digital + Blog',
       proof_hotel_learning: 'Aprendendo: Por que um site é uma máquina de conversões, não um catálogo',
       proof_hotel_cta: 'Ver estratégia',
-      
+
       proof_next_cta: 'Quer ser o #4?',
 
       // POR QUE SÓ 3 CLIENTES
@@ -1206,7 +1206,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children, in
   const t = (key: string): string => {
     const keys = key.split('.');
     let value: any = translations[language];
-    
+
     for (const k of keys) {
       if (value && value[k]) {
         value = value[k];

@@ -7,9 +7,11 @@ import { BlogPost } from '@/types';
 import { HybridCMSService } from '@/lib/cms';
 import { Calendar, User, ArrowLeft, Share2, Sparkles, Database } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import SEO from '@/components/SEO';
 import OptimizedImage from '@/components/OptimizedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import VideoTestimonial from '@/components/VideoTestimonial';
 import { useTranslation } from '@/lib/i18n';
 import { getArticleSchema, getBreadcrumbSchema, type SupportedLocale } from '@/lib/schema';
 import * as ga from '@/lib/analytics';
@@ -26,7 +28,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const { t, language } = useTranslation();
-  
+
   // Scroll tracking refs
   const startTime = useRef<number>(Date.now());
   const scrollMilestones = useRef<Set<25 | 50 | 75 | 100>>(new Set());
@@ -34,23 +36,23 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   // Scroll tracking effect
   useEffect(() => {
     if (!post) return;
-    
+
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (window.scrollY / scrollHeight) * 100;
       const timeOnPage = Math.round((Date.now() - startTime.current) / 1000);
-      
+
       const milestones: (25 | 50 | 75 | 100)[] = [25, 50, 75, 100];
       for (const milestone of milestones) {
         if (scrollPercent >= milestone && !scrollMilestones.current.has(milestone)) {
           scrollMilestones.current.add(milestone);
-          
+
           // Determine article category
-          const category = post.category?.toLowerCase().includes('precio') ? 'precios' 
+          const category = post.category?.toLowerCase().includes('precio') ? 'precios'
             : post.category?.toLowerCase().includes('automat') ? 'automatizacion'
-            : post.category?.toLowerCase().includes('caso') ? 'casos_exito'
-            : 'general';
-          
+              : post.category?.toLowerCase().includes('caso') ? 'casos_exito'
+                : 'general';
+
           ga.trackBlogArticleLectura(
             post.title,
             category as 'precios' | 'automatizacion' | 'casos_exito' | 'general',
@@ -69,7 +71,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     const fetchPost = async () => {
       const { posts } = await HybridCMSService.getAllPosts();
       const foundPost = posts.find(p => p.slug === resolvedParams.slug);
-      
+
       if (!foundPost) {
         setLoading(false);
         return;
@@ -124,14 +126,14 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   // Generate JSON-LD structured data for SEO
   const wordCount = post.content?.split(/\s+/).filter(Boolean).length || 0;
   const lang = (language || 'es') as SupportedLocale;
-  
+
   // Breadcrumbs data
   const breadcrumbItems = [
     { name: lang === 'es' ? 'Inicio' : lang === 'en' ? 'Home' : 'Início', url: `https://pukadigital.com/${lang}` },
     { name: 'Blog', url: `https://pukadigital.com/${lang}/blog` },
     { name: post.title, url: `https://pukadigital.com/${lang}/blog/${post.slug}` }
   ];
-  
+
   // Article schema from centralized lib
   const articleSchema = getArticleSchema({
     title: post.title,
@@ -145,7 +147,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   // Breadcrumb schema
   const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
-  
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -199,7 +201,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="bg-gray-50 dark:bg-black min-h-screen transition-colors">
-      <SEO 
+      <SEO
         title={`${post.title} | PukaDigital Blog`}
         description={post.excerpt}
       />
@@ -209,7 +211,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      
+
       {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
@@ -218,20 +220,20 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* HERO IMAGE */}
       <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
-        <OptimizedImage 
-          src={post.coverImage} 
+        <OptimizedImage
+          src={post.coverImage}
           alt={post.title}
           className="w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        
+
         {/* Back Button & Breadcrumbs */}
         <div className="absolute top-6 left-6 z-20 flex flex-col gap-2">
-          <Breadcrumbs 
-            items={breadcrumbItems} 
+          <Breadcrumbs
+            items={breadcrumbItems}
             className="text-white/80 [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-white"
           />
-          <Link 
+          <Link
             href="/blog"
             className="bg-white/90 dark:bg-gray-900/90 backdrop-blur text-puka-black dark:text-white px-4 py-2 rounded-sm shadow-lg hover:bg-white dark:hover:bg-gray-900 transition-all flex items-center gap-2 font-medium"
           >
@@ -270,10 +272,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center gap-6 text-white/80 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
-                {new Date(post.date).toLocaleDateString('es-ES', { 
-                  day: 'numeric', 
-                  month: 'long', 
-                  year: 'numeric' 
+                {new Date(post.date).toLocaleDateString('es-ES', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
                 })}
               </div>
               {post.author && (
@@ -320,7 +322,39 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           prose-li:text-gray-700 dark:prose-li:text-gray-300
           prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
           ">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: ({ node, href, children, ...props }) => {
+                // Check if it's the specific YouTube video we want to embed
+                if (href && (href.includes('youtube.com/watch?v=bSge9e1Se4w') || href.includes('youtu.be/bSge9e1Se4w'))) {
+                  return (
+                    <div className="my-8">
+                      <VideoTestimonial
+                        videoId="bSge9e1Se4w"
+                        title="Testimonio Yadira Cristina Muñoz - PodoclinicEC"
+                      />
+                    </div>
+                  );
+                }
+
+                // Default link behavior
+                return (
+                  <a href={href} {...props} target="_blank" rel="noopener noreferrer">
+                    {children}
+                  </a>
+                );
+              },
+              p: ({ node, children, ...props }) => {
+                // Always render a div instead of a p to avoid hydration errors
+                // when content (like the video component) contains divs.
+                // We style it to look like a paragraph.
+                return <div className="mb-6" {...props}>{children}</div>;
+              }
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
         </div>
 
         {/* CTA */}
@@ -331,7 +365,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
             Únete a nuestro programa de 3 meses y aprende a gestionar tu propia presencia digital.
           </p>
-          <Link 
+          <Link
             href="/contacto"
             className="inline-block bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors shadow-lg"
           >
@@ -348,13 +382,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedPosts.map((related) => (
-              <Link 
-                key={related.id} 
+              <Link
+                key={related.id}
                 href={`/blog/${related.slug}`}
                 className="group"
               >
                 <div className="relative h-48 rounded-sm overflow-hidden mb-4">
-                  <OptimizedImage 
+                  <OptimizedImage
                     src={related.coverImage}
                     alt={related.title}
                     className="w-full h-full group-hover:scale-105 transition-transform duration-300"

@@ -553,12 +553,12 @@ Cristina buscaba una solución que no la atrapara en pagos eternos. Encontró a 
 
 Algo inesperado sucedió: además de Google Ads, empezaron a llegar pacientes por **búsqueda orgánica**.
 
-**20 conversiones orgánicas adicionales:**
+**3 a 4 pacientes diarios (orgánicos):**
 - Pacientes que encontraban su web directamente en Google
 - Personas buscando "podóloga cerca de mí"
 - Referencias de Google Maps
 
-**Total de conversiones mensuales: 53** (33 Ads + 20 orgánicas)
+**Total de conversiones mensuales: ~100** (33 Ads + ~70 orgánicas/directas)
 
 ---
 
@@ -617,16 +617,16 @@ Cristina ofrecía servicios a domicilio, pero casi nadie los conocía.
 | Reseñas Google | 3 | 15 |
 | Presencia web | Ninguna | podoclinicec.com |
 | Conversiones Ads | 0 | 33/mes |
-| Conversiones orgánicas | 0 | 20/mes |
+| Conversiones orgánicas | 0 | 3-4/día (~80/mes) |
 | Servicios a domicilio | Casi cero | Principal fuente de ingresos |
 
 ---
 
 ## Testimonio de Cristina
 
-> "Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15. Ahora recibo pacientes por Google Ads, búsquedas orgánicas, y los servicios a domicilio explotaron.
+> "Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente."
 >
-> La diferencia más grande es que ahora **entiendo** lo que está pasando. No es magia, es conocimiento."
+> [Ver Video Testimonio](https://www.youtube.com/watch?v=bSge9e1Se4w)
 
 **Yadira Cristina Muñoz, PodoclinicEC**
 

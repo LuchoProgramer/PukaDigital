@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ArrowLeft, CheckCircle, X, ExternalLink, Search, Star, Calendar, TrendingUp, Users, Globe, MessageSquare } from 'lucide-react';
+import VideoTestimonial from '@/components/VideoTestimonial';
 
 const CasoCristina = () => {
   // Timeline del proceso
@@ -84,7 +85,7 @@ const CasoCristina = () => {
     'Google Business 100% optimizado',
     '15 reseñas (5x más)',
     '33 conversiones por Google Ads',
-    '20 conversiones orgánicas mensuales',
+    '3-4 pacientes diarios (aprox 80-100/mes)',
     'Top resultados "podóloga Quito Norte"',
     'Servicios a domicilio: principal fuente de ingresos',
   ];
@@ -97,7 +98,7 @@ const CasoCristina = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      
+
       {/* Hero - Colores PodoclinicEC */}
       <section style={{ backgroundColor: brandColors.primary }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
@@ -111,7 +112,7 @@ const CasoCristina = () => {
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
                 ✅ Caso Completado — Graduándose 2 Dic 2025
               </span>
-              
+
               <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
                 Cristina Muñoz
               </h1>
@@ -131,22 +132,13 @@ const CasoCristina = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="relative">
-              <Image
-                src="https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg"
-                alt="Yadira Cristina Muñoz - PodoclinicEC"
-                width={1200}
-                height={600}
-                className="w-full rounded-sm shadow-2xl object-cover"
+              <VideoTestimonial
+                videoId="bSge9e1Se4w"
+                title="Testimonio Yadira Cristina Muñoz - PodoclinicEC"
               />
-              {/* Video overlay - para cuando tengas el video */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-sm opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
-                <div className="bg-white rounded-full p-6 shadow-xl">
-                  <div style={{ borderLeftColor: brandColors.primary }} className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-b-8 border-b-transparent ml-1"></div>
-                </div>
-              </div>
             </div>
             <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">
-              📹 Video testimonial próximamente
+              📹 Testimonio completo
             </p>
           </div>
         </div>
@@ -159,7 +151,7 @@ const CasoCristina = () => {
             <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
               Resultados en Números
             </h2>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <TrendingUp style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
@@ -168,8 +160,8 @@ const CasoCristina = () => {
               </div>
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Users style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
-                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">+20</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Pacientes Orgánicos/Mes</div>
+                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">3-4</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Pacientes Diarios (Antes 20/mes)</div>
               </div>
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Star style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
@@ -192,7 +184,7 @@ const CasoCristina = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div style={{ color: brandColors.primary }} className="text-6xl opacity-30 font-serif">"</div>
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-200 -mt-8">
-              Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15. Ahora recibo pacientes por Google Ads, búsquedas orgánicas, y los servicios a domicilio explotaron.
+              "Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente."
             </blockquote>
             <div className="mt-8 flex items-center justify-center gap-4">
               <Image
@@ -219,21 +211,20 @@ const CasoCristina = () => {
             <h2 className="text-3xl font-bold mb-12 text-center text-puka-black dark:text-white">
               El Viaje Completo (90 Días)
             </h2>
-            
+
             <div className="relative">
               {/* Línea vertical */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" />
-              
+
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-12 last:pb-0">
                   {/* Dot */}
-                  <div 
-                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
-                      phase.completed ? 'bg-green-500' : 'animate-pulse'
-                    }`}
+                  <div
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${phase.completed ? 'bg-green-500' : 'animate-pulse'
+                      }`}
                     style={!phase.completed ? { backgroundColor: brandColors.primary } : {}}
                   />
-                  
+
                   {/* Contenido */}
                   <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-sm">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
@@ -247,11 +238,11 @@ const CasoCristina = () => {
                         <CheckCircle className="text-green-500" size={20} />
                       )}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-puka-black dark:text-white mb-4">
                       {phase.title}
                     </h3>
-                    
+
                     <ul className="space-y-2 mb-4">
                       {phase.items.map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
@@ -260,7 +251,7 @@ const CasoCristina = () => {
                         </li>
                       ))}
                     </ul>
-                    
+
                     {phase.metrics && (
                       <div className="flex gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         {phase.metrics.map((m, i) => (
@@ -286,7 +277,7 @@ const CasoCristina = () => {
             <h2 className="text-3xl font-bold text-center mb-12">
               La Transformación
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               {/* ANTES */}
               <div className="bg-gray-800/50 p-8 rounded-sm border border-gray-600/30">
@@ -302,7 +293,7 @@ const CasoCristina = () => {
                   ))}
                 </ul>
               </div>
-              
+
               {/* DESPUÉS */}
               <div style={{ backgroundColor: 'rgba(96, 190, 195, 0.15)', borderColor: brandColors.primary }} className="p-8 rounded-sm border">
                 <h3 style={{ color: brandColors.primary }} className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -332,9 +323,9 @@ const CasoCristina = () => {
             <p className="text-lg opacity-90 mb-12">
               Todo lo que lees aquí es verificable públicamente.
             </p>
-            
+
             <div className="grid md:grid-cols-3 gap-6">
-              <a 
+              <a
                 href="https://google.com/search?q=podóloga+quito+norte"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -347,8 +338,8 @@ const CasoCristina = () => {
                 </p>
                 <span className="text-sm font-bold">Buscar ahora →</span>
               </a>
-              
-              <a 
+
+              <a
                 href="https://google.com/maps/search/podoclinicec"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -361,8 +352,8 @@ const CasoCristina = () => {
                 </p>
                 <span className="text-sm font-bold">Ver reseñas →</span>
               </a>
-              
-              <a 
+
+              <a
                 href="https://podoclinicec.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -387,12 +378,12 @@ const CasoCristina = () => {
             <h2 className="text-3xl font-bold mb-8 text-center text-puka-black dark:text-white">
               ¿Qué Hace Cristina Ahora?
             </h2>
-            
+
             <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg">
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
                 Cada semana dedica <span style={{ color: brandColors.primary }} className="font-bold">menos de 1 hora</span> a su gestión digital:
               </p>
-              
+
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm">
                   <p className="font-bold text-puka-black dark:text-white">20 min</p>
@@ -407,7 +398,7 @@ const CasoCristina = () => {
                   <p className="text-sm text-gray-600 dark:text-gray-400">Ajustando horarios si es necesario</p>
                 </div>
               </div>
-              
+
               <p className="text-center text-gray-500 dark:text-gray-400 italic">
                 El resto lo hacen las herramientas que aprendió a usar.
               </p>
@@ -425,7 +416,7 @@ const CasoCristina = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Si Cristina pudo pasar de cero a 53 conversiones mensuales, tú también puedes.
           </p>
-          <Link 
+          <Link
             href="/es/contacto"
             style={{ color: brandColors.primary }}
             className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
@@ -445,9 +436,9 @@ const CasoCristina = () => {
             <h3 className="text-2xl font-bold mb-8 text-puka-black dark:text-white">
               Otros Casos en Progreso
             </h3>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
-              <Link 
+              <Link
                 href="/es/casos/healppypets-carla-tutistar"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
@@ -458,8 +449,8 @@ const CasoCristina = () => {
                   🟡 Mes 2 de 3
                 </span>
               </Link>
-              
-              <Link 
+
+              <Link
                 href="/es/casos/hotel-eudiq-cafeteria-viviantes"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
