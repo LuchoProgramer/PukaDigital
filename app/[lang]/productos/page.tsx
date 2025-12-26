@@ -186,15 +186,15 @@ const Products: React.FC = () => {
 
   return (
     <div className="pt-12 pb-24">
-      <SEO 
+      <SEO
         title="Precios Transparentes | Chatbots IA, Web y ERP"
         description="Sin costos ocultos. Chatbots con IA desde $20/mes, Sistemas ERP y Webs autoadministrables. Paga solo por lo que usas, cuando lo necesitas."
         keywords="precio chatbot ia ecuador, cuanto cuesta pagina web ecuador, tarifas agencia digital quito, planes mantenimiento web"
         structuredData={structuredData}
       />
-      
+
       <div className="container mx-auto px-4 md:px-6">
-        
+
         {/* HEADER */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="font-display font-bold text-4xl md:text-5xl mb-6">{t('products.title')}</h1>
@@ -211,7 +211,7 @@ const Products: React.FC = () => {
             </div>
             <div className="relative z-10">
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
-                 <Zap className="text-puka-black" size={24} />
+                <Zap className="text-puka-black" size={24} />
               </div>
               <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.web_title')}</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -219,13 +219,13 @@ const Products: React.FC = () => {
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.web_feat_1')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_1')}
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.web_feat_2')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_2')}
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.web_feat_3')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_3')}
                 </li>
               </ul>
             </div>
@@ -237,7 +237,7 @@ const Products: React.FC = () => {
             </div>
             <div className="relative z-10">
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
-                 <Server className="text-puka-black" size={24} />
+                <Server className="text-puka-black" size={24} />
               </div>
               <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.erp_title')}</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -245,13 +245,13 @@ const Products: React.FC = () => {
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.erp_feat_1')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_1')}
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.erp_feat_2')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_2')}
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0"/> {t('products.erp_feat_3')}
+                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_3')}
                 </li>
               </ul>
             </div>
@@ -264,20 +264,19 @@ const Products: React.FC = () => {
           <p className="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12">
             Elige solo lo que necesitas. Sin paquetes forzados.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {independentServices.map((plan, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 onClick={() => handleModuleClick(
                   plan.id === 'cms' ? 'CMS, Mapas & SEO' : plan.id === 'erp' ? 'ERP Cloud' : 'Chatbot IA',
                   (idx + 1) as 1 | 2 | 3
                 )}
-                className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 cursor-pointer ${
-                  plan.highlighted 
-                    ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10' 
+                className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 cursor-pointer ${plan.highlighted
+                    ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10'
                     : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900'
-                }`}
+                  }`}
               >
                 {plan.highlighted && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-puka-red text-white text-xs font-bold uppercase py-1 px-3 rounded-sm shadow-sm">
@@ -297,13 +296,12 @@ const Products: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <Link 
+                <Link
                   href={plan.cta.includes("Demo") ? "/demos" : "/contacto"}
-                  className={`w-full py-3 rounded-sm font-bold text-center transition-colors ${
-                    plan.highlighted 
-                      ? 'bg-puka-black dark:bg-white text-white dark:text-puka-black hover:bg-gray-800 dark:hover:bg-gray-200' 
+                  className={`w-full py-3 rounded-sm font-bold text-center transition-colors ${plan.highlighted
+                      ? 'bg-puka-black dark:bg-white text-white dark:text-puka-black hover:bg-gray-800 dark:hover:bg-gray-200'
                       : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-puka-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
-                  }`}
+                    }`}
                 >
                   {plan.cta}
                 </Link>
@@ -316,7 +314,7 @@ const Products: React.FC = () => {
         <div className="bg-gray-900 text-white rounded-sm p-8 md:p-12 transition-colors relative overflow-hidden">
           {/* Abstract background */}
           <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-          
+
           <div className="relative z-10">
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="flex-1">
@@ -372,8 +370,8 @@ const Products: React.FC = () => {
                 <p className="text-center text-gray-400 text-sm mb-6 max-w-xs">
                   Mira cómo el chatbot responde, vende y agenda citas en tiempo real.
                 </p>
-                <Link 
-                  href="/demos" 
+                <Link
+                  href="/demos"
                   className="bg-white text-black px-8 py-3 rounded-sm font-bold hover:bg-gray-200 transition-colors flex items-center gap-2"
                 >
                   {t('products.chatbot_cta')} <Zap size={16} className="text-puka-red fill-current" />
@@ -392,10 +390,10 @@ const Products: React.FC = () => {
             <p className="text-center text-gray-600 dark:text-gray-400 mb-10 text-lg">
               Landing pages especializadas con casos de éxito, calculadoras ROI y preguntas frecuentes específicas.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Chatbot IA Landing Page */}
-              <Link 
+              <Link
                 href="/chatbot-ia-whatsapp"
                 className="group bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-sm border-2 border-purple-200 dark:border-purple-700 hover:border-purple-500 hover:shadow-2xl transition-all"
               >
@@ -414,7 +412,7 @@ const Products: React.FC = () => {
               </Link>
 
               {/* Desarrollo Web Landing Page */}
-              <Link 
+              <Link
                 href="/desarrollo-web-pymes"
                 className="group bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 p-8 rounded-sm border-2 border-blue-200 dark:border-blue-700 hover:border-blue-500 hover:shadow-2xl transition-all"
               >
@@ -432,16 +430,16 @@ const Products: React.FC = () => {
                 </div>
               </Link>
 
-              {/* Sistema ERP Landing Page */}
-              <Link 
-                href="/sistema-erp-cloud"
+              {/* Sistema Inventario Landing Page */}
+              <Link
+                href="/sistema-inventario"
                 className="group bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 p-8 rounded-sm border-2 border-green-200 dark:border-green-700 hover:border-green-500 hover:shadow-2xl transition-all"
               >
                 <div className="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <Database className="text-white" size={32} />
                 </div>
                 <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-green-600 transition-colors">
-                  Sistema ERP Cloud
+                  LedgerXpertz: Inventario
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                   Di adiós a Excel. Inventario + CRM + Facturación SRI. Ferretería Los Andes eliminó 15h semanales de trabajo manual.
@@ -463,10 +461,10 @@ const Products: React.FC = () => {
             <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
               Guías completas para entender costos, casos de éxito y señales de que necesitas transformación digital.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Link to pricing blog post */}
-              <Link 
+              <Link
                 href="/blog/local-12"
                 className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
               >
@@ -485,7 +483,7 @@ const Products: React.FC = () => {
               </Link>
 
               {/* Link to chatbot signals post */}
-              <Link 
+              <Link
                 href="/blog/5-senales-pyme-necesita-chatbot-ia"
                 className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
               >
@@ -504,7 +502,7 @@ const Products: React.FC = () => {
               </Link>
 
               {/* Link to success case */}
-              <Link 
+              <Link
                 href="/blog/caso-exito-podoclinicec-independencia-digital"
                 className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
               >
