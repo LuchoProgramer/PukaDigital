@@ -1,45 +1,52 @@
 import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
 
-// Configuración (Idealmente vendría de process.env)
-const CMS_CONFIG = {
-  baseUrl: 'http://localhost:3000/api/public/pukadigital/posts', // Tu URL de CMS
-  timeout: 3000, // 3 segundos máximo de espera antes de usar fallback
-};
-
 export class HybridCMSService {
-  
+
+  /**
+   * Obtiene la URL base interna para peticiones del servidor o relativa para el cliente
+   */
+  private static getBaseUrl(): string {
+    if (typeof window !== 'undefined') {
+      return ''; // Relativa en el cliente: /api/cms-proxy
+    }
+
+    // En el servidor
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+
+    return 'http://localhost:3000';
+  }
+
   /**
    * Obtiene todos los posts combinando CMS y Local
+   * Optimizado para Server Components
    */
   static async getAllPosts(): Promise<{ posts: BlogPost[], status: CMSStatus }> {
     const startTime = performance.now();
-    
-    try {
-      // 1. Intentar conectar con el CMS
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), CMS_CONFIG.timeout);
+    const PROXY_URL = `${this.getBaseUrl()}/api/cms-proxy`;
 
-      const response = await fetch(CMS_CONFIG.baseUrl, {
-        signal: controller.signal,
-        headers: { 'Content-Type': 'application/json' }
+    try {
+      // 1. Intentar conectar con el CMS vía Proxy
+      const response = await fetch(PROXY_URL, {
+        next: { revalidate: 300 } // Revalidar cada 5 minutos
       });
 
-      clearTimeout(timeoutId);
-
       if (!response.ok) {
-        throw new Error(`CMS Error: ${response.status}`);
+        throw new Error(`CMS Proxy Error: ${response.status}`);
       }
 
-      const cmsPosts: BlogPost[] = await response.json();
-      
-      // Marcar origen
-      const taggedCmsPosts = cmsPosts.map(p => ({ ...p, source: 'cms' as const }));
+      const data = await response.json();
+      const cmsPosts: any[] = data.blogs || [];
+
+      // Mapear al formato de PukaDigital
+      const formattedCmsPosts = cmsPosts.map(p => this.mapCMSToBlogPost(p));
 
       const endTime = performance.now();
 
       return {
-        posts: [...taggedCmsPosts, ...LOCAL_POSTS], // Estrategia: Mostrar ambos o priorizar CMS
+        posts: [...formattedCmsPosts, ...LOCAL_POSTS],
         status: {
           isConnected: true,
           source: 'hybrid',
@@ -48,8 +55,8 @@ export class HybridCMSService {
       };
 
     } catch (error) {
-      console.warn('⚠️ CMS no disponible o timeout. Activando Fallback Local.', error);
-      
+      console.warn('⚠️ CMS no disponible. Usando Fallback Local.', error);
+
       return {
         posts: LOCAL_POSTS,
         status: {
@@ -62,22 +69,79 @@ export class HybridCMSService {
   }
 
   /**
-   * Obtiene un post específico por slug
+   * Obtiene un post específico por slug (o id si empieza por cms-)
    */
   static async getPostBySlug(slug: string): Promise<BlogPost | undefined> {
-    // Primero buscar en local para velocidad instantánea
+    // 1. Buscar en local primero
     const localPost = LOCAL_POSTS.find(p => p.slug === slug);
-    if (localPost) return localPost;
+    if (localPost) return { ...localPost, source: 'local' };
 
-    // Si no está en local, intentar buscar en CMS
+    // 2. Buscar en CMS vía Proxy
     try {
-      const response = await fetch(`${CMS_CONFIG.baseUrl}?slug=${slug}`);
+      const PROXY_URL = `${this.getBaseUrl()}/api/cms-proxy`;
+
+      // Si el slug contiene el ID (ej: cms-123), buscamos por ID
+      const queryParam = slug.startsWith('cms-')
+        ? `id=${slug.replace('cms-', '')}`
+        : `slug=${slug}`;
+
+      const response = await fetch(`${PROXY_URL}?${queryParam}`, {
+        next: { revalidate: 300 }
+      });
+
       if (response.ok) {
-        const posts = await response.json();
-        if (posts.length > 0) return { ...posts[0], source: 'cms' };
+        const data = await response.json();
+        const blogs = data.blogs || [];
+        if (blogs.length > 0) {
+          return this.mapCMSToBlogPost(blogs[0]);
+        }
+        // Si no es un array pero es un objeto (busqueda directa por ID)
+        if (data && !data.blogs && data.id) {
+          return this.mapCMSToBlogPost(data);
+        }
       }
     } catch (e) {
-      return undefined;
+      console.error("Error fetching post from CMS:", e);
     }
+
+    return undefined;
+  }
+
+  /**
+   * Mapea un post del CMS al formato BlogPost de PukaDigital
+   */
+  private static mapCMSToBlogPost(cmsPost: any): BlogPost {
+    // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
+    const content = cmsPost.blocks?.map((block: any) => {
+      if (block.type === 'text') {
+        // Asegurarse de que el texto no rompa el markdown
+        return block.content;
+      }
+      if (block.type === 'image') {
+        return `\n![${block.alt || 'Imagen'}](${block.src})\n`;
+      }
+      if (block.type === 'video') {
+        // El renderizador de PukaDigital detecta URLs de YouTube
+        return `\n${block.src}\n`;
+      }
+      return '';
+    }).join('\n\n') || '';
+
+    // Extraer excerpt del primer bloque de texto si no tiene
+    const firstTextBlock = cmsPost.blocks?.find((b: any) => b.type === 'text');
+    const excerpt = cmsPost.excerpt || (firstTextBlock?.content?.substring(0, 160).replace(/[#*`]/g, '') + '...') || '';
+
+    return {
+      id: `cms-${cmsPost.id}`,
+      title: cmsPost.title,
+      excerpt: excerpt,
+      content: content,
+      coverImage: cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg', // Placeholder
+      date: cmsPost.createdAt || new Date().toISOString(),
+      category: cmsPost.category || 'General',
+      slug: cmsPost.slug || cmsPost.id,
+      source: 'cms',
+      author: cmsPost.author?.name || 'Equipo PukaDigital'
+    };
   }
 }
