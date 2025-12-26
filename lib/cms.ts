@@ -21,28 +21,44 @@ export class HybridCMSService {
 
   /**
    * Obtiene todos los posts combinando CMS y Local
-   * Optimizado para Server Components
+   * Optimizado para Server Components: Consulta directa en servidor, Proxy en cliente.
    */
   static async getAllPosts(): Promise<{ posts: BlogPost[], status: CMSStatus }> {
     const startTime = performance.now();
-    const PROXY_URL = `${this.getBaseUrl()}/api/cms-proxy`;
+
+    // Configuración
+    const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'https://pukapresscms.vercel.app';
+    const TENANT_ID = process.env.NEXT_PUBLIC_CMS_TENANT_ID || 'pukadigital';
 
     try {
-      // 1. Intentar conectar con el CMS vía Proxy
-      const response = await fetch(PROXY_URL, {
-        next: { revalidate: 300 } // Revalidar cada 5 minutos
-      });
+      let blogsRaw: any[] = [];
 
-      if (!response.ok) {
-        throw new Error(`CMS Proxy Error: ${response.status}`);
+      // 1. Si estamos en el servidor, consultamos directo al CMS para evitar líos de URL/CORS
+      if (typeof window === 'undefined') {
+        const url = `${CMS_URL}/api/blogs?tenant=${TENANT_ID}&limit=50`;
+        const response = await fetch(url, {
+          next: { revalidate: 300 }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          blogsRaw = data.blogs || [];
+        } else {
+          throw new Error(`Direct CMS Error: ${response.status}`);
+        }
+      }
+      // 2. Si estamos en el cliente, usamos el proxy
+      else {
+        const PROXY_URL = '/api/cms-proxy';
+        const response = await fetch(PROXY_URL);
+        if (response.ok) {
+          const data = await response.json();
+          blogsRaw = data.blogs || [];
+        }
       }
 
-      const data = await response.json();
-      const cmsPosts: any[] = data.blogs || [];
-
       // Mapear al formato de PukaDigital
-      const formattedCmsPosts = cmsPosts.map(p => this.mapCMSToBlogPost(p));
-
+      const formattedCmsPosts = blogsRaw.map(p => this.mapCMSToBlogPost(p));
       const endTime = performance.now();
 
       return {
@@ -55,8 +71,7 @@ export class HybridCMSService {
       };
 
     } catch (error) {
-      console.warn('⚠️ CMS no disponible. Usando Fallback Local.', error);
-
+      console.warn('⚠️ CMS Fallback Activo:', error);
       return {
         posts: LOCAL_POSTS,
         status: {
@@ -76,29 +91,35 @@ export class HybridCMSService {
     const localPost = LOCAL_POSTS.find(p => p.slug === slug);
     if (localPost) return { ...localPost, source: 'local' };
 
-    // 2. Buscar en CMS vía Proxy
+    // 2. Buscar en CMS
     try {
-      const PROXY_URL = `${this.getBaseUrl()}/api/cms-proxy`;
+      const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'https://pukapresscms.vercel.app';
+      const TENANT_ID = process.env.NEXT_PUBLIC_CMS_TENANT_ID || 'pukadigital';
+      const isByCmsId = slug.startsWith('cms-');
+      const param = isByCmsId ? `id=${slug.replace('cms-', '')}` : `slug=${slug}`;
 
-      // Si el slug contiene el ID (ej: cms-123), buscamos por ID
-      const queryParam = slug.startsWith('cms-')
-        ? `id=${slug.replace('cms-', '')}`
-        : `slug=${slug}`;
+      let blogRaw: any = null;
 
-      const response = await fetch(`${PROXY_URL}?${queryParam}`, {
-        next: { revalidate: 300 }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const blogs = data.blogs || [];
-        if (blogs.length > 0) {
-          return this.mapCMSToBlogPost(blogs[0]);
+      // Servidor: Directo
+      if (typeof window === 'undefined') {
+        const url = `${CMS_URL}/api/blogs?tenant=${TENANT_ID}&${param}`;
+        const response = await fetch(url, { next: { revalidate: 300 } });
+        if (response.ok) {
+          const data = await response.json();
+          blogRaw = data.blogs?.[0] || (data.id ? data : null);
         }
-        // Si no es un array pero es un objeto (busqueda directa por ID)
-        if (data && !data.blogs && data.id) {
-          return this.mapCMSToBlogPost(data);
+      }
+      // Cliente: Proxy
+      else {
+        const response = await fetch(`/api/cms-proxy?${param}`);
+        if (response.ok) {
+          const data = await response.json();
+          blogRaw = data.blogs?.[0] || (data.id ? data : null);
         }
+      }
+
+      if (blogRaw) {
+        return this.mapCMSToBlogPost(blogRaw);
       }
     } catch (e) {
       console.error("Error fetching post from CMS:", e);
