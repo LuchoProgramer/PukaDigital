@@ -75,7 +75,7 @@ const CasoCarla = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      
+
       {/* Hero */}
       <section style={{ backgroundColor: brandColors.primaryDark }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
@@ -87,11 +87,11 @@ const CasoCarla = () => {
 
             <div className="text-center">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                🟡 En Progreso — Mes 2 de 3
+                🟡 Pausa Estratégica — Activación Enero 2026
               </span>
-              
+
               <div className="text-7xl mb-6">🐕</div>
-              
+
               <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
                 Carla Vanesa Tutistar
               </h1>
@@ -112,17 +112,17 @@ const CasoCarla = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-start gap-4">
               <div style={{ backgroundColor: brandColors.primaryDark }} className="text-white p-2 rounded-full">
-                <Clock size={24} />
+                <Calendar size={24} />
               </div>
               <div>
                 <h3 className="font-bold text-lg text-puka-black dark:text-white">
-                  Update Más Reciente — 25 Nov 2025
+                  Update Más Reciente — 26 Dic 2025
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  Carla completó su capacitación en gestión de Google Business. Esta semana comenzamos con la configuración de su primera campaña de Google Ads enfocada en emergencias veterinarias.
+                  Carla tiene la agenda llena por temporada decembrina. Hemos decidido realizar una pausa estratégica en el lanzamiento de pauta pagada para optimizar el presupuesto en <b>Enero 2026</b>, cuando la demanda de servicios veterinarios post-festividades crece.
                 </p>
                 <p style={{ color: brandColors.primaryDark }} className="text-sm dark:text-pink-400 mt-3 font-medium">
-                  📅 Próximo update: 2 Diciembre 2025
+                  📅 Próximo hito: Lanzamiento Google Ads Enero 2026
                 </p>
               </div>
             </div>
@@ -137,7 +137,7 @@ const CasoCarla = () => {
             <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
               Lo Que Ya Tiene Carla
             </h2>
-            
+
             <div className="grid md:grid-cols-4 gap-6">
               {achieved.map((item, i) => (
                 <div key={i} style={{ backgroundColor: '#FFF0F3', borderColor: brandColors.primary }} className="dark:bg-pink-900/20 p-6 rounded-sm text-center border dark:border-pink-800">
@@ -159,43 +159,40 @@ const CasoCarla = () => {
             <h2 className="text-3xl font-bold mb-12 text-center text-puka-black dark:text-white">
               Timeline del Proceso
             </h2>
-            
+
             <div className="relative">
               {/* Línea vertical */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600" />
-              
+
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-12 last:pb-0">
                   {/* Dot */}
-                  <div 
-                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${
-                      phase.completed 
-                        ? 'bg-green-500' 
-                        : phase.current 
-                          ? 'animate-pulse' 
+                  <div
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${phase.completed
+                        ? 'bg-green-500'
+                        : phase.current
+                          ? 'animate-pulse'
                           : 'bg-gray-300 dark:bg-gray-600'
-                    }`}
+                      }`}
                     style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
                   />
-                  
+
                   {/* Contenido */}
-                  <div 
-                    className={`p-6 rounded-sm ${
-                      phase.current 
-                        ? 'dark:bg-pink-900/20' 
+                  <div
+                    className={`p-6 rounded-sm ${phase.current
+                        ? 'dark:bg-pink-900/20'
                         : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
-                    }`}
+                      }`}
                     style={phase.current ? { backgroundColor: '#FFF0F3', border: `2px solid ${brandColors.primaryDark}` } : {}}
                   >
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span 
-                        className={`px-3 py-1 rounded-sm text-sm font-bold ${
-                          phase.current 
-                            ? 'text-white' 
-                            : phase.completed 
+                      <span
+                        className={`px-3 py-1 rounded-sm text-sm font-bold ${phase.current
+                            ? 'text-white'
+                            : phase.completed
                               ? 'bg-green-500 text-white'
                               : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                        }`}
+                          }`}
                         style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
                       >
                         {phase.month}
@@ -209,11 +206,11 @@ const CasoCarla = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-puka-black dark:text-white mb-4">
                       {phase.title}
                     </h3>
-                    
+
                     <ul className="space-y-2">
                       {phase.items.map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
@@ -243,7 +240,7 @@ const CasoCarla = () => {
             <h2 className="text-3xl font-bold mb-8 text-center text-puka-black dark:text-white">
               Próximos Pasos Esta Semana
             </h2>
-            
+
             <div style={{ backgroundColor: '#FFF0F3' }} className="dark:bg-pink-900/20 p-8 rounded-sm border border-pink-200 dark:border-pink-800">
               <ul className="space-y-4">
                 {nextSteps.map((step, i) => (
@@ -270,7 +267,7 @@ const CasoCarla = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Ya puedes ver su web funcionando y su Google Business activo.
             </p>
-            <a 
+            <a
               href="https://healppypets.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -292,7 +289,7 @@ const CasoCarla = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Documenta tu transformación digital desde el día 1.
           </p>
-          <Link 
+          <Link
             href="/es/contacto"
             style={{ color: brandColors.primaryDark }}
             className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
@@ -312,15 +309,15 @@ const CasoCarla = () => {
             <h3 className="text-2xl font-bold mb-8 text-puka-black dark:text-white">
               Ver Otros Casos
             </h3>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
-              <Link 
+              <Link
                 href="/es/casos/podoclinicec-cristina-munoz"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
-                  <img 
-                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg" 
+                  <img
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg"
                     alt="Cristina"
                     className="w-full h-full object-cover"
                   />
@@ -331,8 +328,8 @@ const CasoCarla = () => {
                   ✅ Graduándose
                 </span>
               </Link>
-              
-              <Link 
+
+              <Link
                 href="/es/casos/hotel-eudiq-cafeteria-viviantes"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >

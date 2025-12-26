@@ -86,7 +86,7 @@ const CasoHotelEudiq = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      
+
       {/* Hero */}
       <section style={{ backgroundColor: brandColors.primary }} className="text-white py-20">
         <div className="container mx-auto px-4 md:px-6">
@@ -98,11 +98,11 @@ const CasoHotelEudiq = () => {
 
             <div className="text-center">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                🟢 Recién Iniciado — Semana 2
+                🟢 Activación Enero 2026
               </span>
-              
+
               <div className="text-7xl mb-6">🏨</div>
-              
+
               <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
                 Eudalia Jadán & Diego Quezada
               </h1>
@@ -126,17 +126,17 @@ const CasoHotelEudiq = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-start gap-4">
               <div style={{ backgroundColor: brandColors.primary }} className="text-white p-2 rounded-full">
-                <Rocket size={24} />
+                <Calendar size={24} />
               </div>
               <div>
                 <h3 className="font-bold text-lg text-puka-black dark:text-white">
-                  Update Más Reciente — 25 Nov 2025
+                  Update Más Reciente — 26 Dic 2025
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  ¡Proyecto arrancado! En solo 1 semana ya tienen web del hotel con SEO, landing de la cafetería con menú digital, analytics configurado y blog activo. Esta semana nos enfocamos en entender por qué cada elemento es una herramienta de conversión.
+                  Estructura digital completada al 100%. Debido a la alta ocupación del hotel por las festividades de Loja y Fin de Año, Diego y Eudalia han decidido arrancar el tráfico pagado en <b>Enero 2026</b> para asegurar una atención de calidad a los nuevos clientes digitales.
                 </p>
                 <p style={{ color: brandColors.primary }} className="text-sm dark:text-teal-400 mt-3 font-medium">
-                  📅 Próximo update: 2 Diciembre 2025
+                  📅 Próximo hito: Activación de Campañas Enero 2026
                 </p>
               </div>
             </div>
@@ -154,7 +154,7 @@ const CasoHotelEudiq = () => {
             <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
               Velocidad récord: 4 entregables en 7 días
             </p>
-            
+
             <div className="grid md:grid-cols-4 gap-6">
               {achieved.map((item, i) => (
                 <div key={i} style={{ backgroundColor: '#E8F5F1', borderColor: brandColors.primary }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center border dark:border-teal-800">
@@ -182,7 +182,7 @@ const CasoHotelEudiq = () => {
             <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
               Un Programa, Dos Negocios
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               {/* Hotel Eudiq */}
               <div style={{ borderColor: brandColors.primary }} className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border-2 dark:border-teal-800">
@@ -193,7 +193,7 @@ const CasoHotelEudiq = () => {
                     <p className="text-gray-600 dark:text-gray-400">Hospedaje en Loja</p>
                   </div>
                 </div>
-                
+
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
                     <CheckCircle size={18} className="text-green-500 mt-0.5 shrink-0" />
@@ -212,8 +212,8 @@ const CasoHotelEudiq = () => {
                     Sistema de reservas (próximamente)
                   </li>
                 </ul>
-                
-                <a 
+
+                <a
                   href="https://hoteleudiq.com"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -233,7 +233,7 @@ const CasoHotelEudiq = () => {
                     <p className="text-gray-600 dark:text-gray-400">Gastronomía en Loja</p>
                   </div>
                 </div>
-                
+
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
                     <CheckCircle size={18} className="text-green-500 mt-0.5 shrink-0" />
@@ -252,8 +252,8 @@ const CasoHotelEudiq = () => {
                     Pedidos WhatsApp (próximamente)
                   </li>
                 </ul>
-                
-                <a 
+
+                <a
                   href="https://hoteleudiq.com/viviantes"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -275,45 +275,42 @@ const CasoHotelEudiq = () => {
             <h2 className="text-3xl font-bold mb-12 text-center text-puka-black dark:text-white">
               Plan de 3 Meses
             </h2>
-            
+
             <div className="relative">
               {/* Línea vertical */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600" />
-              
+
               {timeline.map((phase, index) => (
                 <div key={index} className="relative pl-20 pb-10 last:pb-0">
                   {/* Dot */}
-                  <div 
-                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${
-                      phase.completed 
-                        ? '' 
-                        : phase.current 
-                          ? 'animate-pulse' 
+                  <div
+                    className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${phase.completed
+                        ? ''
+                        : phase.current
+                          ? 'animate-pulse'
                           : 'bg-gray-300 dark:bg-gray-600'
-                    }`}
+                      }`}
                     style={phase.completed ? { backgroundColor: brandColors.primary } : phase.current ? { backgroundColor: brandColors.secondary } : {}}
                   />
-                  
+
                   {/* Contenido */}
-                  <div 
-                    className={`p-5 rounded-sm ${
-                      phase.current 
-                        ? 'dark:bg-teal-900/20' 
+                  <div
+                    className={`p-5 rounded-sm ${phase.current
+                        ? 'dark:bg-teal-900/20'
                         : phase.completed
                           ? 'dark:bg-teal-900/20'
                           : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
-                    }`}
+                      }`}
                     style={phase.current ? { backgroundColor: '#E8F5F1', border: `2px solid ${brandColors.secondary}` } : phase.completed ? { backgroundColor: '#E8F5F1', border: `1px solid ${brandColors.primary}` } : {}}
                   >
                     <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <span 
-                        className={`px-3 py-1 rounded-sm text-sm font-bold ${
-                          phase.current 
-                            ? 'text-white' 
-                            : phase.completed 
+                      <span
+                        className={`px-3 py-1 rounded-sm text-sm font-bold ${phase.current
+                            ? 'text-white'
+                            : phase.completed
                               ? 'text-white'
                               : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
-                        }`}
+                          }`}
                         style={phase.current ? { backgroundColor: brandColors.secondary } : phase.completed ? { backgroundColor: brandColors.primary } : {}}
                       >
                         {phase.week}
@@ -327,11 +324,11 @@ const CasoHotelEudiq = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     <h3 className="text-lg font-bold text-puka-black dark:text-white mb-3">
                       {phase.title}
                     </h3>
-                    
+
                     <ul className="space-y-1.5 text-sm">
                       {phase.items.map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
@@ -366,8 +363,8 @@ const CasoHotelEudiq = () => {
                 <strong style={{ color: brandColors.primary }}>"¿Por qué una web es una máquina de conversiones?"</strong>
               </p>
               <p className="text-gray-600 dark:text-gray-400">
-                No es un catálogo digital. Es un vendedor 24/7 que trabaja mientras duermes. 
-                Eudalia y Diego están entendiendo cómo cada elemento de su web 
+                No es un catálogo digital. Es un vendedor 24/7 que trabaja mientras duermes.
+                Eudalia y Diego están entendiendo cómo cada elemento de su web
                 (títulos, botones, textos) está diseñado para convertir visitantes en huéspedes.
               </p>
             </div>
@@ -382,10 +379,10 @@ const CasoHotelEudiq = () => {
             ¿Tienes un Negocio en Loja o Ecuador?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Si Eudalia y Diego pueden digitalizar un hotel Y una cafetería al mismo tiempo, 
+            Si Eudalia y Diego pueden digitalizar un hotel Y una cafetería al mismo tiempo,
             imagina lo que puedes lograr con tu negocio.
           </p>
-          <Link 
+          <Link
             href="/es/contacto"
             style={{ color: brandColors.primary }}
             className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
@@ -405,15 +402,15 @@ const CasoHotelEudiq = () => {
             <h3 className="text-2xl font-bold mb-8 text-puka-black dark:text-white">
               Ver Otros Casos
             </h3>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
-              <Link 
+              <Link
                 href="/es/casos/podoclinicec-cristina-munoz"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
-                  <img 
-                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg" 
+                  <img
+                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg"
                     alt="Cristina"
                     className="w-full h-full object-cover"
                   />
@@ -424,8 +421,8 @@ const CasoHotelEudiq = () => {
                   ✅ Graduándose
                 </span>
               </Link>
-              
-              <Link 
+
+              <Link
                 href="/es/casos/healppypets-carla-tutistar"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >

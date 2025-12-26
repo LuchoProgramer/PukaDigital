@@ -59,14 +59,14 @@ const CasoCristina = () => {
       month: 'Graduación',
       title: 'Independencia Total',
       date: '2 Diciembre 2025',
-      completed: false,
+      completed: true,
       items: [
         'Maneja TODO ella misma',
         'No paga fees mensuales a agencias',
         'Control total de sus cuentas',
-        'Puede crecer a su propio ritmo',
+        'Partner Early Adopter: Nuevo Sistema de Citas Médicas',
       ],
-      metrics: null,
+      metrics: [{ value: '100%', label: 'Independencia' }],
     },
   ];
 
@@ -87,7 +87,7 @@ const CasoCristina = () => {
     '33 conversiones por Google Ads',
     '3-4 pacientes diarios (aprox 80-100/mes)',
     'Top resultados "podóloga Quito Norte"',
-    'Servicios a domicilio: principal fuente de ingresos',
+    'Sistema de Citas Médicas (Alianza Estratégica)',
   ];
 
   // Colores de marca PodoclinicEC
@@ -110,7 +110,7 @@ const CasoCristina = () => {
 
             <div className="text-center">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                ✅ Caso Completado — Graduándose 2 Dic 2025
+                ✅ Caso Completado — Graduada 2 Dic 2025
               </span>
 
               <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">

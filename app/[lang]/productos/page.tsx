@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight } from 'lucide-react';
+import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight, Calendar, TrendingUp } from 'lucide-react';
 import { PricingPlan } from '@/types';
 import SEO from '@/components/SEO';
 import { useTranslation } from '@/lib/i18n';
@@ -274,8 +274,8 @@ const Products: React.FC = () => {
                   (idx + 1) as 1 | 2 | 3
                 )}
                 className={`border p-8 rounded-sm relative flex flex-col transition-all duration-300 cursor-pointer ${plan.highlighted
-                    ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10'
-                    : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900'
+                  ? 'border-puka-red bg-white dark:bg-gray-800 shadow-xl scale-105 z-10'
+                  : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900'
                   }`}
               >
                 {plan.highlighted && (
@@ -299,8 +299,8 @@ const Products: React.FC = () => {
                 <Link
                   href={plan.cta.includes("Demo") ? "/demos" : "/contacto"}
                   className={`w-full py-3 rounded-sm font-bold text-center transition-colors ${plan.highlighted
-                      ? 'bg-puka-black dark:bg-white text-white dark:text-puka-black hover:bg-gray-800 dark:hover:bg-gray-200'
-                      : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-puka-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-puka-black dark:bg-white text-white dark:text-puka-black hover:bg-gray-800 dark:hover:bg-gray-200'
+                    : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-puka-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                     }`}
                 >
                   {plan.cta}
@@ -451,6 +451,51 @@ const Products: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* SPECIALIZED SYSTEMS (BETA) */}
+        <section className="py-24 bg-puka-black text-white relative overflow-hidden rounded-sm mt-8">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-puka-red/20 blur-[120px]"></div>
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              <div className="flex-1">
+                <div className="bg-puka-red text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest inline-block mb-6">Beta Cerrada</div>
+                <h2 className="font-display font-bold text-4xl mb-6">{t('products.specialized_title')}</h2>
+                <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+                  {t('products.specialized_desc')}
+                </p>
+                <div className="p-6 bg-white/5 border border-white/10 rounded-sm hover:border-puka-red transition-all">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-puka-red/20 p-3 rounded-sm">
+                      <Calendar style={{ color: '#c7171e' }} size={24} />
+                    </div>
+                    <h3 className="font-bold text-xl">{t('products.medical_title')}</h3>
+                  </div>
+                  <p className="text-gray-400 mb-6">
+                    {t('products.medical_desc')}
+                  </p>
+                  <Link href="/contacto" className="text-puka-red font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                    Postular como Early Adopter <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </div>
+              <div className="flex-1 bg-white/5 p-8 rounded-sm border border-white/10 relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-puka-red/5 to-transparent"></div>
+                <div className="relative z-10 text-center">
+                  <div className="w-16 h-16 bg-puka-red rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                    <TrendingUp className="text-white" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 italic">Alianzas Estratégicas</h3>
+                  <p className="text-gray-300 mb-6">
+                    No solo vendemos software. Construimos activos digitales con nuestros graduados. Si tienes un problema específico, lo resolvemos juntos.
+                  </p>
+                  <div className="inline-block px-4 py-2 border border-puka-red text-puka-red text-xs font-bold uppercase tracking-widest">
+                    Solo para Graduados
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* BLOG RESOURCES */}
         <div className="bg-gray-50 dark:bg-gray-900 rounded-sm p-8 md:p-12 border border-gray-200 dark:border-gray-800 transition-colors mt-8">
