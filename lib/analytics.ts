@@ -302,7 +302,7 @@ export const trackIdiomaCambiado = (
  * Location: Floating button, footer, contact page
  */
 export const trackWhatsAppDirectoClick = (
-  buttonLocation: 'float' | 'footer' | 'contact_page'
+  buttonLocation: string
 ) => {
   if (typeof window.gtag !== 'undefined') {
     window.gtag('event', 'whatsapp_directo_click', {

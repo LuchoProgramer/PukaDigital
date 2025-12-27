@@ -20,7 +20,7 @@ export const en = {
         hero_formula: '$300/mo × 3 months = Lifelong tech independence',
         hero_ads_note: 'Includes $100/mo for Google Ads (real investment in your growth)',
         cta_primary: 'Apply for My Independence',
-        cta_secondary: 'See Graduation System ↓',
+        cta_secondary: 'Contact us via WhatsApp →',
         ads_note: 'Includes $100/mo in Google Ads credit',
         indicator_1: '3 businesses active in the program',
         indicator_2: '2 spots available this month',

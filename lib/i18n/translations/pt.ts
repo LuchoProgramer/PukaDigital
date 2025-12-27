@@ -20,7 +20,7 @@ export const pt = {
         hero_formula: '$300/mês × 3 meses = Independência tecnológica vitalícia',
         hero_ads_note: 'Inclui $100/mês para Google Ads (investimento real no seu crescimento)',
         cta_primary: 'Aplicar para Minha Independência',
-        cta_secondary: 'Ver Sistema de Graduação ↓',
+        cta_secondary: 'Contatar pelo WhatsApp →',
         ads_note: 'Inclui $100/mês em saldo Google Ads',
         indicator_1: '3 empresas ativas no programa',
         indicator_2: '2 vagas disponíveis este mês',

@@ -20,7 +20,7 @@ export const es = {
         hero_formula: '$300/mes × 3 meses = Independencia tecnológica de por vida',
         hero_ads_note: 'Incluye $100/mes para Google Ads (inversión real en tu crecimiento)',
         cta_primary: 'Aplicar a Mi Independencia',
-        cta_secondary: 'Ver Sistema de Graduación ↓',
+        cta_secondary: 'Contactar por WhatsApp →',
         ads_note: 'Incluye $100/mes en saldo Google Ads',
         indicator_1: '3 empresas activas en el programa',
         indicator_2: '2 cupos disponibles este mes',
