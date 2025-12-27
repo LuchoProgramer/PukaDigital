@@ -9,72 +9,19 @@ import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 import type { SupportedLocale } from '@/lib/schema';
 
-// Datos de los casos (después podemos moverlo a un archivo separado)
-const cases = [
-  {
-    slug: 'podoclinicec-cristina-munoz',
-    clientName: 'Yadira Cristina Muñoz',
-    business: 'PodoclinicEC',
-    industry: 'Podología',
-    city: 'Quito Norte',
-    status: 'graduating', // 'completed' | 'in-progress' | 'just-started'
-    statusLabel: 'Graduándose 2 Dic 2025',
-    statusEmoji: '✅',
-    photo: 'https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg',
-    website: 'https://podoclinicec.com',
-    metrics: {
-      conversionsAds: 33,
-      conversionsOrganic: 20,
-      reviewsBefore: 3,
-      reviewsAfter: 15,
-    },
-    highlight: '53 conversiones/mes',
-    testimonialQuote: 'Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15.',
-  },
-  {
-    slug: 'healppypets-carla-tutistar',
-    clientName: 'Carla Vanesa Tutistar',
-    business: 'HealppyPets',
-    industry: 'Veterinaria',
-    city: 'Quito',
-    status: 'in-progress',
-    statusLabel: 'Mes 2 de 3',
-    statusEmoji: '🟡',
-    photo: null, // Usaremos emoji
-    emoji: '🐕',
-    website: 'https://healppypets.com',
-    metrics: null, // En progreso
-    highlight: 'Web + Chatbot + Google Business',
-    currentPhase: 'Configurando campañas Google Ads',
-  },
-  {
-    slug: 'hotel-eudiq-cafeteria-viviantes',
-    clientName: 'Eudalia Jadán & Diego Quezada',
-    business: 'Hotel Eudiq + Cafetería Viviantes',
-    industry: 'Hotelería & Gastronomía',
-    city: 'Loja',
-    status: 'just-started',
-    statusLabel: 'Semana 2',
-    statusEmoji: '🟢',
-    photo: null,
-    emoji: '🏨',
-    website: 'https://hoteleudiq.com',
-    metrics: null,
-    highlight: 'Sistema completo en construcción',
-    currentPhase: 'Web SEO + Analytics + Blog',
-  },
-];
+import { allies } from '@/data/allies';
 
 const CasosPage = () => {
+  const cases = allies;
   const { language } = useTranslation();
   const lang = (language || 'es') as SupportedLocale;
-  
-  const completedCases = cases.filter(c => c.status === 'graduating' || c.status === 'completed');
+
+  const completedCases = cases.filter(c => c.status === 'graduated' || c.status === 'completed');
   const inProgressCases = cases.filter(c => c.status === 'in-progress');
   const justStartedCases = cases.filter(c => c.status === 'just-started');
 
   // Track case clicks
-  const handleCaseClick = async (caseName: 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq', industry: 'healthcare' | 'veterinary' | 'hospitality') => {
+  const handleCaseClick = async (caseName: 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq' | 'La Huequita Quiteña', industry: 'healthcare' | 'veterinary' | 'hospitality' | 'retail') => {
     await ga.trackCasoExitoView(caseName, industry);
   };
 
@@ -91,18 +38,18 @@ const CasosPage = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      
+
       {/* Hero dramático */}
       <section className="py-20 text-center bg-gradient-to-b from-puka-black to-gray-900 text-white">
         <div className="container mx-auto px-4 md:px-6">
           {/* Breadcrumbs */}
           <div className="mb-8">
-            <Breadcrumbs 
-              items={breadcrumbItems} 
+            <Breadcrumbs
+              items={breadcrumbItems}
               className="justify-center text-gray-400 [&_a]:text-gray-400 [&_a:hover]:text-white"
             />
           </div>
-          
+
           <span className="text-sm uppercase tracking-widest text-gray-400 font-medium">
             Transparencia Radical
           </span>
@@ -122,7 +69,7 @@ const CasosPage = () => {
           <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
             Estado Actual del Programa
           </h2>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             <div className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm text-center border border-gray-200 dark:border-gray-700">
               <div className="text-4xl font-bold text-puka-red">{cases.length}</div>
@@ -149,7 +96,7 @@ const CasosPage = () => {
         <section key={caso.slug} className="py-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="container mx-auto px-4 md:px-6">
             <div className="max-w-6xl mx-auto">
-              
+
               {/* Badge de estado */}
               <div className="flex items-center justify-center gap-2 mb-8">
                 <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm font-bold">
@@ -178,13 +125,13 @@ const CasosPage = () => {
                       <p className="text-puka-red font-medium">{caso.industry}</p>
                     </div>
                   </div>
-                  
+
                   <blockquote className="text-lg italic text-gray-600 dark:text-gray-300 border-l-4 border-puka-red pl-4 my-6">
                     "{caso.testimonialQuote}"
                   </blockquote>
 
                   <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <Link 
+                    <Link
                       href={`/es/casos/${caso.slug}`}
                       onClick={() => handleCaseClick(
                         caso.business as 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq',
@@ -194,7 +141,7 @@ const CasosPage = () => {
                     >
                       Ver caso completo <ArrowRight size={18} />
                     </Link>
-                    <a 
+                    <a
                       href={caso.website}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -211,7 +158,7 @@ const CasosPage = () => {
                   <h3 className="text-xl font-bold mb-6 text-puka-black dark:text-white text-center">
                     Resultados Verificables
                   </h3>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-white dark:bg-gray-800 p-4 rounded-sm text-center shadow-sm">
                       <div className="text-3xl font-bold text-puka-red">{caso.metrics?.conversionsAds}</div>
@@ -257,25 +204,23 @@ const CasosPage = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
               {[...inProgressCases, ...justStartedCases].map((caso) => (
-                <div 
+                <div
                   key={caso.slug}
                   className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg border border-gray-200 dark:border-gray-700"
                 >
                   <div className="flex items-start gap-4 mb-6">
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl border-2 ${
-                      caso.status === 'in-progress' 
-                        ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500' 
-                        : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
-                    }`}>
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl border-2 ${caso.status === 'in-progress'
+                      ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500'
+                      : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                      }`}>
                       {caso.emoji}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-xs font-bold px-2 py-1 rounded ${
-                          caso.status === 'in-progress'
-                            ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
-                            : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
-                        }`}>
+                        <span className={`text-xs font-bold px-2 py-1 rounded ${caso.status === 'in-progress'
+                          ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+                          : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                          }`}>
                           {caso.statusEmoji} {caso.statusLabel}
                         </span>
                       </div>
@@ -293,7 +238,7 @@ const CasosPage = () => {
                       <Rocket size={18} className="text-puka-red" />
                       <span className="font-medium">{caso.highlight}</span>
                     </div>
-                    
+
                     {caso.currentPhase && (
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                         <Clock size={18} className="text-gray-400" />
@@ -303,13 +248,13 @@ const CasosPage = () => {
                   </div>
 
                   <div className="flex gap-4 mt-6">
-                    <Link 
+                    <Link
                       href={`/es/casos/${caso.slug}`}
                       className="text-puka-red font-bold text-sm hover:underline inline-flex items-center gap-1"
                     >
                       Ver progreso <ArrowRight size={14} />
                     </Link>
-                    <a 
+                    <a
                       href={caso.website}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -335,7 +280,7 @@ const CasosPage = () => {
             Estamos documentando cada paso de nuestros clientes.<br />
             Tu historia podría ser la próxima.
           </p>
-          <Link 
+          <Link
             href="/es/contacto"
             className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >

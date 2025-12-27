@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag, Users, HelpCircle } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { allies } from '@/data/allies';
 
 interface FooterProps {
   lang?: string;
@@ -12,15 +13,15 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
   const { t } = useTranslation();
 
-  // Simulated slot availability - can be connected to real data later
+  // Dynamic slot availability based on real allies data
   const totalSlots = 5;
-  const occupiedSlots = 3;
-  const availableSlots = totalSlots - occupiedSlots;
+  const activeAlliesCount = allies.filter(a => a.status !== 'graduated').length;
+  const availableSlots = Math.max(0, totalSlots - activeAlliesCount);
 
   return (
     <footer className="bg-puka-black dark:bg-black text-white py-16 md:py-20 border-t border-gray-900 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
-        
+
         {/* Manifesto Section - NEW */}
         <div className="mb-16 pb-16 border-b border-gray-800">
           <div className="max-w-3xl mx-auto text-center">
@@ -57,7 +58,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
           </h4>
           <div className="flex justify-center items-center gap-2 mb-3">
             {/* Red circles for occupied */}
-            {Array.from({ length: occupiedSlots }).map((_, i) => (
+            {Array.from({ length: activeAlliesCount }).map((_, i) => (
               <div
                 key={`occupied-${i}`}
                 className="w-8 h-8 rounded-full bg-puka-red flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-puka-red/30"
@@ -76,13 +77,13 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
             ))}
           </div>
           <p className="text-sm text-gray-500">
-            <span className="text-puka-red font-bold">{occupiedSlots}</span> {t('footer.slots_occupied')} · 
+            <span className="text-puka-red font-bold">{activeAlliesCount}</span> {t('footer.slots_occupied')} ·
             <span className="text-green-500 font-bold ml-1">{availableSlots}</span> {t('footer.slots_available')}
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
-          
+
           {/* Brand Column */}
           <div className="col-span-1 md:col-span-2 space-y-6">
             <h3 className="font-display font-bold text-3xl tracking-tighter">
@@ -98,7 +99,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
               </p>
             </div>
           </div>
-          
+
           {/* Sitemap Column - ENHANCED */}
           <div>
             <h4 className="font-display font-bold text-lg mb-6 text-puka-beige border-b border-gray-800 pb-2 inline-block">
@@ -185,24 +186,24 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
               </li>
               <li>
                 <span className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
-                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
-                   Política de Privacidad
+                  <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
+                  Política de Privacidad
                 </span>
               </li>
               <li>
                 <span className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
-                   <AlertCircle size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
-                   Garantía de Devolución
+                  <AlertCircle size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
+                  Garantía de Devolución
                 </span>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-900 dark:border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 dark:text-gray-500">
           <p>&copy; {new Date().getFullYear()} PukaDigital S.A.C. {t('footer.rights')}</p>
           <div className="flex gap-4">
-             <span>{t('footer.made_in')}</span>
+            <span>{t('footer.made_in')}</span>
           </div>
         </div>
       </div>

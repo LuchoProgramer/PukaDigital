@@ -8,10 +8,12 @@ import SEO from '@/components/SEO';
 import ROICalculator from '@/components/ROICalculator';
 import VideoTestimonial from '@/components/VideoTestimonial';
 import { useTranslation } from '@/lib/i18n';
+import { allies } from '@/data/allies';
 import * as ga from '@/lib/analytics';
 
 const Home: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const lang = language || 'es';
 
   const scrollToForm = () => {
     const formElement = document.getElementById('start-now');
@@ -480,77 +482,78 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* NUESTROS 3 PRIMEROS ALIADOS */}
+      {/* NUESTROS ALIADOS EN EL PROGRAMA */}
       <section className="py-24 bg-puka-beige dark:bg-amber-900/20 transition-colors">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">{t('home.allies_title')}</h2>
+              <h2 className="font-display font-bold text-3xl md:text-4xl mb-4 text-puka-black dark:text-white">Nuestros Aliados</h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg">{t('home.allies_subtitle')}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Ally 1 - Cristina */}
-              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src="https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg"
-                    alt="Yadira Cristina Muñoz"
-                    className="w-16 h-16 rounded-full object-cover border-2 border-puka-red"
-                  />
-                  <div>
-                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_1_name')}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_1_business')}</p>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <span className="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded text-xs font-bold">
-                    ✅ {t('home.allies_1_status')}
-                  </span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_1_result')}</p>
-                <a href="https://podoclinicec.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">podoclinicec.com →</a>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {allies.map((ally) => (
+                <div
+                  key={ally.slug}
+                  className={`bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border transition-colors relative ${ally.status === 'just-started' && ally.industry.includes('Licores')
+                    ? 'border-2 border-amber-400 dark:border-amber-600 shadow-xl'
+                    : 'border-gray-200 dark:border-gray-700'
+                    }`}
+                >
+                  {ally.status === 'just-started' && ally.industry.includes('Licores') && (
+                    <div className="absolute -top-3 -right-3 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-sm uppercase tracking-tighter">
+                      Nuevo / Premium
+                    </div>
+                  )}
 
-              {/* Ally 2 - Carla */}
-              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-2xl border-2 border-yellow-500">
-                    🐕
+                  <div className="flex items-center gap-4 mb-4">
+                    {ally.photo ? (
+                      <img
+                        src={ally.photo}
+                        alt={ally.clientName}
+                        className="w-16 h-16 rounded-full object-cover border-2 border-puka-red"
+                      />
+                    ) : (
+                      <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl border-2 shadow-sm ${ally.industry.includes('Licores') ? 'bg-black border-amber-500' :
+                        ally.status === 'graduated' ? 'bg-green-100 dark:bg-green-900/30 border-green-500' :
+                          'bg-yellow-100 dark:bg-yellow-900/30 border-yellow-500'
+                        }`}>
+                        {ally.emoji || '👤'}
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-bold text-puka-black dark:text-white leading-tight">{ally.clientName}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{ally.business}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_2_name')}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_2_business')}</p>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <span className="inline-flex items-center gap-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded text-xs font-bold">
-                    🟡 {t('home.allies_2_status')}
-                  </span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_2_result')}</p>
-                <a href="https://healppypets.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">{t('home.allies_2_website')} →</a>
-              </div>
 
-              {/* Ally 3 - Hotel Eudiq */}
-              <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-2xl border-2 border-green-500">
-                    🏨
+                  <div className="mb-4">
+                    <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-bold ${ally.status === 'graduated' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
+                      ally.status === 'just-started' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/20' :
+                        'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+                      }`}>
+                      {ally.statusEmoji} {ally.statusLabel}
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-puka-black dark:text-white">{t('home.allies_3_name')}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('home.allies_3_business')}</p>
+
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">{ally.highlight}</p>
+
+                  <div className="flex flex-col gap-2 mt-auto">
+                    {ally.website !== 'https://pukadigital.com' ? (
+                      <a href={ally.website} target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">
+                        {ally.website.replace('https://', '')} →
+                      </a>
+                    ) : (
+                      <div className="text-amber-600 dark:text-amber-500 text-xs font-bold italic">
+                        Próximamente: Web Catálogo
+                      </div>
+                    )}
+                    <Link href={`/${lang}/casos/${ally.slug}`} className="text-gray-500 dark:text-gray-400 text-xs font-bold hover:text-puka-red transition-colors inline-flex items-center gap-1">
+                      {ally.status === 'graduated' ? 'Ver caso completo' : 'Ver hoja de ruta'} →
+                    </Link>
                   </div>
                 </div>
-                <div className="mb-4">
-                  <span className="inline-flex items-center gap-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded text-xs font-bold">
-                    🟢 {t('home.allies_3_status')}
-                  </span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{t('home.allies_3_result')}</p>
-                <a href="https://hoteleudiq.com" target="_blank" rel="noopener noreferrer" className="text-puka-red text-sm font-bold hover:underline">{t('home.allies_3_website')} →</a>
-              </div>
+              ))}
             </div>
 
             <p className="text-center text-gray-500 dark:text-gray-400 mt-8 text-sm">{t('home.allies_note')}</p>
@@ -600,20 +603,34 @@ const Home: React.FC = () => {
           {/* CONTADOR VISUAL DE CUPOS */}
           <div className="bg-puka-beige dark:bg-amber-900/20 rounded-sm p-8 text-center">
             <p className="font-bold text-puka-black dark:text-white mb-4">{t('home.why_limit_status')}</p>
+
             <div className="flex justify-center gap-2 mb-6 text-3xl">
-              <span title="Cristina - Graduada">🔴</span>
-              <span title="Carla - Mes 2">🔴</span>
-              <span title="Hotel Loja - Semana 2">🔴</span>
-              <span title="Disponible">🟢</span>
-              <span title="Disponible">🟢</span>
+              {/* Active clients (excluding graduated for the pool of 5) */}
+              {allies.filter(a => a.status !== 'graduated').map(a => (
+                <span key={a.slug} title={`${a.business} - ${a.statusLabel}`}>🔴</span>
+              ))}
+              {/* Available slots (Total 5 - Active) */}
+              {Array.from({ length: Math.max(0, 5 - allies.filter(a => a.status !== 'graduated').length) }).map((_, i) => (
+                <span key={i} title="Disponible">🟢</span>
+              ))}
             </div>
+
             <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              <p>🔴 {t('home.why_limit_slot_1')}</p>
-              <p>🔴 {t('home.why_limit_slot_2')}</p>
-              <p>🔴 {t('home.why_limit_slot_3')}</p>
-              <p className="text-green-600 dark:text-green-400 font-bold">🟢 {t('home.why_limit_slot_4')}</p>
-              <p className="text-green-600 dark:text-green-400 font-bold">🟢 {t('home.why_limit_slot_5')}</p>
+              {/* List graduated first as proof of success */}
+              {allies.filter(a => a.status === 'graduated').map(a => (
+                <p key={a.slug}>✅ <strong>Graduada:</strong> {a.business} ({a.clientName})</p>
+              ))}
+              <div className="h-px bg-gray-200 dark:bg-gray-700 my-2 w-1/4 mx-auto" />
+              {/* List active ones */}
+              {allies.filter(a => a.status !== 'graduated').map(a => (
+                <p key={a.slug}>🔴 <strong>Cupo activo:</strong> {a.business} - {a.statusLabel}</p>
+              ))}
+              {/* List available ones */}
+              {Array.from({ length: Math.max(0, 5 - allies.filter(a => a.status !== 'graduated').length) }).map((_, i) => (
+                <p key={i} className="text-green-600 dark:text-green-400 font-bold">🟢 <strong>Disponible:</strong> Cupo Libre</p>
+              ))}
             </div>
+
             <a href="#start-now" className="inline-block mt-8 bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors">
               {t('home.why_limit_cta')}
             </a>

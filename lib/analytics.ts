@@ -15,7 +15,7 @@ declare global {
 // Generate or retrieve a persistent client ID for server-side tracking
 export const getClientId = (): string => {
   if (typeof window === 'undefined') return 'server';
-  
+
   let clientId = localStorage.getItem('ga_client_id');
   if (!clientId) {
     clientId = `${Date.now()}.${Math.random().toString(36).substring(2, 15)}`;
@@ -59,7 +59,7 @@ export const trackServerEvent = async (
 ): Promise<boolean> => {
   try {
     const clientId = getClientId();
-    
+
     const response = await fetch('/api/analytics', {
       method: 'POST',
       headers: {
@@ -95,7 +95,7 @@ export const trackConversion = async (
   if (typeof window.gtag !== 'undefined') {
     window.gtag('event', eventName, eventParams);
   }
-  
+
   // Server-side tracking (reliable, not blocked)
   await trackServerEvent(eventName, eventParams);
 };
@@ -175,8 +175,8 @@ export const trackProductoModuloClick = (
  * Location: Cases page (/casos)
  */
 export const trackCasoExitoView = async (
-  caseName: 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq',
-  clientIndustry: 'healthcare' | 'veterinary' | 'hospitality',
+  caseName: string,
+  clientIndustry: string,
   metricViewed: 'conversions' | 'reviews' | 'revenue_increase' = 'conversions'
 ) => {
   return trackConversion('caso_exito_view', {
