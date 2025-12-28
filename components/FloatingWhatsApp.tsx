@@ -30,24 +30,25 @@ const FloatingWhatsApp: React.FC = () => {
 
   return (
     <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 group">
-      {/* Pulse Effect Ring - Changed to Puka Red */}
-      <div className="absolute inset-0 bg-puka-red rounded-full opacity-20 animate-[ping_2s_ease-in-out_infinite] group-hover:animate-none"></div>
+      {/* Pulse Effect Ring - WhatsApp Green */}
+      <div className="absolute inset-0 bg-[#25D366] rounded-full opacity-20 animate-[ping_2s_ease-in-out_infinite] group-hover:animate-none"></div>
 
       <a
         href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
-        // Button is now White with Puka Red border/details
-        className="relative flex items-center gap-0 bg-white dark:bg-gray-900 text-puka-red p-0 rounded-full shadow-[0_4px_14px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-800 hover:shadow-[0_6px_20px_rgba(227,6,19,0.2)] transform hover:-translate-y-1 transition-all duration-300 overflow-hidden pr-0 group-hover:pr-6 md:pr-0 md:group-hover:pr-6 h-14"
+        // Button is now WhatsApp Green
+        className="relative flex items-center gap-0 bg-[#25D366] text-white p-0 rounded-full shadow-[0_4px_14px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.4)] transform hover:-translate-y-1 transition-all duration-300 overflow-hidden pr-0 group-hover:pr-6 md:pr-0 md:group-hover:pr-6 h-14"
         aria-label="Chat en WhatsApp"
       >
         {/* Icon Container */}
         <div className="w-14 h-14 flex items-center justify-center relative z-10 shrink-0">
-          <WhatsAppIcon size={30} className="text-puka-red drop-shadow-sm" />
+          <WhatsAppIcon size={30} className="text-white drop-shadow-sm" />
 
-          {/* Notification Badge - Red with white dot */}
-          <div className="absolute top-3 right-3 w-3.5 h-3.5 bg-puka-red border-2 border-white rounded-full flex items-center justify-center animate-bounce duration-1000">
+          {/* Notification Badge - Red with white dot (keep red for attention or change to white/green?) 
+              Let's keep red for attention but maybe simplify */}
+          <div className="absolute top-3 right-3 w-3.5 h-3.5 bg-puka-red border-2 border-[#25D366] rounded-full flex items-center justify-center animate-bounce duration-1000">
             <div className="w-1 h-1 bg-white rounded-full"></div>
           </div>
         </div>
@@ -55,10 +56,10 @@ const FloatingWhatsApp: React.FC = () => {
         {/* Text Reveal */}
         <div className="max-w-0 group-hover:max-w-xs transition-[max-width] duration-500 ease-in-out whitespace-nowrap overflow-hidden">
           <div className="flex flex-col leading-tight pl-1">
-            <span className="font-display font-bold text-sm text-puka-black dark:text-white">
+            <span className="font-display font-bold text-sm text-white">
               {t('nav.contact') || 'Hablemos'}
             </span>
-            <span className="text-[10px] text-puka-red opacity-90 font-medium">
+            <span className="text-[10px] text-white/90 font-medium">
               Respuesta inmediata
             </span>
           </div>
