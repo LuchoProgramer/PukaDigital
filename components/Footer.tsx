@@ -188,22 +188,22 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <span className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href={`/${lang}/legal/terminos`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Términos de Servicio
-                </span>
+                </Link>
               </li>
               <li>
-                <span className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href={`/${lang}/legal/cookies`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
-                  Política de Privacidad
-                </span>
+                  Política de Cookies
+                </Link>
               </li>
               <li>
-                <span className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href={`/${lang}/legal/garantia`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <AlertCircle size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Garantía de Devolución
-                </span>
+                </Link>
               </li>
             </ul>
           </div>
