@@ -138,90 +138,49 @@ const Home: React.FC = () => {
                 💡 {t('home.hero_ads_note')}
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              <button
+                onClick={() => handleWhatsAppClick('hero_primary')}
+                className="bg-[#25D366] text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-[#20bd5c] transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3"
+              >
+                <WhatsAppIcon size={24} className="fill-current" />
+                {t('home.cta_primary')}
+              </button>
               <a
                 href="#start-now"
                 onClick={handleAplicarClick}
-                className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-red-700 transition-colors text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                {t('home.cta_primary')}
-              </a>
-              <button
-                onClick={() => handleWhatsAppClick('hero_secondary')}
                 className="bg-white dark:bg-gray-800 dark:text-white border-2 border-puka-black dark:border-gray-600 text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center inline-flex items-center justify-center gap-2"
               >
-                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
                 {t('home.cta_secondary')}
-              </button>
+              </a>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 text-sm">
-              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
+
+            {/* Bullets de Claridad */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 max-w-3xl">
+              <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                <CheckCircle className="text-puka-red" size={20} />
+                <span>Web que vende</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                <CheckCircle className="text-puka-red" size={20} />
+                <span>Bot IA 24/7</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                <CheckCircle className="text-puka-red" size={20} />
+                <span>Facturación SRI</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 text-sm border-t border-gray-100 dark:border-gray-800 pt-8 mt-8">
+              <span className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                🟢 {t('home.indicator_1')}
+                {t('home.indicator_1')}
               </span>
-              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
-                🟢 {t('home.indicator_2')}
-              </span>
-              <span className="flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold">
-                🟢 {t('home.indicator_3')}
+              <span className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                {t('home.indicator_2')}
               </span>
             </div>
-
-            {/* HERO COMPARISON - Agencia vs Puka */}
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-center max-w-4xl">
-              {/* Agency Side */}
-              <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-1">
-                  <XCircle size={14} className="text-red-500" /> {t('home.compare_agency_title')}
-                </p>
-                <p className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                  {t('home.compare_agency_price')}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  {t('home.compare_agency_result')}
-                </p>
-                <div className="text-xs text-gray-500 dark:text-gray-500 space-y-1">
-                  <p>{t('home.compare_agency_3years')}</p>
-                  <p className="text-red-500 font-semibold">{t('home.compare_agency_end')}</p>
-                </div>
-              </div>
-
-              {/* VS */}
-              <div className="text-center">
-                <span className="text-2xl font-bold text-gray-400 dark:text-gray-500">{t('home.compare_vs')}</span>
-              </div>
-
-              {/* Puka Side */}
-              <div className="bg-puka-red/10 dark:bg-puka-red/20 p-6 rounded-sm border-2 border-puka-red">
-                <p className="text-xs text-puka-red mb-2 flex items-center gap-1 font-semibold">
-                  <CheckCircle size={14} /> {t('home.compare_puka_title')}
-                </p>
-                <p className="text-2xl font-bold text-puka-black dark:text-white mb-2">
-                  {t('home.compare_puka_price')}
-                </p>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                  {t('home.compare_puka_result')}
-                </p>
-                <div className="text-xs space-y-1">
-                  <p className="text-gray-600 dark:text-gray-400">{t('home.compare_puka_total')}</p>
-                  <p className="text-green-600 dark:text-green-400 font-semibold">{t('home.compare_puka_end')}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Savings highlight */}
-            <p className="mt-8 text-center text-lg text-gray-600 dark:text-gray-400">
-              {t('home.compare_savings')} <span className="text-puka-red font-bold text-2xl">{t('home.compare_savings_amount')}</span>
-            </p>
-
-            {/* Cupos visual */}
-            <div className="mt-8 text-center">
-              <p className="text-3xl tracking-widest mb-2">🔴🔴🔴🟢🟢</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Último cupo tomado hace 4 días</p>
-            </div>
-
           </div>
         </div>
         {/* Abstract Background Element */}
@@ -256,6 +215,67 @@ const Home: React.FC = () => {
               <a href="/blog" className="inline-flex items-center gap-2 text-puka-red hover:text-red-400 font-semibold transition-colors">
                 {t('home.testimonial_cta')}
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HERO COMPARISON - Agencia vs Puka (Movida después del testimonio) */}
+      <section className="py-20 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-center font-display font-bold text-3xl mb-12 text-puka-black dark:text-white">
+              ¿Por qué pagar una renta eterna?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+              {/* Agency Side */}
+              <div className="bg-gray-50 dark:bg-gray-800 p-8 rounded-sm border border-gray-200 dark:border-gray-700">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-1 uppercase tracking-wider font-bold">
+                  <XCircle size={14} className="text-red-500" /> {t('home.compare_agency_title')}
+                </p>
+                <p className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  {t('home.compare_agency_price')}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                  {t('home.compare_agency_result')}
+                </p>
+                <div className="text-sm text-gray-500 space-y-2 border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <p>{t('home.compare_agency_3years')}</p>
+                  <p className="text-red-500 font-bold">{t('home.compare_agency_end')}</p>
+                </div>
+              </div>
+
+              {/* VS */}
+              <div className="text-center">
+                <span className="text-3xl font-bold text-gray-300 dark:text-gray-600">{t('home.compare_vs')}</span>
+              </div>
+
+              {/* Puka Side */}
+              <div className="bg-puka-red/5 dark:bg-puka-red/10 p-8 rounded-sm border-2 border-puka-red shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-puka-red text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
+                  Inversión Inteligente
+                </div>
+                <p className="text-xs text-puka-red mb-2 flex items-center gap-1 font-bold uppercase tracking-wider">
+                  <CheckCircle size={14} /> {t('home.compare_puka_title')}
+                </p>
+                <p className="text-3xl font-bold text-puka-black dark:text-white mb-2">
+                  {t('home.compare_puka_price')}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+                  {t('home.compare_puka_result')}
+                </p>
+                <div className="text-sm space-y-2 border-t border-puka-red/20 pt-4">
+                  <p className="text-gray-600 dark:text-gray-400">{t('home.compare_puka_total')}</p>
+                  <p className="text-green-600 dark:text-green-500 font-bold">{t('home.compare_puka_end')}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Savings highlight */}
+            <div className="mt-12 text-center bg-puka-beige dark:bg-amber-900/20 p-6 rounded-sm">
+              <p className="text-lg text-gray-600 dark:text-gray-400">
+                {t('home.compare_savings')} <span className="text-puka-red font-bold text-3xl">{t('home.compare_savings_amount')}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -439,67 +459,82 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* THE SYSTEM */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+      {/* THE SYSTEM - EL PLAN DE 3 PASOS */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-display font-bold text-4xl mb-6 text-puka-black dark:text-white">{t('home.system_title')}</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-8">
-                {t('home.system_subtitle')}
-              </p>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-display font-bold text-4xl mb-4 text-puka-black dark:text-white">{t('home.system_title')}</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              {t('home.system_subtitle')}
+            </p>
+          </div>
 
-              <div className="space-y-8">
-                <div className="flex gap-4">
-                  <div className="bg-puka-black dark:bg-gray-700 text-white w-10 h-10 flex items-center justify-center font-bold rounded-sm shrink-0">1</div>
-                  <div>
-                    <h3 className="font-bold text-lg text-puka-black dark:text-white">{t('home.phase_1_title')}</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{t('home.phase_1_desc')}</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-puka-black dark:bg-gray-700 text-white w-10 h-10 flex items-center justify-center font-bold rounded-sm shrink-0">2</div>
-                  <div>
-                    <h3 className="font-bold text-lg text-puka-black dark:text-white">{t('home.phase_2_title')}</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{t('home.phase_2_desc')} <span className="font-semibold text-puka-red">{t('home.phase_2_note')}</span>{t('home.phase_2_desc_end')}</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-puka-red text-white w-10 h-10 flex items-center justify-center font-bold rounded-sm shrink-0">3</div>
-                  <div>
-                    <h3 className="font-bold text-lg text-puka-black dark:text-white">{t('home.phase_3_title')}</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{t('home.phase_3_desc')}</p>
-                  </div>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Paso 1 */}
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-sm shadow-sm border-t-4 border-puka-black hover:shadow-md transition-shadow">
+              <span className="text-5xl font-black text-gray-100 dark:text-gray-700 block mb-4">01</span>
+              <h3 className="font-bold text-xl mb-4 text-puka-black dark:text-white">Cita de Diagnóstico</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Analizamos tu negocio por WhatsApp y definimos si el programa es para ti. Sin compromisos.</p>
+              <span className="text-xs font-bold text-puka-red uppercase tracking-widest">Paso Inicial</span>
             </div>
-            <div className="bg-white dark:bg-gray-900 p-8 border border-gray-200 dark:border-gray-700 shadow-sm rounded-sm transition-colors">
-              <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100 dark:border-gray-700">
-                <Cpu className="text-puka-red" size={32} />
+
+            {/* Paso 2 */}
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-sm shadow-xl border-t-4 border-puka-red transform md:-translate-y-4">
+              <span className="text-5xl font-black text-puka-red/10 block mb-4">02</span>
+              <h3 className="font-bold text-xl mb-4 text-puka-black dark:text-white">Construcción y Pauta</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6 font-medium">Levantamos tu web y bot mientras lanzamos tus primeros anuncios en Google Ads.</p>
+              <span className="bg-puka-red text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">Ejecución Activa</span>
+            </div>
+
+            {/* Paso 3 */}
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-sm shadow-sm border-t-4 border-puka-black hover:shadow-md transition-shadow">
+              <span className="text-5xl font-black text-gray-100 dark:text-gray-700 block mb-4">03</span>
+              <h3 className="font-bold text-xl mb-4 text-puka-black dark:text-white">Graduación y Libertad</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Te entregamos las llaves de todo. Eres 100% independiente. No nos pagas más renta.</p>
+              <span className="text-xs font-bold text-puka-red uppercase tracking-widest">Resultado Final</span>
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <button
+              onClick={() => handleWhatsAppClick('system_section')}
+              className="inline-flex items-center gap-2 bg-puka-black text-white px-8 py-4 rounded-sm font-bold hover:bg-gray-800 transition-all shadow-lg"
+            >
+              Comenzar con el Paso 1 →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* THE STACK - LAS HERRAMIENTAS */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="bg-puka-black text-white p-8 md:p-16 rounded-sm shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 opacity-10">
+              <Cpu size={300} />
+            </div>
+            <div className="relative z-10 max-w-3xl">
+              <h2 className="font-display font-bold text-3xl md:text-4xl mb-6">{t('home.stack_title')}</h2>
+              <p className="text-gray-400 text-lg mb-10">{t('home.stack_subtitle')}</p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div>
-                  <h3 className="font-bold text-xl text-puka-black dark:text-white">{t('home.stack_title')}</h3>
+                  <span className="block text-2xl font-bold text-puka-red mb-1">Web</span>
+                  <span className="text-sm text-gray-400">Next.js de alta velocidad</span>
+                </div>
+                <div>
+                  <span className="block text-2xl font-bold text-puka-red mb-1">IA</span>
+                  <span className="text-sm text-gray-400">Bot GPT-4 24/7</span>
+                </div>
+                <div>
+                  <span className="block text-2xl font-bold text-puka-red mb-1">ERP</span>
+                  <span className="text-sm text-gray-400">Gestión de Stock y SRI</span>
+                </div>
+                <div>
+                  <span className="block text-2xl font-bold text-puka-red mb-1">Ads</span>
+                  <span className="text-sm text-gray-400">Pauta profesional</span>
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{t('home.stack_subtitle')}</p>
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm transition-colors">
-                  <span className="block font-bold mb-1 text-puka-black dark:text-gray-200">{t('home.stack_web')}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_web_desc')}</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm transition-colors">
-                  <span className="block font-bold mb-1 text-puka-black dark:text-gray-200">{t('home.stack_bot')}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_bot_desc')}</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm transition-colors">
-                  <span className="block font-bold mb-1 text-puka-black dark:text-gray-200">{t('home.stack_erp')}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_erp_desc')}</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-sm transition-colors">
-                  <span className="block font-bold mb-1 text-puka-black dark:text-gray-200">{t('home.stack_analytics')}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{t('home.stack_analytics_desc')}</span>
-                </div>
-              </div>
-              <p className="text-sm text-puka-red font-medium">{t('home.stack_democratization')}</p>
             </div>
           </div>
         </div>

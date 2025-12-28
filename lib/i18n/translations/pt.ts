@@ -9,6 +9,7 @@ export const pt = {
         faq: 'Perguntas Frequentes',
         contact: 'Contato',
         cta: 'Aplicar',
+        google_price_guide: 'Guia de Preços Google',
         start: 'Começar Agora',
         slots_badge: '2 vagas',
         slots_available: 'disponíveis'

@@ -76,7 +76,7 @@ export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${BASE_URL}/#organization`,
-  "name": "PukaDigital",
+  "name": "PukaDigital - Agencia de Marketing Digital y Desarrollo Web",
   "alternateName": "Puka Digital",
   "url": BASE_URL,
   "logo": {
@@ -121,7 +121,7 @@ export const getOrganizationSchema = () => ({
   ],
   "knowsAbout": [
     "Digital Marketing",
-    "Web Development", 
+    "Web Development",
     "AI Chatbots",
     "ERP Systems",
     "Digital Independence",
@@ -151,12 +151,12 @@ export const getLocalBusinessSchema = () => ({
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${BASE_URL}/#localbusiness`,
-  "name": "PukaDigital",
+  "name": "PukaDigital - Agencia de Marketing Digital y Desarrollo Web",
   "image": "https://res.cloudinary.com/dltfsttr7/image/upload/v1764125716/logo_ekusea.svg",
   "url": BASE_URL,
   "telephone": CONTACT_INFO.phone,
   "email": CONTACT_INFO.email,
-  "description": "Agencia de educación digital para PYMEs en Ecuador. Programa de 3 meses para independencia tecnológica: web, chatbot IA, ERP.",
+  "description": "Agencia de marketing digital y empresa de desarrollo web en Quito, Ecuador. Especialista en independencia tecnológica para PYMEs: SEO, Google Ads, Chatbots y ERP.",
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
@@ -179,11 +179,11 @@ export const getLocalBusinessSchema = () => ({
     "@id": `${BASE_URL}/#founder`
   },
   "serviceType": [
-    "Digital Marketing Education",
-    "Web Development",
+    "Digital Marketing Agency",
+    "Web Development Company",
     "AI Chatbot Implementation",
-    "ERP Setup",
-    "Google Ads Training"
+    "SEO Services Quito",
+    "Google Ads Management"
   ],
   "currenciesAccepted": "USD",
   "paymentAccepted": "Cash, Credit Card, Bank Transfer",
@@ -236,7 +236,7 @@ export const getServiceSchema = (lang: SupportedLocale = 'es') => {
       offerDescription: "$300/mes por 3 meses. Incluye $100/mes en Google Ads."
     },
     en: {
-      name: "3-Month Digital Independence Program", 
+      name: "3-Month Digital Independence Program",
       description: "Intensive educational program teaching SMEs to manage their own digital presence: web development, AI chatbots, ERP systems and digital marketing.",
       offerDescription: "$300/month for 3 months. Includes $100/month in Google Ads."
     },
@@ -274,7 +274,7 @@ export const getServiceSchema = (lang: SupportedLocale = 'es') => {
       }
     },
     "areaServed": {
-      "@type": "Country", 
+      "@type": "Country",
       "name": "Ecuador"
     },
     "hasOfferCatalog": {
@@ -324,7 +324,7 @@ export const getServiceSchema = (lang: SupportedLocale = 'es') => {
           "priceCurrency": "USD",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
-            "price": "20", 
+            "price": "20",
             "priceCurrency": "USD",
             "unitText": "MONTH"
           }
@@ -406,7 +406,7 @@ export interface SoftwareAppData {
   category: string;
 }
 
-export const getSoftwareAppSchema = (apps: SoftwareAppData[]) => 
+export const getSoftwareAppSchema = (apps: SoftwareAppData[]) =>
   apps.map(app => ({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -507,13 +507,13 @@ export const getGlobalSchemaGraph = () => ({
  */
 export const generateBreadcrumbs = (lang: SupportedLocale, path: string[]): BreadcrumbItem[] => {
   const homeNames = { es: 'Inicio', en: 'Home', pt: 'Início' };
-  
+
   const breadcrumbs: BreadcrumbItem[] = [
     { name: homeNames[lang], url: `${BASE_URL}/${lang}` }
   ];
 
   let currentPath = `${BASE_URL}/${lang}`;
-  
+
   const pageNames: Record<string, Record<SupportedLocale, string>> = {
     'productos': { es: 'Productos', en: 'Products', pt: 'Produtos' },
     'blog': { es: 'Blog', en: 'Blog', pt: 'Blog' },

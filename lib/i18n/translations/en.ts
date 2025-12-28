@@ -9,6 +9,7 @@ export const en = {
         faq: 'FAQ',
         contact: 'Contact',
         cta: 'Apply',
+        google_price_guide: 'Google Price Guide',
         start: 'Start Now',
         slots_badge: '2 spots',
         slots_available: 'available'

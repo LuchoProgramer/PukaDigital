@@ -26,26 +26,26 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ lang: string }> 
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ lang: string }>
 }): Promise<Metadata> {
   const { lang } = await params;
   const locale = lang as Locale;
-  
+
   const titles = {
-    es: "PukaDigital - Construimos Dignidad Digital",
-    en: "PukaDigital - We Build Digital Dignity",
-    pt: "PukaDigital - Construímos Dignidade Digital"
+    es: "PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador",
+    en: "PukaDigital - Digital Marketing Agency & Web Development in Ecuador",
+    pt: "PukaDigital - Agência de Marketing Digital e Desenvolvimento Web no Equador"
   };
-  
+
   const descriptions = {
     es: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
     en: "Tech independence for SMEs in Ecuador. Learn to manage your web, chatbot & ERP in 3 months. No eternal contracts.",
     pt: "Independência tecnológica para PMEs no Equador. Aprenda a gerir web, chatbot e ERP em 3 meses. Sem contratos eternos."
   };
-  
+
   const localeMap = {
     es: 'es_ES',
     en: 'en_US',
@@ -176,7 +176,7 @@ export default async function LangLayout({
         <link rel="alternate" hrefLang="en" href="https://pukadigital.com/en" />
         <link rel="alternate" hrefLang="pt" href="https://pukadigital.com/pt" />
         <link rel="alternate" hrefLang="x-default" href="https://pukadigital.com/es" />
-        
+
         {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
@@ -192,7 +192,7 @@ export default async function LangLayout({
             });
           `}
         </Script>
-        
+
         {/* Global Schema: Organization + LocalBusiness + WebSite */}
         <script
           type="application/ld+json"
