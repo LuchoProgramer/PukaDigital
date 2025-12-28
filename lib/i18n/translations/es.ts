@@ -251,6 +251,16 @@ export const es = {
         medical_title: "Gestión de Citas Médicas",
         medical_desc: "Agenda inteligente, recordatorios automáticos y fichas de pacientes. En desarrollo con PodoclinicEC."
     },
+    cases: {
+        hero_h1: "¿Quieres Resultados Reales Como Estos?",
+        hero_desc_top: "PodoclinicEC: De 3 a 15 reseñas Google • 33 conv/mes",
+        hero_desc_bottom: "HealppyPets: Mes 2 Ads activas • 2 cupos para tu transformación",
+        cta_wa_main: "WhatsApp: Quiero resultados como Cristina",
+        cta_wa_diag: "Vers mi diagnóstico gratis",
+        indicator_slots: "2 cupos para tu transformación",
+        card_wa_prefill: "WA: Quiero lo mismo que ",
+        card_wa_results: "Quiero resultados como "
+    },
     demos: {
         badge: "Pruébalo Tú Mismo",
         title: "La Tecnología no muerde",

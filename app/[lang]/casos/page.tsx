@@ -11,23 +11,37 @@ import type { SupportedLocale } from '@/lib/schema';
 
 import { allies } from '@/data/allies';
 
+const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+);
+
 const CasosPage = () => {
   const cases = allies;
-  const { language } = useTranslation();
+  const { t, language } = useTranslation();
   const lang = (language || 'es') as SupportedLocale;
 
   const completedCases = cases.filter(c => c.status === 'graduated' || c.status === 'completed');
   const inProgressCases = cases.filter(c => c.status === 'in-progress');
   const justStartedCases = cases.filter(c => c.status === 'just-started');
 
-  // Track case clicks
-  const handleCaseClick = async (caseName: 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq' | 'La Huequita Quiteña', industry: 'healthcare' | 'veterinary' | 'hospitality' | 'retail') => {
-    await ga.trackCasoExitoView(caseName, industry);
-  };
+  const WHATSAPP_NUMBER = '593964065880';
+  const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
-  // Track external website clicks
-  const handleWebsiteClick = (caseName: string, websiteUrl: string) => {
-    ga.trackCasoLinkClick(caseName, websiteUrl, 'casos_page');
+  const handleWhatsAppClick = (location: string, message?: string) => {
+    ga.trackWhatsAppDirectoClick(location);
+    const finalLink = message
+      ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+      : WHATSAPP_LINK;
+    window.open(finalLink, '_blank');
   };
 
   // Breadcrumbs
@@ -39,26 +53,45 @@ const CasosPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
 
-      {/* Hero dramático */}
-      <section className="py-20 text-center bg-gradient-to-b from-puka-black to-gray-900 text-white">
-        <div className="container mx-auto px-4 md:px-6">
-          {/* Breadcrumbs */}
-          <div className="mb-8">
-            <Breadcrumbs
-              items={breadcrumbItems}
-              className="justify-center text-gray-400 [&_a]:text-gray-400 [&_a:hover]:text-white"
-            />
+      {/* Hero Optimizado - Grunt Test 5s */}
+      <section className="py-20 text-center bg-puka-black text-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-puka-red/10 to-transparent -z-10"></div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="mb-6 flex justify-center">
+            <span className="bg-white/10 text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest border border-white/20">
+              Transparencia Radical
+            </span>
+          </div>
+          <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
+            {t('cases.hero_h1')}
+          </h1>
+          <div className="text-xl md:text-2xl mb-10 text-gray-400 max-w-2xl mx-auto space-y-2">
+            <p className="flex items-center justify-center gap-2">
+              <CheckCircle size={20} className="text-puka-red" /> {t('cases.hero_desc_top')}
+            </p>
+            <p className="flex items-center justify-center gap-2">
+              <CheckCircle size={20} className="text-puka-red" /> {t('cases.hero_desc_bottom')}
+            </p>
           </div>
 
-          <span className="text-sm uppercase tracking-widest text-gray-400 font-medium">
-            Transparencia Radical
-          </span>
-          <h1 className="font-display text-5xl md:text-6xl font-bold mt-4">
-            Construyendo en Público
-          </h1>
-          <p className="text-xl md:text-2xl mt-6 text-gray-300 max-w-3xl mx-auto">
-            No te mostramos "resultados increíbles" editados.<br />
-            Te mostramos el proceso <span className="text-puka-red font-bold">REAL</span>. Errores incluidos.
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button
+              onClick={() => handleWhatsAppClick('cases_hero_primary', 'Hola, quiero obtener resultados como los de Cristina y Yadira.')}
+              className="bg-[#25D366] text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-[#20bd5c] transition-colors flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto"
+            >
+              <WhatsAppIcon size={24} className="fill-current" />
+              {t('cases.cta_wa_main')}
+            </button>
+            <button
+              onClick={() => handleWhatsAppClick('cases_hero_secondary', 'Hola, me gustaría mi diagnóstico gratuito para empezar el programa.')}
+              className="bg-white text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-100 transition-colors w-full sm:w-auto text-center"
+            >
+              {t('cases.cta_wa_diag')}
+            </button>
+          </div>
+
+          <p className="mt-8 text-sm font-bold text-puka-red uppercase tracking-widest animate-pulse">
+            🔥 {t('cases.indicator_slots')}
           </p>
         </div>
       </section>
@@ -131,25 +164,22 @@ const CasosPage = () => {
                   </blockquote>
 
                   <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <button
+                      onClick={() => handleWhatsAppClick(
+                        `case_wa_${caso.slug}`,
+                        `Hola, leí el caso de ${caso.clientName} y quiero obtener resultados similares para mi negocio.`
+                      )}
+                      className="bg-[#25D366] text-white px-6 py-3 rounded-sm font-bold hover:bg-[#20bd5c] transition-colors inline-flex items-center gap-2 shadow-lg"
+                    >
+                      <WhatsAppIcon size={20} />
+                      {t('cases.card_wa_results')} {caso.clientName.split(' ')[0]}
+                    </button>
                     <Link
                       href={`/es/casos/${caso.slug}`}
-                      onClick={() => handleCaseClick(
-                        caso.business as 'PodoclinicEC' | 'HealppyPets' | 'Hotel Eudiq',
-                        caso.industry === 'Podología' ? 'healthcare' : caso.industry === 'Veterinaria' ? 'veterinary' : 'hospitality'
-                      )}
-                      className="bg-puka-red text-white px-6 py-3 rounded-sm font-bold hover:bg-red-700 transition-colors inline-flex items-center gap-2"
+                      className="border-2 border-puka-black dark:border-white text-puka-black dark:text-white px-6 py-3 rounded-sm font-bold hover:bg-puka-black hover:text-white dark:hover:bg-white dark:hover:text-puka-black transition-colors inline-flex items-center gap-2"
                     >
-                      Ver caso completo <ArrowRight size={18} />
+                      Ver proceso histórico <ArrowRight size={18} />
                     </Link>
-                    <a
-                      href={caso.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => handleWebsiteClick(caso.business, caso.website)}
-                      className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-sm font-bold hover:border-puka-red hover:text-puka-red transition-colors inline-flex items-center gap-2"
-                    >
-                      Visitar web <ExternalLink size={18} />
-                    </a>
                   </div>
                 </div>
 
@@ -292,6 +322,16 @@ const CasosPage = () => {
         </div>
       </section>
 
+      {/* STICKY WHATSAPP BAR (MOBILE) */}
+      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 p-4 z-50 md:hidden flex justify-center">
+        <button
+          onClick={() => handleWhatsAppClick('sticky_cases_bar', 'Hola, quiero tomar uno de los 2 cupos para mi transformación digital.')}
+          className="bg-[#25D366] text-white w-full py-3 rounded-full font-bold flex items-center justify-center gap-3 shadow-xl active:scale-95 transition-all"
+        >
+          <WhatsAppIcon size={24} />
+          Apartar cupo por WhatsApp
+        </button>
+      </div>
     </div>
   );
 };
