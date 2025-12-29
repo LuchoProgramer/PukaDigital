@@ -579,7 +579,7 @@ const SistemaEmprendedorPage = () => {
                             },
                             {
                                 q: '¿En cuánto tiempo está lista mi tienda?',
-                                a: 'Promedio de 48 a 72 horas laborables. Somos especialistas en velocidad. Si tienes tu logo y tus productos listos, nosotros hacemos la magia técnica en tiempo récord.'
+                                a: 'Promedio de 7 a 10 días laborables. Nos tomamos el tiempo necesario para que cada detalle (SEO, velocidad y diseño mobile) quede perfecto. Si tienes tu logo y tus productos listos, el proceso es muy fluido.'
                             }
                         ].map((item, i) => (
                             <details key={i} className="group bg-gray-50 p-8 rounded-3xl border border-gray-100 cursor-pointer hover:bg-white hover:shadow-xl hover:border-puka-red/10 transition-all duration-300">
