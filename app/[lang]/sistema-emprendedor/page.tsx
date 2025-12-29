@@ -186,7 +186,7 @@ const SistemaEmprendedorPage = () => {
                         <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed">De un click en tu catálogo a una venta cerrada en tu WhatsApp. Así de fácil es para ti y para tus clientes.</p>
                     </div>
 
-                    <div className="bg-gray-50/50 rounded-[4rem] border border-gray-100 p-4 md:p-12 shadow-inner">
+                    <div className="bg-gray-50/50 rounded-[2rem] md:rounded-[4rem] border border-gray-100 p-0 shadow-inner overflow-hidden max-w-full">
                         <LiveDemoSim />
                     </div>
 
