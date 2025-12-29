@@ -40,7 +40,7 @@ const LiveDemoSim = () => {
             <div className={`flex flex-row w-[200%] md:w-full md:justify-center md:gap-20 transition-transform duration-1000 ease-in-out ${step >= 3 ? '-translate-x-1/2 md:translate-x-0' : 'translate-x-0'}`}>
 
                 {/* 1. THE PHONE (CLIENT SIDE) */}
-                <div className="relative group perspective-1000 w-1/2 md:w-auto flex justify-center shrink-0 px-4">
+                <div className="relative group perspective-1000 w-full md:w-auto flex justify-center shrink-0 px-4">
                     <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-puka-black text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase z-20">
                         CLIENTE
                     </div>
@@ -117,7 +117,7 @@ const LiveDemoSim = () => {
                 </div>
 
                 {/* 2. THE RECEIVER (ADMIN SIDE) */}
-                <div className="relative group perspective-1000 w-1/2 md:w-auto flex justify-center shrink-0 px-4">
+                <div className="relative group perspective-1000 w-full md:w-auto flex justify-center shrink-0 px-4">
                     <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-puka-red text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase z-20">
                         EMPRENDEDOR
                     </div>
