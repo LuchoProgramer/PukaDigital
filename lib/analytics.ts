@@ -298,19 +298,17 @@ export const trackIdiomaCambiado = (
 };
 
 /**
- * 12. WhatsApp Direct Click
+ * 12. WhatsApp Direct Click - HYBRID (Reliable against ad-blockers)
  * Location: Floating button, footer, contact page
  */
-export const trackWhatsAppDirectoClick = (
+export const trackWhatsAppDirectoClick = async (
   buttonLocation: string
 ) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag('event', 'whatsapp_directo_click', {
-      button_location: buttonLocation,
-      intent: 'whatsapp_direct',
-      from_page: typeof window !== 'undefined' ? window.location.pathname : '',
-    });
-  }
+  return trackConversion('whatsapp_directo_click', {
+    button_location: buttonLocation,
+    intent: 'whatsapp_direct',
+    from_page: typeof window !== 'undefined' ? window.location.pathname : '',
+  });
 };
 
 /**
