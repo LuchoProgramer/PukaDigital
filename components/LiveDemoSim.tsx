@@ -37,10 +37,10 @@ const LiveDemoSim = () => {
             {/* Background elements */}
             <div className="absolute inset-0 bg-gradient-to-tr from-puka-red/5 to-puka-beige/20 blur-3xl -z-10 rounded-full"></div>
 
-            <div className={`flex flex-row w-[200%] md:w-full md:justify-center md:gap-20 transition-transform duration-1000 ease-in-out ${step >= 3 ? '-translate-x-1/2 md:translate-x-0' : 'translate-x-0'}`}>
+            <div className={`flex flex-row flex-nowrap md:justify-center transition-transform duration-1000 ease-in-out ${step >= 3 ? '-translate-x-full md:translate-x-0' : 'translate-x-0'}`}>
 
                 {/* 1. THE PHONE (CLIENT SIDE) */}
-                <div className="relative group perspective-1000 w-1/2 md:w-auto flex justify-center shrink-0">
+                <div className="relative group perspective-1000 min-w-full md:min-w-0 md:w-auto md:px-10 flex justify-center shrink-0">
                     <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-puka-black text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase z-20">
                         CLIENTE
                     </div>
@@ -105,8 +105,8 @@ const LiveDemoSim = () => {
                     </div>
                 </div>
 
-                {/* THE BRIDGE (MAGIC) */}
-                <div className="hidden lg:flex flex-col items-center gap-4 text-gray-300">
+                {/* THE BRIDGE (MAGIC) - Solo en pantallas grandes, no estorba en el slider móvil */}
+                <div className="hidden lg:flex flex-col items-center justify-center gap-4 text-gray-300 w-0 lg:w-auto overflow-hidden">
                     <div className={`transition-all duration-500 ${step === 2 ? 'text-puka-red scale-125' : ''}`}>
                         <Zap fill={step === 2 ? 'currentColor' : 'none'} />
                     </div>
@@ -117,7 +117,7 @@ const LiveDemoSim = () => {
                 </div>
 
                 {/* 2. THE RECEIVER (ADMIN SIDE) */}
-                <div className="relative group perspective-1000 w-1/2 md:w-auto flex justify-center shrink-0">
+                <div className="relative group perspective-1000 min-w-full md:min-w-0 md:w-auto md:px-10 flex justify-center shrink-0">
                     <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-puka-red text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase z-20">
                         EMPRENDEDOR
                     </div>
