@@ -35,5 +35,17 @@ Se utiliza un buecle de tiempo para ciclar entre las diferentes etapas de la ven
 - **Mantenibilidad**: Se puede cambiar el catálogo sin editar video.
 - **Engagement**: La fluidez del código atrapa al usuario más que un video estático.
 
+## Solución de Problemas (Mobile Centering)
+
+Si la demo no aparece centrada en móviles o se ve "lejos" al cambiar de paso:
+
+### El Problema de "Doble Ancho"
+Al usar un contenedor con `w-[200%]` para permitir el deslizamiento, los hijos con `w-full` heredarán el 200% del ancho del viewport, duplicando su tamaño y rompiendo el centrado.
+
+### La Solución: Aislamiento Completo
+1.  **Hijos**: Usar `min-w-full` (o `basis-full`) en lugar de `w-full` para obligar a cada dispositivo a medir exactamente el 100% de la pantalla visible.
+2.  **Transición**: Usar `-translate-x-full` (moverse un 100% del contenedor visible) para que el paso entre la vista Cliente y Emprendedor sea exacto.
+3.  **Contenedor Padre**: Asegurarse de que el contenedor de la sección tenga `p-0` y `overflow-hidden` para evitar offsets laterales.
+
 ---
 *Hito logrado el 29 de Diciembre de 2025 - Puka Digital Team.*

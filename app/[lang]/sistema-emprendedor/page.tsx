@@ -66,7 +66,7 @@ const SistemaEmprendedorPage = () => {
             <section className="relative pt-24 pb-20 md:pt-32 md:pb-36">
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center gap-16">
-                        <div className="lg:w-3/5 text-left order-2 lg:order-1">
+                        <div className="lg:w-3/5 text-left order-1 lg:order-1">
                             <div className="inline-flex items-center gap-2 py-1.5 px-3 bg-puka-red/10 text-puka-red font-bold text-[10px] md:text-xs tracking-widest uppercase mb-6 rounded-full border border-puka-red/20 animate-fade-in">
                                 <span className="w-1.5 h-1.5 rounded-full bg-puka-red animate-pulse"></span>
                                 SISTEMA DE VENTAS PARA EMPRENDEDORES EN ECUADOR
@@ -113,7 +113,7 @@ const SistemaEmprendedorPage = () => {
                             </div>
                         </div>
 
-                        <div className="lg:w-2/5 relative order-1 lg:order-2">
+                        <div className="lg:w-2/5 relative order-2 lg:order-2">
                             <div className="relative z-10 animate-float-slow">
                                 <div className="bg-gradient-to-tr from-puka-beige/40 to-white p-6 rounded-[3rem] border border-puka-beige shadow-2xl backdrop-blur-sm">
                                     <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-gray-100 aspect-[9/19] max-w-[320px] mx-auto relative group">
