@@ -332,16 +332,16 @@ const SistemaEmprendedorPage = () => {
                                             </div>
                                             <div className="h-4 bg-puka-red rounded w-16"></div>
                                         </div>
-                                        <div className="h-10 bg-gray-50 rounded-lg flex items-center px-4 justify-between">
+                                        <div className="h-10 bg-gray-50 rounded-lg flex items-center px-4 justify-between group/item hover:bg-puka-beige/10 transition-colors">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                                                <img src="/puka-watch.png" alt="Thumb" className="w-7 h-7 rounded object-cover shadow-sm bg-white" />
                                                 <div className="h-1.5 bg-gray-200 w-32 rounded-full"></div>
                                             </div>
                                             <div className="h-4 bg-gray-200 rounded w-12"></div>
                                         </div>
-                                        <div className="h-10 bg-gray-50 rounded-lg flex items-center px-4 justify-between">
+                                        <div className="h-10 bg-gray-50 rounded-lg flex items-center px-4 justify-between group/item hover:bg-puka-beige/10 transition-colors">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                                                <img src="/puka-headphones.png" alt="Thumb" className="w-7 h-7 rounded object-cover shadow-sm bg-white" />
                                                 <div className="h-1.5 bg-gray-200 w-20 rounded-full"></div>
                                             </div>
                                             <div className="h-4 bg-gray-200 rounded w-20"></div>
