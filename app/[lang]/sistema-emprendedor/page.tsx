@@ -51,8 +51,12 @@ const SistemaEmprendedorPage = () => {
 
     return (
         <div className="flex flex-col bg-white overflow-hidden selection:bg-puka-red/20 selection:text-puka-red">
+            {/* Top Urgency Banner */}
+            <div className="bg-puka-red text-white py-2 px-4 text-center text-xs md:text-sm font-bold animate-pulse">
+                🔥 OFERTA DE LANZAMIENTO: Setup de Google Ads <span className="line-through opacity-80">($150)</span> <span className="font-black">GRATIS</span> + $100 de saldo. <b>Solo 2 cupos disponibles para Enero.</b>
+            </div>
             <SEO
-                title="Sistema de Ventas para Emprendedores | Puka Digital"
+                title="Tienda Online Profesional | Sin Pagos Mensuales | Puka Digital"
                 description="Tu Tienda Online + Control de Inventario por un Pago Único. Sin comisiones y sin rentas mensuales. Tecnología Next.js para tu negocio en Ecuador."
             />
 
@@ -72,15 +76,16 @@ const SistemaEmprendedorPage = () => {
                                 SISTEMA DE VENTAS PARA EMPRENDEDORES EN ECUADOR
                             </div>
                             <h1 className="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-puka-black mb-6">
-                                Tu Tienda Online + <br />
+                                Tu Tienda Online <br />
                                 <span className="relative">
-                                    <span className="relative z-10 text-puka-red">Control de Inventario</span>
+                                    <span className="relative z-10 text-puka-red">Sin Rentas Mensuales</span>
                                     <span className="absolute bottom-2 left-0 w-full h-3 bg-puka-beige -z-10 transform -rotate-1"></span>
                                 </span> <br />
-                                por un Pago Único.
+                                Pago Único.
                             </h1>
                             <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
-                                Deja de enviar fotos por chat y perder el control. Organiza tus pedidos, controla tu stock en tiempo real y recibe ventas listas por WhatsApp. <span className="font-bold text-puka-black border-b-2 border-puka-red">Sin comisiones y sin rentas mensuales.</span>
+                                Vende por internet con tecnología de élite (Next.js). Incluye inventario, pedidos a WhatsApp y <b>$100 de regalo en Google Ads.</b> <br className="hidden md:block" />
+                                <span className="text-sm mt-4 block text-gray-400 font-medium italic">* Pago único de implementación. Renovación técnica desde el 2º año: $80 (Hosting + Dominio).</span>
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-5 mb-10">
@@ -88,7 +93,7 @@ const SistemaEmprendedorPage = () => {
                                     onClick={scrollToPricing}
                                     className="bg-puka-red text-white px-12 py-5 rounded-sm font-black text-xl hover:bg-puka-black transition-all shadow-2xl shadow-puka-red/20 flex items-center justify-center gap-3 group transform hover:-translate-y-1"
                                 >
-                                    QUIERO VER LOS PLANES
+                                    SOLICITAR MI TIENDA (2 CUPOS)
                                     <ArrowRight className="group-hover:translate-x-2 transition-transform" size={24} />
                                 </button>
                                 <button
@@ -96,7 +101,7 @@ const SistemaEmprendedorPage = () => {
                                     className="bg-white border-2 border-puka-black text-puka-black px-12 py-5 rounded-sm font-black text-xl hover:bg-gray-50 transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1"
                                 >
                                     <WhatsAppIcon size={28} />
-                                    HABLAR CON LUIS
+                                    VER DEMO
                                 </button>
                             </div>
 
@@ -387,6 +392,7 @@ const SistemaEmprendedorPage = () => {
                                     <span className="ml-2 text-gray-400 font-bold text-xl">USD</span>
                                 </div>
                                 <p className="text-xs text-gray-500 mt-4 uppercase font-black tracking-widest">Pago Único - No hay rentas</p>
+                                <p className="text-[10px] text-gray-400 mt-1 italic leading-tight">Mantenimiento desde 2º año: $80/año (Opcional)</p>
                             </div>
 
                             <div className="space-y-5 mb-12 flex-1">
@@ -471,12 +477,14 @@ const SistemaEmprendedorPage = () => {
 
                                 <div className="flex items-center gap-4 text-puka-black py-2">
                                     <CheckCircle className="text-[#25D366] shrink-0" size={24} />
-                                    <span className="text-xs font-black uppercase underline decoration-puka-red/30 underline-offset-4">Configuración Campaña PRO GRATIS</span>
+                                    <span className="text-sm font-black uppercase">
+                                        Configuración Campaña PRO <span className="line-through text-gray-400">($150)</span> <span className="text-green-600">GRATIS</span>
+                                    </span>
                                 </div>
                             </div>
 
                             <div className="p-4 bg-puka-beige/30 rounded-2xl mb-12 text-[11px] font-black text-puka-black text-center uppercase tracking-widest ring-1 ring-puka-beige">
-                                Ideal para: Quien quiere clientes nuevos desde el día 1.
+                                Renovación técnica desde 2º año: $80 (Hosting + Dominio)
                             </div>
 
                             <button
@@ -542,7 +550,7 @@ const SistemaEmprendedorPage = () => {
                                 El primer año es <span className="underline decoration-puka-red decoration-6 underline-offset-4">GRATIS</span>.
                             </p>
                             <p className="text-gray-400 font-bold">
-                                Después de 12 meses, solo <span className="text-white">$60/año</span> para mantener todo en línea. <br />
+                                Después de 12 meses, solo <span className="text-white">$80/año</span> para mantener todo en línea. <br />
                                 (Menos de lo que cuesta una salida a comer al mes).
                             </p>
                         </div>
@@ -567,7 +575,7 @@ const SistemaEmprendedorPage = () => {
                         {[
                             {
                                 q: '¿Tengo que pagar mensualidades?',
-                                a: 'En resumen: No. El pago de $200 o $300 es un pago único por el desarrollo e implementación. A partir del SEGUNDO año, pagas $60/año por el mantenimiento del servidor (hosting) y dominio. Eso es todo. Sin sorpresas.'
+                                a: 'En resumen: No. El pago de $200 o $300 es un pago único por el desarrollo e implementación. A partir del SEGUNDO año, pagas $80/año por el mantenimiento del servidor (hosting) y dominio. Eso es todo. Sin sorpresas.'
                             },
                             {
                                 q: '¿Necesito tener RUC o firma electrónica?',
@@ -578,8 +586,8 @@ const SistemaEmprendedorPage = () => {
                                 a: 'A diferencia de Shopify o Amazon, nosotros NO cobramos comisión por tus ventas. El pedido llega a tu WhatsApp y tú cobras vía Transferencia, Efectivo, DeUna o como prefieras. El control de tu dinero es 100% tuyo.'
                             },
                             {
-                                q: '¿En cuánto tiempo está lista mi tienda?',
-                                a: 'Promedio de 7 a 10 días laborables. Nos tomamos el tiempo necesario para que cada detalle (SEO, velocidad y diseño mobile) quede perfecto. Si tienes tu logo y tus productos listos, el proceso es muy fluido.'
+                                q: '¿Siempre incluyen la campaña de publicidad gratis?',
+                                a: 'No. La configuración profesional de campaña y el bono de $100 son un beneficio exclusivo de lanzamiento para nuestros primeros 5 clientes. Normalmente, este servicio de configuración tiene un costo adicional de $150. Aprovecha la promoción actual antes de que termine.'
                             }
                         ].map((item, i) => (
                             <details key={i} className="group bg-gray-50 p-8 rounded-3xl border border-gray-100 cursor-pointer hover:bg-white hover:shadow-xl hover:border-puka-red/10 transition-all duration-300">
