@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag, Users, HelpCircle, DollarSign } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { allies } from '@/data/allies';
@@ -11,12 +12,20 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
+  const pathname = usePathname();
   const { t } = useTranslation();
 
   // Dynamic slot availability based on real allies data
   const totalSlots = 5;
   const activeAlliesCount = allies.filter(a => a.status !== 'graduated').length;
   const availableSlots = Math.max(0, totalSlots - activeAlliesCount);
+
+  // Check if current page has a custom footer to hide the global one
+  const isCustomFooterPage = pathname === '/' || pathname === `/${lang}` || pathname?.includes('/sistema');
+
+  if (isCustomFooterPage) {
+    return null;
+  }
 
   return (
     <footer className="bg-puka-black dark:bg-black text-white py-16 md:py-20 border-t border-gray-900 dark:border-gray-800 transition-colors duration-300">
