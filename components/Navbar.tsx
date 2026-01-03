@@ -57,6 +57,13 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
     { code: 'pt', label: 'PT', flag: '🇧🇷' },
   ] as const;
 
+  // Check if current page is Home to hide global navbar (avoid double header)
+  const isHomePage = ['/', '/es', '/en', '/pt'].includes(pathname);
+
+  if (isHomePage) {
+    return null;
+  }
+
   return (
     <nav className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
@@ -91,8 +98,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
                 href={item.path}
                 onClick={() => handleNavClick(item.path.split('/').pop() || 'inicio')}
                 className={`text-sm font-medium transition-colors hover:text-puka-red ${pathname === item.path
-                    ? 'text-puka-red font-semibold'
-                    : 'text-gray-600 dark:text-gray-300'
+                  ? 'text-puka-red font-semibold'
+                  : 'text-gray-600 dark:text-gray-300'
                   }`}
               >
                 {item.label}
