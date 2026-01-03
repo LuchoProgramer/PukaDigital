@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
   const handleNavClick = (toSection: string) => {
     const currentSection = pathname.split('/').pop() || 'inicio';
     ga.trackSeccionNavega(
-      currentSection, 
+      currentSection,
       toSection as 'metodo' | 'programa' | 'casos' | 'blog' | 'demos' | 'nosotros' | 'productos' | 'contacto',
       'menu'
     );
@@ -64,8 +64,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
           {/* Logo */}
           <Link href={`/${lang}`} className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
             <div className="relative h-12 w-12 flex-shrink-0">
-              <Image 
-                src="/pegaso-rojo.svg" 
+              <Image
+                src="/pegaso-rojo.svg"
                 fill
                 className="object-contain"
                 alt="Pegaso Puka Digital"
@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               />
             </div>
             <div className="relative h-10 w-44">
-              <Image 
+              <Image
                 src={theme === 'dark' ? '/logo-Puka-dark.svg' : '/logo-Puka.svg'}
                 fill
                 className="object-contain object-left"
@@ -90,16 +90,15 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
                 key={item.path}
                 href={item.path}
                 onClick={() => handleNavClick(item.path.split('/').pop() || 'inicio')}
-                className={`text-sm font-medium transition-colors hover:text-puka-red ${
-                  pathname === item.path 
-                    ? 'text-puka-red font-semibold' 
+                className={`text-sm font-medium transition-colors hover:text-puka-red ${pathname === item.path
+                    ? 'text-puka-red font-semibold'
                     : 'text-gray-600 dark:text-gray-300'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
             ))}
-            
+
             <div className="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-6">
               {/* Slots Badge */}
               <div className="hidden lg:flex items-center gap-2 bg-puka-red/10 dark:bg-puka-red/20 px-3 py-1.5 rounded-full border border-puka-red/30">
@@ -110,7 +109,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               </div>
 
               {/* Language Selector */}
-              <div className="relative">
+              {/* Language Selector (Hidden for single market strategy) */}
+              {/* <div className="relative">
                 <button 
                   onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
                   className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors flex items-center gap-1 text-xs font-bold"
@@ -137,7 +137,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
 
               {/* Dark Mode Toggle */}
               <button
@@ -160,7 +160,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
           {/* Mobile Menu Buttons */}
           <div className="flex items-center gap-2 md:hidden">
             {/* Mobile Lang Toggle (Simple Cycle) */}
-            <button
+            {/* Mobile Lang Toggle (Hidden) */}
+            {/* <button
               onClick={() => {
                 const order: ('es'|'en'|'pt')[] = ['es', 'en', 'pt'];
                 const nextIndex = (order.indexOf(language) + 1) % order.length;
@@ -169,7 +170,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               className="p-2 text-puka-black dark:text-white font-bold text-xs border border-gray-200 dark:border-gray-700 rounded-sm"
             >
               {language.toUpperCase()}
-            </button>
+            </button> */}
 
             <button
               onClick={toggleTheme}
@@ -177,7 +178,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
-            
+
             <button
               onClick={toggleMenu}
               className="p-2 text-puka-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-sm transition-colors"
@@ -196,9 +197,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
               key={item.path}
               href={item.path}
               onClick={() => setIsOpen(false)}
-              className={`text-lg font-medium py-2 border-b border-gray-50 dark:border-gray-800 ${
-                pathname === item.path ? 'text-puka-red' : 'text-puka-black dark:text-gray-200'
-              }`}
+              className={`text-lg font-medium py-2 border-b border-gray-50 dark:border-gray-800 ${pathname === item.path ? 'text-puka-red' : 'text-puka-black dark:text-gray-200'
+                }`}
             >
               {item.label}
             </Link>

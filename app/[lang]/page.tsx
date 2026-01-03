@@ -11,6 +11,7 @@ import {
   Target,
   AlertTriangle
 } from 'lucide-react';
+import Image from 'next/image';
 import { useTranslation } from '@/lib/i18n';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';
@@ -42,9 +43,25 @@ const HomePage = () => {
       {/* HEADER SIMPLE */}
       <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href={`/${lang}`} className="font-display font-black text-xl tracking-tighter">
-            <span className="text-gray-900">PUKA</span>
-            <span className="text-puka-red">DIGITAL</span>
+          <Link href={`/${lang}`} className="flex items-center gap-3 group">
+            <div className="relative h-10 w-10 flex-shrink-0">
+              <Image
+                src="/pegaso-rojo.svg"
+                fill
+                className="object-contain"
+                alt="Pegaso Puka Digital"
+                priority
+              />
+            </div>
+            <div className="relative h-8 w-36">
+              <Image
+                src="/logo-Puka.svg"
+                fill
+                className="object-contain object-left"
+                alt="Puka Digital Logo"
+                priority
+              />
+            </div>
           </Link>
           <Link
             href={`https://wa.me/593964065880?text=Hola,%20me%20interesa%20un%20proyecto%20web.`}
