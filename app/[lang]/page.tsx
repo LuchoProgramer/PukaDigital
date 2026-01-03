@@ -12,7 +12,7 @@ const HomePage = () => {
   const lang = language || 'es';
 
   const handleNavigation = (destination: string) => {
-    ga.trackEvent({
+    ga.event({
       action: 'select_path',
       category: 'Home Gate',
       label: destination,
