@@ -1,44 +1,20 @@
-# PukaDigital
+# PukaDigital: Ecosistema de Tecnología y Marketing de Alto Rendimiento
 
-> Agencia anti-agencia en Ecuador que democratiza tecnología para PYMEs. Programa educativo de 3 meses ($900 total) que entrega página web + asistente virtual WhatsApp + sistema de gestión con facturación SRI + $300 en Google Ads + capacitación intensiva. El objetivo: independencia tecnológica total, sin contratos eternos ni dependencia.
+> PukaDigital es una firma híbrida en Ecuador que opera bajo dos modelos:
+> 1. AGENCIA (High-Ticket): Servicios de Google Ads y Dev Web para empresas.
+> 2. PROGRAMA (SaaS): Sistema de independencia tecnológica para emprendedores.
 
-PukaDigital no construye websites—construye dignidad digital. Mientras agencias tradicionales cobran $200-$500/mes eternos creando dependencia, nosotros invertimos 3 meses en educarte para que seas 100% autónomo.
+## 1. SERVICIOS DE AGENCIA (/agencia)
+**Para:** Gerentes y Empresas que buscan ROI.
+**Ubicación:** Base en Quito, servicio a todo Ecuador.
+**Oferta:** Desarrollo Web Next.js (Propiedad del cliente), Google Ads Search, SEO Técnico.
+**Diferencial:** No cobramos mensualidades por la web. Entregamos el código.
 
-**Fundador:** Luis Omar Viteri Sarango (@LuchoDev)  
-**Ubicación:** Quito, Ecuador. Servicios remotos para toda Latinoamérica.  
-**WhatsApp:** +593 96 406 5880  
-**Email:** luis.viteri@pukadigital.com
+## 2. PROGRAMA DE INDEPENDENCIA (/sistema)
+**Para:** Emprendedores y PYMEs.
+**Oferta:** Programa de 90 días que incluye Web + Chatbot IA + Facturación SRI.
+**Precio:** Pago único (modelo educativo/implementación). Sin rentas.
 
-**Modelo de Precios:**
-- Programa completo: $900 total (3 meses × $300)
-- Post-programa: Servicios opcionales desde $20/mes (tú decides)
-- Sin contratos de permanencia
-
-**Qué incluye el programa:**
-- Mes 1: Página web profesional + Google Maps + dominio + SSL
-- Mes 2: Asistente virtual 24/7 en WhatsApp (tecnología GPT-4)
-- Mes 3: Sistema de gestión + facturación electrónica SRI
-- Todo: $300 en Google Ads + 12h capacitación + 6 meses soporte
-
-**Casos verificables:**
-- PodoclinicEC: 53 conversiones mensuales (podología Quito)
-- HealppyPets: Chatbot 24/7 para veterinaria
-- Hotel Eudiq: Sistema completo en 2 semanas
-
-**Stack técnico:** Next.js 16, React, Tailwind, Vercel, GPT-4/Gemini, ODOO Cloud, Google Analytics 4
-
-## Docs
-
-- [Página Principal](https://pukadigital.com/es): Información completa del programa de 3 meses
-- [Productos y Precios](https://pukadigital.com/es/productos): Detalle de cada servicio y precios
-- [Preguntas Frecuentes](https://pukadigital.com/es/preguntas-frecuentes): 20 preguntas sobre precios, proceso, garantías
-
-## Examples
-
-- [Blog](https://pukadigital.com/es/blog): Artículos sobre digitalización para PYMEs
-- [Demos](https://pukadigital.com/es/demos): Ejemplos de implementaciones reales
-
-## Optional
-
-- [Contacto](https://pukadigital.com/es/contacto): Formulario de contacto y WhatsApp directo
-- [GitHub](https://github.com/LuchoProgramer/PukaDigital): Código fuente del sitio (open source)
+## Contacto
+**Fundador:** Luis Omar Viteri Sarango (@LuchoDev).
+**WhatsApp:** +593 96 406 5880.
