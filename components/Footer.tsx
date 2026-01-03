@@ -194,6 +194,12 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
+                <Link href={`/${lang}/legal/politica-de-privacidad`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                  <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
+                  Política de Privacidad
+                </Link>
+              </li>
+              <li>
                 <Link href={`/${lang}/legal/cookies`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Política de Cookies

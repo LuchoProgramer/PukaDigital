@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import {
     CheckCircle,
     XCircle,
@@ -38,10 +39,14 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 const SistemaEmprendedorPage = () => {
     const WHATSAPP_NUMBER = '593964065880';
     const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
+    const router = useRouter();
+    const { language } = useTranslation();
+    const lang = language || 'es';
 
     const handleWhatsAppClick = (location: string) => {
         ga.trackWhatsAppDirectoClick(`sistema_emprendedor_${location}`);
         window.open(WHATSAPP_LINK, '_blank');
+        router.push(`/${lang}/gracias`);
     };
 
     const scrollToPricing = () => {
@@ -642,6 +647,12 @@ const SistemaEmprendedorPage = () => {
                                     ))}
                                 </div>
                                 <p className="text-xs font-black text-puka-red uppercase tracking-widest">Cupos Limitados de Implementación Mensual</p>
+                            </div>
+
+                            <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                                <a href={`/${lang}/legal/politica-de-privacidad`} className="hover:text-white transition-colors">Política de Privacidad</a>
+                                <span>•</span>
+                                <a href={`/${lang}/legal/terminos`} className="hover:text-white transition-colors">Términos y Condiciones</a>
                             </div>
                         </div>
                     </div>
