@@ -24,11 +24,7 @@ const ChatbotPage = () => {
     const lang = language || 'es';
 
     const handleConversion = (label: string) => {
-        ga.event({
-            action: 'whatsapp_click',
-            category: 'Chatbot Funnel',
-            label: label
-        });
+        ga.trackWhatsAppDirectoClick(`chatbot_${label}`);
     };
 
     return (

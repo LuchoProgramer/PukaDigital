@@ -27,11 +27,7 @@ const SaludPage = () => {
     const lang = language || 'es';
 
     const handleCtaClick = (location: string) => {
-        ga.event({
-            action: 'whatsapp_click',
-            category: 'Salud Funnel',
-            label: `cta_${location}`
-        });
+        ga.trackWhatsAppDirectoClick(`salud_${location}`);
     };
 
     return (

@@ -25,11 +25,7 @@ const InventarioPage = () => {
     const lang = language || 'es';
 
     const handleConversion = (source: string) => {
-        ga.event({
-            action: 'beta_access_click',
-            category: 'Inventario Funnel',
-            label: source
-        });
+        ga.trackWhatsAppDirectoClick(`inventario_${source}`);
     };
 
     return (

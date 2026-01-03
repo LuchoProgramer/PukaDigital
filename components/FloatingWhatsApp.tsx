@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import * as ga from '@/lib/analytics';
 import { useTranslation } from '@/lib/i18n';
 
@@ -23,10 +24,27 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 
 const FloatingWhatsApp: React.FC = () => {
   const { t } = useTranslation();
+  const pathname = usePathname();
+
+  // Determine context based on current page path
+  const getContextInfo = () => {
+    if (pathname?.includes('/salud')) return { label: 'salud_float', message: 'Hola, soy médico y me interesa llenar mi agenda.' };
+    if (pathname?.includes('/inventario')) return { label: 'inventario_float', message: 'Hola, me interesa el Sistema de Inventario Beta.' };
+    if (pathname?.includes('/chatbot')) return { label: 'chatbot_float', message: 'Hola, quiero automatizar mi WhatsApp con IA.' };
+    if (pathname?.includes('/sistema')) return { label: 'sistema_hub_float', message: 'Hola, quiero digitalizar mi negocio.' };
+    if (pathname?.includes('/agencia')) return { label: 'agencia_float', message: 'Hola, busco servicios de agencia para mi empresa.' };
+    return { label: 'global_float', message: 'Hola, me gustaría más información sobre sus servicios.' };
+  };
+
+  const context = getContextInfo();
+  const finalLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(context.message)}`;
 
   const handleClick = () => {
-    ga.trackWhatsAppDirectoClick('float');
+    // Track with specific label for better attribution in Google Ads
+    ga.trackWhatsAppDirectoClick(context.label);
   };
+
+  if (!pathname) return null; // Hydration safety
 
   return (
     <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 group">
@@ -34,20 +52,19 @@ const FloatingWhatsApp: React.FC = () => {
       <div className="absolute inset-0 bg-[#25D366] rounded-full opacity-20 animate-[ping_2s_ease-in-out_infinite] group-hover:animate-none"></div>
 
       <a
-        href={WHATSAPP_LINK}
+        href={finalLink}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
         // Button is now WhatsApp Green
         className="relative flex items-center gap-0 bg-[#25D366] text-white p-0 rounded-full shadow-[0_4px_14px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.4)] transform hover:-translate-y-1 transition-all duration-300 overflow-hidden pr-0 group-hover:pr-6 md:pr-0 md:group-hover:pr-6 h-14"
-        aria-label="Chat en WhatsApp"
+        aria-label={`Chat en WhatsApp: ${context.message}`}
       >
         {/* Icon Container */}
         <div className="w-14 h-14 flex items-center justify-center relative z-10 shrink-0">
           <WhatsAppIcon size={30} className="text-white drop-shadow-sm" />
 
-          {/* Notification Badge - Red with white dot (keep red for attention or change to white/green?) 
-              Let's keep red for attention but maybe simplify */}
+          {/* Notification Badge */}
           <div className="absolute top-3 right-3 w-3.5 h-3.5 bg-puka-red border-2 border-[#25D366] rounded-full flex items-center justify-center animate-bounce duration-1000">
             <div className="w-1 h-1 bg-white rounded-full"></div>
           </div>
