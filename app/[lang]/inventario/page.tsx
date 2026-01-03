@@ -215,10 +215,10 @@ const InventarioPage = () => {
                     </p>
 
                     <div className="bg-black border border-white/10 p-10 rounded-2xl max-w-md mx-auto relative shadow-2xl">
-                        <div className="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-black px-3 py-1 rounded-bl-lg rounded-tr-lg">EARLY BIRD -50%</div>
+                        <div className="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg rounded-tr-lg animate-pulse">OFERTA TIEMPO LIMITADO</div>
 
                         <div className="text-gray-400 uppercase text-xs font-bold tracking-widest mb-4">Plan Fundador</div>
-                        <div className="text-6xl font-black text-white mb-2">$20</div>
+                        <div className="text-6xl font-black text-white mb-2">$10</div>
                         <div className="text-gray-500 text-sm mb-8">/ mes (facturado anualmente)</div>
 
                         <div className="space-y-4 text-left mb-10 text-sm text-gray-300">
