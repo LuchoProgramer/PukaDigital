@@ -22,37 +22,10 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
     <footer className="bg-puka-black dark:bg-black text-white py-16 md:py-20 border-t border-gray-900 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
 
-        {/* Manifesto Section - NEW */}
-        <div className="mb-16 pb-16 border-b border-gray-800">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 mb-6">
-              <Flag className="text-puka-red" size={24} />
-              <h3 className="font-display font-bold text-2xl text-puka-beige">
-                {t('footer.manifesto_title')}
-              </h3>
-            </div>
-            <div className="space-y-4 text-lg text-gray-300 italic">
-              <p className="relative">
-                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_1')}
-              </p>
-              <p className="relative">
-                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_2')}
-              </p>
-              <p className="relative">
-                <span className="text-puka-red font-bold">•</span> {t('footer.manifesto_3')}
-              </p>
-              <p className="relative font-bold text-white not-italic">
-                <span className="text-puka-red">•</span> {t('footer.manifesto_4')}
-              </p>
-            </div>
-            <p className="mt-8 font-display font-bold text-puka-red text-xl">
-              {t('footer.signature')}
-            </p>
-          </div>
-        </div>
+        {/* Manifesto Section Removed */}
 
         {/* Slots Counter - Visual */}
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center border-b border-gray-800 pb-16">
           <h4 className="font-display font-bold text-lg mb-4 text-gray-400">
             {t('footer.slots_title')}
           </h4>
@@ -84,19 +57,17 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
 
-          {/* Brand Column */}
+          {/* Brand Column - Simplified */}
           <div className="col-span-1 md:col-span-2 space-y-6">
-            <h3 className="font-display font-bold text-3xl tracking-tighter">
+            <h3 className="font-display font-black text-2xl tracking-tighter">
               PUKA<span className="text-puka-red">DIGITAL</span>
             </h3>
-            <p className="text-gray-400 max-w-sm leading-relaxed">
-              {t('footer.desc')}
+            <p className="text-gray-400 max-w-sm leading-relaxed font-medium">
+              Ingeniería de Relevancia en Ecuador. <br />
+              Marketing Digital Estratégico y Desarrollo Web High-Performance.
             </p>
-            <div className="relative inline-block mt-4">
-              <span className="absolute -left-4 -top-4 text-puka-red text-6xl opacity-20 font-serif">"</span>
-              <p className="font-display font-bold text-xl text-white relative z-10 leading-tight">
-                {t('footer.quote')}
-              </p>
+            <div className="flex gap-4 pt-4">
+              {/* Social Icons or Trust Badges could go here */}
             </div>
           </div>
 

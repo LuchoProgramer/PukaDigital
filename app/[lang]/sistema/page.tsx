@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import ManifestoSection from '@/components/ManifestoSection';
 import {
     CheckCircle,
     XCircle,
@@ -311,6 +312,9 @@ const SistemaPage = () => {
                 </div>
             </section>
 
+            {/* Manifiesto Rebelde (Solo para emprendedores) */}
+            <ManifestoSection />
+
             {/* FOOTER */}
             <footer className="bg-black py-12 border-t border-gray-900 text-center">
                 <div className="container mx-auto px-4">
@@ -320,7 +324,7 @@ const SistemaPage = () => {
                     </p>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 };
 
