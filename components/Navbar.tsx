@@ -57,10 +57,11 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
     { code: 'pt', label: 'PT', flag: '🇧🇷' },
   ] as const;
 
-  // Check if current page is Home to hide global navbar (avoid double header)
-  const isHomePage = ['/', '/es', '/en', '/pt'].includes(pathname);
+  // Check if current page is Home or special landing to hide global navbar (avoid double header)
+  // Also hiding on /salud as it has its own dedicated header
+  const isHiddenNavbarPage = ['/', '/es', '/en', '/pt'].includes(pathname) || pathname?.includes('/salud');
 
-  if (isHomePage) {
+  if (isHiddenNavbarPage) {
     return null;
   }
 

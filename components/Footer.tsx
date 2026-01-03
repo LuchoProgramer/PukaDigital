@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
   const availableSlots = Math.max(0, totalSlots - activeAlliesCount);
 
   // Check if current page has a custom footer to hide the global one
-  const isCustomFooterPage = pathname === '/' || pathname === `/${lang}` || pathname?.includes('/sistema');
+  const isCustomFooterPage = pathname === '/' || pathname === `/${lang}` || pathname?.includes('/sistema') || pathname?.includes('/salud');
 
   if (isCustomFooterPage) {
     return null;
