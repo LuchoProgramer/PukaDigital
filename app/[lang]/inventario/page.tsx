@@ -82,13 +82,15 @@ const InventarioPage = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link
-                            href="#pricing"
+                        <a
+                            href="https://wa.me/593964065880?text=Me%20interesa%20la%20Beta%20de%20Inventario."
+                            target="_blank"
+                            rel="noopener noreferrer"
                             onClick={() => handleConversion('hero_beta')}
                             className="bg-cyan-500 text-black px-8 py-3.5 rounded-md font-bold text-lg hover:bg-cyan-400 transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] flex items-center justify-center gap-2"
                         >
                             Obtener Acceso Fundador <ArrowRight size={18} />
-                        </Link>
+                        </a>
                         <button className="px-8 py-3.5 rounded-md font-bold text-lg border border-white/20 text-gray-300 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-2 font-mono">
                             <Code size={18} /> Ver API Docs
                         </button>
