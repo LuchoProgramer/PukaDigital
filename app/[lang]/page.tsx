@@ -2,14 +2,24 @@
 
 import React from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { ShieldCheck, TrendingUp, Cpu, Users, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
-import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
-import ROICalculator from '@/components/ROICalculator';
-import VideoTestimonial from '@/components/VideoTestimonial';
 import { useTranslation } from '@/lib/i18n';
 import { allies } from '@/data/allies';
 import * as ga from '@/lib/analytics';
+
+// Lazy Load Heavy Components to improve FCP
+const LeadForm = dynamic(() => import('@/components/LeadForm'), {
+  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-sm"></div>,
+  ssr: false
+});
+const ROICalculator = dynamic(() => import('@/components/ROICalculator'), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-sm"></div>
+});
+const VideoTestimonial = dynamic(() => import('@/components/VideoTestimonial'), {
+  loading: () => <div className="aspect-video bg-black rounded-sm border border-gray-800"></div>
+});
 
 const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg
