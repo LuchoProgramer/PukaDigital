@@ -58,8 +58,11 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
   ] as const;
 
   // Check if current page is Home or special landing to hide global navbar (avoid double header)
-  // Also hiding on /salud as it has its own dedicated header
-  const isHiddenNavbarPage = ['/', '/es', '/en', '/pt'].includes(pathname) || pathname?.includes('/salud');
+  // Also hiding on /salud, /inventario, and /chatbot as they have dedicated headers
+  const isHiddenNavbarPage = ['/', '/es', '/en', '/pt'].includes(pathname) ||
+    pathname?.includes('/salud') ||
+    pathname?.includes('/inventario') ||
+    pathname?.includes('/chatbot');
 
   if (isHiddenNavbarPage) {
     return null;
