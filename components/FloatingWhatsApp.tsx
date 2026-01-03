@@ -46,8 +46,12 @@ const FloatingWhatsApp: React.FC = () => {
 
   if (!pathname) return null; // Hydration safety
 
+  // Logic to prevent overlap: If on conversion page (where we have Sticky Action Bar), hide this floating button on mobile
+  const isConversionPage = pathname?.includes('/salud') || pathname?.includes('/inventario') || pathname?.includes('/chatbot');
+  const visibilityClass = isConversionPage ? 'hidden md:block' : 'block';
+
   return (
-    <div className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 group">
+    <div className={`fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 group ${visibilityClass}`}>
       {/* Pulse Effect Ring - WhatsApp Green */}
       <div className="absolute inset-0 bg-[#25D366] rounded-full opacity-20 animate-[ping_2s_ease-in-out_infinite] group-hover:animate-none"></div>
 
