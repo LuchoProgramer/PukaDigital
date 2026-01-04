@@ -43,10 +43,17 @@ const SistemaEmprendedorPage = () => {
     const { language } = useTranslation();
     const lang = language || 'es';
 
-    const handleWhatsAppClick = (location: string) => {
+    const handleWhatsAppClick = (location: string, customMessage?: string) => {
         ga.trackWhatsAppDirectoClick(`sistema_emprendedor_${location}`);
-        window.open(WHATSAPP_LINK, '_blank');
-        router.push(`/${lang}/gracias`);
+
+        // Mensaje por defecto o personalizado según el botón
+        const defaultMessage = "Hola Puka, vi la oferta del Sistema Emprendedor. Quiero ver una demo real y saber si aún hay cupos disponibles.";
+        const message = customMessage || defaultMessage;
+
+        const finalLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+        window.open(finalLink, '_blank');
+        // No redirigimos a gracias para mantener al usuario en el contexto si regresa
     };
 
     const scrollToPricing = () => {
@@ -102,11 +109,11 @@ const SistemaEmprendedorPage = () => {
                                     <ArrowRight className="group-hover:translate-x-2 transition-transform" size={24} />
                                 </button>
                                 <button
-                                    onClick={() => handleWhatsAppClick('hero_secondary')}
+                                    onClick={() => handleWhatsAppClick('hero_secondary', 'Hola Puka, quiero apartar uno de los cupos de Enero para la Tienda Online.')}
                                     className="bg-white border-2 border-puka-black text-puka-black px-12 py-5 rounded-sm font-black text-xl hover:bg-gray-50 transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1"
                                 >
                                     <WhatsAppIcon size={28} />
-                                    VER DEMO
+                                    APARTAR CUPO WHATSAPP
                                 </button>
                             </div>
 
@@ -426,7 +433,7 @@ const SistemaEmprendedorPage = () => {
                             </div>
 
                             <button
-                                onClick={() => handleWhatsAppClick('plan_emprendedor')}
+                                onClick={() => handleWhatsAppClick('plan_emprendedor', 'Hola Puka, me interesa el Plan Emprendedor de $200. ¿Cómo empezamos?')}
                                 className="w-full bg-puka-black text-white py-5 rounded-2xl font-black text-lg hover:bg-puka-red transition-all transform group-hover:scale-[1.02] active:scale-95 shadow-xl"
                             >
                                 ELEGIR ESTE PLAN
@@ -493,7 +500,7 @@ const SistemaEmprendedorPage = () => {
                             </div>
 
                             <button
-                                onClick={() => handleWhatsAppClick('plan_despegue')}
+                                onClick={() => handleWhatsAppClick('plan_despegue', 'Hola Puka, quiero el Plan Despegue de $300 con el bono de Google Ads. \u00A1Vamos con todo! \uD83D\uDE80')}
                                 className="w-full bg-puka-red text-white py-6 rounded-2xl font-black text-2xl hover:bg-puka-black transition-all shadow-2xl shadow-puka-red/40 transform hover:scale-[1.04] active:scale-95 flex items-center justify-center gap-3"
                             >
                                 QUIERO VENDER MÁS 🚀
@@ -631,7 +638,7 @@ const SistemaEmprendedorPage = () => {
                             </p>
 
                             <button
-                                onClick={() => handleWhatsAppClick('final_cta')}
+                                onClick={() => handleWhatsAppClick('final_cta', 'Hola, estoy listo para tomar el control de mi negocio. Necesito asesoría final.')}
                                 className="inline-flex items-center gap-5 bg-white text-puka-black px-12 py-6 rounded-2xl font-black text-xl md:text-3xl hover:bg-puka-red hover:text-white transition-all shadow-2xl transform hover:scale-[1.05] active:scale-95 group-hover:shadow-puka-red/20"
                             >
                                 <WhatsAppIcon size={36} />
