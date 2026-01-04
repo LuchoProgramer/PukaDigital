@@ -68,10 +68,6 @@ const FloatingWhatsApp: React.FC = () => {
         <div className="w-14 h-14 flex items-center justify-center relative z-10 shrink-0">
           <WhatsAppIcon size={30} className="text-white drop-shadow-sm" />
 
-          {/* Notification Badge */}
-          <div className="absolute top-3 right-3 w-3.5 h-3.5 bg-puka-red border-2 border-[#25D366] rounded-full flex items-center justify-center animate-bounce duration-1000">
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-          </div>
         </div>
 
         {/* Text Reveal */}
@@ -87,10 +83,6 @@ const FloatingWhatsApp: React.FC = () => {
         </div>
       </a>
 
-      {/* Mobile Badge Counter (External) - Red background with White text */}
-      <div className="absolute -top-1 -right-1 w-5 h-5 bg-puka-red text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white shadow-sm pointer-events-none">
-        1
-      </div>
     </div>
   );
 };
