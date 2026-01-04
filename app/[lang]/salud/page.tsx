@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { getMarketingMedicoSchema } from '@/lib/schema';
 import Image from 'next/image';
 import {
     Stethoscope,
@@ -36,6 +37,7 @@ const SaludPage = () => {
                 title="Publicidad para Consultorios Médicos y Marketing Clínicas | PukaDigital"
                 description="Agencia especializada en Marketing Médico. Ayudamos a doctores y odontólogos a conseguir más pacientes con Google Ads. Mira nuestros casos de éxito."
                 keywords="marketing medico ecuador, publicidad doctores, marketing odontologos, google ads salud, agencia marketing clinicas"
+                structuredData={getMarketingMedicoSchema()}
             />
 
             {/* HEADER MINIMALISTA (Solo Logo) */}

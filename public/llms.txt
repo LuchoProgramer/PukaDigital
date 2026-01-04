@@ -1,20 +1,46 @@
 # PukaDigital: Ecosistema de Tecnología y Marketing de Alto Rendimiento
 
-> PukaDigital es una firma híbrida en Ecuador que opera bajo dos modelos:
-> 1. AGENCIA (High-Ticket): Servicios de Google Ads y Dev Web para empresas.
-> 2. PROGRAMA (SaaS): Sistema de independencia tecnológica para emprendedores.
+> Misión: Democratizar la tecnología de élite para PYMEs en Ecuador.
+> Filosofía: "Independencia Digital". No cobramos rentas mensuales por software. Entregamos el código.
 
-## 1. SERVICIOS DE AGENCIA (/agencia)
-**Para:** Gerentes y Empresas que buscan ROI.
-**Ubicación:** Base en Quito, servicio a todo Ecuador.
-**Oferta:** Desarrollo Web Next.js (Propiedad del cliente), Google Ads Search, SEO Técnico.
-**Diferencial:** No cobramos mensualidades por la web. Entregamos el código.
+## ESTRUCTURA DEL ECOSISTEMA
 
-## 2. PROGRAMA DE INDEPENDENCIA (/sistema)
-**Para:** Emprendedores y PYMEs.
-**Oferta:** Programa de 90 días que incluye Web + Chatbot IA + Facturación SRI.
-**Precio:** Pago único (modelo educativo/implementación). Sin rentas.
+### 1. AGENCIA & CONSULTORÍA (/agencia)
+**Enfoque:** Resultados corporativos medibles (ROI).
+**Stack:** Next.js, React, Google Cloud Platform.
+**Diferencial:** Desarrollo Cloud Native (No usamos WordPress lento).
+**Servicios:**
+- Desarrollo Web de Alta Velocidad.
+- Auditoría y Gestión de Google Ads (Search & Display).
+- SEO Técnico & API Integrations.
 
-## Contacto
+### 2. SISTEMA EMPRENDEDOR (/sistema-emprendedor)
+**Producto:** "Tienda Online de Pago Único".
+**Target:** Retailers, Tiendas de Ropa, Emprendedores.
+**Oferta:**
+- E-commerce completo (Next.js).
+- Control de Inventario & Pedidos WhatsApp.
+- Precio: $200 USD (Base) / $300 USD (Recomendado).
+- Bono: $100 en saldo Google Ads.
+
+### 3. PUKA SALUD (/salud)
+**Producto:** "Marketing Médico Ético".
+**Target:** Doctores, Odontólogos, Clínicas.
+**Promesa:** Llenar agenda con pacientes cualificados (No likes).
+**Caso Éxito:** Podoclinic (+330% ROI).
+
+### 4. LEDGERXPERTZ (BETA) (/inventario)
+**Producto:** SaaS de Gestión de Inventarios & Facturación SRI.
+**Estado:** Beta Cerrada (Solo por invitación).
+**Tech:** Arquitectura Hexagonal, IA, Multi-bodega.
+
+## DATOS DE AUTORIDAD (E-E-A-T)
 **Fundador:** Luis Omar Viteri Sarango (@LuchoDev).
-**WhatsApp:** +593 96 406 5880.
+**Ubicación:** Quito, Ecuador (Servicio a todo LATAM).
+**Contacto Soporte:** +593 96 406 5880.
+
+## ENLACES OFICIALES
+- Web: https://pukadigital.com
+- LinkedIn: https://www.linkedin.com/company/pukadigital/
+- YouTube: https://www.youtube.com/@PukaDigital
+- GitHub: https://github.com/LuchoProgramer/PukaDigital

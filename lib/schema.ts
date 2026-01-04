@@ -37,7 +37,9 @@ export const CONTACT_INFO = {
     countryName: 'Ecuador'
   },
   social: {
-    linkedin: 'https://www.linkedin.com/in/luisviteri/',
+    linkedinPersonal: 'https://www.linkedin.com/in/luisviteri/',
+    linkedinCompany: 'https://www.linkedin.com/company/pukadigital/',
+    youtube: 'https://www.youtube.com/@PukaDigital',
     instagram: 'https://www.instagram.com/luchodev_/',
     github: 'https://github.com/LuchoProgramer/PukaDigital'
   }
@@ -56,7 +58,7 @@ export const getFounderSchema = () => ({
   "image": "https://res.cloudinary.com/dltfsttr7/image/upload/v1759786002/LuisViteri_rwyq16.png",
   "email": CONTACT_INFO.email,
   "sameAs": [
-    CONTACT_INFO.social.linkedin,
+    CONTACT_INFO.social.linkedinPersonal,
     CONTACT_INFO.social.instagram
   ],
   "knowsAbout": [
@@ -132,7 +134,8 @@ export const getOrganizationSchema = () => ({
   ],
   "sameAs": [
     CONTACT_INFO.social.github,
-    CONTACT_INFO.social.linkedin,
+    CONTACT_INFO.social.linkedinCompany,
+    CONTACT_INFO.social.youtube,
     CONTACT_INFO.social.instagram
   ],
   "contactPoint": {
@@ -499,6 +502,107 @@ export const getGlobalSchemaGraph = () => ({
     getOrganizationSchema(),
     getLocalBusinessSchema(),
     getWebSiteSchema()
+  ]
+});
+
+/**
+ * Tienda Online Product Schema - For /sistema-emprendedor
+ */
+export const getTiendaOnlineSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `${BASE_URL}/sistema-emprendedor#product`,
+  "name": "Sistema de Ventas Todo-en-Uno (Tienda Online + Inventario)",
+  "description": "Sistema de ecommerce profesional con control de inventario y pedidos a WhatsApp. Sin mensualidades. Tecnología Next.js.",
+  "image": "https://res.cloudinary.com/dltfsttr7/image/upload/v1764125716/logo_ekusea.svg",
+  "brand": {
+    "@type": "Brand",
+    "name": "PukaDigital"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Plan Emprendedor (Pago Único)",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": `${BASE_URL}/sistema-emprendedor`,
+      "description": "Tienda Online + Inventario Básico. Pago Único."
+    },
+    {
+      "@type": "Offer",
+      "name": "Plan Despegue (+Ads)",
+      "price": "300.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": `${BASE_URL}/sistema-emprendedor`,
+      "description": "Tienda Online + Inventario + $100 Bono Google Ads."
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "15"
+  }
+});
+
+/**
+ * Marketing Medico Schema - For /salud
+ */
+export const getMarketingMedicoSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${BASE_URL}/salud#service`,
+  "serviceType": "Medical Marketing Solutions",
+  "provider": {
+    "@id": `${BASE_URL}/#organization`
+  },
+  "name": "Marketing Digital para Médicos y Clínicas",
+  "description": "Servicio especializado de Google Ads y SEO para consultorios médicos. Captación de pacientes cualificados.",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Ecuador"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Planes de Marketing Médico",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Diagnóstico Digital Gratuito"
+        },
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    ]
+  }
+});
+
+/**
+ * Inventory SaaS Schema - For /inventario
+ */
+export const getInventoryAppSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": `${BASE_URL}/inventario#app`,
+  "name": "LedgerXpertz Inventory Cloud",
+  "operatingSystem": "Web Browser",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Acceso Beta (Previa Invitación)"
+  },
+  "featureList": [
+    "Facturación Electrónica SRI",
+    "Control de Inventario Multibodega",
+    "API REST para Integraciones",
+    "Sincronización Ecommerce Real-time"
   ]
 });
 

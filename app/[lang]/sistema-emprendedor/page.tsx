@@ -1,6 +1,5 @@
-'use client';
-
-import React from 'react';
+import { getTiendaOnlineSchema } from '@/lib/schema';
+import Link from 'next/link'; // Re-adding Link as anchor since I messed up the imports
 import { useRouter } from 'next/navigation';
 import {
     CheckCircle,
@@ -70,6 +69,7 @@ const SistemaEmprendedorPage = () => {
             <SEO
                 title="Tienda Online Profesional | Sin Pagos Mensuales | Puka Digital"
                 description="Tu Tienda Online + Control de Inventario por un Pago Único. Sin comisiones y sin rentas mensuales. Tecnología Next.js para tu negocio en Ecuador."
+                structuredData={getTiendaOnlineSchema()}
             />
 
             {/* Decorative Mesh Gradient Background */}

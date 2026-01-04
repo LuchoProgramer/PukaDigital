@@ -38,6 +38,17 @@ const HomePage = () => {
         title="Agencia de Marketing Digital y Diseño Web Ecuador | PukaDigital"
         description="Especialistas en Diseño Web estratégico y Google Ads. Creamos sitios web optimizados desde la investigación de palabras clave. Cotiza tu proyecto hoy."
         keywords="agencia marketing digital ecuador, diseño paginas web ecuador, seo ecuador, google ads quito, desarrollo web nextjs"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": "https://pukadigital.com/#webpage",
+          "url": "https://pukadigital.com",
+          "name": "Agencia de Marketing Digital y Diseño Web Ecuador | PukaDigital",
+          "description": "Especialistas en Diseño Web estratégico y Google Ads. Creamos sitios web optimizados desde la investigación de palabras clave.",
+          "inLanguage": lang === 'es' ? 'es-EC' : lang === 'en' ? 'en-US' : 'pt-BR',
+          "isPartOf": { "@id": "https://pukadigital.com/#website" },
+          "about": { "@id": "https://pukadigital.com/#organization" }
+        }}
       />
 
       {/* HEADER SIMPLE */}

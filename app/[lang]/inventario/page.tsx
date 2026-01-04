@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { getInventoryAppSchema } from '@/lib/schema';
 import {
     Database,
     Cloud,
@@ -34,8 +35,8 @@ const InventarioPage = () => {
                 title="Sistema de Inventario Cloud con IA & Facturación SRI | PukaDigital"
                 description="Consigue credenciales demo para el sistema de inventario con Inteligencia Artificial. Conecta tu stock con API a ecommerce y apps."
                 keywords="sistema inventario cloud ai, facturacion sri api, erp ecuador inteligencia artificial, software inventario beta"
+                structuredData={getInventoryAppSchema()}
             />
-
             {/* HEADER DARK MINIMAL */}
             <header className="fixed top-0 left-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
                 <div className="container mx-auto px-6 py-4 flex justify-between items-center">
