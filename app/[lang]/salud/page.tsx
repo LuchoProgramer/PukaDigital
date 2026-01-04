@@ -134,7 +134,7 @@ const SaludPage = () => {
                             <div className="text-sm text-gray-500 font-bold uppercase">Retorno de Inversión</div>
                         </div>
                         <div className="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div className="text-3xl font-black text-blue-600 mb-1">Top 1</div>
+                            <div className="text-3xl font-black text-blue-600 mb-1">Top 3</div>
                             <div className="text-sm text-gray-500 font-bold uppercase">Posición en Google</div>
                         </div>
                         <div className="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
