@@ -33,7 +33,7 @@ const FloatingWhatsApp: React.FC = () => {
     if (pathname?.includes('/chatbot')) return { label: 'chatbot_float', message: 'Hola, quiero automatizar mi WhatsApp con IA.' };
     if (pathname?.includes('/sistema')) return { label: 'sistema_hub_float', message: 'Hola, quiero digitalizar mi negocio.' };
     if (pathname?.includes('/agencia')) return { label: 'agencia_float', message: 'Hola, busco servicios de agencia para mi empresa.' };
-    return { label: 'global_float', message: 'Hola, me gustaría más información sobre sus servicios.' };
+    return { label: 'global_float', message: 'Hola PukaDigital, estoy navegando en su sitio web y tengo una consulta.' };
   };
 
   const context = getContextInfo();
