@@ -1,3 +1,5 @@
+'use client';
+
 import { getTiendaOnlineSchema } from '@/lib/schema';
 import Link from 'next/link'; // Re-adding Link as anchor since I messed up the imports
 import { useRouter } from 'next/navigation';
