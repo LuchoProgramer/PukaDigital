@@ -9,6 +9,7 @@ const TO_EMAIL = 'luis.viteri@pukadigital.com';
 interface LeadData {
   businessName: string;
   userName: string;
+  email: string;
   whatsapp: string;
   growthBlocker: string;
   source: string;
@@ -17,9 +18,9 @@ interface LeadData {
 export async function POST(request: NextRequest) {
   try {
     const data: LeadData = await request.json();
-    
+
     // Validate required fields
-    if (!data.businessName || !data.userName || !data.whatsapp) {
+    if (!data.businessName || !data.userName || !data.whatsapp || !data.email) {
       return NextResponse.json(
         { error: 'Faltan campos requeridos' },
         { status: 400 }
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
     };
 
     const growthBlockerText = growthBlockerMap[data.growthBlocker] || data.growthBlocker;
-    const timestamp = new Date().toLocaleString('es-EC', { 
+    const timestamp = new Date().toLocaleString('es-EC', {
       timeZone: 'America/Guayaquil',
       dateStyle: 'full',
       timeStyle: 'short'
@@ -83,6 +84,10 @@ export async function POST(request: NextRequest) {
         <div class="value">${data.whatsapp}</div>
       </div>
       <div class="field">
+        <div class="label">📧 Email</div>
+        <div class="value">${data.email}</div>
+      </div>
+      <div class="field">
         <div class="label">🎯 Principal Reto</div>
         <div class="value">${growthBlockerText}</div>
       </div>
@@ -110,13 +115,14 @@ export async function POST(request: NextRequest) {
       console.log('=== NUEVO LEAD ===');
       console.log('Negocio:', data.businessName);
       console.log('Nombre:', data.userName);
+      console.log('Email:', data.email);
       console.log('WhatsApp:', data.whatsapp);
       console.log('Reto:', growthBlockerText);
       console.log('Fuente:', data.source);
       console.log('==================');
-      
-      return NextResponse.json({ 
-        success: true, 
+
+      return NextResponse.json({
+        success: true,
         message: 'Lead registrado (modo desarrollo - sin email)',
         fallback: true
       });
@@ -133,7 +139,7 @@ export async function POST(request: NextRequest) {
         to: TO_EMAIL,
         subject: `🔴 Nuevo Lead: ${data.businessName} - ${data.userName}`,
         html: emailHtml,
-        reply_to: data.whatsapp.includes('@') ? data.whatsapp : undefined,
+        reply_to: data.email,
       }),
     });
 
@@ -143,9 +149,9 @@ export async function POST(request: NextRequest) {
       throw new Error('Error al enviar email');
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Lead enviado correctamente' 
+    return NextResponse.json({
+      success: true,
+      message: 'Lead enviado correctamente'
     });
 
   } catch (error) {

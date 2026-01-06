@@ -320,6 +320,8 @@ export const es = {
         scarcity: 'Aceptamos máximo 5 negocios nuevos este mes para garantizar la calidad de la educación personalizada.',
         business_name: 'Nombre de tu Negocio',
         business_placeholder: 'Ej. Restaurante El Sol',
+        email: 'Correo Electrónico',
+        email_placeholder: 'tu@correo.com',
         your_name: 'Tu Nombre',
         name_placeholder: 'Nombre',
         whatsapp: 'WhatsApp',

@@ -1,31 +1,32 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { CheckCircle2, Loader2, ArrowRight, Sparkles, MessageCircle, AlertCircle, Phone, Building2, User } from 'lucide-react';
+import { CheckCircle2, Loader2, ArrowRight, Sparkles, MessageCircle, AlertCircle, Phone, Building2, User, Mail } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 import { useTranslation } from '@/lib/i18n';
 
 // WhatsApp number for fallback
 const WHATSAPP_NUMBER = '593964065880';
 
-const LeadForm: React.FC<{ className?: string, title?: string }> = ({ 
-  className = "", 
-  title 
+const LeadForm: React.FC<{ className?: string, title?: string }> = ({
+  className = "",
+  title
 }) => {
   const { t } = useTranslation();
-  
+
   // Form state
   const [businessName, setBusinessName] = useState('');
   const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [growthBlocker, setGrowthBlocker] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  
+
   // Validation state
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  
+
   // Use prop title if provided, otherwise fallback to translated default title
   const displayTitle = title || t('form.title');
 
@@ -37,6 +38,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
         const data = JSON.parse(saved);
         if (data.businessName) setBusinessName(data.businessName);
         if (data.userName) setUserName(data.userName);
+        if (data.email) setEmail(data.email);
         if (data.whatsapp) setWhatsapp(data.whatsapp);
       } catch (e) {
         // Ignore parse errors
@@ -46,10 +48,10 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
 
   // Save draft to localStorage
   useEffect(() => {
-    if (businessName || userName || whatsapp) {
-      localStorage.setItem('leadFormDraft', JSON.stringify({ businessName, userName, whatsapp }));
+    if (businessName || userName || whatsapp || email) {
+      localStorage.setItem('leadFormDraft', JSON.stringify({ businessName, userName, whatsapp, email }));
     }
-  }, [businessName, userName, whatsapp]);
+  }, [businessName, userName, whatsapp, email]);
 
   // Track scarcity indicator view
   useEffect(() => {
@@ -60,12 +62,12 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   const formatWhatsApp = useCallback((value: string) => {
     // Remove all non-digits
     let digits = value.replace(/\D/g, '');
-    
+
     // If starts with 0, assume Ecuador and replace with 593
     if (digits.startsWith('0')) {
       digits = '593' + digits.slice(1);
     }
-    
+
     // Format for display
     if (digits.length >= 3) {
       if (digits.startsWith('593')) {
@@ -78,7 +80,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
         return parts.join(' ');
       }
     }
-    
+
     return value;
   }, []);
 
@@ -93,17 +95,23 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
     return digits.length >= 10;
   };
 
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const isValidName = (name: string) => name.trim().length >= 2;
   const isValidBusiness = (business: string) => business.trim().length >= 2;
 
   const getFieldError = (field: string): string | null => {
     if (!touched[field]) return null;
-    
+
     switch (field) {
       case 'businessName':
         return !isValidBusiness(businessName) ? 'Ingresa el nombre de tu negocio' : null;
       case 'userName':
         return !isValidName(userName) ? 'Ingresa tu nombre' : null;
+      case 'email':
+        return !isValidEmail(email) ? 'Ingresa un correo válido' : null;
       case 'whatsapp':
         return !isValidPhone(whatsapp) ? 'Ingresa un número válido' : null;
       default:
@@ -111,27 +119,28 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
     }
   };
 
-  const isFormValid = isValidBusiness(businessName) && isValidName(userName) && isValidPhone(whatsapp);
+  const isFormValid = isValidBusiness(businessName) && isValidName(userName) && isValidPhone(whatsapp) && isValidEmail(email);
 
   // Calculate form progress
   const progress = [
     isValidBusiness(businessName),
     isValidName(userName),
+    isValidEmail(email),
     isValidPhone(whatsapp),
     growthBlocker !== '',
   ].filter(Boolean).length;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Mark all fields as touched
-    setTouched({ businessName: true, userName: true, whatsapp: true });
-    
+    setTouched({ businessName: true, userName: true, whatsapp: true, email: true });
+
     if (!isFormValid) return;
-    
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
-    
+
     try {
       // Track Conversión CRÍTICA con todos los datos
       await ga.trackSolicitarEntrevista({
@@ -140,7 +149,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
         whatsapp: whatsapp.replace(/\D/g, ''),
         growth_blocker: growthBlocker || 'no_selection',
       });
-      
+
       // Send lead to email
       const response = await fetch('/api/send-lead', {
         method: 'POST',
@@ -148,6 +157,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
         body: JSON.stringify({
           businessName,
           userName,
+          email,
           whatsapp: whatsapp.replace(/\D/g, ''),
           growthBlocker,
           source: typeof window !== 'undefined' ? window.location.pathname : 'unknown',
@@ -160,16 +170,17 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
 
       // Clear draft from localStorage on success
       localStorage.removeItem('leadFormDraft');
-      
+
       setSubmitStatus('success');
-      
+
       // Reset form after success
       setBusinessName('');
       setUserName('');
+      setEmail('');
       setWhatsapp('');
       setGrowthBlocker('');
       setTouched({});
-      
+
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
@@ -184,6 +195,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
       `🔴 Hola! Quiero aplicar al programa de Independencia Digital.\n\n` +
       `📍 Negocio: ${businessName}\n` +
       `👤 Nombre: ${userName}\n` +
+      `📧 Email: ${email}\n` +
       `📱 WhatsApp: ${whatsapp}\n` +
       `🎯 Reto: ${growthBlocker || 'No especificado'}`
     );
@@ -201,33 +213,33 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
           <div className="absolute bottom-12 left-12 w-2 h-2 bg-puka-red rounded-full animate-ping" style={{ animationDelay: '0.4s' }} />
           <div className="absolute top-16 left-1/2 w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
         </div>
-        
+
         <div className="text-center py-6 relative z-10">
           <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg animate-[bounce_1s_ease-in-out]">
             <CheckCircle2 size={40} className="text-white" />
           </div>
-          
+
           <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-medium mb-4">
             <Sparkles size={14} />
             Paso 1 completado
           </div>
-          
+
           <h3 className="font-display font-bold text-2xl mb-2 text-puka-black">
             ¡Excelente decisión!
           </h3>
-          
+
           <p className="text-gray-600 mb-6 max-w-sm mx-auto">
             Tu solicitud está en camino. Te contactaremos en <span className="font-bold text-puka-black">menos de 2 horas</span> por WhatsApp.
           </p>
-          
+
           <div className="bg-gray-50 p-4 rounded-sm mb-4">
             <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Próximo paso</p>
             <p className="text-sm text-gray-700">
               📱 Revisa tu WhatsApp - te enviaremos un mensaje para agendar tu entrevista gratuita.
             </p>
           </div>
-          
-          <button 
+
+          <button
             onClick={() => setSubmitStatus('idle')}
             className="text-gray-400 text-sm hover:text-puka-red transition-colors"
           >
@@ -241,19 +253,18 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   return (
     <div className={`bg-white p-6 md:p-8 rounded-sm shadow-xl border-t-4 border-puka-red ${className}`}>
       <h3 className="font-display font-bold text-2xl mb-2 text-puka-black">{displayTitle}</h3>
-      
+
       {/* Progress indicator */}
       <div className="flex gap-1 mb-4">
-        {[1, 2, 3, 4].map((step) => (
-          <div 
+        {[1, 2, 3, 4, 5].map((step) => (
+          <div
             key={step}
-            className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-              step <= progress ? 'bg-puka-red' : 'bg-gray-200'
-            }`}
+            className={`h-1 flex-1 rounded-full transition-all duration-300 ${step <= progress ? 'bg-puka-red' : 'bg-gray-200'
+              }`}
           />
         ))}
       </div>
-      
+
       {/* Scarcity Trigger */}
       <div className="bg-orange-50 border border-orange-100 p-3 rounded-sm mb-6 flex gap-2 items-start">
         <div className="w-2 h-2 rounded-full bg-orange-500 mt-2 shrink-0 animate-pulse" />
@@ -265,28 +276,26 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
       <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Business Name - Floating Label */}
         <div className="relative">
-          <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${
-            focusedField === 'businessName' || businessName 
-              ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider' 
-              : 'top-3.5 text-gray-400 text-sm'
-          }`}>
+          <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${focusedField === 'businessName' || businessName
+            ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider'
+            : 'top-3.5 text-gray-400 text-sm'
+            }`}>
             <span className="flex items-center gap-1">
               <Building2 size={focusedField === 'businessName' || businessName ? 10 : 14} />
               {t('form.business_name')}
             </span>
           </div>
-          <input 
-            type="text" 
-            required 
+          <input
+            type="text"
+            required
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
             onFocus={() => setFocusedField('businessName')}
             onBlur={() => { setFocusedField(null); setTouched(t => ({ ...t, businessName: true })); }}
-            className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${
-              getFieldError('businessName') 
-                ? 'border-red-300 focus:border-red-500' 
-                : 'border-gray-200 focus:border-puka-red'
-            }`}
+            className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${getFieldError('businessName')
+              ? 'border-red-300 focus:border-red-500'
+              : 'border-gray-200 focus:border-puka-red'
+              }`}
           />
           {getFieldError('businessName') && (
             <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
@@ -294,32 +303,30 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
             </p>
           )}
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* User Name - Floating Label */}
           <div className="relative">
-            <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${
-              focusedField === 'userName' || userName 
-                ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider' 
-                : 'top-3.5 text-gray-400 text-sm'
-            }`}>
+            <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${focusedField === 'userName' || userName
+              ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider'
+              : 'top-3.5 text-gray-400 text-sm'
+              }`}>
               <span className="flex items-center gap-1">
                 <User size={focusedField === 'userName' || userName ? 10 : 14} />
                 {t('form.your_name')}
               </span>
             </div>
-            <input 
-              type="text" 
-              required 
+            <input
+              type="text"
+              required
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               onFocus={() => setFocusedField('userName')}
               onBlur={() => { setFocusedField(null); setTouched(t => ({ ...t, userName: true })); }}
-              className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${
-                getFieldError('userName') 
-                  ? 'border-red-300 focus:border-red-500' 
-                  : 'border-gray-200 focus:border-puka-red'
-              }`}
+              className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${getFieldError('userName')
+                ? 'border-red-300 focus:border-red-500'
+                : 'border-gray-200 focus:border-puka-red'
+                }`}
             />
             {getFieldError('userName') && (
               <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
@@ -327,49 +334,82 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
               </p>
             )}
           </div>
-          
-          {/* WhatsApp - Floating Label with auto-format */}
+
+          {/* Email - Floating Label */}
           <div className="relative">
-            <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${
-              focusedField === 'whatsapp' || whatsapp 
-                ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider' 
-                : 'top-3.5 text-gray-400 text-sm'
-            }`}>
+            <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${focusedField === 'email' || email
+              ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider'
+              : 'top-3.5 text-gray-400 text-sm'
+              }`}>
               <span className="flex items-center gap-1">
-                <Phone size={focusedField === 'whatsapp' || whatsapp ? 10 : 14} />
-                {t('form.whatsapp')}
+                <Mail size={focusedField === 'email' || email ? 10 : 14} />
+                {t('form.email')}
               </span>
             </div>
-            <input 
-              type="tel" 
-              required 
-              value={whatsapp}
-              onChange={handleWhatsAppChange}
-              onFocus={() => setFocusedField('whatsapp')}
-              onBlur={() => { setFocusedField(null); setTouched(t => ({ ...t, whatsapp: true })); }}
-              placeholder={focusedField === 'whatsapp' ? '0999123456' : ''}
-              className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${
-                getFieldError('whatsapp') 
-                  ? 'border-red-300 focus:border-red-500' 
-                  : 'border-gray-200 focus:border-puka-red'
-              }`}
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setFocusedField('email')}
+              onBlur={() => { setFocusedField(null); setTouched(t => ({ ...t, email: true })); }}
+              className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${getFieldError('email')
+                ? 'border-red-300 focus:border-red-500'
+                : 'border-gray-200 focus:border-puka-red'
+                }`}
             />
-            {getFieldError('whatsapp') && (
+            {getFieldError('email') && (
               <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                <AlertCircle size={12} /> {getFieldError('whatsapp')}
+                <AlertCircle size={12} /> {getFieldError('email')}
               </p>
             )}
-            {whatsapp && isValidPhone(whatsapp) && (
+            {email && isValidEmail(email) && (
               <p className="text-green-600 text-xs mt-1 flex items-center gap-1">
-                <CheckCircle2 size={12} /> Número válido
+                <CheckCircle2 size={12} /> Email válido
               </p>
             )}
           </div>
         </div>
 
+        {/* WhatsApp - Floating Label with auto-format */}
+        <div className="relative">
+          <div className={`absolute left-4 transition-all duration-200 pointer-events-none ${focusedField === 'whatsapp' || whatsapp
+            ? 'top-1 text-[10px] text-puka-red font-bold uppercase tracking-wider'
+            : 'top-3.5 text-gray-400 text-sm'
+            }`}>
+            <span className="flex items-center gap-1">
+              <Phone size={focusedField === 'whatsapp' || whatsapp ? 10 : 14} />
+              {t('form.whatsapp')}
+            </span>
+          </div>
+          <input
+            type="tel"
+            required
+            value={whatsapp}
+            onChange={handleWhatsAppChange}
+            onFocus={() => setFocusedField('whatsapp')}
+            onBlur={() => { setFocusedField(null); setTouched(t => ({ ...t, whatsapp: true })); }}
+            placeholder={focusedField === 'whatsapp' ? '0999123456' : ''}
+            className={`w-full bg-gray-50 border rounded-sm px-4 pt-6 pb-2 focus:outline-none focus:bg-white transition-all ${getFieldError('whatsapp')
+              ? 'border-red-300 focus:border-red-500'
+              : 'border-gray-200 focus:border-puka-red'
+              }`}
+          />
+          {getFieldError('whatsapp') && (
+            <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+              <AlertCircle size={12} /> {getFieldError('whatsapp')}
+            </p>
+          )}
+          {whatsapp && isValidPhone(whatsapp) && (
+            <p className="text-green-600 text-xs mt-1 flex items-center gap-1">
+              <CheckCircle2 size={12} /> Número válido
+            </p>
+          )}
+        </div>
+
         <div>
           <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.challenge')}</label>
-          <select 
+          <select
             value={growthBlocker}
             onChange={(e) => setGrowthBlocker(e.target.value)}
             className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors text-gray-700"
@@ -389,7 +429,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
               <AlertCircle size={16} />
               Hubo un error al enviar. Intenta de nuevo o usa WhatsApp:
             </p>
-            <a 
+            <a
               href={getWhatsAppFallbackLink()}
               target="_blank"
               rel="noopener noreferrer"
@@ -401,16 +441,15 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
           </div>
         )}
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isSubmitting || !isFormValid}
-          className={`w-full text-white font-bold text-lg py-4 rounded-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-            isSubmitting 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : isFormValid
-                ? 'bg-puka-red hover:bg-red-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
-                : 'bg-gray-300 cursor-not-allowed'
-          }`}
+          className={`w-full text-white font-bold text-lg py-4 rounded-sm transition-all duration-300 flex items-center justify-center gap-2 ${isSubmitting
+            ? 'bg-gray-400 cursor-not-allowed'
+            : isFormValid
+              ? 'bg-puka-red hover:bg-red-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+              : 'bg-gray-300 cursor-not-allowed'
+            }`}
         >
           {isSubmitting ? (
             <>
@@ -424,7 +463,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
             </>
           )}
         </button>
-        
+
         <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 uppercase tracking-wide">
           <CheckCircle2 size={12} className="text-green-500" /> {t('form.no_commitment')}
           <span className="text-gray-300">|</span>
