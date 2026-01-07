@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, X, MessageCircle, Phone, Minimize2, Maximize2, ExternalLink, Bot, Paperclip, MoreVertical, Smile, CheckCheck } from 'lucide-react';
+import { Send, X, MessageCircle, Phone, Minimize2, Maximize2, ExternalLink, Bot, Paperclip, MoreVertical, Smile, CheckCheck, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
@@ -14,8 +14,15 @@ const DEMO_BOT_ID = 'demo-bot';
 const DEMO_CODE = 'PUKA2024';
 const WHATSAPP_NUMBER = '593964065880';
 
+// Suggestion Chips Configuration
+const SUGGESTIONS = [
+    { label: '💰 ¿Precios?', text: '¿Cuánto cuesta implementar una tienda online profesional?' },
+    { label: '🚀 Casos de Éxito', text: 'Muéstrame casos de éxito reales de otros clientes.' },
+    { label: '👨‍💻 Hablar con Humano', text: 'Quiero hablar directamente con un asesor humano por WhatsApp.' },
+];
+
 interface Message {
-    role: 'user' | 'bot' | 'system';
+    role: 'user' | 'bot';
     text: string;
     time: string;
 }
@@ -80,7 +87,7 @@ const SmartChatbot: React.FC = () => {
             });
 
             if (!response.ok) {
-                if (response.status === 429) return 'He alcanzado mi límite de respuestas por hoy. ¿Por qué no hablamos por WhatsApp?';
+                if (response.status === 429) return 'He alcanzado mi límite de respuestas por hoy. ¿Por qué no hablamos por WhatsApp? [📲 Toca aquí para ir a WhatsApp](action:whatsapp)';
                 throw new Error('Server Error');
             }
 
@@ -88,33 +95,30 @@ const SmartChatbot: React.FC = () => {
             return data.response;
         } catch (error) {
             console.error('API Error:', error);
-            return 'Lo siento, tuve un pequeño error de conexión. ¿Podemos continuar por WhatsApp?';
+            return 'Lo siento, tuve un pequeño error de conexión. ¿Podemos continuar por WhatsApp? [📲 Ir a WhatsApp](action:whatsapp)';
         }
     };
 
-    const handleSend = async () => {
-        if (!input.trim() || isLoading) return;
+    const handleSend = async (overrideText?: string) => {
+        const textToSend = overrideText || input;
+        if (!textToSend.trim() || isLoading) return;
 
-        const userMsg = input;
         const time = getCurrentTime();
 
-        setMessages(prev => [...prev, { role: 'user', text: userMsg, time }]);
+        setMessages(prev => [...prev, { role: 'user', text: textToSend, time }]);
         setInput('');
         setIsLoading(true);
 
-        // Heuristic: Show WhatsApp CTA if user shows high intent or after 3 messages
-        if (
-            messages.length > 3 ||
-            /precio|costo|agendar|cita|hablar|humano|comprar|interesado/i.test(userMsg)
-        ) {
+        // Heuristic: Show WhatsApp CTA if user shows high intent
+        if (/precio|costo|agendar|cita|hablar|humano|comprar|interesado/i.test(textToSend)) {
             setShowWhatsAppCta(true);
         }
 
         try {
-            const botResponse = await sendMessageToAPI(userMsg);
+            const botResponse = await sendMessageToAPI(textToSend);
             setMessages(prev => [...prev, { role: 'bot', text: botResponse, time: getCurrentTime() }]);
 
-            // Also check bot response for cues (optional, but good for safety)
+            // Check bot response for cues
             if (/whatsapp|contactar|llamar/i.test(botResponse)) {
                 setShowWhatsAppCta(true);
             }
@@ -131,10 +135,39 @@ const SmartChatbot: React.FC = () => {
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hola, he estado charlando con tu IA y quiero más información.`, '_blank');
     };
 
-    // Logic to hide on specific mobile scenarios if needed, currently mimicking FloatingWhatsApp
-    const isConversionPage = pathname?.includes('/salud') || pathname?.includes('/inventario');
-    // On mobile conversion pages, maybe we want it hidden to not block sticky CTA, or maybe we want it small.
-    // For now, let's keep it visible but respectful.
+    // --- Rich UI Renderer Components ---
+    const MarkdownComponents = {
+        a: ({ node, ...props }: any) => {
+            const href = props.href || '';
+            const isAction = href.startsWith('action:');
+
+            if (isAction) {
+                const actionType = href.split(':')[1]?.split('?')[0]; // simple parser
+
+                if (actionType === 'whatsapp') {
+                    return (
+                        <button
+                            onClick={handleOpenWhatsApp}
+                            className="mt-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-sm"
+                        >
+                            <MessageCircle size={18} />
+                            {props.children || 'Continuar en WhatsApp'}
+                        </button>
+                    );
+                }
+            }
+
+            // Default link style
+            return (
+                <a
+                    {...props}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline font-semibold hover:text-blue-800"
+                />
+            );
+        }
+    };
 
     if (!isOpen) {
         return (
@@ -159,7 +192,7 @@ const SmartChatbot: React.FC = () => {
     return (
         <div className="fixed inset-0 sm:inset-auto sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 z-[9999] flex flex-col items-end animate-in fade-in slide-in-from-bottom-10 duration-300">
             {/* Chat Window */}
-            <div className="w-full h-full sm:w-[350px] md:w-[380px] sm:h-[500px] sm:max-h-[80vh] bg-[#E5DDD5] sm:rounded-xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-gray-200 dark:border-gray-800 relative">
+            <div className="w-full h-full sm:w-[350px] md:w-[380px] sm:h-[550px] sm:max-h-[85vh] bg-[#E5DDD5] sm:rounded-xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-gray-200 dark:border-gray-800 relative">
 
                 {/* Header */}
                 <div className="bg-[#E30613] text-white p-3 flex items-center justify-between shadow-md z-10">
@@ -187,8 +220,8 @@ const SmartChatbot: React.FC = () => {
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 relative z-0 bg-transparent scrollbar-thin scrollbar-thumb-gray-300">
                     <div className="w-full text-center my-2">
-                        <span className="bg-[#FFF5C4] text-gray-600 text-[10px] px-2 py-1 rounded shadow-sm">
-                            🔒 Los mensajes son procesados por IA segura.
+                        <span className="bg-[#FFF5C4] text-gray-600 text-[10px] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
+                            🔒 Pregunta lo que quieras, la IA te responde.
                         </span>
                     </div>
 
@@ -198,13 +231,11 @@ const SmartChatbot: React.FC = () => {
                                 }`}>
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
-                                    components={{
-                                        a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-bold" />
-                                    }}
+                                    components={MarkdownComponents}
                                 >
                                     {msg.text}
                                 </ReactMarkdown>
-                                <div className="flex justify-end items-center gap-1 opacity-60">
+                                <div className="flex justify-end items-center gap-1 opacity-60 mt-1">
                                     <span className="text-[9px]">{msg.time}</span>
                                     {msg.role === 'user' && <CheckCheck size={12} className="text-blue-500" />}
                                 </div>
@@ -226,10 +257,25 @@ const SmartChatbot: React.FC = () => {
                     <div ref={messagesEndRef} />
                 </div>
 
+                {/* Suggestion Chips (Only show if less than 2 messages) */}
+                {messages.length <= 1 && !isLoading && (
+                    <div className="px-2 pb-2 flex gap-2 overflow-x-auto scrollbar-none z-10 mask-linear-fade">
+                        {SUGGESTIONS.map((sug, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => handleSend(sug.text)}
+                                className="flex-shrink-0 bg-white/90 backdrop-blur-sm border border-gray-200 text-xs text-gray-700 px-3 py-1.5 rounded-full hover:bg-red-50 hover:border-red-200 hover:text-puka-red transition-all shadow-sm flex items-center gap-1 active:scale-95"
+                            >
+                                {sug.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 {/* Sticky WhatsApp CTA (Dynamic) */}
                 {showWhatsAppCta && (
-                    <div className="p-2 bg-yellow-50 border-t border-yellow-100 flex items-center justify-between animate-in slide-in-from-bottom-5">
-                        <span className="text-xs text-yellow-800 font-medium px-2">¿Quieres atención humana?</span>
+                    <div className="p-2 bg-yellow-50 border-t border-yellow-100 flex items-center justify-between animate-in slide-in-from-bottom-5 z-20">
+                        <span className="text-xs text-yellow-800 font-medium px-2">¿Prefieres atención humana?</span>
                         <button
                             onClick={handleOpenWhatsApp}
                             className="bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm transition-colors"
@@ -254,7 +300,7 @@ const SmartChatbot: React.FC = () => {
                         />
                     </div>
                     <button
-                        onClick={handleSend}
+                        onClick={() => handleSend()}
                         disabled={!input.trim() || isLoading}
                         className={`p-3 rounded-full flex items-center justify-center transition-all shadow-md ${input.trim() ? 'bg-[#E30613] text-white hover:bg-[#c20510] rotate-0' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
