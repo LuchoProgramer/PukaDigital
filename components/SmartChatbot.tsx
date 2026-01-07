@@ -155,9 +155,9 @@ const SmartChatbot: React.FC = () => {
     }
 
     return (
-        <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end animate-in fade-in slide-in-from-bottom-10 duration-300">
+        <div className="fixed inset-0 sm:inset-auto sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 z-[9999] flex flex-col items-end animate-in fade-in slide-in-from-bottom-10 duration-300">
             {/* Chat Window */}
-            <div className="w-[350px] md:w-[380px] h-[500px] max-h-[80vh] bg-[#E5DDD5] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-800 relative">
+            <div className="w-full h-full sm:w-[350px] md:w-[380px] sm:h-[500px] sm:max-h-[80vh] bg-[#E5DDD5] sm:rounded-xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-gray-200 dark:border-gray-800 relative">
 
                 {/* Header */}
                 <div className="bg-[#E30613] text-white p-3 flex items-center justify-between shadow-md z-10">
