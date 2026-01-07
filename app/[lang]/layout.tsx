@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/lib/theme";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import SmartChatbot from "@/components/SmartChatbot";
 import { i18n, type Locale } from "@/i18n.config";
 import { getGlobalSchemaGraph } from "@/lib/schema";
 import { GA_TRACKING_ID } from "@/lib/analytics";
@@ -222,7 +222,7 @@ export default async function LangLayout({
               </main>
               <Footer lang={locale} />
               <MobileBottomNav lang={locale} />
-              <FloatingWhatsApp />
+              <SmartChatbot />
             </div>
           </LanguageProvider>
         </ThemeProvider>
