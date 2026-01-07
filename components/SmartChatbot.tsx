@@ -5,6 +5,8 @@ import { Send, X, MessageCircle, Phone, Minimize2, Maximize2, ExternalLink, Bot,
 import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // API Config
 const AGENTES_IA_API = 'https://messages-uq7ypdzlda-uc.a.run.app';
@@ -194,7 +196,14 @@ const SmartChatbot: React.FC = () => {
                         <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                             <div className={`max-w-[85%] px-3 py-2 rounded-lg shadow-sm text-sm relative ${msg.role === 'user' ? 'bg-[#E7FFDB] rounded-tr-none text-gray-800' : 'bg-white rounded-tl-none text-gray-800'
                                 }`}>
-                                <p className="pb-1 leading-relaxed">{msg.text}</p>
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-bold" />
+                                    }}
+                                >
+                                    {msg.text}
+                                </ReactMarkdown>
                                 <div className="flex justify-end items-center gap-1 opacity-60">
                                     <span className="text-[9px]">{msg.time}</span>
                                     {msg.role === 'user' && <CheckCheck size={12} className="text-blue-500" />}
