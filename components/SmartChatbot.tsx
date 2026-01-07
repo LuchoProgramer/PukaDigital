@@ -10,7 +10,7 @@ import remarkGfm from 'remark-gfm';
 
 // API Config
 const AGENTES_IA_API = 'https://messages-uq7ypdzlda-uc.a.run.app';
-const DEMO_BOT_ID = 'demo-bot';
+const DEMO_BOT_ID = 'puka-digital-bot';
 const DEMO_CODE = 'PUKA2024';
 const WHATSAPP_NUMBER = '593964065880';
 
