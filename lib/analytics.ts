@@ -1,6 +1,11 @@
 // Google Analytics Measurement ID
 export const GA_TRACKING_ID = 'G-VSGYR0EJSZ';
 
+// Google Ads Conversion Data (TODO: Replace with your actual values)
+// Encuentra esto en Google Ads > Metas > Conversiones > Tu Conversión > Configuración de la etiqueta
+export const GOOGLE_ADS_ID = 'AW-17832260485';
+export const GOOGLE_ADS_LABEL = '4UcUCNio2d4bEIXnirdC';
+
 // Extend Window interface for gtag
 declare global {
   interface Window {
@@ -298,12 +303,27 @@ export const trackIdiomaCambiado = (
 };
 
 /**
+ * Sends a conversion event specifically to Google Ads
+ * Requires GOOGLE_ADS_ID and GOOGLE_ADS_LABEL to be set
+ */
+export const trackGoogleAdsConversion = (conversionId: string, conversionLabel: string) => {
+  if (typeof window !== 'undefined' && window.gtag && conversionId.includes('AW-')) {
+    window.gtag('event', 'conversion', {
+      'send_to': `${conversionId}/${conversionLabel}`
+    });
+  }
+};
+
+/**
  * 12. WhatsApp Direct Click - HYBRID (Reliable against ad-blockers)
  * Location: Floating button, footer, contact page
  */
 export const trackWhatsAppDirectoClick = async (
   buttonLocation: string
 ) => {
+  // Fire Google Ads Conversion (Primary Goal)
+  trackGoogleAdsConversion(GOOGLE_ADS_ID, GOOGLE_ADS_LABEL);
+
   return trackConversion('whatsapp_directo_click', {
     button_location: buttonLocation,
     intent: 'whatsapp_direct',
