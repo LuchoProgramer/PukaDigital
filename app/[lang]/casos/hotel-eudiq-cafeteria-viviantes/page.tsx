@@ -97,8 +97,8 @@ const CasoHotelEudiq = () => {
             </Link>
 
             <div className="text-center">
-              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                🟢 Activación Enero 2026
+              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 animate-pulse border border-white/30">
+                🚀 Campaña Google Ads Activa - Fase Aprendizaje
               </span>
 
               <div className="text-7xl mb-6">🏨</div>
@@ -126,17 +126,17 @@ const CasoHotelEudiq = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-start gap-4">
               <div style={{ backgroundColor: brandColors.primary }} className="text-white p-2 rounded-full">
-                <Calendar size={24} />
+                <Rocket size={24} />
               </div>
               <div>
                 <h3 className="font-bold text-lg text-puka-black dark:text-white">
-                  Update Más Reciente — 26 Dic 2025
+                  Update Más Reciente — 7 Ene 2026
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  Estructura digital completada al 100%. Debido a la alta ocupación del hotel por las festividades de Loja y Fin de Año, Diego y Eudalia han decidido arrancar el tráfico pagado en <b>Enero 2026</b> para asegurar una atención de calidad a los nuevos clientes digitales.
+                  ¡Hito desbloqueado! Hoy <b>7 de Enero</b> hemos lanzado oficialmente las campañas de búsqueda para "Hotel en Loja". Tras la temporada alta de fiestas, entramos en la fase de adquisición pagada con una estructura web validada. Actualmente estamos en la fase de "Aprendizaje" del algoritmo de Google (primeros 7 días) recolectando datos de intención.
                 </p>
                 <p style={{ color: brandColors.primary }} className="text-sm dark:text-teal-400 mt-3 font-medium">
-                  📅 Próximo hito: Activación de Campañas Enero 2026
+                  📊 Próximo reporte: Primeras conversiones y CTR (Click Through Rate).
                 </p>
               </div>
             </div>
@@ -285,10 +285,10 @@ const CasoHotelEudiq = () => {
                   {/* Dot */}
                   <div
                     className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-900 ${phase.completed
-                        ? ''
-                        : phase.current
-                          ? 'animate-pulse'
-                          : 'bg-gray-300 dark:bg-gray-600'
+                      ? ''
+                      : phase.current
+                        ? 'animate-pulse'
+                        : 'bg-gray-300 dark:bg-gray-600'
                       }`}
                     style={phase.completed ? { backgroundColor: brandColors.primary } : phase.current ? { backgroundColor: brandColors.secondary } : {}}
                   />
@@ -296,20 +296,20 @@ const CasoHotelEudiq = () => {
                   {/* Contenido */}
                   <div
                     className={`p-5 rounded-sm ${phase.current
+                      ? 'dark:bg-teal-900/20'
+                      : phase.completed
                         ? 'dark:bg-teal-900/20'
-                        : phase.completed
-                          ? 'dark:bg-teal-900/20'
-                          : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                        : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
                       }`}
                     style={phase.current ? { backgroundColor: '#E8F5F1', border: `2px solid ${brandColors.secondary}` } : phase.completed ? { backgroundColor: '#E8F5F1', border: `1px solid ${brandColors.primary}` } : {}}
                   >
                     <div className="flex flex-wrap items-center gap-3 mb-3">
                       <span
                         className={`px-3 py-1 rounded-sm text-sm font-bold ${phase.current
+                          ? 'text-white'
+                          : phase.completed
                             ? 'text-white'
-                            : phase.completed
-                              ? 'text-white'
-                              : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
+                            : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
                           }`}
                         style={phase.current ? { backgroundColor: brandColors.secondary } : phase.completed ? { backgroundColor: brandColors.primary } : {}}
                       >
