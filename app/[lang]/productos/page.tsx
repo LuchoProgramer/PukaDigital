@@ -505,7 +505,7 @@ const Products: React.FC = () => {
                   LedgerXpertz: Inventario
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  Di adiós a Excel. Inventario + CRM + Facturación SRI. Ferretería Los Andes eliminó 15h semanales de trabajo manual.
+                  Di adiós a Excel. Inventario + CRM + Facturación SRI. Negocios locales han eliminado 15h semanales de trabajo manual.
                 </p>
                 <div className="flex items-center gap-2 text-green-600 font-bold group-hover:gap-4 transition-all">
                   Ver más detalles <ArrowRight size={18} />
