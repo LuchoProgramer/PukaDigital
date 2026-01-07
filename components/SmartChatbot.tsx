@@ -11,7 +11,7 @@ import remarkGfm from 'remark-gfm';
 // API Config
 const AGENTES_IA_API = 'https://messages-uq7ypdzlda-uc.a.run.app';
 const DEMO_BOT_ID = 'puka-digital-bot';
-const DEMO_CODE = 'PUKA2024';
+// const DEMO_CODE = 'PUKA2024'; // Removed to use production bot logic
 const WHATSAPP_NUMBER = '593964065880';
 
 // Suggestion Chips Configuration
@@ -81,7 +81,7 @@ const SmartChatbot: React.FC = () => {
                 body: JSON.stringify({
                     botId: DEMO_BOT_ID,
                     message: `${userMessage} [Contexto: ${getContextInfo()}]`,
-                    demoCode: DEMO_CODE,
+                    // demoCode: DEMO_CODE, // Removed
                     sessionId: sessionId,
                 }),
             });
@@ -138,23 +138,28 @@ const SmartChatbot: React.FC = () => {
     // --- Rich UI Renderer Components ---
     const MarkdownComponents = {
         a: ({ node, ...props }: any) => {
-            const href = props.href || '';
-            const isAction = href.startsWith('action:');
+            const rawHref = props.href || '';
+            const href = rawHref.trim().toLowerCase();
 
-            if (isAction) {
-                const actionType = href.split(':')[1]?.split('?')[0]; // simple parser
+            // Aceptar AMBOS formatos: hash (#action-whatsapp) y protocolo (action:whatsapp)
+            const isWhatsAppAction =
+                href === '#action-whatsapp' ||
+                href === 'action:whatsapp' ||
+                href.includes('action:whatsapp'); // Fallback por seguridad
 
-                if (actionType === 'whatsapp') {
-                    return (
-                        <button
-                            onClick={handleOpenWhatsApp}
-                            className="mt-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-sm"
-                        >
-                            <MessageCircle size={18} />
-                            {props.children || 'Continuar en WhatsApp'}
-                        </button>
-                    );
-                }
+            if (isWhatsAppAction) {
+                return (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault(); // Evitar navegación
+                            handleOpenWhatsApp();
+                        }}
+                        className="mt-3 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all transform active:scale-95 shadow-md border border-[#1DA851]"
+                    >
+                        <MessageCircle size={20} />
+                        {props.children || 'Continuar en WhatsApp'}
+                    </button>
+                );
             }
 
             // Default link style
@@ -225,23 +230,33 @@ const SmartChatbot: React.FC = () => {
                         </span>
                     </div>
 
-                    {messages.map((msg, idx) => (
-                        <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[85%] px-3 py-2 rounded-lg shadow-sm text-sm relative ${msg.role === 'user' ? 'bg-[#E7FFDB] rounded-tr-none text-gray-800' : 'bg-white rounded-tl-none text-gray-800'
-                                }`}>
-                                <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
-                                    components={MarkdownComponents}
-                                >
-                                    {msg.text}
-                                </ReactMarkdown>
-                                <div className="flex justify-end items-center gap-1 opacity-60 mt-1">
-                                    <span className="text-[9px]">{msg.time}</span>
-                                    {msg.role === 'user' && <CheckCheck size={12} className="text-blue-500" />}
+                    {messages.map((msg, idx) => {
+                        return (
+                            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[85%] px-3 py-2 rounded-lg shadow-sm text-sm relative ${msg.role === 'user' ? 'bg-[#E7FFDB] rounded-tr-none text-gray-800' : 'bg-white rounded-tl-none text-gray-800'
+                                    }`}>
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={MarkdownComponents}
+                                        urlTransform={(value) => {
+                                            const lower = value.toLowerCase();
+                                            // ✅ Whitelist: Solo permitir http, https, mailto y nuestro action:
+                                            if (lower.startsWith('http') || lower.startsWith('mailto') || lower.startsWith('action:') || lower.startsWith('#action')) {
+                                                return value;
+                                            }
+                                            return ''; // Bloquear javascript: y otros peligrosos
+                                        }}
+                                    >
+                                        {msg.text}
+                                    </ReactMarkdown>
+                                    <div className="flex justify-end items-center gap-1 opacity-60 mt-1">
+                                        <span className="text-[9px]">{msg.time}</span>
+                                        {msg.role === 'user' && <CheckCheck size={12} className="text-blue-500" />}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
 
                     {isLoading && (
                         <div className="flex justify-start">
