@@ -32,27 +32,28 @@ const CasoCarla = () => {
     },
     {
       month: 'Mes 2',
-      title: 'Activación de Google Ads',
+      title: 'Posicionamiento Orgánico Logrado',
       date: 'Noviembre 2025',
-      completed: false,
-      current: true,
+      completed: true,
+      current: false,
       items: [
-        'Configurando campañas Google Ads',
-        'Keywords: "veterinaria Quito", "emergencias mascotas"',
-        'Optimizando landing pages',
-        'Aprendiendo a leer métricas',
+        'Top 1 en ChatGPT por "Veterinaria Carcelén"',
+        'Top 3 en Google Maps sin pagar publicidad',
+        'Optimización de Landing Pages completada',
+        'Primeros clientes llegando solo por búsqueda',
       ],
     },
     {
       month: 'Mes 3',
-      title: 'Optimización y Graduación',
-      date: 'Diciembre 2025',
+      title: 'La Decisión de Escalar (Dilema Actual)',
+      date: 'Enero 2026',
       completed: false,
+      current: true,
       items: [
-        'Ajuste de campañas según resultados',
-        'Automatización completa',
-        'Independencia digital total',
-        'Graduación del programa',
+        'Disfrutando del "Tráfico Gratuito" (SEO)',
+        'Análisis: ¿Vale la pena pagar si ya tengo clientes?',
+        'Superando el miedo a invertir en Ads',
+        'Buscando el siguiente nivel de facturación',
       ],
     },
   ];
@@ -133,14 +134,17 @@ const CasoCarla = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-puka-black dark:text-white">
-                  Update Más Reciente — 7 Ene 2026
+                  Update Honesto — 7 Ene 2026
                 </h3>
+                <p className="text-gray-600 dark:text-gray-300 mt-2 italic">
+                  "¿Para qué pagar si ya me encuentran gratis?"
+                </p>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  Carla ha logrado un hito impresionante sin gastar $1 en publicidad. Gracias a la optimización semántica de su web, ya domina las búsquedas locales en Google y ChatGPT. Aunque el plan original incluía Ads en Diciembre, el éxito orgánico nos permitió pausar la inversión publicitaria hasta Enero para maximizar la rentabilidad post-fiestas.
+                  Esta es la pregunta real que enfrenta Carla hoy. El éxito orgánico (SEO) ha sido tan bueno que ha generado una comprensible resistencia a invertir dinero real en Ads. Como agencia, nuestro reto este mes no es técnico, es <b>estratégico</b>: Demostrarle que aunque el tráfico gratis es bueno, el tráfico pago es la llave para escalar de "estar llena" a "expandir el negocio".
                 </p>
-                <p style={{ color: brandColors.primaryDark }} className="text-sm dark:text-pink-400 mt-3 font-medium">
-                  📅 Próximo paso: Activación estratégica de Ads para escalar volumen.
-                </p>
+                <div className="mt-4 bg-white/50 dark:bg-black/20 p-3 rounded-sm border-l-4 border-puka-red text-sm text-gray-700 dark:text-gray-300">
+                  <strong>Estado Real:</strong> La tarjeta de crédito está lista, pero el miedo a invertir sigue presente. Documentamos esto porque es la realidad de muchos emprendedores.
+                </div>
               </div>
             </div>
           </div>
