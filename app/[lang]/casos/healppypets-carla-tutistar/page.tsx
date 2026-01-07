@@ -86,8 +86,8 @@ const CasoCarla = () => {
             </Link>
 
             <div className="text-center">
-              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                🟡 Pausa Estratégica — Activación Enero 2026
+              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 animate-pulse border border-white/30">
+                � SEO Orgánico Dominante - Top 3 Google / Top 1 IA
               </span>
 
               <div className="text-7xl mb-6">🐕</div>
@@ -101,6 +101,23 @@ const CasoCarla = () => {
               <p className="text-lg opacity-80">
                 Veterinaria • Quito, Ecuador
               </p>
+
+              <div className="mt-8 flex justify-center gap-4 flex-wrap">
+                <div className="bg-white/10 px-4 py-2 rounded flex items-center gap-2">
+                  <span className="text-2xl">🥇</span>
+                  <div className="text-left leading-tight">
+                    <div className="text-xs opacity-70 uppercase tracking-widest">Ranking ChatGPT</div>
+                    <div className="font-bold">#1 "Veterinaria Carcelén"</div>
+                  </div>
+                </div>
+                <div className="bg-white/10 px-4 py-2 rounded flex items-center gap-2">
+                  <span className="text-2xl">🥉</span>
+                  <div className="text-left leading-tight">
+                    <div className="text-xs opacity-70 uppercase tracking-widest">Ranking Google</div>
+                    <div className="font-bold">Top 3 Orgánico</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -116,13 +133,13 @@ const CasoCarla = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-puka-black dark:text-white">
-                  Update Más Reciente — 26 Dic 2025
+                  Update Más Reciente — 7 Ene 2026
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  Carla tiene la agenda llena por temporada decembrina. Hemos decidido realizar una pausa estratégica en el lanzamiento de pauta pagada para optimizar el presupuesto en <b>Enero 2026</b>, cuando la demanda de servicios veterinarios post-festividades crece.
+                  Carla ha logrado un hito impresionante sin gastar $1 en publicidad. Gracias a la optimización semántica de su web, ya domina las búsquedas locales en Google y ChatGPT. Aunque el plan original incluía Ads en Diciembre, el éxito orgánico nos permitió pausar la inversión publicitaria hasta Enero para maximizar la rentabilidad post-fiestas.
                 </p>
                 <p style={{ color: brandColors.primaryDark }} className="text-sm dark:text-pink-400 mt-3 font-medium">
-                  📅 Próximo hito: Lanzamiento Google Ads Enero 2026
+                  📅 Próximo paso: Activación estratégica de Ads para escalar volumen.
                 </p>
               </div>
             </div>
@@ -169,10 +186,10 @@ const CasoCarla = () => {
                   {/* Dot */}
                   <div
                     className={`absolute left-6 w-5 h-5 rounded-full border-4 border-white dark:border-gray-800 ${phase.completed
-                        ? 'bg-green-500'
-                        : phase.current
-                          ? 'animate-pulse'
-                          : 'bg-gray-300 dark:bg-gray-600'
+                      ? 'bg-green-500'
+                      : phase.current
+                        ? 'animate-pulse'
+                        : 'bg-gray-300 dark:bg-gray-600'
                       }`}
                     style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
                   />
@@ -180,18 +197,18 @@ const CasoCarla = () => {
                   {/* Contenido */}
                   <div
                     className={`p-6 rounded-sm ${phase.current
-                        ? 'dark:bg-pink-900/20'
-                        : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
+                      ? 'dark:bg-pink-900/20'
+                      : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
                       }`}
                     style={phase.current ? { backgroundColor: '#FFF0F3', border: `2px solid ${brandColors.primaryDark}` } : {}}
                   >
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                       <span
                         className={`px-3 py-1 rounded-sm text-sm font-bold ${phase.current
-                            ? 'text-white'
-                            : phase.completed
-                              ? 'bg-green-500 text-white'
-                              : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                          ? 'text-white'
+                          : phase.completed
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                           }`}
                         style={phase.current ? { backgroundColor: brandColors.primaryDark } : {}}
                       >
