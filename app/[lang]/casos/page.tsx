@@ -275,6 +275,13 @@ const CasosPage = () => {
                         <span>Ahora: {caso.currentPhase}</span>
                       </div>
                     )}
+
+                    {caso.metrics?.customLabel && (
+                      <div className="mt-2 text-xs bg-green-50 dark:bg-green-900/10 text-green-700 dark:text-green-400 border border-green-100 dark:border-green-800 p-2 rounded flex items-center gap-2">
+                        <Star size={14} className="fill-current" />
+                        <strong>{caso.metrics.customValue}</strong> {caso.metrics.customLabel}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex gap-4 mt-6">
