@@ -10,7 +10,7 @@ import MobileBottomNav from "@/components/MobileBottomNav";
 import SmartChatbot from "@/components/SmartChatbot";
 import { i18n, type Locale } from "@/i18n.config";
 import { getGlobalSchemaGraph } from "@/lib/schema";
-import { GA_TRACKING_ID } from "@/lib/analytics";
+import { GA_TRACKING_ID, GOOGLE_ADS_ID } from "@/lib/analytics";
 
 const geistSans = Geist({
   variable: "--font-futura",
@@ -190,6 +190,7 @@ export default async function LangLayout({
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
+            gtag('config', '${GOOGLE_ADS_ID}');
           `}
         </Script>
 
