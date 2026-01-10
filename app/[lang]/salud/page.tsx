@@ -16,6 +16,8 @@ import {
     Clock,
     Award
 } from 'lucide-react';
+import * as ga from '@/lib/analytics';
+import LeadForm from '@/components/LeadForm';
 
 const OptimizedSaludPage = () => {
     const [videoPlaying, setVideoPlaying] = useState(false);
@@ -32,6 +34,14 @@ const OptimizedSaludPage = () => {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    const handleWhatsAppClick = (location: string, message?: string) => {
+        ga.trackWhatsAppDirectoClick(`salud_${location}`);
+        const phoneNumber = '593964065880';
+        const text = message || 'Hola, me interesa llenar mi agenda médica.';
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    };
 
     const features = [
         { icon: ShieldCheck, text: "100% Cumplimiento Legal Médico" },
@@ -69,14 +79,12 @@ const OptimizedSaludPage = () => {
                             })}
                         </div>
                     </div>
-                    <a
-                        href="https://wa.me/593964065880?text=Doctor(a),%20me%20interesa%20llenar%20mi%20agenda."
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <button
+                        onClick={() => handleWhatsAppClick('header_cta', 'Doctor(a), me interesa llenar mi agenda.')}
                         className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-105"
                     >
                         Agendar Auditoría Gratis
-                    </a>
+                    </button>
                 </div>
             </header>
 
@@ -115,15 +123,13 @@ const OptimizedSaludPage = () => {
 
                         {/* CTA Principal */}
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <a
-                                href="https://wa.me/593964065880?text=Hola,%20soy%20medico%20y%20quiero%20mas%20pacientes."
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                onClick={() => handleWhatsAppClick('hero_main', 'Hola, soy médico y quiero más pacientes.')}
                                 className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 hover:scale-105"
                             >
                                 <CalendarCheck size={24} />
                                 Solicitar Auditoría Gratuita
-                            </a>
+                            </button>
                             <a
                                 href="#caso-exito"
                                 className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold text-lg hover:border-blue-600 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
@@ -286,14 +292,12 @@ const OptimizedSaludPage = () => {
                         <p className="text-xl text-gray-700 mb-6">
                             ¿Quieres resultados similares para tu consultorio?
                         </p>
-                        <a
-                            href="https://wa.me/593964065880?text=Vi%20el%20caso%20de%20Podoclinic.%20Quiero%20una%20auditoria."
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <button
+                            onClick={() => handleWhatsAppClick('video_cta', 'Vi el caso de Podoclinic. Quiero una auditoria.')}
                             className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all shadow-lg hover:scale-105"
                         >
                             Solicitar Mi Auditoría Gratuita <ArrowRight size={20} />
-                        </a>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -407,14 +411,11 @@ const OptimizedSaludPage = () => {
                                     💰 Ahorro vs. precio regular: <span className="text-2xl font-black">$1,500</span> primer año
                                 </p>
                             </div>
-                            <a
-                                href="https://wa.me/593964065880?text=Quiero%20reservar%20mi%20cupo%20Plan%20Pionero"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block w-full bg-white text-green-700 text-center px-6 py-4 rounded-lg font-black text-lg hover:bg-green-50 transition-all shadow-lg"
-                            >
-                                Reservar Mi Cupo Ahora
-                            </a>
+
+                            {/* FORMULARIO INSERTADO */}
+                            <div className="bg-white rounded-lg p-1 text-gray-900">
+                                <LeadForm className="shadow-none border-t-0 p-4" title="Reserva tu Cupo Pionero" />
+                            </div>
                         </div>
 
                         {/* Plan Estándar (Futuro) */}
@@ -547,15 +548,10 @@ const OptimizedSaludPage = () => {
                         <p className="text-sm text-blue-300 mt-4">Tu auditoría gratuita expira pronto</p>
                     </div>
 
-                    <a
-                        href="https://wa.me/593964065880?text=Hola,%20quiero%20reservar%20mi%20cupo%20de%20auditoria."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-3 bg-white text-blue-900 px-10 py-5 rounded-full font-black text-xl hover:bg-blue-50 transition-all shadow-2xl hover:scale-105"
-                    >
-                        <CalendarCheck size={28} />
-                        Reservar Mi Auditoría Gratuita Ahora
-                    </a>
+                    {/* FORMULARIO FINAL */}
+                    <div className="max-w-xl mx-auto bg-white rounded-lg text-gray-900 text-left">
+                        <LeadForm className="shadow-2xl border-t-8 border-yellow-400" title="Reserva tu Auditoría Ahora" />
+                    </div>
 
                     <p className="mt-8 text-sm text-blue-300">
                         ✓ Sin compromiso • ✓ Respuesta en 24h • ✓ Análisis personalizado incluido
