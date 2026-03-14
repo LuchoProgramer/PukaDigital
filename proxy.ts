@@ -30,36 +30,9 @@ function getLocale(request: NextRequest): string {
 }
 
 export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  
-  // Ignorar archivos estáticos y API routes
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.startsWith('/static') ||
-    pathname.includes('.') // archivos con extensión
-  ) {
-    return NextResponse.next();
-  }
-  
-  // Verificar si la URL ya tiene idioma
-  const pathnameHasLocale = i18n.locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-  
-  if (pathnameHasLocale) {
-    return NextResponse.next();
-  }
-  
-  // Redirigir a la URL con idioma
-  const locale = getLocale(request);
-  const newUrl = new URL(`/${locale}${pathname}`, request.url);
-  
-  const response = NextResponse.redirect(newUrl);
-  // Guardar preferencia en cookie
-  response.cookies.set('NEXT_LOCALE', locale, { maxAge: 31536000 }); // 1 año
-  
-  return response;
+  // Option B Migration: Disable automatic language redirection to /es/
+  // as it conflicts with the new clean URL structure in next.config.ts
+  return NextResponse.next();
 }
 
 export const config = {

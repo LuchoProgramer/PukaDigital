@@ -3,15 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Flag, Users, HelpCircle, DollarSign } from 'lucide-react';
+import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Users, HelpCircle, DollarSign } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { allies } from '@/data/allies';
 
-interface FooterProps {
-  lang?: string;
-}
-
-const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
+const Footer: React.FC = () => {
   const pathname = usePathname();
   const { t } = useTranslation();
 
@@ -21,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
   const availableSlots = Math.max(0, totalSlots - activeAlliesCount);
 
   // Check if current page has a custom footer to hide the global one
-  const isCustomFooterPage = pathname === '/' || pathname === `/${lang}` ||
+  const isCustomFooterPage = pathname === '/' ||
     pathname?.includes('/sistema') ||
     pathname?.includes('/salud') ||
     pathname?.includes('/inventario') ||
@@ -91,7 +87,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href={`/${lang}`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Home size={18} />
                   </div>
@@ -100,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/productos`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/productos" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Package size={18} />
                   </div>
@@ -109,7 +105,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/blog`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/blog" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <FileText size={18} />
                   </div>
@@ -118,7 +114,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/demos`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/demos" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <PlayCircle size={18} />
                   </div>
@@ -127,7 +123,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/nosotros`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/nosotros" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Users size={18} />
                   </div>
@@ -136,7 +132,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/preguntas-frecuentes`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/preguntas-frecuentes" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <HelpCircle size={18} />
                   </div>
@@ -145,7 +141,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/contacto`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/contacto" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <Mail size={18} />
                   </div>
@@ -154,7 +150,7 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/cuanto-cuesta-publicidad-google-ecuador`} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                <Link href="/cuanto-cuesta-publicidad-google-ecuador" className="group flex items-center gap-3 p-2 -mx-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
                   <div className="p-2 rounded-md bg-gray-900 dark:bg-gray-800 text-gray-400 group-hover:bg-puka-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <DollarSign size={18} />
                   </div>
@@ -172,25 +168,25 @@ const Footer: React.FC<FooterProps> = ({ lang = 'es' }) => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href={`/${lang}/legal/terminos`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href="/legal/terminos" className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Términos de Servicio
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/legal/politica-de-privacidad`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href="/legal/politica-de-privacidad" className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Política de Privacidad
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/legal/cookies`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href="/legal/cookies" className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <Shield size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Política de Cookies
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/legal/garantia`} className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
+                <Link href="/legal/garantia" className="group flex items-center gap-2 p-2 -mx-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 cursor-pointer transition-all">
                   <AlertCircle size={16} className="text-gray-600 dark:text-gray-500 group-hover:text-puka-red transition-colors" />
                   Garantía de Devolución
                 </Link>

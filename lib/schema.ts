@@ -1,23 +1,7 @@
 /**
  * Centralized Schema.org Structured Data Generators
- * Following Google's latest guidelines (Nov 2025)
- * 
- * Supported schemas:
- * - Organization (global)
- * - LocalBusiness (home)
- * - WebSite with SearchAction (global)
- * - Service (productos)
- * - BreadcrumbList (all pages)
- * - Article (blog posts)
- * - ProfilePage (nosotros)
- * - SoftwareApplication (productos)
- * 
- * NOT implementing (restricted by Google):
- * - FAQPage (only for government/health sites)
- * - Review/AggregateRating (can't self-publish reviews)
+ * Modified for Spanish-only (Option B migration)
  */
-
-export type SupportedLocale = 'es' | 'en' | 'pt';
 
 // Base URL
 const BASE_URL = 'https://pukadigital.com';
@@ -109,16 +93,6 @@ export const getOrganizationSchema = () => ({
     {
       "@type": "Country",
       "name": "Ecuador"
-    },
-    {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": -0.1807,
-        "longitude": -78.4678
-      },
-      "geoRadius": "500 km",
-      "name": "Latin America"
     }
   ],
   "knowsAbout": [
@@ -143,8 +117,9 @@ export const getOrganizationSchema = () => ({
     "contactType": "customer service",
     "telephone": CONTACT_INFO.phone,
     "email": CONTACT_INFO.email,
-    "availableLanguage": ["Spanish", "English", "Portuguese"]
-  }
+    "availableLanguage": ["Spanish"]
+  },
+  "inLanguage": "es-EC"
 });
 
 /**
@@ -200,7 +175,8 @@ export const getLocalBusinessSchema = () => ({
   ],
   "parentOrganization": {
     "@id": `${BASE_URL}/#organization`
-  }
+  },
+  "inLanguage": "es-EC"
 });
 
 /**
@@ -217,7 +193,7 @@ export const getWebSiteSchema = () => ({
   "publisher": {
     "@id": `${BASE_URL}/#organization`
   },
-  "inLanguage": ["es", "en", "pt"],
+  "inLanguage": "es-EC",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
@@ -231,27 +207,7 @@ export const getWebSiteSchema = () => ({
 /**
  * Service Schema - For the main program
  */
-export const getServiceSchema = (lang: SupportedLocale = 'es') => {
-  const descriptions = {
-    es: {
-      name: "Programa de Independencia Digital 3 Meses",
-      description: "Programa educativo intensivo que enseña a PYMEs a gestionar su propia presencia digital: desarrollo web, chatbots IA, sistemas ERP y marketing digital.",
-      offerDescription: "$300/mes por 3 meses. Incluye $100/mes en Google Ads."
-    },
-    en: {
-      name: "3-Month Digital Independence Program",
-      description: "Intensive educational program teaching SMEs to manage their own digital presence: web development, AI chatbots, ERP systems and digital marketing.",
-      offerDescription: "$300/month for 3 months. Includes $100/month in Google Ads."
-    },
-    pt: {
-      name: "Programa de Independência Digital 3 Meses",
-      description: "Programa educativo intensivo que ensina PMEs a gerir sua própria presença digital: desenvolvimento web, chatbots IA, sistemas ERP e marketing digital.",
-      offerDescription: "$300/mês por 3 meses. Inclui $100/mês em Google Ads."
-    }
-  };
-
-  const content = descriptions[lang];
-
+export const getServiceSchema = () => {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -260,17 +216,17 @@ export const getServiceSchema = (lang: SupportedLocale = 'es') => {
     "provider": {
       "@id": `${BASE_URL}/#organization`
     },
-    "name": content.name,
-    "description": content.description,
+    "name": "Programa de Independencia Digital 3 Meses",
+    "description": "Programa educativo intensivo que enseña a PYMEs a gestionar su propia presencia digital: desarrollo web, chatbots IA, sistemas ERP y marketing digital.",
     "offers": {
       "@type": "Offer",
       "price": "900",
       "priceCurrency": "USD",
-      "description": content.offerDescription,
-      "availability": "https://schema.org/LimitedAvailability",
-      "url": `${BASE_URL}/${lang}/productos`,
+      "description": "$300/mes por 3 meses. Incluye $100/mes en Google Ads.",
+      "availability": "https://schema.org/InStock",
+      "url": `${BASE_URL}/productos`,
       "validFrom": "2024-01-01",
-      "priceValidUntil": "2025-12-31",
+      "priceValidUntil": "2026-12-31",
       "eligibleRegion": {
         "@type": "Country",
         "name": "Ecuador"
@@ -333,7 +289,8 @@ export const getServiceSchema = (lang: SupportedLocale = 'es') => {
           }
         }
       ]
-    }
+    },
+    "inLanguage": "es-EC"
   };
 };
 
@@ -367,13 +324,12 @@ export interface ArticleData {
   dateModified?: string;
   author?: string;
   image?: string;
-  lang: SupportedLocale;
 }
 
 export const getArticleSchema = (data: ArticleData) => ({
   "@context": "https://schema.org",
   "@type": "Article",
-  "@id": `${BASE_URL}/${data.lang}/blog/${data.slug}#article`,
+  "@id": `${BASE_URL}/blog/${data.slug}#article`,
   "headline": data.title,
   "description": data.description,
   "image": data.image || "https://res.cloudinary.com/dltfsttr7/image/upload/v1764125716/logo_ekusea.svg",
@@ -390,9 +346,9 @@ export const getArticleSchema = (data: ArticleData) => ({
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `${BASE_URL}/${data.lang}/blog/${data.slug}`
+    "@id": `${BASE_URL}/blog/${data.slug}`
   },
-  "inLanguage": data.lang === 'es' ? 'es-EC' : data.lang === 'en' ? 'en-US' : 'pt-BR',
+  "inLanguage": "es-EC",
   "isPartOf": {
     "@id": `${BASE_URL}/#website`
   }
@@ -438,7 +394,8 @@ export const getSoftwareAppSchema = (apps: SoftwareAppData[]) =>
     },
     "provider": {
       "@id": `${BASE_URL}/#organization`
-    }
+    },
+    "inLanguage": "es-EC"
   }));
 
 /**
@@ -475,7 +432,6 @@ export interface WebPageData {
   title: string;
   description: string;
   url: string;
-  lang: SupportedLocale;
   breadcrumbs: BreadcrumbItem[];
 }
 
@@ -486,7 +442,7 @@ export const getWebPageSchema = (data: WebPageData) => ({
   "url": data.url,
   "name": data.title,
   "description": data.description,
-  "inLanguage": data.lang === 'es' ? 'es-EC' : data.lang === 'en' ? 'en-US' : 'pt-BR',
+  "inLanguage": "es-EC",
   "isPartOf": {
     "@id": `${BASE_URL}/#website`
   },
@@ -545,7 +501,8 @@ export const getTiendaOnlineSchema = () => ({
     "@type": "AggregateRating",
     "ratingValue": "4.9",
     "reviewCount": "15"
-  }
+  },
+  "inLanguage": "es-EC"
 });
 
 /**
@@ -579,7 +536,8 @@ export const getMarketingMedicoSchema = () => ({
         "priceCurrency": "USD"
       }
     ]
-  }
+  },
+  "inLanguage": "es-EC"
 });
 
 /**
@@ -603,33 +561,32 @@ export const getInventoryAppSchema = () => ({
     "Control de Inventario Multibodega",
     "API REST para Integraciones",
     "Sincronización Ecommerce Real-time"
-  ]
+  ],
+  "inLanguage": "es-EC"
 });
 
 /**
  * Helper: Generate breadcrumbs for common pages
  */
-export const generateBreadcrumbs = (lang: SupportedLocale, path: string[]): BreadcrumbItem[] => {
-  const homeNames = { es: 'Inicio', en: 'Home', pt: 'Início' };
-
+export const generateBreadcrumbs = (path: string[]): BreadcrumbItem[] => {
   const breadcrumbs: BreadcrumbItem[] = [
-    { name: homeNames[lang], url: `${BASE_URL}/${lang}` }
+    { name: 'Inicio', url: BASE_URL }
   ];
 
-  let currentPath = `${BASE_URL}/${lang}`;
+  let currentPath = BASE_URL;
 
-  const pageNames: Record<string, Record<SupportedLocale, string>> = {
-    'productos': { es: 'Productos', en: 'Products', pt: 'Produtos' },
-    'blog': { es: 'Blog', en: 'Blog', pt: 'Blog' },
-    'casos': { es: 'Casos Reales', en: 'Case Studies', pt: 'Casos Reais' },
-    'contacto': { es: 'Contacto', en: 'Contact', pt: 'Contato' },
-    'demos': { es: 'Demos', en: 'Demos', pt: 'Demos' },
-    'nosotros': { es: 'Nosotros', en: 'About Us', pt: 'Sobre Nós' }
+  const pageNames: Record<string, string> = {
+    'productos': 'Productos',
+    'blog': 'Blog',
+    'casos': 'Casos Reales',
+    'contacto': 'Contacto',
+    'demos': 'Demos',
+    'nosotros': 'Nosotros'
   };
 
   path.forEach((segment) => {
     currentPath += `/${segment}`;
-    const name = pageNames[segment]?.[lang] || segment;
+    const name = pageNames[segment] || segment;
     breadcrumbs.push({ name, url: currentPath });
   });
 

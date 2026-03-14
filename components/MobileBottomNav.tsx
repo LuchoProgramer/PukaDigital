@@ -11,7 +11,7 @@ interface MobileBottomNavProps {
   lang?: string;
 }
 
-const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
+const MobileBottomNav: React.FC = () => {
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -61,28 +61,28 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ lang = 'es' }) => {
   const navItems = [
     {
       label: 'Inicio',
-      path: `/${lang}`,
+      path: `/`,
       icon: Home
     },
     {
       label: 'Soluciones',
-      path: `/${lang}/sistema`,
+      path: `/sistema`,
       icon: Package
     },
     {
       label: 'Empezar',
-      path: `/${lang}/contacto`,
+      path: `/contacto`,
       icon: Home, // No se usa porque isPrimary usa pegaso-rojo.svg
       isPrimary: true
     },
     {
       label: 'Blog',
-      path: `/${lang}/blog`,
+      path: `/blog`,
       icon: BookOpen
     },
     {
       label: 'Casos',
-      path: `/${lang}/casos`,
+      path: `/casos`,
       icon: Trophy
     }
   ];

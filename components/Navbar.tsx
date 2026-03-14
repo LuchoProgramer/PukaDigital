@@ -3,23 +3,18 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import Image from 'next/image';
 import { NavItem } from '@/types';
 import { useTheme } from '@/lib/theme';
 import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
-interface NavbarProps {
-  lang?: string;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
+const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const { t, language, setLanguage } = useTranslation();
+  const { t } = useTranslation();
 
   // Track navigation
   const handleNavClick = (toSection: string) => {
@@ -31,35 +26,21 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
     );
   };
 
-  // Track language change
-  const handleLanguageChange = (newLang: 'es' | 'en' | 'pt') => {
-    const oldLang = language as 'es' | 'en' | 'pt';
-    ga.trackIdiomaCambiado(oldLang, newLang);
-    setLanguage(newLang);
-  };
-
-  // Dynamic Nav Items based on current language
+  // Dynamic Nav Items (Paths are now static Spanish)
   const navItems: NavItem[] = [
-    { label: t('nav.method'), path: `/${lang}` },
-    { label: t('nav.products'), path: `/${lang}/productos` },
-    { label: t('nav.cases'), path: `/${lang}/casos` },
-    { label: t('nav.blog'), path: `/${lang}/blog` },
-    { label: t('nav.demos'), path: `/${lang}/demos` },
-    { label: t('nav.about'), path: `/${lang}/nosotros` },
-    { label: t('nav.contact'), path: `/${lang}/contacto` },
+    { label: t('nav.method'), path: '/' },
+    { label: t('nav.products'), path: '/productos' },
+    { label: t('nav.cases'), path: '/casos' },
+    { label: t('nav.blog'), path: '/blog' },
+    { label: t('nav.demos'), path: '/demos' },
+    { label: t('nav.about'), path: '/nosotros' },
+    { label: t('nav.contact'), path: '/contacto' },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const languages = [
-    { code: 'es', label: 'ES', flag: '🇪🇸' },
-    { code: 'en', label: 'EN', flag: '🇺🇸' },
-    { code: 'pt', label: 'PT', flag: '🇧🇷' },
-  ] as const;
-
   // Check if current page is Home or special landing to hide global navbar (avoid double header)
-  // Also hiding on /salud, /inventario, /chatbot AND /sistema as they have dedicated headers
-  const isHiddenNavbarPage = ['/', '/es', '/en', '/pt'].includes(pathname) ||
+  const isHiddenNavbarPage = ['/'].includes(pathname) ||
     pathname?.includes('/salud') ||
     pathname?.includes('/inventario') ||
     pathname?.includes('/chatbot') ||
@@ -74,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href={`/${lang}`} className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
+          <Link href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
             <div className="relative h-12 w-12 flex-shrink-0">
               <Image
                 src="/pegaso-rojo.svg"
@@ -120,37 +101,6 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
                 </span>
               </div>
 
-              {/* Language Selector */}
-              {/* Language Selector (Hidden for single market strategy) */}
-              {/* <div className="relative">
-                <button 
-                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors flex items-center gap-1 text-xs font-bold"
-                >
-                  <Globe size={18} />
-                  {language.toUpperCase()}
-                </button>
-                
-                {isLangMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-xl rounded-sm py-1 w-24 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          handleLanguageChange(lang.code);
-                          setIsLangMenuOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 ${
-                          language === lang.code ? 'text-puka-red font-bold' : 'text-gray-600 dark:text-gray-300'
-                        }`}
-                      >
-                        <span>{lang.flag}</span> {lang.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div> */}
-
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
@@ -171,19 +121,6 @@ const Navbar: React.FC<NavbarProps> = ({ lang = 'es' }) => {
 
           {/* Mobile Menu Buttons */}
           <div className="flex items-center gap-2 md:hidden">
-            {/* Mobile Lang Toggle (Simple Cycle) */}
-            {/* Mobile Lang Toggle (Hidden) */}
-            {/* <button
-              onClick={() => {
-                const order: ('es'|'en'|'pt')[] = ['es', 'en', 'pt'];
-                const nextIndex = (order.indexOf(language) + 1) % order.length;
-                handleLanguageChange(order[nextIndex]);
-              }}
-              className="p-2 text-puka-black dark:text-white font-bold text-xs border border-gray-200 dark:border-gray-700 rounded-sm"
-            >
-              {language.toUpperCase()}
-            </button> */}
-
             <button
               onClick={toggleTheme}
               className="p-2 text-puka-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-sm transition-colors"
