@@ -35,16 +35,17 @@ export const googleAdsServiceSchema = {
 
 export const whatsappAgentsServiceSchema = {
   "@type": "Service",
-  "@id": `${BASE_URL}/#service-whatsapp`,
-  "name": "Agentes de IA para WhatsApp Business",
-  "description": "Implementación de asistentes virtuales inteligentes que automatizan ventas y atención al cliente 24/7. Integración directa con flujos de negocio y CRM.",
+  "@id": `${BASE_URL}/#service-pukaia`,
+  "name": "PukaIA - Agentes de Inteligencia Artificial",
+  "description": "PukaIA automatiza la atención al cliente de empresas ecuatorianas mediante agentes de IA para WhatsApp. Respuestas automáticas 24/7, integración con sistemas existentes y configuración personalizada.",
   "provider": { "@id": `${BASE_URL}/#organization` },
   "areaServed": {
     "@type": "Country",
     "name": "Ecuador"
   },
-  "serviceType": "Automatización de Ventas",
-  "url": `${BASE_URL}/agentes-ia`
+  "serviceType": "Inteligencia Artificial para Negocios",
+  "url": `${BASE_URL}/agentes-ia`,
+  "inLanguage": "es-EC"
 };
 
 export const medicalRecordsServiceSchema = {
