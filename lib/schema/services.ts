@@ -50,8 +50,8 @@ export const whatsappAgentsServiceSchema = {
 export const medicalRecordsServiceSchema = {
   "@type": "Service",
   "@id": `${BASE_URL}/#service-medical`,
-  "name": "Sistema de Historias Clínicas Digitales",
-  "description": "Software especializado para médicos y clínicas que deseen digitalizar su consulta. Seguridad de datos, recetas electrónicas y acceso desde cualquier dispositivo.",
+  "name": "PukaHealth - Gestión de Historias Clínicas",
+  "description": "Software especializado PukaHealth para médicos y clínicas que deseen digitalizar su consulta. Seguridad de datos, recetas electrónicas y acceso desde cualquier dispositivo.",
   "provider": { "@id": `${BASE_URL}/#organization` },
   "areaServed": {
     "@type": "Country",

@@ -7,8 +7,9 @@ const BASE_URL = 'https://pukadigital.com';
 
 export const medicalSoftwareSchema = {
   "@type": "SoftwareApplication",
-  "@id": `${BASE_URL}/#software-hc`,
-  "name": "Sistema de Historias Clínicas PukaDigital",
+  "@id": `${BASE_URL}/#software-pukahealth`,
+  "name": "PukaHealth - Sistema de Historias Clínicas",
+  "description": "Plataforma digital de gestión de historias clínicas para consultorios y clínicas en Ecuador. Expedientes médicos, recetas y diagnósticos desde cualquier dispositivo.",
   "applicationCategory": "HealthApplication",
   "applicationSubCategory": "Gestión de expedientes médicos",
   "operatingSystem": "Web, iOS, Android",
