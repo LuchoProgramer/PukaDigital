@@ -3,6 +3,16 @@
  * Modified for Spanish-only (Option B migration)
  */
 
+import { GA_TRACKING_ID, GOOGLE_ADS_ID } from "./analytics";
+import {
+  webDevServiceSchema,
+  googleAdsServiceSchema,
+  whatsappAgentsServiceSchema,
+  medicalRecordsServiceSchema,
+  erpServiceSchema
+} from './schema/services';
+import { medicalSoftwareSchema } from './schema/software';
+
 // Base URL
 const BASE_URL = 'https://pukadigital.com';
 
@@ -457,7 +467,13 @@ export const getGlobalSchemaGraph = () => ({
   "@graph": [
     getOrganizationSchema(),
     getLocalBusinessSchema(),
-    getWebSiteSchema()
+    getWebSiteSchema(),
+    webDevServiceSchema,
+    googleAdsServiceSchema,
+    whatsappAgentsServiceSchema,
+    medicalRecordsServiceSchema,
+    erpServiceSchema,
+    medicalSoftwareSchema
   ]
 });
 
