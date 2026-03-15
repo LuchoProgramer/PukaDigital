@@ -22,10 +22,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Páginas de productos específicos (Landing Pages)
   const productPages = [
-    { path: '/chatbot-ia-whatsapp', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/agentes-ia', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/salud', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/desarrollo-web-pymes', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/sistema-erp-cloud', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/chatbot', priority: 0.7, changeFreq: 'monthly' as const },
     { path: '/sistema', priority: 0.7, changeFreq: 'monthly' as const },
     { path: '/inventario', priority: 0.7, changeFreq: 'monthly' as const },
   ];

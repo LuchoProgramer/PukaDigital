@@ -48,10 +48,10 @@ export const whatsappAgentsServiceSchema = {
   "inLanguage": "es-EC"
 };
 
-export const medicalRecordsServiceSchema = {
+export const pukaHealthServiceSchema = {
   "@type": "Service",
-  "@id": `${BASE_URL}/#service-medical`,
-  "name": "PukaHealth - Gestión de Historias Clínicas",
+  "@id": `${BASE_URL}/#service-pukahealth`,
+  "name": "PukaHealth - Sistema de Historias Clínicas",
   "description": "Software especializado PukaHealth para médicos y clínicas que deseen digitalizar su consulta. Seguridad de datos, recetas electrónicas y acceso desde cualquier dispositivo.",
   "provider": { "@id": `${BASE_URL}/#organization` },
   "areaServed": {
@@ -59,7 +59,23 @@ export const medicalRecordsServiceSchema = {
     "name": "Ecuador"
   },
   "serviceType": "Software Médico",
-  "url": `${BASE_URL}/historias-clinicas`
+  "url": `${BASE_URL}/historias-clinicas`,
+  "inLanguage": "es-EC"
+};
+
+export const pukaSaludServiceSchema = {
+  "@type": "Service",
+  "@id": `${BASE_URL}/#service-pukasalud`,
+  "name": "PukaSalud - Marketing Digital para Médicos",
+  "description": "Servicio especializado de Google Ads y posicionamiento web para consultorios y clínicas en Ecuador. Captación de pacientes mediante búsqueda orgánica y publicidad de pago.",
+  "serviceType": "Marketing Digital Médico",
+  "url": `${BASE_URL}/salud`,
+  "inLanguage": "es-EC",
+  "provider": { "@id": `${BASE_URL}/#organization` },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Ecuador"
+  }
 };
 
 export const erpServiceSchema = {

@@ -148,9 +148,9 @@ const Products: React.FC = () => {
       // Product 2: Chatbot IA
       {
         "@type": "Product",
-        "@id": "https://pukadigital.com/productos#chatbot-ia",
-        "name": "Chatbot IA con WhatsApp Business",
-        "description": "Asistente virtual con GPT-4 integrado a WhatsApp. Base de conocimiento personalizada, respuestas automáticas 24/7, calificación de leads.",
+        "@id": "https://pukadigital.com/productos#pukaia",
+        "name": "PukaIA - Agente de Inteligencia Artificial",
+        "description": "PukaIA automatiza la atención al cliente de empresas ecuatorianas mediante agentes de IA para WhatsApp. Respuestas automáticas 24/7.",
         "brand": {
           "@type": "Brand",
           "name": "PukaDigital"
@@ -457,14 +457,14 @@ const Products: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Chatbot IA Landing Page */}
               <Link
-                href="/chatbot-ia-whatsapp"
+                href="/agentes-ia"
                 className="group bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-sm border-2 border-purple-200 dark:border-purple-700 hover:border-purple-500 hover:shadow-2xl transition-all"
               >
                 <div className="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <Bot className="text-white" size={32} />
                 </div>
                 <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-purple-600 transition-colors">
-                  Chatbot IA WhatsApp
+                  PukaIA - Agente IA WhatsApp
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                   Automatiza consultas repetitivas. Caso real: PodoclinicEC automatizó servicios a domicilio con 53 conversiones/mes.

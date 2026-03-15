@@ -47,7 +47,12 @@ const nextConfig: NextConfig = {
       // 2. Legacy Product Paths → New Optimized Landings
       {
         source: '/chatbot',
-        destination: '/chatbot-ia-whatsapp',
+        destination: '/agentes-ia',
+        permanent: true,
+      },
+      {
+        source: '/chatbot-ia-whatsapp',
+        destination: '/agentes-ia',
         permanent: true,
       },
       {
@@ -60,11 +65,7 @@ const nextConfig: NextConfig = {
         destination: '/sistema-erp-cloud',
         permanent: true,
       },
-      {
-        source: '/salud',
-        destination: '/historias-clinicas',
-        permanent: false, // Temporary for now if unsure of final naming
-      },
+
     ]
   },
 };

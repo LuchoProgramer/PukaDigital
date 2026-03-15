@@ -8,7 +8,8 @@ import {
   webDevServiceSchema,
   googleAdsServiceSchema,
   whatsappAgentsServiceSchema,
-  medicalRecordsServiceSchema,
+  pukaHealthServiceSchema,
+  pukaSaludServiceSchema,
   erpServiceSchema
 } from './schema/services';
 import { medicalSoftwareSchema } from './schema/software';
@@ -471,7 +472,8 @@ export const getGlobalSchemaGraph = () => ({
     webDevServiceSchema,
     googleAdsServiceSchema,
     whatsappAgentsServiceSchema,
-    medicalRecordsServiceSchema,
+    pukaHealthServiceSchema,
+    pukaSaludServiceSchema,
     erpServiceSchema,
     medicalSoftwareSchema
   ]
