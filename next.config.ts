@@ -62,11 +62,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/salud',
-        destination: '/marketing-medico-ecuador', // This path seems planned given its prominence, let's verify if it exists or use /salud if not. 
-        // Re-checking list_dir: /salud exists as a directory. 
-        // Let's keep /salud pointing to itself if it's the main one, 
-        // but often users want short URLs. 
-        // Based on previous contexts, these were the "cleaner" names.
+        destination: '/historias-clinicas',
         permanent: false, // Temporary for now if unsure of final naming
       },
     ]

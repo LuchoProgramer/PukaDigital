@@ -495,14 +495,14 @@ const Products: React.FC = () => {
 
               {/* Sistema Inventario Landing Page */}
               <Link
-                href="/sistema-inventario"
+                href="/sistema-erp-cloud"
                 className="group bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 p-8 rounded-sm border-2 border-green-200 dark:border-green-700 hover:border-green-500 hover:shadow-2xl transition-all"
               >
                 <div className="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <Database className="text-white" size={32} />
                 </div>
                 <h3 className="font-bold text-2xl mb-3 text-puka-black dark:text-white group-hover:text-green-600 transition-colors">
-                  LedgerXpertz: Inventario
+                  Sistema ERP Cloud
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                   Di adiós a Excel. Inventario + CRM + Facturación SRI. Negocios locales han eliminado 15h semanales de trabajo manual.
