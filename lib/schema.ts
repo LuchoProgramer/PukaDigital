@@ -335,6 +335,8 @@ export interface ArticleData {
   dateModified?: string;
   author?: string;
   image?: string;
+  wordCount?: number;
+  articleSection?: string;
 }
 
 export const getArticleSchema = (data: ArticleData) => ({
@@ -346,6 +348,8 @@ export const getArticleSchema = (data: ArticleData) => ({
   "image": data.image || "https://res.cloudinary.com/dltfsttr7/image/upload/v1764125716/logo_ekusea.svg",
   "datePublished": data.datePublished,
   "dateModified": data.dateModified || data.datePublished,
+  ...(data.wordCount !== undefined && { "wordCount": data.wordCount }),
+  ...(data.articleSection && { "articleSection": data.articleSection }),
   "author": {
     "@type": "Person",
     "@id": `${BASE_URL}/#founder`,

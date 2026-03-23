@@ -65,6 +65,16 @@ const nextConfig: NextConfig = {
         destination: '/sistema-erp-cloud',
         permanent: true,
       },
+      {
+        source: '/sistema-inventario',
+        destination: '/sistema-erp-cloud',
+        permanent: true,
+      },
+      {
+        source: '/sistema-emprendedor',
+        destination: '/agencia',
+        permanent: true,
+      },
 
     ]
   },

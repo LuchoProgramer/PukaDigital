@@ -28,8 +28,42 @@ const HomePage = () => {
     document.getElementById('metodo')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": "https://pukadigital.com/#howto-ingenieria-inversa",
+    "name": "Ingeniería Inversa de Ventas: Proceso de PukaDigital",
+    "description": "Metodología de 3 pasos para crear sitios web que venden, basada en datos reales de búsqueda antes de escribir una línea de código.",
+    "inLanguage": "es-EC",
+    "totalTime": "P30D",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Minería de Datos (Keywords)",
+        "text": "Investigamos qué busca tu cliente real en Google: volumen de búsqueda, intención de compra y costo por clic (CPC). No diseñamos nada sin datos previos que garanticen tráfico calificado."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Arquitectura Web (Relevancia)",
+        "text": "Creamos la estructura de páginas y el copy del sitio para coincidir exactamente con esas búsquedas. Google premia la relevancia con mejores posiciones orgánicas y menores costos en Ads."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Tráfico de Precisión (Google Ads)",
+        "text": "Lanzamos campañas de Google Ads con Quality Score 10/10. Al tener una web alineada con los anuncios, reducimos el costo por clic a la mitad y duplicamos las conversiones."
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col font-sans bg-white text-gray-900 selection:bg-puka-red/20 selection:text-puka-red">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <SEO
         title="Agencia de Marketing Digital y Diseño Web Ecuador | PukaDigital"
         description="Especialistas en Diseño Web estratégico y Google Ads. Creamos sitios web optimizados desde la investigación de palabras clave. Cotiza tu proyecto hoy."

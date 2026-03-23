@@ -1,46 +1,88 @@
-# PukaDigital: Ecosistema de Tecnología y Marketing de Alto Rendimiento
+# PukaDigital — Agencia de Marketing Digital y Desarrollo Web en Ecuador
 
-> Misión: Democratizar la tecnología de élite para PYMEs en Ecuador.
-> Filosofía: "Independencia Digital". No cobramos rentas mensuales por software. Entregamos el código.
+> Misión: Democratizar la tecnología de élite para pymes en Ecuador y LATAM.
+> Filosofía: "Independencia Digital". El cliente es dueño de su código. Sin rentas mensuales ni contratos eternos.
 
-## ESTRUCTURA DEL ECOSISTEMA
+## EMPRESA
 
-### 1. AGENCIA & CONSULTORÍA (/agencia)
-**Enfoque:** Resultados corporativos medibles (ROI).
-**Stack:** Next.js, React, Google Cloud Platform.
-**Diferencial:** Desarrollo Cloud Native (No usamos WordPress lento).
-**Servicios:**
-- Desarrollo Web de Alta Velocidad.
-- Auditoría y Gestión de Google Ads (Search & Display).
-- SEO Técnico & API Integrations.
+**Nombre:** PukaDigital
+**Fundador:** Luis Omar Viteri Sarango (alias LuchoDev)
+**Fundación:** 2025
+**Ubicación:** Quito, Pichincha, Ecuador (cobertura nacional y LATAM)
+**Contacto:** +593 96 406 5880 | hola@pukadigital.com
+**Horario:** Lunes a Viernes, 09:00–18:00 (UTC-5)
 
-### 2. SISTEMA EMPRENDEDOR (/sistema-emprendedor)
-**Producto:** "Tienda Online de Pago Único".
-**Target:** Retailers, Tiendas de Ropa, Emprendedores.
-**Oferta:**
-- E-commerce completo (Next.js).
-- Control de Inventario & Pedidos WhatsApp.
-- Precio: $200 USD (Base) / $300 USD (Recomendado).
-- Bono: $100 en saldo Google Ads.
+## SERVICIOS
 
-### 3. PUKA SALUD (/salud)
-**Producto:** "Marketing Médico Ético".
-**Target:** Doctores, Odontólogos, Clínicas.
-**Promesa:** Llenar agenda con pacientes cualificados (No likes).
-**Caso Éxito:** Podoclinic (+330% ROI).
+### 1. Agencia de Marketing Digital y Desarrollo Web (/agencia)
+Estrategias de alto rendimiento para empresas que buscan ROI, no likes.
+- Desarrollo web en Next.js (velocidad < 2s, propiedad absoluta del código)
+- Google Ads Search con Quality Score 10/10
+- SEO técnico y GEO (optimización para motores de IA: ChatGPT, Perplexity, Gemini)
+- Auditoría de conversiones y fichas de Google Maps
 
-### 4. LEDGERXPERTZ (BETA) (/inventario)
-**Producto:** SaaS de Gestión de Inventarios & Facturación SRI.
-**Estado:** Beta Cerrada (Solo por invitación).
-**Tech:** Arquitectura Hexagonal, IA, Multi-bodega.
+### 2. PukaIA — Agente de Inteligencia Artificial para WhatsApp (/agentes-ia)
+Automatización de atención al cliente con IA en WhatsApp Business API oficial de Meta.
+- **Demo en vivo disponible en WhatsApp:** +593984800282
+- Tecnología: Meta Cloud API oficial + Gemini 2.5 Flash (Google)
+- Respuestas automáticas 24/7 con comprensión de contexto real (no respuestas fijas)
+- Calificación de prospectos y agendamiento de citas de forma autónoma
+- **Modo humano:** cuando la IA detecta una pregunta compleja, notifica al dueño en tiempo real
+- CRM de leads integrado — historial de conversaciones centralizado
+- Dashboard de configuración sin código — ajusta el bot sin programar
+- Entrenamiento con datos del negocio del cliente (productos, precios, FAQs, personalidad)
+- **Casos de uso:** clínicas, restaurantes, tiendas, consultoras, inmobiliarias, academias
+- **Diferenciador:** modo humano con notificación en tiempo real, sin costo por mensaje
+- Precio: desde $20/mes | Prueba de 7 días gratis sin tarjeta de crédito
+- Plan implementación: $300/mes por 3 meses (incluye setup completo y acompañamiento)
+- Setup en 24 horas después de aprobación del número con Meta
 
-## DATOS DE AUTORIDAD (E-E-A-T)
-**Fundador:** Luis Omar Viteri Sarango (@LuchoDev).
-**Ubicación:** Quito, Ecuador (Servicio a todo LATAM).
-**Contacto Soporte:** +593 96 406 5880.
+### 3. Sistema ERP Cloud (/sistema-erp-cloud)
+Sistema de gestión empresarial en la nube para pymes ecuatorianas.
+- Inventario multi-bodega
+- Facturación electrónica compatible con el SRI de Ecuador
+- CRM básico y reportes
+- Sin instalación local, acceso desde cualquier dispositivo
+
+### 4. PukaHealth — Historias Clínicas Digitales (/historias-clinicas)
+Software de historias clínicas electrónicas para clínicas y consultorios médicos.
+- Cumple normativas del Ministerio de Salud Pública del Ecuador (MSP)
+- Acceso en la nube desde cualquier dispositivo
+- Target: médicos, odontólogos, podólogos, clínicas
+
+### 5. PukaSalud — Marketing Médico Ético
+Estrategias de captación de pacientes cualificados para profesionales de la salud.
+- Google Ads médico
+- SEO local para clínicas
+- Caso de éxito: Podoclinic (+330% ROI)
+
+## METODOLOGÍA: INGENIERÍA INVERSA DE VENTAS
+1. **Minería de Datos (Keywords):** Investigar búsquedas reales antes de diseñar.
+2. **Arquitectura Web (Relevancia):** Estructura y copy alineados con las búsquedas del cliente ideal.
+3. **Tráfico de Precisión (Ads):** Campañas Google Ads con relevancia máxima y costo por clic reducido.
+
+## RUTAS DEL SITIO
+- / — Inicio, metodología y navegación de servicios
+- /agencia — Servicios corporativos de marketing digital
+- /agentes-ia — PukaIA, agente IA para WhatsApp
+- /sistema-erp-cloud — Sistema ERP en la nube
+- /blog — Academia digital (SEO, IA, marketing, tecnología)
+- /casos — Casos de éxito documentados
+- /productos — Catálogo de productos
+- /nosotros — Historia y equipo
+- /contacto — Formulario y consulta gratuita
+- /preguntas-frecuentes — FAQ sobre servicios y precios
+
+## AUTORIDAD (E-E-A-T)
+- Fundador con experiencia en transformación digital para pymes
+- Casos de éxito documentados con métricas reales
+- Tecnología propia (sin dependencia de plataformas de terceros)
+- Clientes en Ecuador y LATAM
 
 ## ENLACES OFICIALES
 - Web: https://pukadigital.com
+- Sitemap: https://pukadigital.com/sitemap.xml
 - LinkedIn: https://www.linkedin.com/company/pukadigital/
 - YouTube: https://www.youtube.com/@PukaDigital
 - GitHub: https://github.com/LuchoProgramer/PukaDigital
+- Instagram: https://www.instagram.com/luchodev_/

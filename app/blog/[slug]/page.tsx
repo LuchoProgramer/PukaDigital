@@ -91,13 +91,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ];
 
   // Article schema
+  const wordCount = post.content
+    ? post.content.split(/\s+/).filter(Boolean).length
+    : undefined;
+
   const articleSchema = getArticleSchema({
     title: post.title,
     description: post.excerpt,
     slug: post.slug,
     datePublished: post.date,
     author: post.author || 'Equipo PukaDigital',
-    image: post.coverImage
+    image: post.coverImage,
+    wordCount,
+    articleSection: post.category,
   });
 
   // Breadcrumb schema
