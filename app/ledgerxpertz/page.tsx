@@ -154,9 +154,9 @@ export default function LedgerXpertzPage() {
       <SEO structuredData={schema} />
 
       {/* ── Background orbs ── */}
-      <div style={{ position: 'fixed', top: '-80px', right: '-80px', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(199,23,30,0.15) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'fixed', top: '450px', left: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(199,23,30,0.08) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'fixed', bottom: '100px', right: '60px', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(199,23,30,0.07) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(199,23,30,0.15) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', top: '450px', left: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(199,23,30,0.08) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', bottom: '100px', right: '60px', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(199,23,30,0.07) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* ── NAVBAR ── */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, ...glass.nav }}>
@@ -306,7 +306,7 @@ export default function LedgerXpertzPage() {
               >
                 {plan.popular && (
                   <div style={{ position: 'absolute', top: '-11px', left: '50%', transform: 'translateX(-50%)', background: '#C7171E', color: '#fff', borderRadius: '20px', padding: '4px 14px', fontSize: '11px', fontWeight: 700, whiteSpace: 'nowrap', boxShadow: '0 0 16px rgba(199,23,30,0.5)' }}>
-                    MAS POPULAR
+                    M&Aacute;S POPULAR
                   </div>
                 )}
 
@@ -375,7 +375,7 @@ export default function LedgerXpertzPage() {
         <section style={{ maxWidth: '700px', margin: '0 auto', padding: '40px 24px' }}>
           <div style={{ ...glass.subtle, borderRadius: '16px', padding: '32px' }}>
             <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.25)', fontSize: '11px', fontWeight: 700, letterSpacing: '3px', marginBottom: '24px', textTransform: 'uppercase' }}>
-              POR QUE LEDGERXPERTZ
+              POR QU&Eacute; LEDGERXPERTZ
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
               <div />
@@ -405,7 +405,7 @@ export default function LedgerXpertzPage() {
         <section style={{ maxWidth: '700px', margin: '0 auto', padding: '40px 24px 80px' }}>
           <div style={{ ...glass.hero, borderRadius: '20px', padding: '48px 40px', textAlign: 'center' }}>
             <h2 className="font-display" style={{ fontWeight: 900, fontSize: 'clamp(24px, 4vw, 36px)', marginBottom: '12px' }}>
-              Listo para dejar el Excel?
+              &iquest;Listo para dejar el Excel?
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.40)', fontSize: '15px', marginBottom: '32px' }}>
               Primeros 30 clientes sin costo de instalación. Solo $10/mes.
