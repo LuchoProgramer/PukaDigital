@@ -52,6 +52,12 @@ const SOCIAL_PROOF = [
   { value: '$0',              label: 'Setup (10 primeros)' },
 ];
 
+const TESTIMONIAL_STATS = [
+  { value: '100%', label: 'SRI v&aacute;lido' },
+  { value: '$0',   label: 'Setup' },
+  { value: '30 d&iacute;as', label: 'gratis' },
+];
+
 const PLAN_INCLUDES = [
   'Historias clínicas ilimitadas',
   'Facturación SRI',
@@ -174,7 +180,7 @@ export default function PukaHealthPage() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{
+          <span className="animate-pulse" style={{
             width: '8px', height: '8px', borderRadius: '50%',
             background: '#0ea5e9',
             boxShadow: '0 0 8px rgba(14,165,233,1)',
@@ -209,7 +215,6 @@ export default function PukaHealthPage() {
 
       {/* ── 2. HERO ───────────────────────────────────────────────────── */}
       <section id="hero" style={{
-        paddingTop: '96px', paddingBottom: '64px',
         padding: '96px 24px 64px',
         maxWidth: '1100px', margin: '0 auto',
       }}>
@@ -290,17 +295,15 @@ export default function PukaHealthPage() {
               display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
               gap: '12px', marginTop: '24px',
             }}>
-              {[
-                { value: '100%', label: 'SRI v\u00e1lido' },
-                { value: '$0', label: 'Setup' },
-                { value: '30 d\u00edas', label: 'gratis' },
-              ].map(({ value, label }) => (
+              {TESTIMONIAL_STATS.map(({ value, label }) => (
                 <div key={value} style={{
                   textAlign: 'center', background: '#f8fafc',
                   borderRadius: '8px', padding: '12px',
                 }}>
-                  <div style={{ color: '#0ea5e9', fontWeight: 900, fontSize: '20px' }}>{value}</div>
-                  <div style={{ color: '#64748b', fontSize: '11px' }}>{label}</div>
+                  <div style={{ color: '#0ea5e9', fontWeight: 900, fontSize: '20px' }}
+                    dangerouslySetInnerHTML={{ __html: value }} />
+                  <div style={{ color: '#64748b', fontSize: '11px' }}
+                    dangerouslySetInnerHTML={{ __html: label }} />
                 </div>
               ))}
             </div>
@@ -320,8 +323,8 @@ export default function PukaHealthPage() {
           display: 'flex', justifyContent: 'space-around',
           flexWrap: 'wrap', gap: '16px',
         }}>
-          {SOCIAL_PROOF.map(({ value, label }, i) => (
-            <div key={i} style={{ textAlign: 'center' }}>
+          {SOCIAL_PROOF.map(({ value, label }) => (
+            <div key={value} style={{ textAlign: 'center' }}>
               <div style={{ color: '#0ea5e9', fontWeight: 700, fontSize: '22px' }}>{value}</div>
               <div style={{ color: '#64748b', fontSize: '13px' }}>{label}</div>
             </div>
