@@ -57,17 +57,22 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/sistema',
-        destination: '/sistema-erp-cloud',
+        destination: '/ledgerxpertz',
         permanent: true,
       },
       {
         source: '/inventario',
-        destination: '/sistema-erp-cloud',
+        destination: '/ledgerxpertz',
         permanent: true,
       },
       {
         source: '/sistema-inventario',
-        destination: '/sistema-erp-cloud',
+        destination: '/ledgerxpertz',
+        permanent: true,
+      },
+      {
+        source: '/sistema-erp-cloud',
+        destination: '/ledgerxpertz',
         permanent: true,
       },
       {
