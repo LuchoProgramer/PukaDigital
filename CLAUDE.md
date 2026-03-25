@@ -137,6 +137,38 @@ feat(llms.txt): actualizar precios y rutas canónicas
 
 ---
 
+## Landings standalone (sin Navbar/Footer global)
+
+Algunas páginas de producto tienen su propio navbar y footer embebidos (ej. `/ledgerxpertz`). Para que el Navbar/Footer global del sitio no aparezca encima, se usa el componente `ConditionalShell`.
+
+### Cómo funciona
+
+`components/ConditionalShell.tsx` es un componente `'use client'` que usa `usePathname()` para detectar si la ruta actual es una landing standalone. Si lo es, no renderiza `<Navbar />`, `<Footer />`, `<MobileBottomNav />` ni `<SmartChatbot />`.
+
+### Para agregar una nueva landing standalone
+
+Añadir la ruta a `STANDALONE_ROUTES` en `components/ConditionalShell.tsx`:
+
+```typescript
+const STANDALONE_ROUTES = [
+  '/ledgerxpertz',
+  '/nueva-landing',  // ← añadir aquí
+];
+```
+
+### Por qué no usar route groups `(landings)`
+
+En Next.js App Router el `app/layout.tsx` raíz **siempre** envuelve todas las rutas sin excepción. Un route group `(landings)` con su propio layout solo añade una capa adicional — no reemplaza ni omite el root layout. Para verdaderamente aislar layouts habría que mover TODAS las páginas actuales a un grupo `(site)`, lo que es un refactor de alto riesgo. `ConditionalShell` logra el mismo resultado visual con un cambio mínimo y seguro.
+
+### Responsive en landings
+
+El navbar embebido en las landings usa clases Tailwind para ocultar elementos en móvil:
+- Links de navegación: `className="hidden sm:block"` — visibles solo desde 640px
+- Botón CTA: `whiteSpace: 'nowrap'` para que no se corte
+- Padding reducido en móvil: `padding: '12px 16px'`
+
+---
+
 ## Archivos importantes
 
 | Archivo | Propósito |
@@ -146,6 +178,7 @@ feat(llms.txt): actualizar precios y rutas canónicas
 | `next.config.ts` | Redirects 301 permanentes |
 | `app/sitemap.ts` | Sitemap dinámico — añadir/quitar rutas aquí |
 | `lib/analytics.ts` | Tracking de eventos GA — `trackWhatsAppDirectoClick` |
+| `components/ConditionalShell.tsx` | Oculta Navbar/Footer en landings standalone — añadir rutas a `STANDALONE_ROUTES` |
 | `components/SEO.tsx` | Inyecta JSON-LD via useEffect |
 | `docs/GEO_LLM_VISIBILITY.md` | Guía completa de GEO/LLM SEO reutilizable |
 | `docs/CRO_MASTERY_GUIDE.md` | Guía de landing pages de alta conversión |
