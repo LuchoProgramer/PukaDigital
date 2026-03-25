@@ -39,31 +39,36 @@ Dos columnas (desktop) / una columna (mobile):
 
 ## CTAs y WhatsApp
 
+Implementar con el mismo patrón que LedgerXpertz:
+- `waLink(message)` helper con `encodeURIComponent()` para construir las URLs
+- Todos los CTAs son `<button>` con `onClick={() => handleCTA(location, url)}`
+- `handleCTA` llama `ga.trackWhatsAppDirectoClick(location)` y luego `window.open(url, '_blank', 'noopener,noreferrer')`
+- **No usar `<a>` tags** para los CTAs de WhatsApp
+
+```typescript
+const WHATSAPP_NUMBER = '593964065880';
+const waLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+const WA_LINKS = {
+  hero_primary:     waLink('Hola, me interesa probar PukaHealth gratis para mi consultorio.'),
+  hero_demo:        waLink('Hola, quiero ver una demo en vivo de PukaHealth.'),
+  nav:              waLink('Hola, me interesa probar PukaHealth gratis para mi consultorio.'),
+  footer_whatsapp:  waLink('Hola, quiero más información sobre PukaHealth.'),
+  footer_primary:   waLink('Hola, me interesa probar PukaHealth gratis para mi consultorio.'),
+  pricing_individual: waLink('Hola, me interesa el plan Individual de PukaHealth.'),
+  pricing_anual:    waLink('Hola, me interesa el plan Anual de PukaHealth.'),
+};
 ```
-WHATSAPP_NUMBER = "593964065880"
 
-CTA "Probar 30 días gratis" (primario, azul):
-  → href: `https://wa.me/593964065880?text=Hola, me interesa probar PukaHealth gratis para mi consultorio.`
-  → ga.trackWhatsAppDirectoClick('pukahealth_hero_primary')
-
-CTA "Ver demo en vivo" (secundario, outline):
-  → href: `https://wa.me/593964065880?text=Hola, quiero ver una demo en vivo de PukaHealth.`
-  → ga.trackWhatsAppDirectoClick('pukahealth_hero_demo')
-
-CTA "Probar gratis" (navbar):
-  → href: `https://wa.me/593964065880?text=Hola, me interesa probar PukaHealth gratis para mi consultorio.`
-  → ga.trackWhatsAppDirectoClick('pukahealth_nav')
-
-CTA "Escribir por WhatsApp" (CTA final, verde):
-  → href: `https://wa.me/593964065880?text=Hola, quiero más información sobre PukaHealth.`
-  → ga.trackWhatsAppDirectoClick('pukahealth_footer_whatsapp')
-
-CTA "Empezar gratis hoy" (CTA final, azul):
-  → href: `https://wa.me/593964065880?text=Hola, me interesa probar PukaHealth gratis para mi consultorio.`
-  → ga.trackWhatsAppDirectoClick('pukahealth_footer_primary')
-
-Todos los CTA: target="_blank" rel="noopener noreferrer"
-```
+Tracking location strings:
+- `pukahealth_hero_primary` — CTA primario hero
+- `pukahealth_hero_demo` — CTA demo hero
+- `pukahealth_nav` — CTA navbar
+- `pukahealth_footer_whatsapp` — CTA WhatsApp sección final
+- `pukahealth_footer_primary` — CTA primario sección final
+- `pukahealth_pricing_individual` — botón plan Individual
+- `pukahealth_pricing_anual` — botón plan Anual
 
 ---
 
@@ -74,7 +79,7 @@ Todos los CTA: target="_blank" rel="noopener noreferrer"
 - Logo: "PUKA" `#0f172a` + "HEALTH" `#0ea5e9`, `font-weight: 900`, `letter-spacing: 2px`
 - Punto animado: `animate-pulse`, `background: #0ea5e9`, `box-shadow: 0 0 8px rgba(14,165,233,1)`
 - Links: "Funciones" → `#funciones`, "Precios" → `#precios` — `hidden sm:block`
-- CTA: "Probar gratis" — azul con hover, `whiteSpace: 'nowrap'`
+- CTA: "Probar gratis" — azul con hover, `whiteSpace: 'nowrap'` — `onClick` → `handleCTA('pukahealth_nav', WA_LINKS.nav)`
 
 ### 2. Hero (`id="hero"`)
 Grid 2 columnas desktop / 1 columna mobile:
@@ -121,6 +126,8 @@ Cada card: `background: #fff`, `border: 1px solid #e2e8f0`, `box-shadow: 0 2px 8
 Label sección: "ELIGE TU PLAN"
 Sin toggle — modelo simple por médico:
 
+> **Nota precio beta:** Dra. Cristina tiene precio especial $25/mes por acuerdo privado. **No mostrar precio beta en la landing.** La landing pública muestra solo los precios regulares ($50/mes, $480/año).
+
 **2 cards:**
 
 | Plan | Precio | Destacado |
@@ -130,11 +137,15 @@ Sin toggle — modelo simple por médico:
 
 Card Individual destacada: `border: 2px solid #0ea5e9`, `box-shadow: 0 8px 32px rgba(14,165,233,0.15)`
 
+Botones CTA por plan:
+- **Individual:** "Empezar ahora" — `background: #0ea5e9`, glow azul, `onClick` → `handleCTA('pukahealth_pricing_individual', WA_LINKS.pricing_individual)`
+- **Anual:** "Elegir plan anual" — `background: #fff`, `border: 1px solid #e2e8f0`, `color: #0ea5e9`, `onClick` → `handleCTA('pukahealth_pricing_anual', WA_LINKS.pricing_anual)`
+
 Todos los planes incluyen: Historias clínicas ilimitadas, Facturación SRI, Multi-especialidad, Soporte WhatsApp, Actualizaciones incluidas — con icono `Check` de Lucide en `#0ea5e9`.
 
 Nota debajo: "Sin permanencia · Cancela cuando quieras · Soporte directo por WhatsApp" — `color: #94a3b8`
 
-### 6. Tabla Comparativa
+### 6. Tabla Comparativa (`id="comparativa"`)
 Grid 3 columnas: Feature | PukaHealth (header `#0ea5e9`) | Orpheus | Excel
 
 | Feature | PukaHealth | Orpheus | Excel |
@@ -147,23 +158,31 @@ Grid 3 columnas: Feature | PukaHealth (header `#0ea5e9`) | Orpheus | Excel
 
 ### 7. FAQ (`id="faq"`)
 Label: "PREGUNTAS FRECUENTES"
-8 cards con `FAQPage` schema:
+8 cards con `FAQPage` schema. Textos aprobados:
 
-1. ¿Cuánto cuesta PukaHealth?
-2. ¿PukaHealth emite facturas al SRI de Ecuador?
-3. ¿Funciona para cualquier especialidad médica?
-4. ¿Necesito instalar algo?
-5. ¿Tiene período de prueba gratuito?
-6. ¿Qué diferencia hay entre PukaHealth y Orpheus?
-7. ¿Qué pasa con mis datos si cancelo?
-8. ¿Cumple con las normativas del Ministerio de Salud (MSP)?
+| # | Pregunta (`q`) | Respuesta (`a`) |
+|---|---|---|
+| 1 | ¿Cuánto cuesta PukaHealth? | PukaHealth cuesta $50 por médico al mes. También hay un plan anual por $480 al año (equivalente a $40/mes, 2 meses gratis). Los primeros 10 médicos no pagan costo de instalación. Ofrecemos 30 días de prueba gratuita sin tarjeta de crédito. |
+| 2 | ¿PukaHealth emite facturas al SRI de Ecuador? | Sí. PukaHealth genera facturas electrónicas válidas directamente al SRI con un solo clic, desde la misma plataforma donde registras las consultas. No necesitas ningún sistema adicional. |
+| 3 | ¿Funciona para cualquier especialidad médica? | Sí. PukaHealth usa campos JSON adaptables que se configuran por especialidad: podología, medicina general, pediatría, ginecología, y más. Puedes personalizar el expediente clínico según tu práctica. |
+| 4 | ¿Necesito instalar algo? | No. PukaHealth es 100% en la nube. Accedes desde cualquier navegador web en tu computadora, tablet o celular. Sin instalaciones, sin actualizaciones manuales. |
+| 5 | ¿Tiene período de prueba gratuito? | Sí, 30 días de prueba completamente gratis. No se requiere tarjeta de crédito ni pago por adelantado. |
+| 6 | ¿Qué diferencia hay entre PukaHealth y Orpheus? | PukaHealth ofrece campos clínicos completamente flexibles por especialidad (Orpheus tiene formularios fijos), y su precio es menor ($50/mes vs $60–$80/mes de Orpheus). Además incluye soporte directo por WhatsApp. |
+| 7 | ¿Qué pasa con mis datos si cancelo? | Tus datos son tuyos. Antes de cancelar puedes exportar todos los expedientes clínicos en formato estándar. No eliminamos tus datos de inmediato — tienes un período de gracia para realizar la exportación. |
+| 8 | ¿Cumple con las normativas del Ministerio de Salud (MSP)? | Sí. PukaHealth incluye los formularios clínicos según la normativa del Ministerio de Salud Pública del Ecuador (MSP), incluyendo la historia clínica única. |
 
 ### 8. CTA Final
 - `background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)`, texto blanco
 - Título: "¿Listo para digitalizar tu consultorio?"
 - Subtítulo: "Primeros 10 médicos sin costo de instalación. Solo $50/mes."
-- CTA WhatsApp: `background: rgba(37,211,102,0.15)`, `border: rgba(37,211,102,0.30)`, `color: #4ade80` + icono `Phone`
-- CTA primario: "Empezar gratis hoy" — `background: #0ea5e9`
+- CTA WhatsApp: label "Hablar por WhatsApp", icono `Phone`, `background: rgba(37,211,102,0.15)`, `border: rgba(37,211,102,0.30)`, `color: #4ade80` — `onClick` → `handleCTA('pukahealth_footer_whatsapp', WA_LINKS.footer_whatsapp)`
+- CTA primario: "Empezar gratis hoy" — `background: #0ea5e9` — `onClick` → `handleCTA('pukahealth_footer_primary', WA_LINKS.footer_primary)`
+
+### 9. Footer (minimal)
+Fondo `#0f172a`, texto `#94a3b8`, fuente pequeña. Contenido:
+- Copyright: `© {new Date().getFullYear()} PukaDigital. Todos los derechos reservados.` (dinámico)
+- Link: `← Volver a pukadigital.com` — `href="/"`, `color: #64748b`
+- Sin Navbar/Footer global del sitio (suprimidos por ConditionalShell)
 
 ---
 
@@ -171,10 +190,33 @@ Label: "PREGUNTAS FRECUENTES"
 
 ### Metadata (`layout.tsx`)
 ```typescript
-title: 'PukaHealth | Historias Clínicas Electrónicas con Facturación SRI — Ecuador',
-description: 'Software de historias clínicas electrónicas con facturación SRI para médicos en Ecuador. Multi-especialidad, 100% en la nube. Desde $50/mes. Sin permanencia.',
-keywords: ['historias clinicas electronicas', 'software medico ecuador', 'historia clinica electronica ecuador', 'software para consultorio medico', 'facturacion sri medicos ecuador', 'pukahealth'],
-canonical: 'https://pukadigital.com/pukahealth',
+export const metadata: Metadata = {
+  title: 'PukaHealth | Historias Clínicas Electrónicas con Facturación SRI — Ecuador',
+  description: 'Software de historias clínicas electrónicas con facturación SRI para médicos en Ecuador. Multi-especialidad, 100% en la nube. Desde $50/mes. Sin permanencia.',
+  keywords: [
+    'historias clinicas electronicas',
+    'software medico ecuador',
+    'historia clinica electronica ecuador',
+    'software para consultorio medico',
+    'facturacion sri medicos ecuador',
+    'pukahealth',
+  ],
+  alternates: {
+    canonical: 'https://pukadigital.com/pukahealth',
+  },
+  openGraph: {
+    url: 'https://pukadigital.com/pukahealth',
+    type: 'website',
+    title: 'PukaHealth | Historias Clínicas con Facturación SRI',
+    description: 'Historias clínicas electrónicas y facturación SRI para médicos en Ecuador. Desde $50/mes.',
+    locale: 'es_EC',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PukaHealth | Historias Clínicas con Facturación SRI',
+    description: 'Historias clínicas electrónicas y facturación SRI para médicos en Ecuador. Desde $50/mes.',
+  },
+};
 ```
 
 ### Schema.org (`page.tsx`)
@@ -212,10 +254,12 @@ canonical: 'https://pukadigital.com/pukahealth',
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": "/* generado desde array FAQS en page.tsx */"
+    "mainEntity": []
   }
 ]
 ```
+
+> Nota: el array `mainEntity` del `FAQPage` se genera en `page.tsx` mapeando el array `FAQS` al formato `{ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }`. El bloque JSON de arriba es solo referencia estructural.
 
 ---
 
@@ -238,8 +282,8 @@ canonical: 'https://pukadigital.com/pukahealth',
 | `app/pukahealth/layout.tsx` | Crear — metadata SEO completa |
 | `app/pukahealth/page.tsx` | Crear — landing completa |
 | `components/ConditionalShell.tsx` | Modificar — añadir `/pukahealth` a `STANDALONE_ROUTES` |
-| `public/llms.txt` | Modificar — añadir PukaHealth con precios |
-| `app/sitemap.ts` | Modificar — añadir `/pukahealth` con priority 0.9 |
+| `public/llms.txt` | Modificar — reemplazar la entrada PukaHealth existente (actualmente bajo `/historias-clinicas`, líneas ~54-58) con entrada completa bajo `/pukahealth`. Incluir: precios ($50/mes Individual, $480/año Anual), características principales (historias clínicas, facturación SRI, multi-especialidad), y oferta de 30 días gratis. Seguir el mismo nivel de detalle que la entrada de LedgerXpertz. |
+| `app/sitemap.ts` | Modificar — añadir `/pukahealth` con priority 0.9 (la ruta `/historias-clinicas` NO existe como página, no crearla) |
 
 ---
 
