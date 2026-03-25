@@ -59,7 +59,7 @@ export const pukaHealthServiceSchema = {
     "name": "Ecuador"
   },
   "serviceType": "Software Médico",
-  "url": `${BASE_URL}/historias-clinicas`,
+  "url": `${BASE_URL}/pukahealth`,
   "inLanguage": "es-EC"
 };
 

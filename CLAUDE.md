@@ -39,7 +39,7 @@ Guía de contexto para Claude Code al trabajar en este repositorio.
 - Páginas de producto son `'use client'` — usan estado, hooks y analytics
 - Metadata SEO va en `layout.tsx` de cada ruta (no en `page.tsx`)
 - JSON-LD / Schema.org se inyecta via `<SEO structuredData={schema} />` en `page.tsx` usando `useEffect` (compatible con `'use client'`)
-- Rutas en español (ej. `/agentes-ia`, `/historias-clinicas`)
+- Rutas en español (ej. `/agentes-ia`, `/pukahealth`)
 
 ### Estilos
 

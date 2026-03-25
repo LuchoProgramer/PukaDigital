@@ -30,5 +30,5 @@ export const medicalSoftwareSchema = {
     "Acceso desde cualquier dispositivo"
   ],
   "provider": { "@id": `${BASE_URL}/#organization` },
-  "url": `${BASE_URL}/historias-clinicas`
+  "url": `${BASE_URL}/pukahealth`
 };

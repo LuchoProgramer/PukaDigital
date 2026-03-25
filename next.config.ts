@@ -76,6 +76,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/historias-clinicas',
+        destination: '/pukahealth',
+        permanent: true,
+      },
+      {
         source: '/sistema-emprendedor',
         destination: '/agencia',
         permanent: true,
