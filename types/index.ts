@@ -13,11 +13,15 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   coverImage: string;
+  coverImageAlt?: string;
   date: string;
   category: string;
   slug: string;
   source?: 'cms' | 'local' | 'ai';
   author?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  tags?: string[];
 }
 
 // CMS Status Types

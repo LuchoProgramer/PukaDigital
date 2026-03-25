@@ -337,11 +337,12 @@ export interface ArticleData {
   image?: string;
   wordCount?: number;
   articleSection?: string;
+  keywords?: string[];
 }
 
 export const getArticleSchema = (data: ArticleData) => ({
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   "@id": `${BASE_URL}/blog/${data.slug}#article`,
   "headline": data.title,
   "description": data.description,
@@ -350,6 +351,7 @@ export const getArticleSchema = (data: ArticleData) => ({
   "dateModified": data.dateModified || data.datePublished,
   ...(data.wordCount !== undefined && { "wordCount": data.wordCount }),
   ...(data.articleSection && { "articleSection": data.articleSection }),
+  ...(data.keywords && data.keywords.length > 0 && { "keywords": data.keywords.join(', ') }),
   "author": {
     "@type": "Person",
     "@id": `${BASE_URL}/#founder`,

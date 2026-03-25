@@ -157,12 +157,16 @@ export class HybridCMSService {
       title: cmsPost.title,
       excerpt: excerpt,
       content: content,
-      coverImage: cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg', // Placeholder
+      coverImage: cmsPost.image || cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg',
+      coverImageAlt: cmsPost.alt || cmsPost.title,
       date: cmsPost.createdAt || new Date().toISOString(),
       category: cmsPost.category || 'General',
       slug: cmsPost.slug || cmsPost.id,
-      source: 'cms',
-      author: cmsPost.author?.name || 'Equipo PukaDigital'
+      source: 'cms' as const,
+      author: cmsPost.author?.name || 'Equipo PukaDigital',
+      metaTitle: cmsPost.metaTitle || undefined,
+      metaDescription: cmsPost.metaDescription || undefined,
+      tags: Array.isArray(cmsPost.tags) && cmsPost.tags.length > 0 ? cmsPost.tags : undefined,
     };
   }
 }

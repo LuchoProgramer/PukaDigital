@@ -18,14 +18,53 @@ interface BlogPostPageProps {
 }
 
 // Helper para traducciones mínimas en el servidor
-const t = { 
-  back: 'Volver a la Academia', 
-  ai: 'GENERADO CON IA', 
-  related: 'Artículos Relacionados', 
-  cta_title: '¿Listo para dejar de depender de agencias?', 
-  cta_desc: 'Únete a nuestro programa de 3 meses y aprende a gestionar tu propia presencia digital.', 
-  cta_btn: 'Solicitar Entrevista Gratuita' 
+const t = {
+  back: 'Volver a la Academia',
+  ai: 'GENERADO CON IA',
+  related: 'Artículos Relacionados',
 };
+
+// CTA por categoría — lookup exacto contra los valores del CMS (tenant: pukadigital)
+const CTA_MAP: Record<string, { title: string; desc: string; btn: string; href: string }> = {
+  'whatsapp-ia': {
+    title: 'Automatiza tu WhatsApp con IA',
+    desc: 'Prueba PukaIA gratis — 300 interacciones incluidas, sin tarjeta de crédito.',
+    btn: 'Obtener mi API + 300 Mensajes Gratis',
+    href: '/agentes-ia',
+  },
+  'erp': {
+    title: 'Gestiona tu negocio desde un solo lugar',
+    desc: 'LedgerXpertz: POS, inventario y facturación SRI integrados. Prueba 30 días gratis.',
+    btn: 'Probar LedgerXpertz Gratis',
+    href: '/ledgerxpertz',
+  },
+  'salud': {
+    title: 'Historias clínicas digitales para médicos',
+    desc: 'PukaHealth: expedientes electrónicos y facturación SRI desde un solo sistema.',
+    btn: 'Ver PukaHealth',
+    href: '/pukahealth',
+  },
+  'marketing': {
+    title: '¿Quieres más clientes desde Google?',
+    desc: 'Estrategias de Google Ads y SEO con ROI medible para tu negocio en Ecuador.',
+    btn: 'Conocer la Agencia',
+    href: '/agencia',
+  },
+  'seo': {
+    title: '¿Quieres más clientes desde Google?',
+    desc: 'Estrategias de Google Ads y SEO con ROI medible para tu negocio en Ecuador.',
+    btn: 'Conocer la Agencia',
+    href: '/agencia',
+  },
+  'general': {
+    title: '¿Listo para tu independencia digital?',
+    desc: 'Descubre cómo PukaDigital puede transformar tu negocio con tecnología de élite.',
+    btn: 'Solicitar Consulta Gratuita',
+    href: '/contacto',
+  },
+};
+
+const getCTA = (category: string) => CTA_MAP[category] ?? CTA_MAP['general'];
 
 export async function generateStaticParams() {
   try {
@@ -50,21 +89,28 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
+  const metaTitle = post.metaTitle || `${post.title} | PukaDigital Blog`;
+  const metaDesc = post.metaDescription || post.excerpt;
+
   return {
-    title: `${post.title} | PukaDigital Blog`,
-    description: post.excerpt,
+    title: metaTitle,
+    description: metaDesc,
+    ...(post.tags && post.tags.length > 0 && { keywords: post.tags }),
+    alternates: {
+      canonical: `https://pukadigital.com/blog/${post.slug}`,
+    },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [post.coverImage],
+      title: post.metaTitle || post.title,
+      description: metaDesc,
+      images: [{ url: post.coverImage, alt: post.coverImageAlt || post.title }],
       type: 'article',
       publishedTime: post.date,
       authors: [post.author || 'PukaDigital'],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
+      title: post.metaTitle || post.title,
+      description: metaDesc,
       images: [post.coverImage],
     }
   };
@@ -97,13 +143,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const articleSchema = getArticleSchema({
     title: post.title,
-    description: post.excerpt,
+    description: post.metaDescription || post.excerpt,
     slug: post.slug,
     datePublished: post.date,
     author: post.author || 'Equipo PukaDigital',
     image: post.coverImage,
     wordCount,
     articleSection: post.category,
+    keywords: post.tags,
   });
 
   // Breadcrumb schema
@@ -250,21 +297,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </ReactMarkdown>
           </div>
 
-          {/* CTA */}
-          <div className="mt-16 bg-puka-black dark:bg-gray-900 text-white p-8 md:p-12 rounded-sm text-center">
-            <h3 className="font-display font-bold text-2xl md:text-3xl mb-4">
-              {t.cta_title}
-            </h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              {t.cta_desc}
-            </p>
-            <Link
-              href="/contacto"
-              className="inline-block bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors shadow-lg"
-            >
-              {t.cta_btn}
-            </Link>
-          </div>
+          {/* CTA dinámico por categoría */}
+          {(() => {
+            const cta = getCTA(post.category);
+            return (
+              <div className="mt-16 bg-puka-black dark:bg-gray-900 text-white p-8 md:p-12 rounded-sm text-center">
+                <h3 className="font-display font-bold text-2xl md:text-3xl mb-4">
+                  {cta.title}
+                </h3>
+                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                  {cta.desc}
+                </p>
+                <Link
+                  href={cta.href}
+                  className="inline-block bg-puka-red text-white px-8 py-4 rounded-sm font-bold hover:bg-red-700 transition-colors shadow-lg"
+                >
+                  {cta.btn}
+                </Link>
+              </div>
+            );
+          })()}
         </article>
 
         {/* RELATED POSTS */}

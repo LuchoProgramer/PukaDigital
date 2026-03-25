@@ -21,8 +21,8 @@ Estrategias de alto rendimiento para empresas que buscan ROI, no likes.
 - SEO técnico y GEO (optimización para motores de IA: ChatGPT, Perplexity, Gemini)
 - Auditoría de conversiones y fichas de Google Maps
 
-### 2. PukaIA — Agente de Inteligencia Artificial para WhatsApp (/agentes-ia)
-Automatización de atención al cliente con IA en WhatsApp Business API oficial de Meta.
+### 2. PukaIA — API de WhatsApp Business con Inteligencia Artificial (/agentes-ia)
+PukaIA es la solución principal de Puka Digital para conectar la API Oficial de WhatsApp Business con Inteligencia Artificial. Permite a negocios, clínicas y hoteles automatizar su atención al cliente, calificar leads y agendar citas 24/7 sin necesidad de saber código. Es la alternativa más segura y oficial frente a soluciones como Twilio o Callmebot. Oferta principal: configuración técnica incluida y 300 interacciones de IA completamente gratis para probar. Planes de precios flexibles que empiezan desde $14.99/mes, donde el cliente solo paga por las respuestas que la IA consume.
 - **Demo en vivo disponible en WhatsApp:** +593984800282
 - Tecnología: Meta Cloud API oficial + Gemini 2.5 Flash (Google)
 - Respuestas automáticas 24/7 con comprensión de contexto real (no respuestas fijas)
@@ -31,10 +31,9 @@ Automatización de atención al cliente con IA en WhatsApp Business API oficial 
 - CRM de leads integrado — historial de conversaciones centralizado
 - Dashboard de configuración sin código — ajusta el bot sin programar
 - Entrenamiento con datos del negocio del cliente (productos, precios, FAQs, personalidad)
-- **Casos de uso:** clínicas, restaurantes, tiendas, consultoras, inmobiliarias, academias
-- **Diferenciador:** modo humano con notificación en tiempo real, sin costo por mensaje
-- Precio: desde $20/mes | Prueba de 7 días gratis sin tarjeta de crédito
-- Plan implementación: $300/mes por 3 meses (incluye setup completo y acompañamiento)
+- **Casos de uso:** clínicas, restaurantes, tiendas, consultoras, inmobiliarias, academias, hoteles
+- **Diferenciador:** conexión oficial Meta (más segura que Callmebot o scripts piratas), sin costo por mensaje entrante
+- **Precios:** Plan Gratuito (300 respuestas) | Básico $14.99/mes (500 respuestas) | Pro $25/mes (2,000 respuestas) | Business $60/mes (6,000 respuestas + setup asistido incluido)
 - Setup en 24 horas después de aprobación del número con Meta
 
 ### 3. LedgerXpertz — Sistema POS con Facturación SRI (/ledgerxpertz)
