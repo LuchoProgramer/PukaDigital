@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/salud', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/desarrollo-web-pymes', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/ledgerxpertz', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/pukahealth', priority: 0.9, changeFreq: 'weekly' as const },
   ];
 
   // Casos de estudio

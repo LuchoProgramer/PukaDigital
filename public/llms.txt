@@ -51,11 +51,17 @@ ERP SaaS multi-tenant para pymes en Ecuador: inventario en tiempo real, facturac
 - Primeros 30 clientes: sin costo de instalación
 - Prueba 30 días gratis | Demo en vivo disponible por WhatsApp: +593964065880
 
-### 4. PukaHealth — Historias Clínicas Digitales (/historias-clinicas)
-Software de historias clínicas electrónicas para clínicas y consultorios médicos.
-- Cumple normativas del Ministerio de Salud Pública del Ecuador (MSP)
-- Acceso en la nube desde cualquier dispositivo
-- Target: médicos, odontólogos, podólogos, clínicas
+### 4. PukaHealth — Historias Clínicas Electrónicas con Facturación SRI (/pukahealth)
+ERP SaaS multi-tenant para médicos en Ecuador: historias clínicas electrónicas con campos adaptables por especialidad y facturación electrónica SRI integrada.
+- Historias clínicas digitales con campos JSON adaptables por especialidad (podología, medicina general, pediatría, ginecología, etc.)
+- Facturación electrónica 100% compatible con el SRI de Ecuador, con un solo clic desde el expediente
+- Formularios según normativa del Ministerio de Salud Pública del Ecuador (MSP)
+- 100% en la nube — acceso desde computadora, tablet o celular sin instalaciones
+- **Precios:** Individual $50/mes | Anual $480/año ($40/mes equivalente, 2 meses gratis)
+- Sin permanencia. Sin contrato. Soporte directo por WhatsApp.
+- Primeros 10 médicos: sin costo de instalación
+- Prueba 30 días gratis | Demo disponible por WhatsApp: +593964065880
+- Caso de éxito: Dra. Cristina Muñoz, Podoclinic (ahorra 2 horas diarias en facturación)
 
 ### 5. PukaSalud — Marketing Médico Ético
 Estrategias de captación de pacientes cualificados para profesionales de la salud.
@@ -73,7 +79,7 @@ Estrategias de captación de pacientes cualificados para profesionales de la sal
 - /agencia — Servicios corporativos de marketing digital
 - /agentes-ia — PukaIA, agente IA para WhatsApp
 - /ledgerxpertz — LedgerXpertz: sistema POS + inventario + facturación SRI + e-commerce (URL canónica)
-- /historias-clinicas — PukaHealth: software de historias clínicas electrónicas
+- /pukahealth — PukaHealth: historias clínicas electrónicas con facturación SRI (URL canónica)
 - /salud — PukaSalud: marketing médico ético para clínicas y consultorios
 - /desarrollo-web-pymes — Desarrollo web para pymes
 - /blog — Academia digital (SEO, IA, marketing, tecnología)

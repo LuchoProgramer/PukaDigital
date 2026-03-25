@@ -14,6 +14,7 @@ import SmartChatbot from '@/components/SmartChatbot';
 
 const STANDALONE_ROUTES = [
   '/ledgerxpertz',
+  '/pukahealth',
 ];
 
 export default function ConditionalShell({ children }: { children: React.ReactNode }) {
