@@ -109,27 +109,75 @@ const SOCIAL_PROOF = [
   { value: '$0',          label: 'Setup (30 primeros)' },
 ];
 
+// ─── FAQs ──────────────────────────────────────────────────────────────────────
+
+const FAQS = [
+  {
+    q: '¿Cuánto cuesta un sistema POS con facturación SRI en Ecuador?',
+    a: 'LedgerXpertz cuesta desde $10/mes para 1 sucursal (plan Starter), $15/mes para 2 sucursales (plan Grow) y $20/mes para 3 sucursales (plan Pro). Todos los planes incluyen POS, inventario en tiempo real, facturación electrónica SRI y e-commerce. Si pagas anual, ahorras 2 meses: $96, $144 y $192 al año respectivamente.',
+  },
+  {
+    q: '¿LedgerXpertz funciona con el SRI de Ecuador?',
+    a: 'Sí. LedgerXpertz está integrado al 100% con el Servicio de Rentas Internas (SRI) de Ecuador. Puedes emitir facturas electrónicas, guías de remisión y notas de crédito directamente desde el sistema, cumpliendo con todos los requisitos de facturación electrónica vigentes.',
+  },
+  {
+    q: '¿Qué diferencia hay entre LedgerXpertz y llevar el inventario en Excel?',
+    a: 'Excel no actualiza el stock en tiempo real, no emite facturas al SRI, no sincroniza tu tienda online y no te da reportes de cierre de caja. LedgerXpertz hace todo eso de forma automática: cuando vendes en el POS, el inventario se descuenta al instante en todos los canales (tienda física, web y delivery). Además, desde $10/mes es más económico que el tiempo que pierdes cuadrando planillas.',
+  },
+  {
+    q: '¿Puedo manejar varias sucursales desde un solo sistema?',
+    a: 'Sí. El plan Grow soporta hasta 2 sucursales y el plan Pro hasta 3, todo desde un solo dashboard. Puedes ver el inventario, ventas y reportes de cada local por separado o consolidados, en tiempo real.',
+  },
+  {
+    q: '¿Necesito instalar algo para usar LedgerXpertz?',
+    a: 'No. LedgerXpertz es 100% en la nube. Funciona desde cualquier navegador web en computadora, tablet o celular, sin instalaciones ni actualizaciones manuales. Solo necesitas internet.',
+  },
+  {
+    q: '¿Tiene período de prueba gratuito?',
+    a: 'Sí, los primeros 30 días son completamente gratis. Además, los primeros 30 clientes no pagan costo de instalación. No se requiere tarjeta de crédito para empezar.',
+  },
+  {
+    q: '¿Qué pasa si quiero cancelar?',
+    a: 'Puedes cancelar cuando quieras, sin penalidades ni permanencia mínima. LedgerXpertz no tiene contratos de largo plazo. Si cancelas, sigues teniendo acceso hasta el final del período pagado.',
+  },
+  {
+    q: '¿LedgerXpertz incluye tienda online?',
+    a: 'Sí. Todos los planes incluyen e-commerce integrado. Tu tienda online se sincroniza automáticamente con tu inventario y tu POS: cuando se vende un producto en línea, el stock se descuenta en tiempo real en todos los canales.',
+  },
+];
+
 // ─── Schema ────────────────────────────────────────────────────────────────────
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'LedgerXpertz',
-  url: 'https://pukadigital.com/ledgerxpertz',
-  applicationCategory: 'BusinessApplication',
-  operatingSystem: 'Web, iOS, Android',
-  inLanguage: 'es-EC',
-  provider: { '@id': 'https://pukadigital.com/#organization' },
-  areaServed: { '@type': 'Country', name: 'Ecuador' },
-  offers: PLANS.map((p) => ({
-    '@type': 'Offer',
-    name: p.name,
-    price: p.monthly.toFixed(2),
-    priceCurrency: 'USD',
-    priceSpecification: { '@type': 'UnitPriceSpecification', unitText: 'mes' },
-    description: `${p.sucursales} sucursal${p.sucursales > 1 ? 'es' : ''} — Facturación SRI, POS, Inventario, E-commerce`,
-  })),
-};
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'LedgerXpertz',
+    url: 'https://pukadigital.com/ledgerxpertz',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web, iOS, Android',
+    inLanguage: 'es-EC',
+    provider: { '@id': 'https://pukadigital.com/#organization' },
+    areaServed: { '@type': 'Country', name: 'Ecuador' },
+    offers: PLANS.map((p) => ({
+      '@type': 'Offer',
+      name: p.name,
+      price: p.monthly.toFixed(2),
+      priceCurrency: 'USD',
+      priceSpecification: { '@type': 'UnitPriceSpecification', unitText: 'mes' },
+      description: `${p.sucursales} sucursal${p.sucursales > 1 ? 'es' : ''} — Facturación SRI, POS, Inventario, E-commerce`,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  },
+];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -398,6 +446,25 @@ export default function LedgerXpertzPage() {
               <div style={{ textAlign: 'center', color: '#C7171E', fontSize: '16px', fontWeight: 900, padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>$10</div>
               <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.40)', fontSize: '13px', padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>$20–$50</div>
             </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ── */}
+        <section id="faq" style={{ maxWidth: '760px', margin: '0 auto', padding: '40px 24px' }}>
+          <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.25)', fontSize: '11px', fontWeight: 700, letterSpacing: '3px', marginBottom: '32px', textTransform: 'uppercase' }}>
+            PREGUNTAS FRECUENTES
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {FAQS.map(({ q, a }) => (
+              <div key={q} style={{ ...glass.card, borderRadius: '12px', padding: '24px 28px' }}>
+                <h3 className="font-display" style={{ fontWeight: 700, fontSize: '15px', marginBottom: '10px', color: '#fff', lineHeight: 1.4 }}>
+                  {q}
+                </h3>
+                <p style={{ color: 'rgba(255,255,255,0.50)', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>
+                  {a}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
