@@ -20,7 +20,7 @@ Guía de contexto para Claude Code al trabajar en este repositorio.
 | Agencia | `/agencia` | Marketing digital, Google Ads, SEO, desarrollo web |
 | PukaIA | `/agentes-ia` | Agentes IA para WhatsApp Business (Meta + Gemini) |
 | LedgerXpertz | `/ledgerxpertz` | ERP SaaS: POS + inventario + facturación SRI + e-commerce |
-| PukaHealth | `/historias-clinicas` | Historias clínicas electrónicas para clínicas |
+| PukaHealth | `/pukahealth` | Historias clínicas electrónicas + facturación SRI para médicos |
 | PukaSalud | `/salud` | Marketing médico ético para profesionales de salud |
 | Desarrollo web | `/desarrollo-web-pymes` | Sitios web para PYMEs |
 
