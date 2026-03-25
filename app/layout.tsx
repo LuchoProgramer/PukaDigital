@@ -4,10 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import MobileBottomNav from "@/components/MobileBottomNav";
-import SmartChatbot from "@/components/SmartChatbot";
+import ConditionalShell from "@/components/ConditionalShell";
 import { getGlobalSchemaGraph } from "@/lib/schema";
 import { GA_TRACKING_ID, GOOGLE_ADS_ID } from "@/lib/analytics";
 
@@ -162,15 +159,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
-            <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 pb-20 md:pb-0">
-              <Navbar />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-              <MobileBottomNav />
-              <SmartChatbot />
-            </div>
+            <ConditionalShell>
+              {children}
+            </ConditionalShell>
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -208,19 +208,19 @@ export default function LedgerXpertzPage() {
 
       {/* ── NAVBAR ── */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, ...glass.nav }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '14px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div className="animate-pulse" style={{ width: '8px', height: '8px', background: '#C7171E', borderRadius: '50%', boxShadow: '0 0 12px rgba(199,23,30,1)' }} />
-            <span className="font-display" style={{ color: '#fff', fontWeight: 900, fontSize: '14px', letterSpacing: '3px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="animate-pulse" style={{ width: '8px', height: '8px', flexShrink: 0, background: '#C7171E', borderRadius: '50%', boxShadow: '0 0 12px rgba(199,23,30,1)' }} />
+            <span className="font-display" style={{ color: '#fff', fontWeight: 900, fontSize: '13px', letterSpacing: '2px' }}>
               LEDGERXPERTZ
             </span>
           </div>
-          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-            <a href="#features" style={{ color: 'rgba(255,255,255,0.40)', fontSize: '13px', textDecoration: 'none' }}>Features</a>
-            <a href="#precios" style={{ color: 'rgba(255,255,255,0.40)', fontSize: '13px', textDecoration: 'none' }}>Precios</a>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <a href="#features" className="hidden sm:block" style={{ color: 'rgba(255,255,255,0.40)', fontSize: '13px', textDecoration: 'none' }}>Features</a>
+            <a href="#precios" className="hidden sm:block" style={{ color: 'rgba(255,255,255,0.40)', fontSize: '13px', textDecoration: 'none' }}>Precios</a>
             <button
               onClick={() => handleCTA('ledgerxpertz_nav', WA_LINKS.nav)}
-              style={{ background: '#C7171E', color: '#fff', border: 'none', borderRadius: '6px', padding: '9px 18px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 0 16px rgba(199,23,30,0.5)' }}
+              style={{ background: '#C7171E', color: '#fff', border: 'none', borderRadius: '6px', padding: '8px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 0 16px rgba(199,23,30,0.5)', whiteSpace: 'nowrap' }}
             >
               Empezar gratis
             </button>
