@@ -135,15 +135,16 @@ export class HybridCMSService {
     // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
     const content = cmsPost.blocks?.map((block: any) => {
       if (block.type === 'text') {
-        // Asegurarse de que el texto no rompa el markdown
         return block.content;
       }
       if (block.type === 'image') {
-        return `\n![${block.alt || 'Imagen'}](${block.src})\n`;
+        // Soporta formato nuevo (url) y formato antiguo (src)
+        const imgSrc = block.url || block.src || '';
+        return imgSrc ? `\n![${block.alt || 'Imagen'}](${imgSrc})\n` : '';
       }
       if (block.type === 'video') {
-        // El renderizador de PukaDigital detecta URLs de YouTube
-        return `\n${block.src}\n`;
+        const videoSrc = block.url || block.src || '';
+        return videoSrc ? `\n${videoSrc}\n` : '';
       }
       return '';
     }).join('\n\n') || '';
@@ -157,7 +158,7 @@ export class HybridCMSService {
       title: cmsPost.title,
       excerpt: excerpt,
       content: content,
-      coverImage: cmsPost.image || cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg',
+      coverImage: cmsPost.image || cmsPost.blocks?.find((b: any) => b.type === 'image')?.url || cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg',
       coverImageAlt: cmsPost.alt || cmsPost.title,
       date: cmsPost.createdAt || new Date().toISOString(),
       category: cmsPost.category || 'General',
