@@ -37,9 +37,9 @@ const WA_LINKS = {
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
 const FEATURES = [
-  { icon: FileText,    title: 'Historias Clínicas',   desc: 'Expediente digital completo, adaptable a tu especialidad' },
+  { icon: FileText,    title: 'Historias Clínicas',   desc: 'Gestión de historias clínicas y ficha clínica digital, adaptable a tu especialidad' },
   { icon: Receipt,     title: 'Facturación SRI',       desc: 'Facturas electrónicas válidas al SRI con un clic' },
-  { icon: Stethoscope, title: 'Multi-especialidad',    desc: 'Campos personalizados por especialidad (JSON adaptable)' },
+  { icon: Stethoscope, title: 'Multi-especialidad',    desc: 'Ficha clínica con campos personalizados por especialidad: podología, medicina general, pediatría y más' },
   { icon: Cloud,       title: '100% en la nube',       desc: 'Accede desde computadora, tablet o celular sin instalaciones' },
   { icon: ShieldCheck, title: 'Cumplimiento MSP',      desc: 'Formularios según normativa del Ministerio de Salud Ecuador' },
   { icon: BarChart3,   title: 'Reportes',              desc: 'Estadísticas de consultas, diagnósticos frecuentes y facturación' },
@@ -208,7 +208,7 @@ export default function PukaHealthPage() {
               fontWeight: 700, fontSize: '14px', cursor: 'pointer',
               whiteSpace: 'nowrap',
             }}>
-            Probar gratis
+            Hablar con un asesor
           </button>
         </div>
       </nav>
@@ -235,15 +235,16 @@ export default function PukaHealthPage() {
             </div>
             <h1 className="font-display font-bold" style={{ lineHeight: 1.1, marginBottom: '16px' }}>
               <span style={{ display: 'block', color: '#0f172a', fontSize: 'clamp(36px, 5vw, 58px)' }}>
-                Tu consultorio.
+                Tu consultorio sin papeles.
               </span>
               <span style={{ display: 'block', color: '#0ea5e9', fontSize: 'clamp(36px, 5vw, 58px)' }}>
-                Sin papeles.
+                El software m&eacute;dico que factura por ti.
               </span>
             </h1>
             <p style={{ color: '#64748b', fontSize: '18px', lineHeight: 1.6, marginBottom: '32px' }}>
-              Historias cl&iacute;nicas electr&oacute;nicas y facturaci&oacute;n SRI en un solo sistema.
-              Accede desde cualquier dispositivo. Desde $50/mes. Sin contrato.
+              El &uacute;nico software para consultorios m&eacute;dicos en Ecuador con historia cl&iacute;nica
+              electr&oacute;nica y facturaci&oacute;n SRI autom&aacute;tica. Ahorra hasta 2 horas diarias
+              de papeleo. Accede desde cualquier dispositivo sin contratos.
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '16px' }}>
               <button
@@ -254,7 +255,7 @@ export default function PukaHealthPage() {
                   fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                   boxShadow: '0 0 20px rgba(14,165,233,0.25)',
                 }}>
-                Probar 30 d&iacute;as gratis
+                Agendar demo en vivo
               </button>
               <button
                 onClick={() => handleCTA('pukahealth_hero_demo', WA_LINKS.hero_demo)}
@@ -269,6 +270,11 @@ export default function PukaHealthPage() {
             </div>
             <p style={{ color: '#94a3b8', fontSize: '13px' }}>
               Sin tarjeta de cr&eacute;dito &middot; Primeros 10 m&eacute;dicos sin costo de instalaci&oacute;n
+            </p>
+            <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '12px' }}>
+              Una soluci&oacute;n tecnol&oacute;gica desarrollada con ❤️ por{' '}
+              <a href="/" style={{ color: '#64748b', textDecoration: 'underline' }}>PukaDigital</a>{' '}
+              para el sector salud.
             </p>
           </div>
 
@@ -434,7 +440,7 @@ export default function PukaHealthPage() {
                   fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                   boxShadow: '0 0 20px rgba(14,165,233,0.25)',
                 }}>
-                Empezar ahora
+                Solicitar configuraci&oacute;n VIP
               </button>
             </div>
 
@@ -604,7 +610,7 @@ export default function PukaHealthPage() {
                 fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                 boxShadow: '0 0 20px rgba(14,165,233,0.25)',
               }}>
-              Empezar gratis hoy
+              Agendar demo en vivo
             </button>
           </div>
         </div>
