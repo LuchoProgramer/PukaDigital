@@ -106,7 +106,14 @@ export class HybridCMSService {
         const response = await fetch(url, { next: { revalidate: 300 } });
         if (response.ok) {
           const data = await response.json();
-          blogRaw = data.blogs?.[0] || (data.id ? data : null);
+          // Si la API devuelve un objeto directo (por id), usarlo; si devuelve array, buscar por slug exacto
+          if (data.id) {
+            blogRaw = data;
+          } else if (Array.isArray(data.blogs)) {
+            blogRaw = isByCmsId
+              ? data.blogs[0] || null
+              : data.blogs.find((b: any) => b.slug === slug) || data.blogs[0] || null;
+          }
         }
       }
       // Cliente: Proxy
@@ -114,7 +121,13 @@ export class HybridCMSService {
         const response = await fetch(`/api/cms-proxy?${param}`);
         if (response.ok) {
           const data = await response.json();
-          blogRaw = data.blogs?.[0] || (data.id ? data : null);
+          if (data.id) {
+            blogRaw = data;
+          } else if (Array.isArray(data.blogs)) {
+            blogRaw = isByCmsId
+              ? data.blogs[0] || null
+              : data.blogs.find((b: any) => b.slug === slug) || null;
+          }
         }
       }
 
