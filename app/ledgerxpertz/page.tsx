@@ -188,11 +188,11 @@ export default function LedgerXpertzPage() {
             <p style={{ color: 'rgba(255,255,255,0.30)', fontSize: '11px', fontWeight: 700, letterSpacing: '4px', marginBottom: '20px', textTransform: 'uppercase' }}>
               POS · INVENTARIO · FACTURACIÓN SRI · E-COMMERCE
             </p>
-            <h1 className="font-display" style={{ fontWeight: 900, fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 1.05, margin: 0 }}>
-              Todo tu negocio.
-            </h1>
-            <h1 className="font-display" style={{ fontWeight: 900, fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 1.05, color: '#C7171E', textShadow: '0 0 30px rgba(199,23,30,0.4)', marginBottom: '24px' }}>
-              Un solo sistema.
+            <h1 className="font-display" style={{ fontWeight: 900, fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 1.05, marginBottom: '24px' }}>
+              Todo tu negocio.{' '}
+              <span style={{ color: '#C7171E', textShadow: '0 0 30px rgba(199,23,30,0.4)', display: 'block' }}>
+                Un solo sistema.
+              </span>
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.50)', fontSize: '16px', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto 32px' }}>
               Factura al SRI, controla tu stock en tiempo real y vende online. Todo desde $10/mes. Sin contrato. Sin permanencia.
@@ -431,7 +431,6 @@ export default function LedgerXpertzPage() {
 
       {/* ── FOOTER ── */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px', textAlign: 'center', color: 'rgba(255,255,255,0.20)', fontSize: '12px' }}>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         &copy; {new Date().getFullYear()} LedgerXpertz &mdash; Powered by PukaDigital
       </footer>
     </div>
