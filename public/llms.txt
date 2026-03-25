@@ -37,12 +37,19 @@ Automatización de atención al cliente con IA en WhatsApp Business API oficial 
 - Plan implementación: $300/mes por 3 meses (incluye setup completo y acompañamiento)
 - Setup en 24 horas después de aprobación del número con Meta
 
-### 3. Sistema ERP Cloud (/sistema-erp-cloud)
-Sistema de gestión empresarial en la nube para pymes ecuatorianas.
-- Inventario multi-bodega
-- Facturación electrónica compatible con el SRI de Ecuador
-- CRM básico y reportes
-- Sin instalación local, acceso desde cualquier dispositivo
+### 3. LedgerXpertz — Sistema POS con Facturación SRI (/ledgerxpertz)
+ERP SaaS multi-tenant para pymes en Ecuador: inventario en tiempo real, facturación electrónica SRI, POS, e-commerce y soporte multi-sucursal.
+- Facturación electrónica 100% compatible con el SRI de Ecuador (facturas, guías de remisión, notas de crédito)
+- POS completo: caja, turnos y múltiples formas de pago
+- Inventario en tiempo real sincronizado en todos los canales
+- E-commerce integrado con sincronización de bodega
+- Multi-sucursal: hasta 3 locales desde un solo dashboard
+- Reportes 24/7: ventas, kardex y cierre de caja
+- **Precios:** Starter $10/mes (1 sucursal) | Grow $15/mes (2 sucursales) | Pro $20/mes (3 sucursales)
+- **Descuento anual:** 2 meses gratis (Starter $96/año, Grow $144/año, Pro $192/año)
+- Sin permanencia. Sin contrato. Soporte por WhatsApp.
+- Primeros 30 clientes: sin costo de instalación
+- Prueba 30 días gratis | Demo en vivo disponible por WhatsApp: +593964065880
 
 ### 4. PukaHealth — Historias Clínicas Digitales (/historias-clinicas)
 Software de historias clínicas electrónicas para clínicas y consultorios médicos.
@@ -65,13 +72,14 @@ Estrategias de captación de pacientes cualificados para profesionales de la sal
 - / — Inicio, metodología y navegación de servicios
 - /agencia — Servicios corporativos de marketing digital
 - /agentes-ia — PukaIA, agente IA para WhatsApp
-- /sistema-erp-cloud — Sistema ERP en la nube
+- /ledgerxpertz — LedgerXpertz: sistema POS + inventario + facturación SRI + e-commerce (URL canónica)
+- /historias-clinicas — PukaHealth: software de historias clínicas electrónicas
+- /salud — PukaSalud: marketing médico ético para clínicas y consultorios
+- /desarrollo-web-pymes — Desarrollo web para pymes
 - /blog — Academia digital (SEO, IA, marketing, tecnología)
 - /casos — Casos de éxito documentados
-- /productos — Catálogo de productos
 - /nosotros — Historia y equipo
 - /contacto — Formulario y consulta gratuita
-- /preguntas-frecuentes — FAQ sobre servicios y precios
 
 ## AUTORIDAD (E-E-A-T)
 - Fundador con experiencia en transformación digital para pymes
