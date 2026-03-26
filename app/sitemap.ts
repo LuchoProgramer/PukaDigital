@@ -22,9 +22,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Páginas de productos específicos (Landing Pages)
   const productPages = [
+    { path: '/agencia', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/agentes-ia', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/chatbot', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/salud', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/desarrollo-web-pymes', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/sistema-emprendedor', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/ledgerxpertz', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/pukahealth', priority: 0.9, changeFreq: 'weekly' as const },
   ];
@@ -34,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/casos/podoclinicec-cristina-munoz', priority: 0.8, changeFreq: 'monthly' as const },
     { path: '/casos/healppypets-carla-tutistar', priority: 0.8, changeFreq: 'monthly' as const },
     { path: '/casos/hotel-eudiq-cafeteria-viviantes', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/casos/la-huequita-quitena-yanett-sarango', priority: 0.8, changeFreq: 'monthly' as const },
   ];
 
   // Páginas Legales
