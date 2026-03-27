@@ -5,6 +5,7 @@ import { HybridCMSService } from '@/lib/cms';
 import { Calendar, User, ArrowLeft, Sparkles, Database } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import OptimizedImage from '@/components/OptimizedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import VideoTestimonial from '@/components/VideoTestimonial';
@@ -269,6 +270,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
               components={{
                 a: ({ node, href, children, ...props }) => {
                   if (href && (href.includes('youtube.com/watch?v=bSge9e1Se4w') || href.includes('youtu.be/bSge9e1Se4w'))) {

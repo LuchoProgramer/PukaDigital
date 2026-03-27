@@ -151,9 +151,12 @@ export class HybridCMSService {
         return block.content;
       }
       if (block.type === 'image') {
-        // Soporta formato nuevo (url) y formato antiguo (src)
         const imgSrc = block.url || block.src || '';
-        return imgSrc ? `\n![${block.alt || 'Imagen'}](${imgSrc})\n` : '';
+        if (!imgSrc) return '';
+        const caption = block.caption
+          ? `<figcaption class="text-center text-sm text-gray-500 mt-2 italic">${block.caption}</figcaption>`
+          : '';
+        return `\n<figure class="my-8">\n<img src="${imgSrc}" alt="${block.alt || 'Imagen'}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm" />\n${caption}\n</figure>\n`;
       }
       if (block.type === 'video') {
         const videoSrc = block.url || block.src || '';
@@ -164,7 +167,9 @@ export class HybridCMSService {
 
     // Extraer excerpt del primer bloque de texto si no tiene
     const firstTextBlock = cmsPost.blocks?.find((b: any) => b.type === 'text');
-    const excerpt = cmsPost.excerpt || (firstTextBlock?.content?.substring(0, 160).replace(/[#*`]/g, '') + '...') || '';
+    const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
+    const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content?.substring(0, 300) + '...') || '';
+    const excerpt = stripHtml(rawExcerpt);
 
     return {
       id: `cms-${cmsPost.id}`,
