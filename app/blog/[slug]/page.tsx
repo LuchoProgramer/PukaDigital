@@ -176,6 +176,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             src={post.coverImage}
             alt={post.title}
             className="w-full h-full"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
