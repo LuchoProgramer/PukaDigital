@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 // API Config
-const AGENTES_IA_API = 'https://us-central1-agentes-ia-6c41e.cloudfunctions.net/messages';
+const AGENTES_IA_API = 'https://chatbot-python-872940792606.us-central1.run.app/webchat';
 const DEMO_BOT_ID = 'puka-digital-bot';
 // const DEMO_CODE = 'PUKA2024'; // Removed to use production bot logic
 const WHATSAPP_NUMBER = '593964065880';
