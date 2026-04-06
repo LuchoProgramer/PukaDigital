@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Lock, Shield, Eye, Globe, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, Lock, Shield, Eye, Globe, AlertCircle, Mail } from 'lucide-react';
 
 const GoogleCalendarPrivacidadPage = () => {
     return (
@@ -20,14 +19,12 @@ const GoogleCalendarPrivacidadPage = () => {
                         <div className="p-3 bg-puka-red/10 rounded-sm">
                             <Calendar className="text-puka-red" size={32} />
                         </div>
-                        <div>
-                            <p className="text-sm font-bold uppercase tracking-widest text-puka-red mb-1">
+                        <h1 className="font-display text-3xl md:text-4xl font-black text-puka-black dark:text-white uppercase tracking-tighter">
+                            <span className="block text-sm font-bold tracking-widest text-puka-red mb-1 normal-case">
                                 Integraci&oacute;n Google Calendar
-                            </p>
-                            <h1 className="font-display text-3xl md:text-4xl font-black text-puka-black dark:text-white uppercase tracking-tighter">
-                                Pol&iacute;tica de Privacidad
-                            </h1>
-                        </div>
+                            </span>
+                            Pol&iacute;tica de Privacidad
+                        </h1>
                     </div>
 
                     <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-8">
@@ -121,7 +118,7 @@ const GoogleCalendarPrivacidadPage = () => {
 
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                6. Contacto
+                                <Mail size={20} className="text-puka-red" /> 6. Contacto
                             </h2>
                             <p className="mt-4">
                                 Para consultas sobre esta pol&iacute;tica o para ejercer sus derechos de acceso, rectificaci&oacute;n o supresi&oacute;n de datos:
