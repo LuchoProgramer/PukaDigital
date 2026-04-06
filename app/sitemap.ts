@@ -46,6 +46,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/legal/politica-de-privacidad', priority: 0.3, changeFreq: 'yearly' as const },
     { path: '/legal/cookies', priority: 0.3, changeFreq: 'yearly' as const },
     { path: '/legal/garantia', priority: 0.5, changeFreq: 'monthly' as const },
+    { path: '/legal/google-calendar-privacidad', priority: 0.3, changeFreq: 'yearly' as const },
+    { path: '/legal/google-calendar-terminos', priority: 0.3, changeFreq: 'yearly' as const },
   ];
 
   const allStaticRoutes = [...staticPages, ...productPages, ...caseStudyPages, ...legalPages];
