@@ -59,10 +59,10 @@ const TerminosPage = () => {
 
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <CheckCircle size={20} className="text-puka-red" /> 4. Pagos y Suscripciones Modular
+                                <CheckCircle size={20} className="text-puka-red" /> 4. Pagos y Suscripciones
                             </h2>
                             <p className="mt-4">
-                                Nuestros módulos de software (CMS, Chatbot, ERP) tienen un costo de $20/mes cada uno. Estos servicios se facturan de forma recurrente. La cancelación de un módulo implica la suspensión inmediata del servicio asociado, pero no la pérdida de los datos históricos generados (los cuales pueden ser exportados).
+                                Cada producto SaaS de PukaDigital (PukaIA, LedgerXpertz, PukaHealth) tiene su propia estructura de precios detallada en la p&aacute;gina del producto. Los servicios se facturan de forma recurrente (mensual o anual seg&uacute;n el plan elegido). La cancelaci&oacute;n implica la suspensi&oacute;n del servicio al vencer el periodo pagado, sin p&eacute;rdida de los datos hist&oacute;ricos generados (los cuales pueden ser exportados a solicitud del cliente).
                             </p>
                         </section>
 

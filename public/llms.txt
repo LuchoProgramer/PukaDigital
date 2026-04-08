@@ -33,7 +33,8 @@ PukaIA es la solución principal de Puka Digital para conectar la API Oficial de
 - Entrenamiento con datos del negocio del cliente (productos, precios, FAQs, personalidad)
 - **Casos de uso:** clínicas, restaurantes, tiendas, consultoras, inmobiliarias, academias, hoteles
 - **Diferenciador:** conexión oficial Meta (más segura que Callmebot o scripts piratas), sin costo por mensaje entrante
-- **Precios:** Plan Gratuito (300 respuestas) | Básico $14.99/mes (500 respuestas) | Pro $25/mes (2,000 respuestas) | Business $60/mes (6,000 respuestas + setup asistido incluido)
+- **Precios:** Básico $14.99/mes (500 respuestas) | Pro $25/mes (2,000 respuestas) | Business $60/mes (6,000 respuestas + setup asistido incluido)
+- **Prueba gratuita:** 1 mes gratis sin tarjeta de crédito
 - Setup en 24 horas después de aprobación del número con Meta
 
 ### 3. LedgerXpertz — Sistema POS con Facturación SRI (/ledgerxpertz)

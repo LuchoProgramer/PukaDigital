@@ -359,161 +359,46 @@ const OptimizedSaludPage = () => {
                 </div>
             </section>
 
-            {/* OFERTA PIONERO + PRICING */}
+            {/* CTA INVERSIÓN */}
             <section className="py-24 bg-white">
-                <div className="container mx-auto px-4 max-w-5xl">
-                    {/* Oferta Limitada Badge */}
+                <div className="container mx-auto px-4 max-w-3xl">
                     <div className="text-center mb-12">
-                        <div className="inline-block bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-full font-bold text-sm mb-6 animate-pulse shadow-lg">
-                            🔥 OFERTA PIONERO 2025 — Solo 3 Cupos Disponibles
+                        <div className="inline-block bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-full font-bold text-sm mb-6 shadow-lg">
+                            Cupos limitados por ciudad y especialidad
                         </div>
                         <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">
-                            Inversión Transparente
+                            &iquest;Listo para llenar tu agenda?
                         </h2>
-                        <p className="text-xl text-gray-600">Sin contratos de permanencia. Sin letra pequeña.</p>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Hablamos, analizamos tu situaci&oacute;n y te presentamos una propuesta personalizada. Sin compromisos.
+                        </p>
                     </div>
 
-                    {/* Grid de Precios */}
-                    <div className="grid md:grid-cols-2 gap-8 mb-12">
-                        {/* Plan Pionero (Destacado) */}
-                        <div className="bg-gradient-to-br from-green-600 to-green-700 text-white rounded-3xl p-8 shadow-2xl border-4 border-green-400 relative">
-                            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-gray-900 px-6 py-2 rounded-full text-xs font-black uppercase shadow-lg">
-                                Mejor Precio
-                            </div>
-                            <div className="text-center mb-6 mt-4">
-                                <h3 className="text-2xl font-bold mb-2">Plan Pionero</h3>
-                                <p className="text-green-200 text-sm">Para los primeros 3 consultorios</p>
-                            </div>
-                            <div className="text-center mb-6">
-                                <div className="text-5xl font-black mb-2">$350</div>
-                                <p className="text-green-200 text-sm mb-4">Setup inicial (pago único)</p>
-                                <div className="text-4xl font-black mb-2">$175<span className="text-xl">/mes</span></div>
-                                <p className="text-green-200 text-sm">Congelado por 12 meses</p>
-                            </div>
-                            <ul className="space-y-3 mb-6">
-                                {[
-                                    "Landing page premium en Next.js",
-                                    "Google Ads + Google Business Profile",
-                                    "Tracking y Analytics completo",
-                                    "Dashboard en tiempo real",
-                                    "Optimización semanal",
-                                    "Soporte WhatsApp prioritario",
-                                    "Garantía: 12 citas en 60 días o mes 3 gratis"
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3">
-                                        <CheckCircle2 size={20} className="flex-shrink-0 mt-0.5" />
-                                        <span className="text-sm">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg border border-white/30 mb-6">
-                                <p className="text-sm font-semibold">
-                                    💰 Ahorro vs. precio regular: <span className="text-2xl font-black">$1,500</span> primer año
-                                </p>
-                            </div>
-
-                            {/* FORMULARIO INSERTADO */}
-                            <div className="bg-white rounded-lg p-1 text-gray-900">
-                                <LeadForm className="shadow-none border-t-0 p-4" title="Reserva tu Cupo Pionero" />
-                            </div>
-                        </div>
-
-                        {/* Plan Estándar (Futuro) */}
-                        <div className="bg-white border-2 border-gray-300 rounded-3xl p-8 shadow-lg">
-                            <div className="text-center mb-6">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Plan Estándar</h3>
-                                <p className="text-gray-500 text-sm">Precio regular (desde cliente #4)</p>
-                            </div>
-                            <div className="text-center mb-6">
-                                <div className="text-5xl font-black text-gray-900 mb-2">$500</div>
-                                <p className="text-gray-500 text-sm mb-4">Setup inicial</p>
-                                <div className="text-4xl font-black text-gray-900 mb-2">$250<span className="text-xl">/mes</span></div>
-                                <p className="text-gray-500 text-sm">Gestión mensual</p>
-                            </div>
-                            <ul className="space-y-3 mb-6">
-                                {[
-                                    "Todo lo del Plan Pionero",
-                                    "Prioridad en optimizaciones",
-                                    "Reporte mensual ejecutivo",
-                                    "Consultoría estratégica trimestral"
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3">
-                                        <CheckCircle2 size={20} className="flex-shrink-0 mt-0.5 text-gray-400" />
-                                        <span className="text-sm text-gray-600">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className="bg-gray-100 p-4 rounded-lg mb-6">
-                                <p className="text-sm text-gray-700">
-                                    <strong>Nota:</strong> Este será el precio para nuevos clientes una vez agotados los cupos pioneros.
-                                </p>
-                            </div>
-                            <button
-                                disabled
-                                className="block w-full bg-gray-200 text-gray-500 text-center px-6 py-4 rounded-lg font-bold text-lg cursor-not-allowed"
-                            >
-                                Disponible Próximamente
-                            </button>
-                        </div>
+                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-3xl p-8 md:p-12 shadow-2xl text-center">
+                        <ul className="space-y-3 mb-8 text-left max-w-md mx-auto">
+                            {[
+                                "Landing page premium en Next.js",
+                                "Google Ads + Google Business Profile",
+                                "Tracking y Analytics completo",
+                                "Optimizaci\u00f3n semanal + soporte WhatsApp",
+                                "Garant\u00eda: 12 citas en 60 d\u00edas o mes 3 gratis"
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-start gap-3">
+                                    <CheckCircle2 size={20} className="flex-shrink-0 mt-0.5" />
+                                    <span className="text-sm">{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="text-blue-200 text-sm mb-8">
+                            El presupuesto publicitario (Google Ads) se paga directo a Google con tu tarjeta &mdash; t&uacute; recibes las facturas a tu nombre.
+                        </p>
+                        <button
+                            onClick={() => handleWhatsAppClick('pricing_cta', 'Hola, me interesa el servicio de marketing m\u00e9dico de PukaSalud. \u00bfPodemos hablar?')}
+                            className="inline-flex items-center gap-3 bg-white text-blue-700 px-10 py-5 rounded-xl font-black text-xl hover:bg-blue-50 transition-all shadow-xl cursor-pointer"
+                        >
+                            Solicitar propuesta personalizada
+                        </button>
                     </div>
-
-                    {/* Calculadora de ROI */}
-                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-3xl p-8 md:p-12 shadow-2xl">
-                        <h3 className="text-3xl font-black mb-6 text-center">¿Cuánto Ganarás Realmente?</h3>
-                        <div className="grid md:grid-cols-2 gap-8 items-center">
-                            <div>
-                                <h4 className="font-bold text-xl mb-4">Ejemplo Real (Promedio de Clientes):</h4>
-                                <div className="space-y-4 text-sm">
-                                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
-                                        <span>Pacientes nuevos/mes:</span>
-                                        <span className="font-black text-2xl">20</span>
-                                    </div>
-                                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
-                                        <span>Valor promedio consulta:</span>
-                                        <span className="font-black text-2xl">$80</span>
-                                    </div>
-                                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
-                                        <span>Ingreso mensual nuevo:</span>
-                                        <span className="font-black text-2xl text-green-300">$1,600</span>
-                                    </div>
-                                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
-                                        <span>Inversión publicidad:</span>
-                                        <span className="font-black text-2xl text-red-300">-$250</span>
-                                    </div>
-                                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
-                                        <span>Fee PukaSalud:</span>
-                                        <span className="font-black text-2xl text-red-300">-$175</span>
-                                    </div>
-                                    <div className="flex justify-between items-center pt-2">
-                                        <span className="text-xl font-bold">Tu Ganancia Neta:</span>
-                                        <span className="font-black text-4xl text-green-300">$1,175</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white text-gray-900 p-8 rounded-2xl">
-                                <h4 className="font-bold text-2xl mb-4 text-center">ROI del Plan Pionero</h4>
-                                <div className="text-center mb-6">
-                                    <div className="text-6xl font-black text-blue-600 mb-2">276%</div>
-                                    <p className="text-gray-600">Retorno de inversión mensual</p>
-                                </div>
-                                <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600 mb-4">
-                                    <p className="font-semibold text-blue-900 text-sm">
-                                        Por cada $1 que inviertes, recuperas <span className="text-xl font-black">$3.76</span>
-                                    </p>
-                                </div>
-                                <div className="text-xs text-gray-500 text-center">
-                                    *Basado en promedios reales de clientes actuales. Resultados individuales pueden variar.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Nota Legal */}
-                    <p className="text-center text-sm text-gray-500 mt-8">
-                        💡 <strong>Importante:</strong> El presupuesto publicitario (Google Ads) se paga directo a Google con tu tarjeta.
-                        Tú recibes las facturas a tu nombre (deducibles de impuestos). Nosotros solo cobramos nuestro fee de gestión.
-                    </p>
                 </div>
             </section>
 

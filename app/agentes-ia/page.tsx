@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: '¿Cuáles son los precios de WhatsApp API y cuánto cuesta la IA?',
-    a: 'Meta cobra unos centavos por conversación iniciada, pero nuestra plataforma te da planes flexibles desde $14.99/mes por el cerebro de la IA. Lo mejor: te regalamos 300 interacciones gratis para que valides cómo la WhatsApp IA aumenta tus ventas antes de comprometerte. Sin contratos.'
+    a: 'Meta cobra unos centavos por conversación iniciada, pero nuestra plataforma te da planes flexibles desde $14.99/mes por el cerebro de la IA. Lo mejor: el primer mes es completamente gratis para que valides cómo la WhatsApp IA aumenta tus ventas antes de comprometerte. Sin contratos.'
   },
   {
     q: '¿Qué pasa si la IA no sabe responder o el cliente pide un humano?',
@@ -90,7 +90,7 @@ export default function PukaIAPage() {
               <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto font-sans">
                 Olvida las configuraciones t&eacute;cnicas. Conectamos WhatsApp IA a tu negocio para calificar leads y agendar citas{' '}
                 <span className="text-white font-bold">24/7</span>.{' '}
-                <span className="text-puka-red font-bold">Te regalamos las primeras 300 interacciones.</span>
+                <span className="text-puka-red font-bold">Primer mes completamente gratis.</span>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
@@ -100,7 +100,7 @@ export default function PukaIAPage() {
                   className="group bg-puka-red text-white px-10 py-5 rounded-sm font-display font-bold text-xl hover:bg-white hover:text-puka-black transition-all flex items-center gap-3 shadow-xl cursor-pointer"
                 >
                   <MessageCircle size={22} />
-                  Obtener mi API + 300 Mensajes Gratis
+                  Obtener mi API &mdash; 1 mes gratis
                   <ArrowRight className="group-hover:translate-x-2 transition-transform" size={20} />
                 </button>
 
@@ -327,39 +327,7 @@ export default function PukaIAPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-
-            {/* Plan Gratis */}
-            <div className="bg-white rounded-sm border border-gray-200 p-8 flex flex-col">
-              <div className="inline-block bg-gray-100 text-gray-600 text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full mb-6 self-start">
-                Para empezar
-              </div>
-              <div className="mb-2">
-                <span className="text-5xl font-black text-puka-black">$0</span>
-              </div>
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8">Gratis para siempre</p>
-              <ul className="space-y-3 mb-10 flex-grow">
-                <li className="flex items-start gap-3 text-sm font-bold">
-                  <CheckCircle size={16} className="text-puka-red shrink-0 mt-0.5" />
-                  300 respuestas del bot
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold">
-                  <CheckCircle size={16} className="text-puka-red shrink-0 mt-0.5" />
-                  Setup self-service
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold">
-                  <CheckCircle size={16} className="text-puka-red shrink-0 mt-0.5" />
-                  WhatsApp Business API Oficial
-                </li>
-              </ul>
-              <button
-                type="button"
-                onClick={() => openWA('agentes_ia_pricing_free')}
-                className="block w-full border-2 border-puka-black text-puka-black py-3 rounded-sm font-black text-sm uppercase text-center hover:bg-puka-black hover:text-white transition-colors cursor-pointer"
-              >
-                Empezar gratis
-              </button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
             {/* Plan Básico */}
             <div className="bg-white rounded-sm border border-gray-200 p-8 flex flex-col">
@@ -545,7 +513,7 @@ export default function PukaIAPage() {
             className="inline-flex items-center gap-3 bg-white text-puka-red px-10 py-6 rounded-sm font-display font-black text-2xl hover:bg-puka-black hover:text-white transition-all shadow-2xl cursor-pointer"
           >
             <MessageCircle size={28} />
-            Empezar gratis ahora
+            Activar mi mes gratis
             <ArrowRight size={24} />
           </button>
 
