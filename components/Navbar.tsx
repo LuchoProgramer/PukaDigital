@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Moon, Sun } from 'lucide-react';
@@ -10,13 +10,50 @@ import { useTheme } from '@/lib/theme';
 import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
+const navGlass = {
+  top: {
+    background: 'rgba(8,8,8,0.30)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
+  },
+  scrolled: {
+    background: 'rgba(8,8,8,0.85)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderBottom: '1px solid rgba(255,255,255,0.10)',
+  },
+  ctaBtn: {
+    background: 'rgba(199,23,30,0.15)',
+    border: '1px solid rgba(199,23,30,0.40)',
+    borderRadius: '8px',
+  },
+  mobileOverlay: {
+    background: 'rgba(8,8,8,0.95)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.60)',
+  },
+  slotsBadge: {
+    background: 'rgba(199,23,30,0.12)',
+    border: '1px solid rgba(199,23,30,0.35)',
+  },
+};
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
 
-  // Track navigation
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleNavClick = (toSection: string) => {
     const currentSection = pathname.split('/').pop() || 'inicio';
     ga.trackSeccionNavega(
@@ -26,7 +63,6 @@ const Navbar: React.FC = () => {
     );
   };
 
-  // Dynamic Nav Items (Paths are now static Spanish)
   const navItems: NavItem[] = [
     { label: t('nav.method'), path: '/' },
     { label: t('nav.products'), path: '/productos' },
@@ -39,7 +75,6 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Check if current page is Home or special landing to hide global navbar (avoid double header)
   const isHiddenNavbarPage = ['/'].includes(pathname) ||
     pathname?.includes('/salud') ||
     pathname?.includes('/inventario') ||
@@ -51,7 +86,10 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <nav
+      className="sticky top-0 z-50 transition-all duration-300"
+      style={isScrolled ? navGlass.scrolled : navGlass.top}
+    >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -67,7 +105,7 @@ const Navbar: React.FC = () => {
             </div>
             <div className="relative h-10 w-44">
               <Image
-                src={theme === 'dark' ? '/logo-Puka-dark.svg' : '/logo-Puka.svg'}
+                src="/logo-Puka-dark.svg"
                 fill
                 className="object-contain object-left"
                 alt="Puka Digital Logo"
@@ -83,20 +121,21 @@ const Navbar: React.FC = () => {
                 key={item.path}
                 href={item.path}
                 onClick={() => handleNavClick(item.path.split('/').pop() || 'inicio')}
-                className={`text-sm font-medium transition-colors hover:text-puka-red ${pathname === item.path
-                  ? 'text-puka-red font-semibold'
-                  : 'text-gray-600 dark:text-gray-300'
-                  }`}
+                className={`text-sm font-medium transition-colors hover:text-puka-red ${pathname === item.path ? 'font-semibold' : ''}`}
+                style={{ color: pathname === item.path ? 'white' : 'rgba(255,255,255,0.60)' }}
               >
                 {item.label}
               </Link>
             ))}
 
-            <div className="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-6">
+            <div className="flex items-center gap-2 border-l pl-6" style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
               {/* Slots Badge */}
-              <div className="hidden lg:flex items-center gap-2 bg-puka-red/10 dark:bg-puka-red/20 px-3 py-1.5 rounded-full border border-puka-red/30">
+              <div
+                className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full"
+                style={navGlass.slotsBadge}
+              >
                 <span className="text-sm tracking-wider">🔴🔴🔴🟢🟢</span>
-                <span className="text-xs font-bold text-puka-red">
+                <span className="text-xs font-bold" style={{ color: 'rgba(199,23,30,0.90)' }}>
                   {t('nav.slots_badge')} {t('nav.slots_available')}
                 </span>
               </div>
@@ -104,7 +143,8 @@ const Navbar: React.FC = () => {
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors"
+                className="p-2 rounded-full transition-colors hover:bg-white/[0.08]"
+                style={{ color: 'rgba(255,255,255,0.60)' }}
                 aria-label="Toggle Dark Mode"
               >
                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -113,7 +153,8 @@ const Navbar: React.FC = () => {
 
             <Link
               href="/contacto"
-              className="bg-puka-black dark:bg-white text-white dark:text-puka-black px-6 py-2.5 rounded-sm font-medium hover:bg-puka-red dark:hover:bg-gray-200 transition-colors text-sm"
+              className="px-6 py-2.5 font-medium text-sm text-white transition-all duration-200 hover:bg-puka-red/30"
+              style={navGlass.ctaBtn}
             >
               {t('nav.cta')}
             </Link>
@@ -123,14 +164,16 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
-              className="p-2 text-puka-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-sm transition-colors"
+              className="p-2 rounded-sm transition-colors hover:bg-white/[0.08]"
+              style={{ color: 'rgba(255,255,255,0.80)' }}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
 
             <button
               onClick={toggleMenu}
-              className="p-2 text-puka-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-sm transition-colors"
+              className="p-2 rounded-sm transition-colors hover:bg-white/[0.08]"
+              style={{ color: 'rgba(255,255,255,0.80)' }}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -140,14 +183,20 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Nav Overlay */}
       {isOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-lg py-8 px-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
+        <div
+          className="md:hidden absolute top-20 left-0 w-full py-8 px-4 flex flex-col gap-4 animate-in slide-in-from-top-5"
+          style={navGlass.mobileOverlay}
+        >
           {navItems.map((item) => (
             <Link
               key={item.path}
               href={item.path}
               onClick={() => setIsOpen(false)}
-              className={`text-lg font-medium py-2 border-b border-gray-50 dark:border-gray-800 ${pathname === item.path ? 'text-puka-red' : 'text-puka-black dark:text-gray-200'
-                }`}
+              className="text-lg font-medium py-2 transition-colors hover:text-white"
+              style={{
+                color: pathname === item.path ? 'white' : 'rgba(255,255,255,0.75)',
+                borderBottom: '1px solid rgba(255,255,255,0.06)',
+              }}
             >
               {item.label}
             </Link>
