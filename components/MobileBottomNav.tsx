@@ -9,11 +9,11 @@ import * as ga from '@/lib/analytics';
 
 const mobileGlass = {
   bar: {
-    background: 'rgba(8,8,8,0.85)',
+    background: 'rgba(255,255,255,0.88)',
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
-    borderTop: '1px solid rgba(255,255,255,0.08)',
-    boxShadow: '0 -4px 24px rgba(0,0,0,0.40)',
+    borderTop: '1px solid rgba(0,0,0,0.06)',
+    boxShadow: '0 -4px 24px rgba(0,0,0,0.06)',
   },
 };
 
@@ -43,8 +43,8 @@ const MobileBottomNav: React.FC = () => {
       <div className="md:hidden fixed bottom-0 left-0 w-full z-50 pb-safe" style={mobileGlass.bar}>
         <div className="flex justify-between items-center h-16 px-4 gap-4">
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: 'rgba(255,255,255,0.50)' }}>Oferta Especial</span>
-            <span className="text-sm font-black text-white leading-tight">{context.label}</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: '#9CA3AF' }}>Oferta Especial</span>
+            <span className="text-sm font-black leading-tight" style={{ color: '#111827' }}>{context.label}</span>
           </div>
           <a
             href={context.link}
@@ -78,7 +78,7 @@ const MobileBottomNav: React.FC = () => {
           if (item.isPrimary) {
             return (
               <Link key={item.path} href={item.path} className="relative -top-5 group">
-                <div className="bg-puka-red text-white p-4 rounded-full shadow-lg shadow-puka-red/40 transform transition-transform group-active:scale-95 border-4 border-white">
+                <div className="bg-puka-red text-white p-4 rounded-full shadow-lg shadow-puka-red/30 transform transition-transform group-active:scale-95 border-4 border-white">
                   <div className="relative w-6 h-6">
                     <Image
                       src="/pegaso-rojo.svg"
@@ -100,7 +100,7 @@ const MobileBottomNav: React.FC = () => {
               key={item.path}
               href={item.path}
               className="flex flex-col items-center justify-center w-16 py-1 transition-colors duration-200"
-              style={{ color: active ? 'white' : 'rgba(255,255,255,0.40)' }}
+              style={{ color: active ? '#111827' : 'rgba(0,0,0,0.35)' }}
             >
               <Icon
                 size={22}
