@@ -12,32 +12,27 @@ import * as ga from '@/lib/analytics';
 
 const navGlass = {
   top: {
-    background: 'rgba(8,8,8,0.30)',
+    background: 'rgba(255,255,255,0.60)',
     backdropFilter: 'blur(12px)',
     WebkitBackdropFilter: 'blur(12px)',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    borderBottom: '1px solid rgba(0,0,0,0.04)',
   },
   scrolled: {
-    background: 'rgba(8,8,8,0.85)',
+    background: 'rgba(255,255,255,0.88)',
     backdropFilter: 'blur(24px)',
     WebkitBackdropFilter: 'blur(24px)',
-    borderBottom: '1px solid rgba(255,255,255,0.10)',
-  },
-  ctaBtn: {
-    background: 'rgba(199,23,30,0.15)',
-    border: '1px solid rgba(199,23,30,0.40)',
-    borderRadius: '8px',
+    borderBottom: '1px solid rgba(0,0,0,0.08)',
   },
   mobileOverlay: {
-    background: 'rgba(8,8,8,0.95)',
+    background: 'rgba(255,255,255,0.96)',
     backdropFilter: 'blur(24px)',
     WebkitBackdropFilter: 'blur(24px)',
-    borderBottom: '1px solid rgba(255,255,255,0.08)',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.60)',
+    borderBottom: '1px solid rgba(0,0,0,0.06)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
   },
   slotsBadge: {
-    background: 'rgba(199,23,30,0.12)',
-    border: '1px solid rgba(199,23,30,0.35)',
+    background: 'rgba(199,23,30,0.08)',
+    border: '1px solid rgba(199,23,30,0.25)',
   },
 };
 
@@ -105,7 +100,7 @@ const Navbar: React.FC = () => {
             </div>
             <div className="relative h-10 w-44">
               <Image
-                src="/logo-Puka-dark.svg"
+                src="/logo-Puka.svg"
                 fill
                 className="object-contain object-left"
                 alt="Puka Digital Logo"
@@ -122,20 +117,20 @@ const Navbar: React.FC = () => {
                 href={item.path}
                 onClick={() => handleNavClick(item.path.split('/').pop() || 'inicio')}
                 className={`text-sm font-medium transition-colors hover:text-puka-red ${pathname === item.path ? 'font-semibold' : ''}`}
-                style={{ color: pathname === item.path ? 'white' : 'rgba(255,255,255,0.60)' }}
+                style={{ color: pathname === item.path ? '#111827' : '#6B7280' }}
               >
                 {item.label}
               </Link>
             ))}
 
-            <div className="flex items-center gap-2 border-l pl-6" style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
+            <div className="flex items-center gap-2 border-l pl-6" style={{ borderColor: 'rgba(0,0,0,0.08)' }}>
               {/* Slots Badge */}
               <div
                 className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full"
                 style={navGlass.slotsBadge}
               >
                 <span className="text-sm tracking-wider">🔴🔴🔴🟢🟢</span>
-                <span className="text-xs font-bold" style={{ color: 'rgba(199,23,30,0.90)' }}>
+                <span className="text-xs font-bold" style={{ color: '#C7171E' }}>
                   {t('nav.slots_badge')} {t('nav.slots_available')}
                 </span>
               </div>
@@ -143,8 +138,8 @@ const Navbar: React.FC = () => {
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-full transition-colors hover:bg-white/[0.08]"
-                style={{ color: 'rgba(255,255,255,0.60)' }}
+                className="p-2 rounded-full transition-colors hover:bg-black/[0.05]"
+                style={{ color: '#6B7280' }}
                 aria-label="Toggle Dark Mode"
               >
                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -153,8 +148,7 @@ const Navbar: React.FC = () => {
 
             <Link
               href="/contacto"
-              className="px-6 py-2.5 font-medium text-sm text-white transition-all duration-200 hover:bg-puka-red/30"
-              style={navGlass.ctaBtn}
+              className="bg-puka-red text-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-red-700 transition-colors shadow-sm shadow-puka-red/20"
             >
               {t('nav.cta')}
             </Link>
@@ -164,16 +158,16 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-sm transition-colors hover:bg-white/[0.08]"
-              style={{ color: 'rgba(255,255,255,0.80)' }}
+              className="p-2 rounded-sm transition-colors hover:bg-black/[0.05]"
+              style={{ color: '#6B7280' }}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
 
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-sm transition-colors hover:bg-white/[0.08]"
-              style={{ color: 'rgba(255,255,255,0.80)' }}
+              className="p-2 rounded-sm transition-colors hover:bg-black/[0.05]"
+              style={{ color: '#111827' }}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -192,10 +186,10 @@ const Navbar: React.FC = () => {
               key={item.path}
               href={item.path}
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium py-2 transition-colors hover:text-white"
+              className="text-lg font-medium py-2 transition-colors hover:text-puka-red"
               style={{
-                color: pathname === item.path ? 'white' : 'rgba(255,255,255,0.75)',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
+                color: pathname === item.path ? '#111827' : '#4B5563',
+                borderBottom: '1px solid rgba(0,0,0,0.06)',
               }}
             >
               {item.label}
@@ -204,7 +198,7 @@ const Navbar: React.FC = () => {
           <Link
             href="/contacto"
             onClick={() => setIsOpen(false)}
-            className="bg-puka-red text-white text-center py-4 rounded-sm font-bold mt-4"
+            className="bg-puka-red text-white text-center py-4 rounded-lg font-bold mt-4"
           >
             {t('nav.start')}
           </Link>
