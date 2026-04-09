@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Building2,
@@ -15,6 +15,79 @@ import Image from 'next/image';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';
 
+const glass = {
+  card: {
+    background: 'rgba(255,255,255,0.05)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderLeft: '1px solid rgba(255,255,255,0.08)',
+    borderRight: '1px solid rgba(255,255,255,0.08)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    borderTop: '1px solid rgba(255,255,255,0.18)',
+    borderRadius: '20px',
+  },
+  cardHover: {
+    background: 'rgba(255,255,255,0.09)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.40)',
+  },
+  cardLarge: {
+    background: 'rgba(255,255,255,0.06)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderLeft: '1px solid rgba(255,255,255,0.10)',
+    borderRight: '1px solid rgba(255,255,255,0.10)',
+    borderBottom: '1px solid rgba(255,255,255,0.10)',
+    borderTop: '1px solid rgba(255,255,255,0.20)',
+    borderRadius: '24px',
+  },
+  cardLargeHover: {
+    background: 'rgba(255,255,255,0.10)',
+    boxShadow: '0 12px 40px rgba(0,0,0,0.50)',
+    borderLeft: '1px solid rgba(199,23,30,0.50)',
+    borderRight: '1px solid rgba(199,23,30,0.50)',
+    borderBottom: '1px solid rgba(199,23,30,0.50)',
+    borderTop: '1px solid rgba(199,23,30,0.50)',
+  },
+  panel: {
+    background: 'rgba(255,255,255,0.04)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '24px',
+  },
+  header: {
+    background: 'rgba(8,8,8,0.70)',
+    backdropFilter: 'blur(40px)',
+    WebkitBackdropFilter: 'blur(40px)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+  },
+  badge: {
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+  },
+  btnSecondary: {
+    background: 'rgba(255,255,255,0.07)',
+    border: '1px solid rgba(255,255,255,0.20)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+  },
+  btnCotizar: {
+    background: 'rgba(199,23,30,0.15)',
+    border: '1px solid rgba(199,23,30,0.40)',
+  },
+  iconContainer: {
+    background: 'rgba(255,255,255,0.08)',
+  },
+  footer: {
+    background: 'rgba(0,0,0,0.60)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+  },
+};
+
 const HomePage = () => {
   const handleNavigation = (destination: string) => {
     ga.event({
@@ -27,6 +100,9 @@ const HomePage = () => {
   const scrollToMethod = () => {
     document.getElementById('metodo')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const [hoveredMethod, setHoveredMethod] = useState<number | null>(null);
+  const [hoveredSolution, setHoveredSolution] = useState<'emprendedor' | 'empresa' | null>(null);
 
   const howToSchema = {
     "@context": "https://schema.org",
@@ -59,7 +135,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-white text-gray-900 selection:bg-puka-red/20 selection:text-puka-red">
+    <div className="font-sans selection:bg-puka-red/20 selection:text-puka-red" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#080808', color: 'white', position: 'relative' }}>
+      {/* Orbes de fondo — position fixed para que no scrolleen */}
+      <div aria-hidden="true" style={{ position: 'fixed', width: '500px', height: '500px', background: 'rgba(199,23,30,0.22)', filter: 'blur(130px)', borderRadius: '50%', bottom: '-150px', left: '-150px', pointerEvents: 'none', zIndex: 0 }} />
+      <div aria-hidden="true" style={{ position: 'fixed', width: '600px', height: '600px', background: 'rgba(30,60,199,0.12)', filter: 'blur(150px)', borderRadius: '50%', top: '-200px', right: '-200px', pointerEvents: 'none', zIndex: 0 }} />
+      <div aria-hidden="true" style={{ position: 'fixed', width: '350px', height: '350px', background: 'rgba(120,20,180,0.10)', filter: 'blur(110px)', borderRadius: '50%', top: '40vh', left: '30%', pointerEvents: 'none', zIndex: 0 }} />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
@@ -81,8 +162,8 @@ const HomePage = () => {
         }}
       />
 
-      {/* HEADER SIMPLE */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+      {/* HEADER GLASS */}
+      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300" style={glass.header}>
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative h-10 w-10 flex-shrink-0">
@@ -106,7 +187,8 @@ const HomePage = () => {
           </Link>
           <Link
             href={`https://wa.me/593964065880?text=Hola,%20me%20interesa%20un%20proyecto%20web.`}
-            className="hidden md:inline-flex bg-black text-white px-5 py-2 rounded-sm font-bold text-sm hover:bg-puka-red transition-colors"
+            className="hidden md:inline-flex text-white px-5 py-2 rounded-lg font-bold text-sm transition-all duration-200 hover:shadow-[0_0_20px_rgba(199,23,30,0.35)]"
+            style={glass.btnCotizar}
             target="_blank"
           >
             Cotizar Ahora
@@ -115,111 +197,155 @@ const HomePage = () => {
       </header>
 
       {/* 1. HERO SECTION (SEO LITERAL) */}
-      <section className="pt-40 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden">
+      <section className="pt-40 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden" style={{ zIndex: 1 }}>
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <div className="inline-block px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-bold tracking-widest uppercase mb-6 border border-gray-200">
-            SEO & Performance en Quito, Guayaquil y Cuenca
+          <div
+            className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+            style={{ ...glass.badge, color: 'rgba(255,255,255,0.60)' }}
+          >
+            SEO &amp; Performance en Quito, Guayaquil y Cuenca
           </div>
 
-          <h1 className="font-display font-black text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 text-gray-900 tracking-tight">
+          <h1 className="font-display font-black text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 tracking-tight" style={{ color: 'white' }}>
             Agencia de Marketing Digital y <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-puka-red to-red-600">Diseño de Páginas Web</span> en Ecuador
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-puka-red to-red-600">Dise&ntilde;o de P&aacute;ginas Web</span> en Ecuador
           </h1>
 
-          <h2 className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
-            No adivines. Construimos sitios web basados en <strong>Investigación de Palabras Clave</strong> y <strong>Google Ads</strong>. Ingeniería de relevancia para vender más, no solo para verse bien.
+          <h2 className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 leading-relaxed font-medium" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            No adivines. Construimos sitios web basados en <strong style={{ color: 'white' }}>Investigaci&oacute;n de Palabras Clave</strong> y <strong style={{ color: 'white' }}>Google Ads</strong>. Ingenier&iacute;a de relevancia para vender m&aacute;s, no solo para verse bien.
           </h2>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               onClick={scrollToMethod}
-              className="bg-puka-red text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-black transition-all shadow-xl shadow-puka-red/20 transform hover:-translate-y-1"
+              className="bg-puka-red text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
+              style={{ boxShadow: '0 0 32px rgba(199,23,30,0.45)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 48px rgba(199,23,30,0.65)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 32px rgba(199,23,30,0.45)'; }}
             >
-              Ver nuestro Método de 3 Pasos
+              Ver nuestro M&eacute;todo de 3 Pasos
             </button>
             <Link
               href={`https://wa.me/593964065880?text=Hola,%20quisiera%20cotizar%20un%20proyecto.`}
               target="_blank"
-              className="bg-white border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-50 transition-all"
+              className="text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:bg-white/10"
+              style={glass.btnSecondary}
             >
               Cotizar Proyecto Web
             </Link>
           </div>
         </div>
 
-        {/* Decorative Grid */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10"></div>
+        {/* Rejilla decorativa sobre oscuro */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" style={{ zIndex: 0 }} />
       </section>
 
       {/* 2. EL PROBLEMA (Why websites fail) */}
-      <section className="py-20 bg-gray-50 border-y border-gray-100">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <div className="flex justify-center mb-6">
-            <div className="bg-orange-100 p-4 rounded-full text-orange-600">
-              <AlertTriangle size={40} strokeWidth={1.5} />
+      <section className="py-20 relative" style={{ zIndex: 1 }}>
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center p-12 md:p-16" style={glass.panel}>
+            <div className="flex justify-center mb-6">
+              <div className="p-4 rounded-full" style={{ background: 'rgba(199,23,30,0.15)' }}>
+                <AlertTriangle size={40} strokeWidth={1.5} style={{ color: 'rgba(199,23,30,0.90)' }} />
+              </div>
             </div>
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-6" style={{ color: 'white' }}>
+              &iquest;Por qu&eacute; la mayor&iacute;a de sitios web fracasan?
+            </h2>
+            <p className="text-xl leading-relaxed font-serif italic text-pretty" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              &ldquo;Porque se dise&ntilde;an primero y se intenta vender despu&eacute;s. <br className="hidden md:block" />
+              Es como construir una llave sin saber c&oacute;mo es la cerradura.&rdquo;
+            </p>
           </div>
-          <h2 className="font-display font-bold text-3xl md:text-4xl mb-6 text-gray-900">
-            ¿Por qué la mayoría de sitios web fracasan?
-          </h2>
-          <p className="text-xl text-gray-600 leading-relaxed font-serif italic text-pretty">
-            "Porque se diseñan primero y se intenta vender después. <br className="hidden md:block" />
-            Es como construir una llave sin saber cómo es la cerradura."
-          </p>
         </div>
       </section>
 
       {/* 3. TU METODOLOGÍA (Ingeniería Inversa) */}
-      <section id="metodo" className="py-24 bg-white relative overflow-hidden">
+      <section id="metodo" className="py-24 relative overflow-hidden" style={{ zIndex: 1 }}>
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="text-center mb-16">
-            <span className="text-puka-red font-bold text-sm tracking-widest uppercase mb-2 block">Diferenciador Técnico</span>
-            <h2 className="font-display font-black text-4xl md:text-5xl text-gray-900">
-              Nuestro Proceso: <span className="underline decoration-puka-red/30 decoration-4 underline-offset-4">Ingeniería Inversa de Ventas</span>
+            <span className="text-puka-red font-bold text-sm tracking-widest uppercase mb-2 block">Diferenciador T&eacute;cnico</span>
+            <h2 className="font-display font-black text-4xl md:text-5xl" style={{ color: 'white' }}>
+              Nuestro Proceso: <span className="underline decoration-puka-red/40 decoration-4 underline-offset-4">Ingenier&iacute;a Inversa de Ventas</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Paso 1 */}
-            <div className="group p-8 rounded-2xl border border-gray-100 hover:border-puka-red/30 hover:shadow-xl transition-all duration-300 bg-white relative">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-puka-red transition-colors rounded-t-2xl"></div>
-              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 font-bold text-xl group-hover:scale-110 transition-transform">
+            <div
+              className="group p-8 relative cursor-default transition-all duration-300"
+              style={{ ...glass.card, ...(hoveredMethod === 1 ? glass.cardHover : {}) }}
+              onMouseEnter={() => setHoveredMethod(1)}
+              onMouseLeave={() => setHoveredMethod(null)}
+            >
+              <div
+                className="absolute top-0 left-0 w-full h-1 rounded-t-[20px] transition-colors duration-300"
+                style={{ background: hoveredMethod === 1 ? '#C7171E' : 'rgba(255,255,255,0.08)' }}
+              />
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 font-bold text-xl transition-transform duration-300 group-hover:scale-110"
+                style={{ ...glass.iconContainer, color: 'rgba(255,255,255,0.80)' }}
+              >
                 <Search size={28} strokeWidth={2} />
               </div>
-              <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-                1. Minería de Datos <span className="text-xs bg-gray-100 text-gray-500 py-1 px-2 rounded">Keywords</span>
+              <h3 className="font-bold text-xl mb-4 flex items-center gap-2" style={{ color: 'white' }}>
+                1. Miner&iacute;a de Datos{' '}
+                <span className="text-xs py-1 px-2 rounded" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.50)' }}>Keywords</span>
               </h3>
-              <p className="text-gray-600 leading-relaxed">
-                No diseñamos nada sin datos. Primero investigamos qué busca tu cliente real en Google (Volumen y CPC) para garantizar tráfico antes de escribir una línea de código.
+              <p className="leading-relaxed" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                No dise&ntilde;amos nada sin datos. Primero investigamos qu&eacute; busca tu cliente real en Google (Volumen y CPC) para garantizar tr&aacute;fico antes de escribir una l&iacute;nea de c&oacute;digo.
               </p>
             </div>
 
             {/* Paso 2 */}
-            <div className="group p-8 rounded-2xl border border-gray-100 hover:border-puka-red/30 hover:shadow-xl transition-all duration-300 bg-white relative">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-puka-red transition-colors rounded-t-2xl"></div>
-              <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-6 font-bold text-xl group-hover:scale-110 transition-transform">
+            <div
+              className="group p-8 relative cursor-default transition-all duration-300"
+              style={{ ...glass.card, ...(hoveredMethod === 2 ? glass.cardHover : {}) }}
+              onMouseEnter={() => setHoveredMethod(2)}
+              onMouseLeave={() => setHoveredMethod(null)}
+            >
+              <div
+                className="absolute top-0 left-0 w-full h-1 rounded-t-[20px] transition-colors duration-300"
+                style={{ background: hoveredMethod === 2 ? '#C7171E' : 'rgba(255,255,255,0.08)' }}
+              />
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 font-bold text-xl transition-transform duration-300 group-hover:scale-110"
+                style={{ ...glass.iconContainer, color: 'rgba(255,255,255,0.80)' }}
+              >
                 <Layout size={28} strokeWidth={2} />
               </div>
-              <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-                2. Arquitectura Web <span className="text-xs bg-gray-100 text-gray-500 py-1 px-2 rounded">Relevancia</span>
+              <h3 className="font-bold text-xl mb-4 flex items-center gap-2" style={{ color: 'white' }}>
+                2. Arquitectura Web{' '}
+                <span className="text-xs py-1 px-2 rounded" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.50)' }}>Relevancia</span>
               </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Creamos la estructura y el copy del sitio para coincidir <strong>exactamente</strong> con esas búsquedas. Google premia la relevancia con mejores posiciones y costos más bajos.
+              <p className="leading-relaxed" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                Creamos la estructura y el copy del sitio para coincidir <strong style={{ color: 'white' }}>exactamente</strong> con esas b&uacute;squedas. Google premia la relevancia con mejores posiciones y costos m&aacute;s bajos.
               </p>
             </div>
 
             {/* Paso 3 */}
-            <div className="group p-8 rounded-2xl border border-gray-100 hover:border-puka-red/30 hover:shadow-xl transition-all duration-300 bg-white relative">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-puka-red transition-colors rounded-t-2xl"></div>
-              <div className="w-14 h-14 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-6 font-bold text-xl group-hover:scale-110 transition-transform">
+            <div
+              className="group p-8 relative cursor-default transition-all duration-300"
+              style={{ ...glass.card, ...(hoveredMethod === 3 ? glass.cardHover : {}) }}
+              onMouseEnter={() => setHoveredMethod(3)}
+              onMouseLeave={() => setHoveredMethod(null)}
+            >
+              <div
+                className="absolute top-0 left-0 w-full h-1 rounded-t-[20px] transition-colors duration-300"
+                style={{ background: hoveredMethod === 3 ? '#C7171E' : 'rgba(255,255,255,0.08)' }}
+              />
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 font-bold text-xl transition-transform duration-300 group-hover:scale-110"
+                style={{ ...glass.iconContainer, color: 'rgba(255,255,255,0.80)' }}
+              >
                 <Target size={28} strokeWidth={2} />
               </div>
-              <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-                3. Tráfico de Precisión <span className="text-xs bg-gray-100 text-gray-500 py-1 px-2 rounded">Ads</span>
+              <h3 className="font-bold text-xl mb-4 flex items-center gap-2" style={{ color: 'white' }}>
+                3. Tr&aacute;fico de Precisi&oacute;n{' '}
+                <span className="text-xs py-1 px-2 rounded" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.50)' }}>Ads</span>
               </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Lanzamos campañas con <strong>Quality Score 10/10</strong>. Al tener una web alineada con los anuncios, reducimos tu costo por clic a la mitad y duplicamos conversiones.
+              <p className="leading-relaxed" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                Lanzamos campa&ntilde;as con <strong style={{ color: 'white' }}>Quality Score 10/10</strong>. Al tener una web alineada con los anuncios, reducimos tu costo por clic a la mitad y duplicamos conversiones.
               </p>
             </div>
           </div>
@@ -227,9 +353,9 @@ const HomePage = () => {
       </section>
 
       {/* 4. SECCIÓN DE SERVICIOS (Traffic Controller Secundario) */}
-      <section className="py-24 bg-gray-900 text-white relative">
+      <section className="py-24 relative" style={{ zIndex: 1 }}>
         <div className="container mx-auto px-4 max-w-5xl relative z-10">
-          <h2 className="font-display font-bold text-3xl text-center mb-16">
+          <h2 className="font-display font-bold text-3xl text-center mb-16" style={{ color: 'white' }}>
             Soluciones Especializadas para tu Etapa
           </h2>
 
@@ -238,17 +364,26 @@ const HomePage = () => {
             <Link
               href="/sistema"
               onClick={() => handleNavigation('sistema')}
-              className="group bg-gray-800 p-10 rounded-3xl border border-gray-700 hover:bg-gray-700/50 hover:border-puka-red transition-all cursor-pointer flex flex-col items-center text-center relative overflow-hidden"
+              className="group p-10 flex flex-col items-center text-center relative overflow-hidden transition-all duration-300 cursor-pointer"
+              style={{
+                ...glass.cardLarge,
+                ...(hoveredSolution === 'emprendedor' ? glass.cardLargeHover : {}),
+              }}
+              onMouseEnter={() => setHoveredSolution('emprendedor')}
+              onMouseLeave={() => setHoveredSolution(null)}
             >
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <div className="absolute top-0 right-0 p-4 pointer-events-none" style={{ color: 'rgba(255,255,255,0.06)' }}>
                 <Rocket size={120} />
               </div>
-              <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center text-white mb-6 shadow-lg border border-gray-600 group-hover:border-puka-red transition-colors">
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg transition-all duration-300"
+                style={{ ...glass.iconContainer, color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}
+              >
                 <Rocket size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Soy Emprendedor</h3>
-              <p className="text-gray-400 mb-8 leading-relaxed">
-                Quiero mi propio sistema de ventas, web y facturación. Busco independencia sin pagar rentas mensuales.
+              <h3 className="text-2xl font-bold mb-4" style={{ color: 'white' }}>Soy Emprendedor</h3>
+              <p className="mb-8 leading-relaxed" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                Quiero mi propio sistema de ventas, web y facturaci&oacute;n. Busco independencia sin pagar rentas mensuales.
               </p>
               <span className="text-puka-red font-bold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
                 Ver Programa de Independencia <ArrowRight size={20} />
@@ -259,19 +394,28 @@ const HomePage = () => {
             <Link
               href="/agencia"
               onClick={() => handleNavigation('agencia')}
-              className="group bg-white text-gray-900 p-10 rounded-3xl border border-gray-200 hover:shadow-2xl hover:shadow-white/10 transition-all cursor-pointer flex flex-col items-center text-center relative overflow-hidden"
+              className="group p-10 flex flex-col items-center text-center relative overflow-hidden transition-all duration-300 cursor-pointer"
+              style={{
+                ...glass.cardLarge,
+                ...(hoveredSolution === 'empresa' ? glass.cardLargeHover : {}),
+              }}
+              onMouseEnter={() => setHoveredSolution('empresa')}
+              onMouseLeave={() => setHoveredSolution(null)}
             >
-              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+              <div className="absolute top-0 right-0 p-4 pointer-events-none" style={{ color: 'rgba(255,255,255,0.06)' }}>
                 <Building2 size={120} />
               </div>
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-900 mb-6 shadow-sm group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg transition-all duration-300"
+                style={{ ...glass.iconContainer, color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}
+              >
                 <Building2 size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Soy una Empresa</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed font-medium">
-                Busco consultoría estratégica, infraestructura corporativa y optimización avanzada de Google Ads.
+              <h3 className="text-2xl font-bold mb-4" style={{ color: 'white' }}>Soy una Empresa</h3>
+              <p className="mb-8 leading-relaxed font-medium" style={{ color: 'rgba(255,255,255,0.60)' }}>
+                Busco consultor&iacute;a estrat&eacute;gica, infraestructura corporativa y optimizaci&oacute;n avanzada de Google Ads.
               </p>
-              <span className="text-blue-700 font-bold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
+              <span className="text-puka-red font-bold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
                 Ir a Servicios Corporativos <ArrowRight size={20} />
               </span>
             </Link>
@@ -280,12 +424,14 @@ const HomePage = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 bg-gray-50 text-center border-t border-gray-200">
+      <footer className="py-12 text-center relative" style={{ ...glass.footer, zIndex: 1 }}>
         <div className="container mx-auto px-4">
-          <p className="text-gray-500 mb-4 text-sm font-medium">© {new Date().getFullYear()} PukaDigital. Ingeniería de Marketing.</p>
-          <div className="flex justify-center gap-6 text-xs text-gray-400 font-bold uppercase tracking-widest">
+          <p className="mb-4 text-sm font-medium" style={{ color: 'rgba(255,255,255,0.40)' }}>
+            &copy; {new Date().getFullYear()} PukaDigital. Ingenier&iacute;a de Marketing.
+          </p>
+          <div className="flex justify-center gap-6 text-xs font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.40)' }}>
             <Link href="/legal/politica-de-privacidad" className="hover:text-puka-red transition-colors">Privacidad</Link>
-            <Link href="/legal/terminos" className="hover:text-puka-red transition-colors">Términos</Link>
+            <Link href="/legal/terminos" className="hover:text-puka-red transition-colors">T&eacute;rminos</Link>
           </div>
         </div>
       </footer>
