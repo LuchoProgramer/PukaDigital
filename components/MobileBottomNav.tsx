@@ -4,19 +4,24 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Package, BookOpen, PlayCircle, Trophy, ArrowRight, MessageCircle } from 'lucide-react';
+import { Home, Package, BookOpen, PlayCircle, Trophy, MessageCircle } from 'lucide-react';
 import * as ga from '@/lib/analytics';
 
-interface MobileBottomNavProps {
-  lang?: string;
-}
+const mobileGlass = {
+  bar: {
+    background: 'rgba(8,8,8,0.85)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+    boxShadow: '0 -4px 24px rgba(0,0,0,0.40)',
+  },
+};
 
 const MobileBottomNav: React.FC = () => {
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
-  // 1. LÓGICA CAMALEÓN: Detectar si estamos en una Landing de Conversión
   const getPageContext = () => {
     if (pathname?.includes('/salud')) {
       return { type: 'conversion', color: 'bg-green-600', label: 'Pacientes Calificados', cta: 'Llenar Agenda', link: `https://wa.me/593964065880?text=Hola,%20soy%20médico%20y%20me%20interesa%20llenar%20mi%20agenda.`, trackArgs: 'salud_sticky_mobile' };
@@ -32,18 +37,15 @@ const MobileBottomNav: React.FC = () => {
 
   const context = getPageContext();
 
-  // 2. RENDERIZADO CONDICIONAL
-
-  // CASO A: sticky ACTION BAR (Solo Conversión)
+  // CASO A: sticky ACTION BAR (Conversión)
   if (context.type === 'conversion' && context.color) {
     return (
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 z-50 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+      <div className="md:hidden fixed bottom-0 left-0 w-full z-50 pb-safe" style={mobileGlass.bar}>
         <div className="flex justify-between items-center h-16 px-4 gap-4">
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Oferta Especial</span>
-            <span className="text-sm font-black text-gray-900 leading-tight">{context.label}</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: 'rgba(255,255,255,0.50)' }}>Oferta Especial</span>
+            <span className="text-sm font-black text-white leading-tight">{context.label}</span>
           </div>
-
           <a
             href={context.link}
             target="_blank"
@@ -57,38 +59,17 @@ const MobileBottomNav: React.FC = () => {
     );
   }
 
-  // CASO B: MENÚ DE NAVEGACIÓN (Exploración)
+  // CASO B: MENÚ DE NAVEGACIÓN
   const navItems = [
-    {
-      label: 'Inicio',
-      path: `/`,
-      icon: Home
-    },
-    {
-      label: 'Soluciones',
-      path: `/sistema`,
-      icon: Package
-    },
-    {
-      label: 'Empezar',
-      path: `/contacto`,
-      icon: Home, // No se usa porque isPrimary usa pegaso-rojo.svg
-      isPrimary: true
-    },
-    {
-      label: 'Blog',
-      path: `/blog`,
-      icon: BookOpen
-    },
-    {
-      label: 'Casos',
-      path: `/casos`,
-      icon: Trophy
-    }
+    { label: 'Inicio', path: `/`, icon: Home },
+    { label: 'Soluciones', path: `/sistema`, icon: Package },
+    { label: 'Empezar', path: `/contacto`, icon: Home, isPrimary: true },
+    { label: 'Blog', path: `/blog`, icon: BookOpen },
+    { label: 'Casos', path: `/casos`, icon: Trophy }
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+    <div className="md:hidden fixed bottom-0 left-0 w-full z-50 pb-safe" style={mobileGlass.bar}>
       <div className="flex justify-around items-end h-16 pb-2 px-1">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -96,11 +77,7 @@ const MobileBottomNav: React.FC = () => {
 
           if (item.isPrimary) {
             return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className="relative -top-5 group"
-              >
+              <Link key={item.path} href={item.path} className="relative -top-5 group">
                 <div className="bg-puka-red text-white p-4 rounded-full shadow-lg shadow-puka-red/40 transform transition-transform group-active:scale-95 border-4 border-white">
                   <div className="relative w-6 h-6">
                     <Image
@@ -122,8 +99,8 @@ const MobileBottomNav: React.FC = () => {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex flex-col items-center justify-center w-16 py-1 transition-colors duration-200 ${active ? 'text-puka-red' : 'text-gray-400 hover:text-gray-600'
-                }`}
+              className="flex flex-col items-center justify-center w-16 py-1 transition-colors duration-200"
+              style={{ color: active ? 'white' : 'rgba(255,255,255,0.40)' }}
             >
               <Icon
                 size={22}
