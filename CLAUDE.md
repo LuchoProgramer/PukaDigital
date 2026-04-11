@@ -197,6 +197,76 @@ El navbar embebido en las landings usa clases Tailwind para ocultar elementos en
 
 ---
 
+## SEO — Keyword Research (2026-04-11)
+
+### Hallazgo principal: PukaIA es un CRM, no solo un chatbot
+
+**El posicionamiento actual en `/agentes-ia` está mal enfocado.** Las keywords actuales apuntan a "API de WhatsApp" y "chatbot con IA", pero el producto tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones — es un **CRM completo con agentes IA**. Esto es una ventaja competitiva que no se está comunicando en SEO.
+
+Competidores que sí se posicionan como CRM cobran 5-15x más:
+- Mercately (Ecuador): desde $99/mes hasta $499/mes
+- Zolutium: desde $79/mes
+- Sellerchat: desde $49/mes
+
+**PukaIA Pro ($25/mes) compite directamente con productos de $99-499/mes.**
+
+### Keywords con volumen real en Ecuador (Google Keyword Planner)
+
+| Keyword | Volumen | Competencia | Bid estimado |
+|---|---|---|---|
+| `crm para whatsapp business` | 10/mes | Alta | $12.78 |
+| `chatbot whatsapp ecuador` | 10/mes | Alta | — |
+| `crm barato` | 10/mes | Alta | — |
+| `chatbot con inteligencia artificial para whatsapp` | 10/mes | Alta | — |
+| `crm para whatsapp business gratis` | 10/mes | Media | — |
+
+> Nota: "10/mes" en Keyword Planner para Ecuador puede representar decenas o cientos de búsquedas reales — el planificador redondea a la baja en mercados pequeños.
+
+### Diagnóstico por página
+
+| Página | Estado keywords | Problema |
+|---|---|---|
+| `/agentes-ia` (`app/agentes-ia/layout.tsx`) | **CRÍTICO** | Cero keywords de "crm". Posicionada como "API de WhatsApp" en vez de "CRM con agentes IA" |
+| `app/layout.tsx` (raíz) | Disperso | 40+ keywords mezclando chatbot, ERP, diseño, marketing — dilución de señal SEO |
+| `/agencia` (`app/agencia/layout.tsx`) | Escaso | Solo 6 keywords, muy poco |
+| `/desarrollo-web-pymes` (`app/desarrollo-web-pymes/layout.tsx`) | **Bug** | Keywords como `string`, no como `string[]` — inconsistente con el resto |
+| `/ledgerxpertz` | OK | Bien enfocado, no requiere cambios |
+| `/pukahealth` | OK | Bien enfocado, no requiere cambios |
+
+### Keywords a agregar en `/agentes-ia/layout.tsx`
+
+Reemplazar o complementar las actuales con foco en CRM:
+
+```typescript
+keywords: [
+  // Posicionamiento CRM (nuevo — actualmente ausente)
+  'crm para whatsapp business',
+  'crm con inteligencia artificial',
+  'crm con ia para whatsapp',
+  'crm barato para pymes',
+  'crm whatsapp ecuador',
+  // Chatbot con IA (mantener)
+  'chatbot whatsapp ecuador',
+  'chatbot con inteligencia artificial para whatsapp',
+  'automatizar ventas whatsapp',
+  // Comparación competidores (capturar tráfico de búsqueda)
+  'alternativa mercately',
+  'alternativa sellerchat',
+  // Marca
+  'pukaia',
+],
+```
+
+### Tareas SEO pendientes
+
+- [ ] **`/agentes-ia/layout.tsx`:** Agregar keywords de "crm" (ver lista arriba). Actualizar `title` y `description` para mencionar "CRM con agentes IA"
+- [ ] **`/agentes-ia/page.tsx`:** Agregar preguntas FAQ sobre CRM (`¿Qué es un CRM para WhatsApp?`, `¿Cuánto cuesta un CRM para WhatsApp en Ecuador?`)
+- [ ] **`/desarrollo-web-pymes/layout.tsx`:** Corregir `keywords` de `string` a `string[]`
+- [ ] **`app/layout.tsx`:** Reducir keywords a las 10-15 más representativas del sitio, evitar dispersión
+- [ ] **`/agencia/layout.tsx`:** Ampliar a al menos 10-15 keywords de marketing digital Ecuador
+
+---
+
 ## Comandos útiles
 
 ```bash
