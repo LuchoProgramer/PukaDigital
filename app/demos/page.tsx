@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Send, MoreVertical, Search, Phone, ArrowLeft, Check, CheckCheck, Paperclip, Smile, Loader2 } from 'lucide-react';
 import SEO from '@/components/SEO';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 // Configuración del API de Agentes IA
@@ -13,8 +12,6 @@ const DEMO_BOT_ID = 'demo-bot';
 const DEMO_CODE = 'PUKA2024'; // Código de demo para Puka Digital
 
 const Demos: React.FC = () => {
-  const { t, language } = useTranslation();
-  
   // Track demo page view on mount
   useEffect(() => {
     ga.trackDemoPaginaVista('chatbot_whatsapp', 'viewed');
@@ -36,12 +33,12 @@ const Demos: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => `puka_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
-  // Reset messages when language changes
+  // Initialize chat with welcome message
   useEffect(() => {
     setMessages([
-      { role: 'bot', text: t('demos.chat_welcome'), time: '10:00 AM' }
+      { role: 'bot', text: '👋 ¡Hola! Bienvenido a PukaDigital. ¿Te gustaría saber el precio de nuestro programa o ver una demo?', time: '10:00 AM' }
     ]);
-  }, [language, t]);
+  }, []);
 
   const getCurrentTime = () => {
     return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -114,10 +111,10 @@ const Demos: React.FC = () => {
       />
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="text-puka-red font-bold tracking-wider uppercase text-sm mb-2 block">{t('demos.badge')}</span>
-          <h1 className="font-display font-bold text-4xl mb-4 text-puka-black dark:text-white">{t('demos.title')}</h1>
+          <span className="text-puka-red font-bold tracking-wider uppercase text-sm mb-2 block">Pru&eacute;balo T&uacute; Mismo</span>
+          <h1 className="font-display font-bold text-4xl mb-4 text-puka-black dark:text-white">La Tecnolog&iacute;a no muerde</h1>
           <p className="text-gray-600 dark:text-gray-300">
-            {t('demos.desc')}
+            Hemos dise&ntilde;ado nuestras herramientas para que sean familiares. Si sabes usar WhatsApp, sabes usar nuestro sistema.
           </p>
         </div>
 
@@ -133,8 +130,8 @@ const Demos: React.FC = () => {
                     <img src="https://ui-avatars.com/api/?name=Puka+Bot&background=c7171e&color=fff" alt="Bot Profile" />
                  </div>
                  <div className="flex flex-col">
-                   <span className="font-bold text-base leading-tight">{t('demos.chat_header_business')}</span>
-                   <span className="text-xs text-gray-200">{t('demos.chat_header_acct')}</span>
+                   <span className="font-bold text-base leading-tight">Tu Negocio (Bot)</span>
+                   <span className="text-xs text-gray-200">Cuenta de empresa</span>
                  </div>
                </div>
                <div className="flex gap-4 pr-2">
@@ -152,7 +149,7 @@ const Demos: React.FC = () => {
                {/* Encryption Notice */}
                <div className="flex justify-center mb-4">
                  <div className="bg-[#FFF5C4] text-[#5E5E5E] text-[10px] px-3 py-1.5 rounded-lg shadow-sm text-center max-w-[80%]">
-                   {t('demos.chat_encryption')}
+                   🔒 Los mensajes est&aacute;n cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos.
                  </div>
                </div>
 
@@ -195,7 +192,7 @@ const Demos: React.FC = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder={t('demos.chat_placeholder')}
+                    placeholder="Escribe un mensaje"
                     className="w-full bg-transparent focus:outline-none text-[#111B21] text-sm"
                  />
                </div>
@@ -213,8 +210,8 @@ const Demos: React.FC = () => {
             <div className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-xl border border-gray-100 dark:border-gray-800 h-full transition-colors">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                   <h3 className="font-bold text-2xl text-puka-black dark:text-white">{t('demos.chart_title')}</h3>
-                   <p className="text-gray-500 text-sm">{t('demos.chart_subtitle')}</p>
+                   <h3 className="font-bold text-2xl text-puka-black dark:text-white">Ventas en Tiempo Real</h3>
+                   <p className="text-gray-500 text-sm">Resumen de Mayo</p>
                 </div>
                 <div className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-3 py-1 rounded-sm text-xs font-bold border border-green-200 dark:border-green-800">
                    +24%
@@ -257,15 +254,15 @@ const Demos: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-100 dark:border-gray-800">
                  <div className="text-center">
-                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">{t('demos.stat_sales')}</span>
+                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">Total Ventas</span>
                     <span className="block font-bold text-xl text-puka-black dark:text-white">$33,950</span>
                  </div>
                  <div className="text-center border-l border-gray-100 dark:border-gray-800">
-                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">{t('demos.stat_leads')}</span>
+                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">Leads (Chatbot)</span>
                     <span className="block font-bold text-xl text-puka-black dark:text-white">224</span>
                  </div>
                  <div className="text-center border-l border-gray-100 dark:border-gray-800">
-                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">{t('demos.stat_conv')}</span>
+                    <span className="block text-gray-400 text-xs uppercase tracking-wide mb-1">Conversi&oacute;n</span>
                     <span className="block font-bold text-xl text-green-600">4.8%</span>
                  </div>
               </div>
@@ -273,11 +270,11 @@ const Demos: React.FC = () => {
 
             <div className="bg-puka-black dark:bg-gray-800 text-white p-6 rounded-sm shadow-lg flex items-center justify-between">
                <div>
-                  <h4 className="font-bold mb-1">{t('demos.cta_card_title')}</h4>
-                  <p className="text-gray-400 text-sm">{t('demos.cta_card_desc')}</p>
+                  <h4 className="font-bold mb-1">&iquest;Te gusta lo que ves?</h4>
+                  <p className="text-gray-400 text-sm">Estos ser&aacute;n tus n&uacute;meros en 3 meses.</p>
                </div>
                <a href="#contacto" className="bg-white text-puka-black px-4 py-2 rounded-sm font-bold text-sm hover:bg-gray-100 transition-colors">
-                  {t('demos.cta_btn')}
+                  Lo quiero
                </a>
             </div>
           </div>

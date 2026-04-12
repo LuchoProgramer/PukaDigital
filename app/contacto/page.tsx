@@ -4,7 +4,6 @@ import React from 'react';
 import { Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import LeadForm from '@/components/LeadForm';
 import SEO from '@/components/SEO';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 // Contact info centralized
@@ -50,8 +49,6 @@ const glass = {
 };
 
 const Contact: React.FC = () => {
-  const { t } = useTranslation();
-
   const handleWhatsAppClick = () => {
     ga.trackWhatsAppDirectoClick('contact_page');
   };
@@ -117,20 +114,20 @@ const Contact: React.FC = () => {
             {/* Contact Info — glass card */}
             <div style={glass.card} className="p-8 md:p-10">
               <span className="text-puka-red font-bold tracking-wider uppercase text-sm mb-2 block">
-                {t('contact.badge')}
+                Hablemos Claro
               </span>
               <h1
                 className="font-display font-bold text-4xl md:text-5xl mb-6"
                 style={{ color: '#111827' }}
               >
-                {t('contact.title')}
+                Tu independencia comienza aqu&iacute;
               </h1>
               <p className="text-lg mb-12" style={{ color: '#4B5563' }}>
-                {t('contact.desc')}{' '}
+                Sin vendedores agresivos. Sin letras chicas. Solo una conversaci&oacute;n honesta sobre si nuestro modelo educativo de 3 meses{' '}
                 <span className="font-semibold" style={{ color: '#111827' }}>
-                  {t('contact.desc_highlight')}
+                  (que incluye tu presupuesto de Ads)
                 </span>{' '}
-                {t('contact.desc_end')}
+                es lo que tu negocio necesita.
               </p>
 
               <div className="space-y-8">
@@ -150,10 +147,10 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg" style={{ color: '#111827' }}>
-                      {t('contact.whatsapp_title')}
+                      WhatsApp Directo
                     </h3>
                     <p className="mb-1" style={{ color: '#4B5563' }}>
-                      {t('contact.whatsapp_desc')}
+                      La forma m&aacute;s r&aacute;pida de responder tus dudas.
                     </p>
                     <span className="text-puka-red font-bold group-hover:underline">
                       {CONTACT.whatsappDisplay} &rarr;
@@ -171,7 +168,7 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg" style={{ color: '#111827' }}>
-                      {t('contact.email_title')}
+                      Correo Electr&oacute;nico
                     </h3>
                     <p className="text-puka-red font-medium group-hover:underline">
                       {CONTACT.email}
@@ -213,7 +210,7 @@ const Contact: React.FC = () => {
                 <LeadForm />
               </div>
               <p className="text-xs text-center mt-4 max-w-md mx-auto" style={{ color: '#9CA3AF' }}>
-                {t('contact.privacy')}
+                Al enviar este formulario, aceptas nuestra pol&iacute;tica de privacidad. Odiamos el spam tanto como t&uacute;.
               </p>
             </div>
 

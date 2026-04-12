@@ -15,7 +15,6 @@ import {
     Target
 } from 'lucide-react';
 import SEO from '@/components/SEO';
-import { useTranslation } from '@/lib/i18n';
 import LeadForm from '@/components/LeadForm';
 
 export default function CostoPublicidadGooglePage() {

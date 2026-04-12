@@ -16,11 +16,9 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
 export default function NosotrosPage() {
-  const { t } = useTranslation();
 
   const c = {
     pageTitle: "Nuestra Historia",

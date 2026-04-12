@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import ConditionalShell from "@/components/ConditionalShell";
 import { getGlobalSchemaGraph } from "@/lib/schema";
@@ -151,11 +150,9 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <LanguageProvider>
-            <ConditionalShell>
-              {children}
-            </ConditionalShell>
-          </LanguageProvider>
+          <ConditionalShell>
+            {children}
+          </ConditionalShell>
         </ThemeProvider>
       </body>
     </html>

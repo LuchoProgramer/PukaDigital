@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, Smartphone, ArrowRight } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 const GraciasPage = () => {

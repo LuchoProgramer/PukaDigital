@@ -3,7 +3,6 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import * as ga from '@/lib/analytics';
-import { useTranslation } from '@/lib/i18n';
 
 // WhatsApp number centralized
 const WHATSAPP_NUMBER = '593964065880';
@@ -23,7 +22,6 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 );
 
 const FloatingWhatsApp: React.FC = () => {
-  const { t } = useTranslation();
   const pathname = usePathname();
 
   // Determine context based on current page path
@@ -74,7 +72,7 @@ const FloatingWhatsApp: React.FC = () => {
         <div className="max-w-0 group-hover:max-w-xs transition-[max-width] duration-500 ease-in-out whitespace-nowrap overflow-hidden">
           <div className="flex flex-col leading-tight pl-1">
             <span className="font-display font-bold text-sm text-white">
-              {t('nav.contact') || 'Hablemos'}
+              Hablemos
             </span>
             <span className="text-[10px] text-white/90 font-medium">
               Respuesta inmediata

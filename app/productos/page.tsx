@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight, Calendar, TrendingUp, CheckCircle, XCircle } from 'lucide-react';
 import { PricingPlan } from '@/types';
 import SEO from '@/components/SEO';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
@@ -22,8 +21,6 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 );
 
 const Products: React.FC = () => {
-  const { t } = useTranslation();
-
   const WHATSAPP_NUMBER = '593964065880';
   const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
@@ -43,28 +40,28 @@ const Products: React.FC = () => {
   const independentServices: PricingPlan[] = [
     {
       id: 'cms',
-      name: t('products.plan_1_title'),
+      name: 'Panel Web + Alojamiento',
       price: "$20",
       period: '/mes',
-      features: [t('products.plan_1_feat_1'), t('products.plan_1_feat_2'), t('products.plan_1_feat_3'), t('products.plan_1_feat_4')],
-      cta: t('products.plan_1_cta')
+      features: ['Blog optimizado para Google', 'Alojamiento ultra rápido', 'Candado de seguridad incluido', 'Soporte técnico'],
+      cta: 'WhatsApp: Configuro $20/mes'
     },
     {
       id: 'chatbot',
-      name: t('products.plan_2_title'),
+      name: 'Asistente Virtual WhatsApp',
       price: "$20",
       period: '/mes',
-      features: [t('products.plan_2_feat_1'), t('products.plan_2_feat_2'), t('products.plan_2_feat_3'), t('products.plan_2_feat_4')],
-      cta: t('products.plan_2_cta'),
+      features: ['500 Conversaciones/mes', 'Ventas automáticas 24/7', 'Agenda citas solo', 'Integrado a tu WhatsApp'],
+      cta: 'WhatsApp: Configuro $20/mes',
       highlighted: true
     },
     {
       id: 'erp',
-      name: t('products.plan_3_title'),
+      name: 'Sistema de Gestión',
       price: "$20",
       period: '/mes',
-      features: [t('products.plan_3_feat_1'), t('products.plan_3_feat_2'), t('products.plan_3_feat_3'), t('products.plan_3_feat_4')],
-      cta: t('products.plan_3_cta')
+      features: ['Control de inventario', 'Registro de clientes', 'Facturación electrónica SRI', 'Copias de seguridad diarias'],
+      cta: 'WhatsApp: Configuro $20/mes'
     }
   ];
 
@@ -224,10 +221,10 @@ const Products: React.FC = () => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-puka-red/10 blur-[100px] -z-10"></div>
           <div className="relative z-10">
             <h1 className="font-display font-bold text-4xl md:text-6xl mb-6 tracking-tight">
-              {t('products.hero_h1')}
+              GESTIONA TU NEGOCIO EN 1 PANEL
             </h1>
             <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              {t('products.hero_desc')}
+              Web + Chatbot IA + ERP por $60/mes (o $20 cada uno). Libertad total post-graduaci&oacute;n. Elige solo lo que usas.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -236,19 +233,19 @@ const Products: React.FC = () => {
                 className="bg-[#25D366] text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-[#20bd5c] transition-colors flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <WhatsAppIcon size={24} className="fill-current" />
-                {t('products.cta_wa')}
+                Hablar por WhatsApp: &iquest;Qu&eacute; m&oacute;dulo necesito?
               </button>
               <Link
                 href="/demos"
                 className="bg-white text-puka-black border-2 border-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-100 transition-colors w-full sm:w-auto text-center"
               >
-                {t('products.cta_demos')}
+                Ver Demos en Acci&oacute;n
               </Link>
             </div>
 
             <div className="flex items-center justify-center gap-2 text-sm font-bold text-puka-red uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              {t('products.indicator_trial')}
+              2 cupos para prueba gratis 30 d&iacute;as
             </div>
           </div>
         </div>
@@ -263,19 +260,19 @@ const Products: React.FC = () => {
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
                 <Zap className="text-puka-black" size={24} />
               </div>
-              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.web_title')}</h2>
+              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">M&oacute;dulo 1: Panel de Administraci&oacute;n + Posicionamiento</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                {t('products.web_desc')}
+                Mant&eacute;n tu p&aacute;gina web ultra r&aacute;pida. Incluye tu perfil optimizado en Google Maps para que aparezcas cuando te busquen.
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_1')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Alojamiento Web + Perfil en Google Maps
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_2')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Panel f&aacute;cil para actualizar tu Blog
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.web_feat_3')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Apareces destacado en b&uacute;squedas de Google
                 </li>
               </ul>
             </div>
@@ -289,19 +286,19 @@ const Products: React.FC = () => {
               <div className="bg-puka-beige inline-flex p-3 rounded-full mb-6">
                 <Server className="text-puka-black" size={24} />
               </div>
-              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">{t('products.erp_title')}</h2>
+              <h2 className="font-bold text-2xl mb-2 text-puka-black dark:text-white">M&oacute;dulo 2: Sistema de Gesti&oacute;n Completo</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                {t('products.erp_desc')}
+                El cerebro de tu negocio. Tus datos seguros en internet, accesibles desde cualquier dispositivo.
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_1')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Tus datos seguros y respaldados
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_2')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Control de inventario en tiempo real
                 </li>
                 <li className="flex gap-3 text-sm text-gray-700 dark:text-gray-400 font-medium">
-                  <Check size={18} className="text-green-600 shrink-0" /> {t('products.erp_feat_3')}
+                  <Check size={18} className="text-green-600 shrink-0" /> Reportes autom&aacute;ticos de ventas y finanzas
                 </li>
               </ul>
             </div>
@@ -310,7 +307,7 @@ const Products: React.FC = () => {
 
         {/* A LA CARTE PRICING (PHASE 2) */}
         <div className="mb-24">
-          <h2 className="font-display font-bold text-3xl mb-4 text-center text-puka-black dark:text-white">{t('products.menu_title')}</h2>
+          <h2 className="font-display font-bold text-3xl mb-4 text-center text-puka-black dark:text-white">Men&uacute; &ldquo;A la Carta&rdquo; (Post-Graduaci&oacute;n)</h2>
           <p className="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12">
             Elige solo lo que necesitas. Sin paquetes forzados.
           </p>
@@ -330,7 +327,7 @@ const Products: React.FC = () => {
               >
                 {plan.highlighted && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-puka-red text-white text-xs font-bold uppercase py-1 px-3 rounded-sm shadow-sm">
-                    {t('products.plan_2_badge')}
+                    Esencial
                   </div>
                 )}
                 <h3 className="font-bold text-xl mb-2 text-puka-black dark:text-white">{plan.name}</h3>
@@ -374,19 +371,19 @@ const Products: React.FC = () => {
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-puka-red px-4 py-2 rounded-full mb-6 shadow-lg">
                   <Bot className="text-white" size={20} />
-                  <span className="font-bold text-sm text-white">{t('products.ia_badge')}</span>
+                  <span className="font-bold text-sm text-white">Crece Contigo</span>
                 </div>
-                <h2 className="font-display font-bold text-3xl mb-6 text-white">{t('products.chatbot_section_title')}</h2>
+                <h2 className="font-display font-bold text-3xl mb-6 text-white">Tu Asistente Virtual Crece Contigo</h2>
                 <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-                  {t('products.chatbot_section_desc')}
+                  El asistente virtual tiene costos reales (procesas conversaciones). Nuestro precio es transparente: solo sube si tus ventas suben.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Tier 1 */}
                   <div className="bg-white/5 border border-white/10 p-6 rounded-sm hover:border-puka-red transition-all group">
                     <span className="text-puka-red font-bold text-xs uppercase tracking-widest mb-2 block">Nivel 1</span>
-                    <h3 className="font-bold text-xl mb-1 text-white">{t('products.chatbot_tier_1')}</h3>
-                    <p className="text-xs text-gray-400 mb-4">{t('products.chatbot_tier_1_desc')}</p>
+                    <h3 className="font-bold text-xl mb-1 text-white">Nivel Emprendedor</h3>
+                    <p className="text-xs text-gray-400 mb-4">Ideal para empezar. Cubre la mayor&iacute;a de negocios locales.</p>
                     <div className="text-2xl font-bold text-white mb-4">
                       $20<span className="text-xs text-gray-400 font-normal">/mes</span>
                     </div>
@@ -399,8 +396,8 @@ const Products: React.FC = () => {
                   {/* Tier 2 */}
                   <div className="bg-white/10 border-2 border-puka-red/50 p-6 rounded-sm scale-105 shadow-2xl z-10">
                     <span className="bg-puka-red text-white font-bold text-[8px] px-2 py-0.5 uppercase tracking-widest mb-2 inline-block">Más Popular</span>
-                    <h3 className="font-bold text-xl mb-1 text-white">{t('products.chatbot_tier_2')}</h3>
-                    <p className="text-xs text-gray-400 mb-4">{t('products.chatbot_tier_2_desc')}</p>
+                    <h3 className="font-bold text-xl mb-1 text-white">Nivel Crecimiento</h3>
+                    <p className="text-xs text-gray-400 mb-4">Para negocios con alto tr&aacute;fico o campa&ntilde;as activas.</p>
                     <div className="text-2xl font-bold text-white mb-4">
                       $50<span className="text-xs text-gray-400 font-normal">/mes</span>
                     </div>
@@ -413,8 +410,8 @@ const Products: React.FC = () => {
                   {/* Tier 3 */}
                   <div className="bg-white/5 border border-white/10 p-6 rounded-sm hover:border-puka-red transition-all">
                     <span className="text-puka-red font-bold text-xs uppercase tracking-widest mb-2 block">Nivel 3</span>
-                    <h3 className="font-bold text-xl mb-1 text-white">{t('products.chatbot_tier_3')}</h3>
-                    <p className="text-xs text-gray-400 mb-4">{t('products.chatbot_tier_3_desc')}</p>
+                    <h3 className="font-bold text-xl mb-1 text-white">Nivel Empresarial</h3>
+                    <p className="text-xs text-gray-400 mb-4">Configuraciones a medida y alto volumen.</p>
                     <div className="text-2xl font-bold text-white mb-4">
                       $150+<span className="text-xs text-gray-400 font-normal">/mes</span>
                     </div>
@@ -429,7 +426,7 @@ const Products: React.FC = () => {
               {/* Visual Side */}
               <div className="flex-1 w-full flex flex-col items-center justify-center bg-white/5 p-8 rounded-sm border border-white/10">
                 <BarChart3 className="text-puka-red mb-6" size={80} />
-                <h4 className="font-bold text-xl mb-2">{t('products.chatbot_metrics')}</h4>
+                <h4 className="font-bold text-xl mb-2">Ver ejemplos reales en la secci&oacute;n de Demos</h4>
                 <p className="text-center text-gray-400 text-sm mb-6 max-w-xs">
                   Mira cómo el chatbot responde, vende y agenda citas en tiempo real.
                 </p>
@@ -437,7 +434,7 @@ const Products: React.FC = () => {
                   href="/demos"
                   className="bg-white text-black px-8 py-3 rounded-sm font-bold hover:bg-gray-200 transition-colors flex items-center gap-2"
                 >
-                  {t('products.chatbot_cta')} <Zap size={16} className="text-puka-red fill-current" />
+                  Ir a Demos <Zap size={16} className="text-puka-red fill-current" />
                 </Link>
               </div>
             </div>
@@ -522,19 +519,19 @@ const Products: React.FC = () => {
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="flex-1">
                 <div className="bg-puka-red text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest inline-block mb-6">Beta Cerrada</div>
-                <h2 className="font-display font-bold text-4xl mb-6">{t('products.specialized_title')}</h2>
+                <h2 className="font-display font-bold text-4xl mb-6">Sistemas Especializados (Beta)</h2>
                 <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                  {t('products.specialized_desc')}
+                  Construimos herramientas a medida para industrias espec&iacute;ficas. Disponibles solo para aliados del programa.
                 </p>
                 <div className="p-6 bg-white/5 border border-white/10 rounded-sm hover:border-puka-red transition-all">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-puka-red/20 p-3 rounded-sm">
                       <Calendar style={{ color: '#c7171e' }} size={24} />
                     </div>
-                    <h3 className="font-bold text-xl">{t('products.medical_title')}</h3>
+                    <h3 className="font-bold text-xl">Gesti&oacute;n de Citas M&eacute;dicas</h3>
                   </div>
                   <p className="text-gray-400 mb-6">
-                    {t('products.medical_desc')}
+                    Agenda inteligente, recordatorios autom&aacute;ticos y fichas de pacientes. En desarrollo con PodoclinicEC.
                   </p>
                   <Link href="/contacto" className="text-puka-red font-bold flex items-center gap-2 hover:gap-3 transition-all">
                     Postular como Early Adopter <ArrowRight size={18} />

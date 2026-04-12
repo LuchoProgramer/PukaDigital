@@ -7,7 +7,6 @@ import { Menu, X, Moon, Sun } from 'lucide-react';
 import Image from 'next/image';
 import { NavItem } from '@/types';
 import { useTheme } from '@/lib/theme';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 const navGlass = {
@@ -43,8 +42,6 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const { t } = useTranslation();
-
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -61,13 +58,13 @@ const Navbar: React.FC = () => {
   };
 
   const navItems: NavItem[] = [
-    { label: t('nav.method'), path: '/' },
-    { label: t('nav.products'), path: '/productos' },
-    { label: t('nav.cases'), path: '/casos' },
-    { label: t('nav.blog'), path: '/blog' },
-    { label: t('nav.demos'), path: '/demos' },
-    { label: t('nav.about'), path: '/nosotros' },
-    { label: t('nav.contact'), path: '/contacto' },
+    { label: 'El Método', path: '/' },
+    { label: 'El Programa', path: '/productos' },
+    { label: 'Casos de Éxito', path: '/casos' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Demos', path: '/demos' },
+    { label: 'Nosotros', path: '/nosotros' },
+    { label: 'Contacto', path: '/contacto' },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -133,7 +130,7 @@ const Navbar: React.FC = () => {
               >
                 <span className="text-sm tracking-wider">🔴🔴🔴🟢🟢</span>
                 <span className="text-xs font-bold" style={{ color: '#C7171E' }}>
-                  {t('nav.slots_badge')} {t('nav.slots_available')}
+                  2 cupos disponibles
                 </span>
               </div>
 
@@ -152,7 +149,7 @@ const Navbar: React.FC = () => {
               href="/contacto"
               className="bg-puka-red text-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-red-700 transition-colors shadow-sm shadow-puka-red/20"
             >
-              {t('nav.cta')}
+              Aplicar
             </Link>
           </div>
 
@@ -202,7 +199,7 @@ const Navbar: React.FC = () => {
             onClick={() => setIsOpen(false)}
             className="bg-puka-red text-white text-center py-4 rounded-lg font-bold mt-4"
           >
-            {t('nav.start')}
+            Empieza Ahora
           </Link>
         </div>
       )}

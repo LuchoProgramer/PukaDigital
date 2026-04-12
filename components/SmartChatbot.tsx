@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, X, MessageCircle, Phone, Minimize2, Maximize2, ExternalLink, Bot, Paperclip, MoreVertical, Smile, CheckCheck, Sparkles } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -28,7 +27,6 @@ interface Message {
 }
 
 const SmartChatbot: React.FC = () => {
-    const { t, language } = useTranslation();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -58,7 +56,7 @@ const SmartChatbot: React.FC = () => {
                 }
             ]);
         }
-    }, [language]);
+    }, []);
 
     const getCurrentTime = () => {
         return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });

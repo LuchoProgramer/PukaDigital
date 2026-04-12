@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle2, Loader2, ArrowRight, Sparkles, MessageCircle, AlertCircle, Phone, Building2, User, Mail } from 'lucide-react';
 import * as ga from '@/lib/analytics';
-import { useTranslation } from '@/lib/i18n';
 
 // WhatsApp number for fallback
 const WHATSAPP_NUMBER = '593964065880';
@@ -12,8 +11,6 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   className = "",
   title
 }) => {
-  const { t } = useTranslation();
-
   // Form state
   const [businessName, setBusinessName] = useState('');
   const [userName, setUserName] = useState('');
@@ -27,8 +24,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  // Use prop title if provided, otherwise fallback to translated default title
-  const displayTitle = title || t('form.title');
+  const displayTitle = title || 'Aplica al Programa de Independencia';
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -269,7 +265,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
       <div className="bg-orange-50 border border-orange-100 p-3 rounded-sm mb-6 flex gap-2 items-start">
         <div className="w-2 h-2 rounded-full bg-orange-500 mt-2 shrink-0 animate-pulse" />
         <p className="text-xs text-orange-800 font-medium leading-tight">
-          {t('form.scarcity')}
+          Aceptamos m&aacute;ximo 5 negocios nuevos este mes para garantizar la calidad de la educaci&oacute;n personalizada.
         </p>
       </div>
 
@@ -282,7 +278,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
             }`}>
             <span className="flex items-center gap-1">
               <Building2 size={focusedField === 'businessName' || businessName ? 10 : 14} />
-              {t('form.business_name')}
+              Nombre de tu Negocio
             </span>
           </div>
           <input
@@ -313,7 +309,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
               }`}>
               <span className="flex items-center gap-1">
                 <User size={focusedField === 'userName' || userName ? 10 : 14} />
-                {t('form.your_name')}
+                Tu Nombre
               </span>
             </div>
             <input
@@ -343,7 +339,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
               }`}>
               <span className="flex items-center gap-1">
                 <Mail size={focusedField === 'email' || email ? 10 : 14} />
-                {t('form.email')}
+                Correo Electr&oacute;nico
               </span>
             </div>
             <input
@@ -379,7 +375,7 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
             }`}>
             <span className="flex items-center gap-1">
               <Phone size={focusedField === 'whatsapp' || whatsapp ? 10 : 14} />
-              {t('form.whatsapp')}
+              WhatsApp
             </span>
           </div>
           <input
@@ -408,17 +404,17 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t('form.challenge')}</label>
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">&iquest;Qu&eacute; te impide crecer hoy?</label>
           <select
             value={growthBlocker}
             onChange={(e) => setGrowthBlocker(e.target.value)}
             className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-puka-red focus:bg-white transition-colors text-gray-700"
           >
-            <option value="">{t('form.challenge_opt_1')}</option>
-            <option value="no_web">{t('form.challenge_opt_2')}</option>
-            <option value="no_clients">{t('form.challenge_opt_3')}</option>
-            <option value="no_time">{t('form.challenge_opt_4')}</option>
-            <option value="other">{t('form.challenge_opt_5')}</option>
+            <option value="">Siento que tiro dinero en publicidad</option>
+            <option value="no_web">Las agencias son muy caras</option>
+            <option value="no_clients">No tengo tiempo para gestionar todo</option>
+            <option value="no_time">Tengo web pero no vende nada</option>
+            <option value="other">Quiero empezar desde cero bien</option>
           </select>
         </div>
 
@@ -458,16 +454,16 @@ const LeadForm: React.FC<{ className?: string, title?: string }> = ({
             </>
           ) : (
             <>
-              {t('form.submit')}
+              Solicitar Entrevista Gratis
               <ArrowRight size={18} className={isFormValid ? 'animate-[pulse_2s_infinite]' : ''} />
             </>
           )}
         </button>
 
         <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 uppercase tracking-wide">
-          <CheckCircle2 size={12} className="text-green-500" /> {t('form.no_commitment')}
+          <CheckCircle2 size={12} className="text-green-500" /> Sin compromiso
           <span className="text-gray-300">|</span>
-          <CheckCircle2 size={12} className="text-green-500" /> {t('form.secure_data')}
+          <CheckCircle2 size={12} className="text-green-500" /> Datos 100% Seguros
         </div>
       </form>
     </div>

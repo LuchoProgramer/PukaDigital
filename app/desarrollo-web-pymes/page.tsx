@@ -17,10 +17,8 @@ import {
   BarChart4
 } from 'lucide-react';
 import SEO from '@/components/SEO';
-import { useTranslation } from '@/lib/i18n';
 
 export default function DesarrolloWebPage() {
-  const { t } = useTranslation();
   const [visitasMensuales, setVisitasMensuales] = useState(500);
   const [tasaConversion, setTasaConversion] = useState(2);
 

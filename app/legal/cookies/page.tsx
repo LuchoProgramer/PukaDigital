@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Cookie, CheckCircle } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
 
 const CookiesPage = () => {
     return (

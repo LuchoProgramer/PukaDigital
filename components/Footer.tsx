@@ -4,12 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Users, HelpCircle, DollarSign } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
 import { allies } from '@/data/allies';
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
-  const { t } = useTranslation();
 
   const totalSlots = 5;
   const activeAlliesCount = allies.filter(a => a.status !== 'graduated').length;
@@ -41,7 +39,7 @@ const Footer: React.FC = () => {
         {/* Slots Counter */}
         <div className="mb-16 text-center pb-16" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
           <h4 className="font-display font-bold text-lg mb-4" style={{ color: '#6B7280' }}>
-            {t('footer.slots_title')}
+            Cupos Disponibles
           </h4>
           <div className="flex justify-center items-center gap-2 mb-3">
             {Array.from({ length: activeAlliesCount }).map((_, i) => (
@@ -62,8 +60,8 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <p className="text-sm" style={{ color: '#9CA3AF' }}>
-            <span className="text-puka-red font-bold">{activeAlliesCount}</span> {t('footer.slots_occupied')} ·
-            <span className="text-green-500 font-bold ml-1">{availableSlots}</span> {t('footer.slots_available')}
+            <span className="text-puka-red font-bold">{activeAlliesCount}</span> ocupados &middot;
+            <span className="text-green-500 font-bold ml-1">{availableSlots}</span> disponibles
           </p>
         </div>
 
@@ -83,18 +81,18 @@ const Footer: React.FC = () => {
           {/* Sitemap Column */}
           <div>
             <h4 className="font-display font-bold text-lg mb-6 inline-block pb-2" style={{ color: '#374151', borderBottom: '1px solid rgba(0,0,0,0.10)' }}>
-              {t('footer.nav_title')}
+              Navegaci&oacute;n
             </h4>
             <ul className="space-y-2">
               {[
-                { href: '/', icon: Home, label: t('nav.method') },
-                { href: '/productos', icon: Package, label: t('nav.products') },
-                { href: '/blog', icon: FileText, label: t('nav.blog') },
-                { href: '/demos', icon: PlayCircle, label: t('nav.demos') },
-                { href: '/nosotros', icon: Users, label: t('nav.about') },
-                { href: '/preguntas-frecuentes', icon: HelpCircle, label: t('nav.faq') },
-                { href: '/contacto', icon: Mail, label: t('nav.contact') },
-                { href: '/cuanto-cuesta-publicidad-google-ecuador', icon: DollarSign, label: t('nav.google_price_guide') },
+                { href: '/', icon: Home, label: 'El Método' },
+                { href: '/productos', icon: Package, label: 'El Programa' },
+                { href: '/blog', icon: FileText, label: 'Blog' },
+                { href: '/demos', icon: PlayCircle, label: 'Demos' },
+                { href: '/nosotros', icon: Users, label: 'Nosotros' },
+                { href: '/preguntas-frecuentes', icon: HelpCircle, label: 'Preguntas Frecuentes' },
+                { href: '/contacto', icon: Mail, label: 'Contacto' },
+                { href: '/cuanto-cuesta-publicidad-google-ecuador', icon: DollarSign, label: 'Guía de Precios Google' },
               ].map(({ href, icon: Icon, label }) => (
                 <li key={href}>
                   <Link href={href} className="group flex items-center gap-3 p-2 -mx-2 rounded-lg hover:bg-black/[0.03] transition-all duration-300" style={{ color: '#6B7280' }}>
@@ -115,7 +113,7 @@ const Footer: React.FC = () => {
           {/* Legal Column */}
           <div>
             <h4 className="font-display font-bold text-lg mb-6 inline-block pb-2" style={{ color: '#374151', borderBottom: '1px solid rgba(0,0,0,0.10)' }}>
-              {t('footer.legal_title')}
+              Legal
             </h4>
             <ul className="space-y-2">
               <li>
@@ -147,9 +145,9 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs" style={{ borderTop: '1px solid rgba(0,0,0,0.06)', color: '#9CA3AF' }}>
-          <p>&copy; {new Date().getFullYear()} PukaDigital S.A.C. {t('footer.rights')}</p>
+          <p>&copy; {new Date().getFullYear()} PukaDigital S.A.C. Todos los derechos reservados.</p>
           <div className="flex gap-4">
-            <span>{t('footer.made_in')}</span>
+            <span>Hecho con dignidad en Ecuador 🇪🇨</span>
           </div>
         </div>
       </div>

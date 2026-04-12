@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Clock, Rocket, ExternalLink, Search, Star } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { useTranslation } from '@/lib/i18n';
 import * as ga from '@/lib/analytics';
 
 import { allies } from '@/data/allies';
@@ -25,7 +24,6 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 
 const CasosPage = () => {
   const cases = allies;
-  const { t } = useTranslation();
 
   const completedCases = cases.filter(c => c.status === 'graduated' || c.status === 'completed');
   const inProgressCases = cases.filter(c => c.status === 'in-progress');
@@ -67,14 +65,14 @@ const CasosPage = () => {
             </span>
           </div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
-            {t('cases.hero_h1')}
+            &iquest;Quieres Resultados Reales Como &Eacute;stos?
           </h1>
           <div className="text-xl md:text-2xl mb-10 text-gray-400 max-w-2xl mx-auto space-y-2">
             <p className="flex items-center justify-center gap-2">
-              <CheckCircle size={20} className="text-puka-red" /> {t('cases.hero_desc_top')}
+              <CheckCircle size={20} className="text-puka-red" /> PodoclinicEC: De 3 a 15 rese&ntilde;as Google &bull; 33 conv/mes
             </p>
             <p className="flex items-center justify-center gap-2">
-              <CheckCircle size={20} className="text-puka-red" /> {t('cases.hero_desc_bottom')}
+              <CheckCircle size={20} className="text-puka-red" /> HealppyPets: Mes 2 Ads activas &bull; 2 cupos para tu transformaci&oacute;n
             </p>
           </div>
 
@@ -84,18 +82,18 @@ const CasosPage = () => {
               className="bg-[#25D366] text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-[#20bd5c] transition-colors flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto"
             >
               <WhatsAppIcon size={24} className="fill-current" />
-              {t('cases.cta_wa_main')}
+              WhatsApp: Quiero resultados como Cristina
             </button>
             <button
               onClick={() => handleWhatsAppClick('cases_hero_secondary', 'Hola, me gustaría mi diagnóstico gratuito para empezar el programa.')}
               className="bg-white text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-100 transition-colors w-full sm:w-auto text-center"
             >
-              {t('cases.cta_wa_diag')}
+              Ver mi diagn&oacute;stico gratis
             </button>
           </div>
 
           <p className="mt-8 text-sm font-bold text-puka-red uppercase tracking-widest animate-pulse">
-            🔥 {t('cases.indicator_slots')}
+            🔥 2 cupos para tu transformaci&oacute;n
           </p>
         </div>
       </section>
@@ -176,7 +174,7 @@ const CasosPage = () => {
                       className="bg-[#25D366] text-white px-6 py-3 rounded-sm font-bold hover:bg-[#20bd5c] transition-colors inline-flex items-center gap-2 shadow-lg"
                     >
                       <WhatsAppIcon size={20} />
-                      {t('cases.card_wa_results')} {caso.clientName.split(' ')[0]}
+                      Quiero resultados como {caso.clientName.split(' ')[0]}
                     </button>
                     <Link
                       href={`/casos/${caso.slug}`}
