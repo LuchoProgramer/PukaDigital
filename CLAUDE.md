@@ -35,11 +35,7 @@ Guía de contexto para Claude Code al trabajar en este repositorio.
 | Agencia | Sin precio visible | Cotización directa |
 | Desarrollo web | Sin precio visible | Cotización directa |
 
-**Redirects activos** (no crear páginas en estas rutas — ya existen 301 en `next.config.ts`):
-- `/inventario` → `/ledgerxpertz`
-- `/sistema-inventario` → `/ledgerxpertz`
-- `/sistema-erp-cloud` → `/ledgerxpertz`
-- `/sistema` → `/ledgerxpertz`
+**Redirects activos:** Ninguno. `next.config.ts` está limpio — solo configuración de imágenes. Decisión tomada el 2026-04-12: empezar de cero sin deuda técnica de redirects. Google desindexará las URLs antiguas en 4-8 semanas de forma natural.
 
 ---
 
@@ -186,7 +182,7 @@ El navbar embebido en las landings usa clases Tailwind para ocultar elementos en
 |---|---|
 | `public/robots.txt` | Permite crawlers de IA (no modificar sin revisar GEO_LLM_VISIBILITY.md) |
 | `public/llms.txt` | Mapa del sitio para LLMs — actualizar con cada producto nuevo |
-| `next.config.ts` | Redirects 301 permanentes |
+| `next.config.ts` | Solo configuración de imágenes — sin redirects (limpiado 2026-04-12) |
 | `app/sitemap.ts` | Sitemap dinámico — añadir/quitar rutas aquí |
 | `lib/analytics.ts` | Tracking de eventos GA — `trackWhatsAppDirectoClick` |
 | `components/ConditionalShell.tsx` | Oculta Navbar/Footer en landings standalone — añadir rutas a `STANDALONE_ROUTES` |
@@ -257,13 +253,26 @@ keywords: [
 ],
 ```
 
-### Tareas SEO pendientes
+### Auditoría SEO técnica — 2026-04-12 (commit 159125b)
 
-- [ ] **`/agentes-ia/layout.tsx`:** Agregar keywords de "crm" (ver lista arriba). Actualizar `title` y `description` para mencionar "CRM con agentes IA"
-- [ ] **`/agentes-ia/page.tsx`:** Agregar preguntas FAQ sobre CRM (`¿Qué es un CRM para WhatsApp?`, `¿Cuánto cuesta un CRM para WhatsApp en Ecuador?`)
-- [ ] **`/desarrollo-web-pymes/layout.tsx`:** Corregir `keywords` de `string` a `string[]`
-- [ ] **`app/layout.tsx`:** Reducir keywords a las 10-15 más representativas del sitio, evitar dispersión
-- [ ] **`/agencia/layout.tsx`:** Ampliar a al menos 10-15 keywords de marketing digital Ecuador
+Todo resuelto en sesión del 2026-04-12:
+
+- [x] `/agentes-ia/layout.tsx` — reposicionado como CRM con IA: nuevo title, description, 12 keywords CRM, 2 FAQs nuevas con precios en schema
+- [x] `/desarrollo-web-pymes/layout.tsx` — keywords corregidas de `string` a `string[]`
+- [x] `app/layout.tsx` — keywords reducidas de 40+ a 10 focalizadas
+- [x] `/agencia/layout.tsx` — keywords ampliadas de 6 a 14
+- [x] `app/sistema-emprendedor/` — ruta eliminada (página muerta)
+- [x] `app/sitemap.ts` — rutas 301 removidas del sitemap
+- [x] `next.config.ts` — todos los redirects eliminados (decisión: empezar limpio)
+- [x] `app/gracias/layout.tsx` — creado con `noindex`
+
+### Tareas SEO pendientes (próxima sesión)
+
+- [ ] **`www.` vs no-`www.`** — resolver en Vercel Dashboard: configurar `www.pukadigital.com` para que redirija a `pukadigital.com`. Actualmente Google ve dos sitios distintos, dividiendo la autoridad. GSC muestra impresiones en ambas variantes.
+- [ ] **Blog "por-que-me-bloquearon-whatsapp-business"** — cambiar Meta Title a: `"Me Bloquearon WhatsApp Business: Cómo Recuperarlo en 2026 (Guía)"`. Tiene 141 impresiones en pos 6.52 con solo 2.84% CTR — debería ser 8-12%.
+- [ ] **Blog "cuanto-cuesta-pagina-web-ecuador"** — ampliar contenido: tabla de precios 2026, comparativa por tipo de web (landing, corporativo, e-commerce), FAQ con precios concretos. Tiene 76 impresiones en pos 9.25 con 0% CTR.
+- [ ] **GSC: solicitar re-indexación manual** de `/agentes-ia` y `/blog/cuanto-cuesta-pagina-web-ecuador` desde Google Search Console para acelerar actualización de URLs viejas.
+- [ ] **`lib/i18n` + `LanguageProvider`** — refactor pendiente: eliminar sistema i18n residual del root layout y reemplazar los 73 llamados a `t()` en 12 páginas por strings en español hardcodeados. No causa daño SEO pero aumenta el bundle innecesariamente. Páginas afectadas: `nosotros`, `gracias`, `contacto`, `casos`, `cuanto-cuesta-publicidad-google-ecuador`, `productos`, `legal/garantia`, `legal/terminos`, `legal/cookies`, `demos`, `desarrollo-web-pymes`.
 
 ---
 
