@@ -75,10 +75,10 @@ export const metadata: Metadata = {
     siteName: 'PukaDigital',
     images: [
       {
-        url: '/pegaso-rojo-512x512.svg',
-        width: 512,
-        height: 512,
-        alt: 'PukaDigital Logo',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador',
       },
     ],
   },
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador",
     description: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
-    images: ['/pegaso-rojo-512x512.svg'],
+    images: ['/og-image.png'],
     creator: '@pukadigital',
   },
   robots: {
