@@ -266,13 +266,18 @@ Todo resuelto en sesión del 2026-04-12:
 - [x] `next.config.ts` — todos los redirects eliminados (decisión: empezar limpio)
 - [x] `app/gracias/layout.tsx` — creado con `noindex`
 
+### Auditoría SEO 2026-04-12 — sesión 2 (todo resuelto)
+
+- [x] **`www.` vs no-`www.`** — configurado en Vercel Dashboard: `www.pukadigital.com` redirige a `pukadigital.com`
+- [x] **Blog "por-que-me-bloquearon-whatsapp-business"** — Meta Title actualizado a `"Me Bloquearon WhatsApp Business: Cómo Recuperarlo en 2026 (Guía)"` desde pukapresscms.vercel.app
+- [x] **Blog "cuanto-cuesta-pagina-web-ecuador"** — ampliado en `data/localPosts.ts`: tabla precios 2026 por tipo de web, FAQ expandida de 5 a 10 preguntas, `metaTitle`/`metaDescription`/`tags` añadidos
+- [x] **GSC: re-indexación manual** solicitada para `/agentes-ia` y `/blog/cuanto-cuesta-pagina-web-ecuador`
+- [x] **GSC: URLs fantasma eliminadas** — solicitudes de eliminación enviadas para prefijos `/es`, `/en`, `/pt` (bloqueo temporal ~6 meses, sin afectar páginas reales)
+- [x] **pukapress-cms `ModernBlogEdit`** — agregados campos `metaTitle` y `metaDescription` en formulario de edición (commit `5992f80`)
+
 ### Tareas SEO pendientes (próxima sesión)
 
-- [ ] **`www.` vs no-`www.`** — resolver en Vercel Dashboard: configurar `www.pukadigital.com` para que redirija a `pukadigital.com`. Actualmente Google ve dos sitios distintos, dividiendo la autoridad. GSC muestra impresiones en ambas variantes.
-- [ ] **Blog "por-que-me-bloquearon-whatsapp-business"** — cambiar Meta Title a: `"Me Bloquearon WhatsApp Business: Cómo Recuperarlo en 2026 (Guía)"`. Tiene 141 impresiones en pos 6.52 con solo 2.84% CTR — debería ser 8-12%.
-- [ ] **Blog "cuanto-cuesta-pagina-web-ecuador"** — ampliar contenido: tabla de precios 2026, comparativa por tipo de web (landing, corporativo, e-commerce), FAQ con precios concretos. Tiene 76 impresiones en pos 9.25 con 0% CTR.
-- [ ] **GSC: solicitar re-indexación manual** de `/agentes-ia` y `/blog/cuanto-cuesta-pagina-web-ecuador` desde Google Search Console para acelerar actualización de URLs viejas.
-- [ ] **`lib/i18n` + `LanguageProvider`** — refactor pendiente: eliminar sistema i18n residual del root layout y reemplazar los 73 llamados a `t()` en 12 páginas por strings en español hardcodeados. No causa daño SEO pero aumenta el bundle innecesariamente. Páginas afectadas: `nosotros`, `gracias`, `contacto`, `casos`, `cuanto-cuesta-publicidad-google-ecuador`, `productos`, `legal/garantia`, `legal/terminos`, `legal/cookies`, `demos`, `desarrollo-web-pymes`.
+- [ ] **`lib/i18n` + `LanguageProvider`** — refactor de baja prioridad: 73 llamados a `t()` en 4 páginas (`productos`, `demos`, `contacto`, `casos`). No causa daño SEO. El sistema siempre estuvo hardcodeado a español — nunca generó rutas `/es/` ni `/en/`. Bundle impact mínimo (~2KB comprimido).
 
 ---
 
