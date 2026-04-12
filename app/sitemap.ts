@@ -24,10 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productPages = [
     { path: '/agencia', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/agentes-ia', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/chatbot', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/salud', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/desarrollo-web-pymes', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/sistema-emprendedor', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/ledgerxpertz', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/pukahealth', priority: 0.9, changeFreq: 'weekly' as const },
   ];

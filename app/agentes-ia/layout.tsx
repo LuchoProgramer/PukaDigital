@@ -1,23 +1,32 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'WhatsApp API Business con IA: Automatiza tus Ventas | PukaIA',
-  description: 'Conecta la API de WhatsApp a Inteligencia Artificial sin saber programar. Chatbots con IA que atienden 24/7. Obtén tus primeras 300 interacciones GRATIS.',
+  title: 'PukaIA: CRM con Agentes IA para WhatsApp Business | Desde $14.99/mes',
+  description: 'CRM con inteligencia artificial para WhatsApp Business. Inbox centralizado, pipeline Kanban, agendamiento de citas y respuestas 24/7. Alternativa a Mercately desde $14.99/mes. 1 mes gratis.',
   keywords: [
-    'whatsapp api business', 'whatsapp api', 'api de whatsapp', 'whatsapp ia',
-    'chatbots con ia', 'whatsapp api precios', 'alternativa twilio whatsapp',
-    'conectar chatgpt a whatsapp', 'automatizar ventas whatsapp', 'pukaia', 'agencia ia ecuador'
+    'crm para whatsapp business',
+    'crm con inteligencia artificial',
+    'crm con ia para whatsapp',
+    'crm barato para pymes',
+    'crm whatsapp ecuador',
+    'chatbot whatsapp ecuador',
+    'chatbot con inteligencia artificial para whatsapp',
+    'automatizar ventas whatsapp',
+    'alternativa mercately',
+    'alternativa sellerchat',
+    'whatsapp api business',
+    'pukaia',
   ],
   openGraph: {
-    title: 'WhatsApp API Business con IA: Automatiza tus Ventas | PukaIA',
-    description: 'Conecta la API de WhatsApp a Inteligencia Artificial sin saber programar. Chatbots con IA que atienden 24/7. Primeras 300 interacciones gratis.',
+    title: 'PukaIA: CRM con Agentes IA para WhatsApp Business',
+    description: 'CRM con IA para WhatsApp Business. Inbox, pipeline Kanban y respuestas automáticas 24/7. Desde $14.99/mes. Alternativa a Mercately.',
     url: 'https://pukadigital.com/agentes-ia',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WhatsApp API Business con IA | PukaIA Ecuador',
-    description: 'Conecta la API de WhatsApp con IA sin programar. Chatbots que atienden 24/7. 300 interacciones gratis para empezar.',
+    title: 'PukaIA: CRM con IA para WhatsApp | Ecuador',
+    description: 'CRM con agentes IA para WhatsApp Business. Desde $14.99/mes. 1 mes gratis para empezar.',
   },
   alternates: {
     canonical: 'https://pukadigital.com/agentes-ia',
@@ -151,7 +160,23 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "¿Cómo enviar mensajes masivos en WhatsApp y contactar clientes sin agregarlos?",
+      "name": "¿Qué es un CRM para WhatsApp y para qué sirve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un CRM para WhatsApp es una plataforma que centraliza todas las conversaciones de WhatsApp Business en un inbox unificado, organiza los contactos en un pipeline de ventas tipo Kanban y automatiza respuestas con inteligencia artificial. A diferencia de la app normal de WhatsApp, permite que múltiples agentes atiendan desde un solo número, ver el historial completo de cada cliente y medir resultados con reportes. PukaIA es un CRM para WhatsApp con agentes IA integrados, disponible desde $14.99/mes para negocios en Ecuador y LATAM."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cu&aacute;nto cuesta un CRM para WhatsApp en Ecuador?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los CRM para WhatsApp en Ecuador varían ampliamente en precio. Mercately cobra desde $99/mes, Zolutium desde $79/mes y Sellerchat desde $49/mes. PukaIA ofrece CRM con agentes IA integrados desde $14.99/mes (Plan Básico) hasta $60/mes (Plan Business), con 1 mes gratis para empezar. Es la opción más económica del mercado ecuatoriano con inteligencia artificial incluida."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿C&oacute;mo enviar mensajes masivos en WhatsApp y contactar clientes sin agregarlos?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Si buscas cómo enviar mensajes masivos por WhatsApp sin que te bloqueen, debes usar la API de WhatsApp Business. A diferencia de las listas de difusión, aquí no necesitas guardar el contacto en tu teléfono. Sin embargo, Meta exige reglas estrictas contra el spam: todo envío masivo de WhatsApp debe hacerse mediante Plantillas de Mensaje pre-aprobadas. Nosotros te asesoramos en la creación de estas campañas de marketing, gestionamos la aprobación de tus plantillas con Meta y aseguramos que cumplas las normativas. Lo más poderoso: una vez que lanzas la campaña y tu cliente responde, nuestro agente de Inteligencia Artificial toma el control del chat al instante para cerrar la venta."

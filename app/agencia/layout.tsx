@@ -4,8 +4,20 @@ export const metadata: Metadata = {
   title: 'Agencia de Marketing Digital y Desarrollo Web en Ecuador | PukaDigital',
   description: 'Agencia especializada en desarrollo web Next.js y Google Ads de alto rendimiento desde Quito. Tecnología propia, sin contratos, 100% de propiedad del código.',
   keywords: [
-    'agencia marketing digital ecuador', 'desarrollo web quito', 'google ads ecuador',
-    'nextjs ecuador', 'seo tecnico ecuador', 'agencia digital quito'
+    'agencia marketing digital ecuador',
+    'agencia digital quito',
+    'agencia seo ecuador',
+    'google ads ecuador',
+    'google ads quito',
+    'desarrollo web quito',
+    'desarrollo web next.js ecuador',
+    'diseño web profesional ecuador',
+    'cuanto cuesta publicidad google ecuador',
+    'agencia google ads quito',
+    'seo tecnico ecuador',
+    'marketing digital pymes ecuador',
+    'agencia sem ecuador',
+    'paginas web profesionales quito',
   ],
   openGraph: {
     title: 'Agencia de Marketing Digital y Desarrollo Web — PukaDigital',
