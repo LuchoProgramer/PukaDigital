@@ -6,7 +6,7 @@ export const GA_TRACKING_ID = 'G-VSGYR0EJSZ';
 export const GOOGLE_ADS_ID = 'AW-17832260485';
 export const GOOGLE_ADS_LABEL = '4UcUCNio2d4bEIXnirdC';
 
-// Extend Window interface for gtag
+// Extend Window interface for gtag and TikTok Pixel
 declare global {
   interface Window {
     gtag?: (
@@ -14,6 +14,11 @@ declare global {
       targetId: string,
       config?: Record<string, unknown>
     ) => void;
+    ttq?: {
+      track: (event: string, params?: Record<string, unknown>) => void;
+      page: () => void;
+      identify: (params: Record<string, string>) => void;
+    };
   }
 }
 
@@ -314,15 +319,55 @@ export const trackGoogleAdsConversion = (conversionId: string, conversionLabel: 
   }
 };
 
+// ============================================
+// TIKTOK PIXEL EVENTS
+// ============================================
+
+export const trackTikTokViewContent = (
+  contentId: string,
+  contentName: string,
+  value: number = 0,
+  currency: string = 'USD'
+) => {
+  if (typeof window !== 'undefined' && window.ttq) {
+    window.ttq.track('ViewContent', {
+      contents: [{ content_id: contentId, content_type: 'product', content_name: contentName }],
+      value,
+      currency,
+    });
+  }
+};
+
+export const trackTikTokCompleteRegistration = (
+  contentId: string,
+  contentName: string,
+  value: number = 0,
+  currency: string = 'USD'
+) => {
+  if (typeof window !== 'undefined' && window.ttq) {
+    window.ttq.track('CompleteRegistration', {
+      contents: [{ content_id: contentId, content_type: 'product', content_name: contentName }],
+      value,
+      currency,
+    });
+  }
+};
+
 /**
  * 12. WhatsApp Direct Click - HYBRID (Reliable against ad-blockers)
  * Location: Floating button, footer, contact page
  */
 export const trackWhatsAppDirectoClick = async (
-  buttonLocation: string
+  buttonLocation: string,
+  tiktok?: { contentId: string; contentName: string; value?: number }
 ) => {
   // Fire Google Ads Conversion (Primary Goal)
   trackGoogleAdsConversion(GOOGLE_ADS_ID, GOOGLE_ADS_LABEL);
+
+  // Fire TikTok CompleteRegistration if content info provided
+  if (tiktok) {
+    trackTikTokCompleteRegistration(tiktok.contentId, tiktok.contentName, tiktok.value ?? 0);
+  }
 
   return trackConversion('whatsapp_directo_click', {
     button_location: buttonLocation,

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as ga from '@/lib/analytics';
 import {
   CheckCircle,
@@ -17,7 +17,7 @@ import {
 const WA_DEMO_LINK = 'https://wa.me/593984800282?text=Hola%2C%20quiero%20probar%20PukaIA';
 
 const openWA = (location: string) => {
-  ga.trackWhatsAppDirectoClick(location);
+  ga.trackWhatsAppDirectoClick(location, { contentId: 'pukaia', contentName: 'PukaIA - CRM con Agentes IA', value: 14.99 });
   window.open(WA_DEMO_LINK, '_blank', 'noopener,noreferrer');
 };
 
@@ -60,6 +60,10 @@ export default function PukaIAPage() {
   const [mensajesPorDia, setMensajesPorDia] = useState(50);
   const [tiempoRespuesta, setTiempoRespuesta] = useState(5);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  useEffect(() => {
+    ga.trackTikTokViewContent('pukaia', 'PukaIA - CRM con Agentes IA', 14.99);
+  }, []);
 
   const ahorroMensual = (mensajesPorDia * 30 * tiempoRespuesta * 3) / 60;
   const costoHoraEmpleado = 3;

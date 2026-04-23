@@ -1,7 +1,7 @@
 // app/ledgerxpertz/page.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FileText,
   Package,
@@ -184,8 +184,12 @@ const schema = [
 export default function LedgerXpertzPage() {
   const [billing, setBilling] = useState<BillingPeriod>('mensual');
 
+  useEffect(() => {
+    ga.trackTikTokViewContent('ledgerxpertz', 'LedgerXpertz - ERP SaaS para PYMEs', 10);
+  }, []);
+
   const handleCTA = (location: string, href: string) => {
-    ga.trackWhatsAppDirectoClick(location);
+    ga.trackWhatsAppDirectoClick(location, { contentId: 'ledgerxpertz', contentName: 'LedgerXpertz - ERP SaaS para PYMEs', value: 10 });
     window.open(href, '_blank', 'noopener,noreferrer');
   };
 

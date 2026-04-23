@@ -1,7 +1,7 @@
 // app/pukahealth/page.tsx
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   FileText,
   Receipt,
@@ -160,8 +160,12 @@ const schema = [
 // ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function PukaHealthPage() {
+  useEffect(() => {
+    ga.trackTikTokViewContent('pukahealth', 'PukaHealth - Historias Clínicas Electrónicas', 50);
+  }, []);
+
   const handleCTA = (location: string, url: string) => {
-    ga.trackWhatsAppDirectoClick(location);
+    ga.trackWhatsAppDirectoClick(location, { contentId: 'pukahealth', contentName: 'PukaHealth - Historias Clínicas Electrónicas', value: 50 });
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
