@@ -82,7 +82,7 @@ const CasoCarla = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
-            <Link href="/es/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm">
+            <Link href="/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm">
               <ArrowLeft size={16} /> Volver a Casos Reales
             </Link>
 
@@ -311,7 +311,7 @@ const CasoCarla = () => {
             Documenta tu transformación digital desde el día 1.
           </p>
           <Link
-            href="/es/contacto"
+            href="/contacto"
             style={{ color: brandColors.primaryDark }}
             className="bg-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >
@@ -333,7 +333,7 @@ const CasoCarla = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               <Link
-                href="/es/casos/podoclinicec-cristina-munoz"
+                href="/casos/podoclinicec-cristina-munoz"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
@@ -351,7 +351,7 @@ const CasoCarla = () => {
               </Link>
 
               <Link
-                href="/es/casos/hotel-eudiq-cafeteria-viviantes"
+                href="/casos/hotel-eudiq-cafeteria-viviantes"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <span className="text-3xl">🏨</span>

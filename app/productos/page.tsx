@@ -492,7 +492,7 @@ const Products: React.FC = () => {
 
               {/* Sistema Inventario Landing Page */}
               <Link
-                href="/sistema-erp-cloud"
+                href="/ledgerxpertz"
                 className="group bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 p-8 rounded-sm border-2 border-green-200 dark:border-green-700 hover:border-green-500 hover:shadow-2xl transition-all"
               >
                 <div className="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -570,7 +570,7 @@ const Products: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Link to pricing blog post */}
               <Link
-                href="/blog/local-12"
+                href="/blog/cuanto-cuesta-pagina-web-ecuador"
                 className="group bg-white dark:bg-gray-800 p-6 rounded-sm border border-gray-200 dark:border-gray-700 hover:border-puka-red hover:shadow-lg transition-all"
               >
                 <div className="bg-puka-beige dark:bg-puka-red/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">

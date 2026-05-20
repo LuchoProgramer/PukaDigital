@@ -340,8 +340,8 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Card Emprendedor */}
             <Link
-              href="/sistema"
-              onClick={() => handleNavigation('sistema')}
+              href="/ledgerxpertz"
+              onClick={() => handleNavigation('ledgerxpertz')}
               className="group p-10 flex flex-col items-center text-center relative overflow-hidden transition-all duration-300 cursor-pointer"
               style={{
                 ...glass.cardLarge,

@@ -130,7 +130,7 @@ const CasoCristina = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Breadcrumb */}
-            <Link href="/es/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm font-bold uppercase tracking-widest">
+            <Link href="/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm font-bold uppercase tracking-widest">
               <ArrowLeft size={16} /> Ver otros casos de éxito
             </Link>
 
@@ -517,7 +517,7 @@ const CasoCristina = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               <Link
-                href="/es/casos/healppypets-carla-tutistar"
+                href="/casos/healppypets-carla-tutistar"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <span className="text-3xl">🐕</span>
@@ -529,7 +529,7 @@ const CasoCristina = () => {
               </Link>
 
               <Link
-                href="/es/casos/hotel-eudiq-cafeteria-viviantes"
+                href="/casos/hotel-eudiq-cafeteria-viviantes"
                 className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm hover:shadow-lg transition-shadow text-left border border-gray-200 dark:border-gray-700"
               >
                 <span className="text-3xl">🏨</span>

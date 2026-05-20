@@ -62,7 +62,7 @@ const MobileBottomNav: React.FC = () => {
   // CASO B: MENÚ DE NAVEGACIÓN
   const navItems = [
     { label: 'Inicio', path: `/`, icon: Home },
-    { label: 'Soluciones', path: `/sistema`, icon: Package },
+    { label: 'Soluciones', path: `/ledgerxpertz`, icon: Package },
     { label: 'Empezar', path: `/contacto`, icon: Home, isPrimary: true },
     { label: 'Blog', path: `/blog`, icon: BookOpen },
     { label: 'Casos', path: `/casos`, icon: Trophy }

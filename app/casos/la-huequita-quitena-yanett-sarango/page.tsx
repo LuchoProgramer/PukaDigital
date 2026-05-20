@@ -76,7 +76,7 @@ const CasoYanett = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="max-w-6xl mx-auto">
                         {/* Breadcrumb */}
-                        <Link href="/es/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm">
+                        <Link href="/casos" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 text-sm">
                             <ArrowLeft size={16} /> Volver a Casos Reales
                         </Link>
 
@@ -276,7 +276,7 @@ const CasoYanett = () => {
                         Deja de perder dinero por falta de control. Domina tu inventario y tus utilidades hoy.
                     </p>
                     <Link
-                        href="/es/contacto"
+                        href="/contacto"
                         className="bg-puka-black text-white px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
                     >
                         Saber más de LedgerXpertz <ArrowRight size={24} />
