@@ -124,6 +124,22 @@ const PoliticaPrivacidadPage = () => {
                             </ul>
                         </section>
 
+                        {/* 3 bis. Uso de la Plataforma de WhatsApp Business (Meta) */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Globe size={20} className="text-puka-red" /> 3 bis. Uso de la Plataforma de WhatsApp Business (Meta)
+                            </h2>
+                            <p className="mt-4">
+                                PukaDigital opera como Proveedor de Tecnolog&iacute;a (Tech Provider) de la Plataforma de WhatsApp Business de Meta, conforme a los <a href="https://developers.facebook.com/terms/" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">T&eacute;rminos de la Plataforma de Meta</a>, las Pol&iacute;ticas para Desarrolladores y la Pol&iacute;tica de Uso Aceptable de WhatsApp Business.
+                            </p>
+                            <ul className="list-disc pl-5 mt-2 space-y-1">
+                                <li>Procesamos el n&uacute;mero de tel&eacute;fono y el contenido de los mensajes de los clientes finales <strong>por cuenta del negocio</strong> que contrata el servicio y que conecta su cuenta de WhatsApp mediante el registro incorporado (Embedded Signup). En esta relaci&oacute;n el negocio es el <strong>responsable del tratamiento</strong> y PukaDigital act&uacute;a como <strong>encargado (procesador)</strong>.</li>
+                                <li>Usamos estos datos <strong>exclusivamente</strong> para prestar el servicio contratado: generar respuestas autom&aacute;ticas y enviar recordatorios y notificaciones en nombre del negocio.</li>
+                                <li><strong>No</strong> usamos los datos de la Plataforma de Meta para publicidad, no los vendemos ni cedemos a terceros, y <strong>no</strong> los utilizamos para entrenar modelos de IA propios.</li>
+                                <li>El negocio puede desconectar su cuenta de WhatsApp en cualquier momento desde su Administrador de WhatsApp de Meta o escribiendo a <strong>legal@pukadigital.com</strong>; al hacerlo cesamos el procesamiento y eliminamos los datos asociados conforme a la secci&oacute;n 6.</li>
+                            </ul>
+                        </section>
+
                         {/* 4. Cómo usamos los datos */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
