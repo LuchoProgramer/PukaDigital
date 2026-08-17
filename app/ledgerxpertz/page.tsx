@@ -79,9 +79,9 @@ const glass = {
 type BillingPeriod = 'mensual' | 'anual';
 
 const PLANS = [
-  { name: 'Starter', monthly: 10, annual: 96, annualMonthly: 8, sucursales: 1, popular: false },
-  { name: 'Grow',    monthly: 15, annual: 144, annualMonthly: 12, sucursales: 2, popular: true },
-  { name: 'Pro',     monthly: 20, annual: 192, annualMonthly: 16, sucursales: 3, popular: false },
+  { name: 'Starter', monthly: 15, annual: 144, annualMonthly: 12, sucursales: 1, popular: false },
+  { name: 'Grow',    monthly: 20, annual: 192, annualMonthly: 16, sucursales: 2, popular: true },
+  { name: 'Pro',     monthly: 25, annual: 240, annualMonthly: 20, sucursales: 3, popular: false },
 ];
 
 const PLAN_INCLUDES = ['Facturación SRI', 'POS completo', 'Inventario real-time', 'E-commerce'];
@@ -114,7 +114,7 @@ const SOCIAL_PROOF = [
 const FAQS = [
   {
     q: '¿Cuánto cuesta un sistema POS con facturación SRI en Ecuador?',
-    a: 'LedgerXpertz cuesta desde $10/mes para 1 sucursal (plan Starter), $15/mes para 2 sucursales (plan Grow) y $20/mes para 3 sucursales (plan Pro). Todos los planes incluyen POS, inventario en tiempo real, facturación electrónica SRI y e-commerce. Si pagas anual, ahorras 2 meses: $96, $144 y $192 al año respectivamente.',
+    a: 'LedgerXpertz cuesta desde $15/mes + IVA para 1 sucursal (plan Starter), $20/mes + IVA para 2 sucursales (plan Grow) y $25/mes + IVA para 3 sucursales (plan Pro). Todos los planes incluyen POS, inventario en tiempo real, facturación electrónica SRI y e-commerce. Si pagas anual, ahorras 2 meses: $144, $192 y $240 al año respectivamente (+ IVA).',
   },
   {
     q: '¿LedgerXpertz funciona con el SRI de Ecuador?',
@@ -122,7 +122,7 @@ const FAQS = [
   },
   {
     q: '¿Qué diferencia hay entre LedgerXpertz y llevar el inventario en Excel?',
-    a: 'Excel no actualiza el stock en tiempo real, no emite facturas al SRI, no sincroniza tu tienda online y no te da reportes de cierre de caja. LedgerXpertz hace todo eso de forma automática: cuando vendes en el POS, el inventario se descuenta al instante en todos los canales (tienda física, web y delivery). Además, desde $10/mes es más económico que el tiempo que pierdes cuadrando planillas.',
+    a: 'Excel no actualiza el stock en tiempo real, no emite facturas al SRI, no sincroniza tu tienda online y no te da reportes de cierre de caja. LedgerXpertz hace todo eso de forma automática: cuando vendes en el POS, el inventario se descuenta al instante en todos los canales (tienda física, web y delivery). Además, desde $15/mes + IVA es más económico que el tiempo que pierdes cuadrando planillas.',
   },
   {
     q: '¿Puedo manejar varias sucursales desde un solo sistema?',
@@ -185,11 +185,11 @@ export default function LedgerXpertzPage() {
   const [billing, setBilling] = useState<BillingPeriod>('mensual');
 
   useEffect(() => {
-    ga.trackTikTokViewContent('ledgerxpertz', 'LedgerXpertz - ERP SaaS para PYMEs', 10);
+    ga.trackTikTokViewContent('ledgerxpertz', 'LedgerXpertz - ERP SaaS para PYMEs', 15);
   }, []);
 
   const handleCTA = (location: string, href: string) => {
-    ga.trackWhatsAppDirectoClick(location, { contentId: 'ledgerxpertz', contentName: 'LedgerXpertz - ERP SaaS para PYMEs', value: 10 });
+    ga.trackWhatsAppDirectoClick(location, { contentId: 'ledgerxpertz', contentName: 'LedgerXpertz - ERP SaaS para PYMEs', value: 15 });
     window.open(href, '_blank', 'noopener,noreferrer');
   };
 
@@ -247,14 +247,14 @@ export default function LedgerXpertzPage() {
               </span>
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.50)', fontSize: '16px', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto 32px' }}>
-              Factura al SRI, controla tu stock en tiempo real y vende online. Todo desde $10/mes. Sin contrato. Sin permanencia.
+              Factura al SRI, controla tu stock en tiempo real y vende online. Todo desde $15/mes + IVA. Sin contrato. Sin permanencia.
             </p>
 
             {/* Price badge */}
             <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px', background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.12)', borderTop: '1px solid rgba(255,255,255,0.18)', borderRadius: '14px', padding: '12px 28px', marginBottom: '28px', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)' }}>
               <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px' }}>desde</span>
-              <span className="font-display" style={{ color: '#fff', fontSize: '40px', fontWeight: 900, lineHeight: 1 }}>$10</span>
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px' }}>/mes</span>
+              <span className="font-display" style={{ color: '#fff', fontSize: '40px', fontWeight: 900, lineHeight: 1 }}>$15</span>
+              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px' }}>/mes + IVA</span>
             </div>
 
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
@@ -369,17 +369,17 @@ export default function LedgerXpertzPage() {
                 {billing === 'mensual' ? (
                   <div style={{ marginBottom: '8px' }}>
                     <span className="font-display" style={{ fontSize: '36px', fontWeight: 900 }}>${plan.monthly}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/mes</span>
+                    <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/mes + IVA</span>
                   </div>
                 ) : (
                   <>
                     <div style={{ marginBottom: '4px' }}>
                       <span style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'line-through', fontSize: '18px', marginRight: '8px' }}>${plan.monthly}</span>
                       <span className="font-display" style={{ fontSize: '36px', fontWeight: 900 }}>${plan.annualMonthly}</span>
-                      <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/mes</span>
+                      <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/mes + IVA</span>
                     </div>
                     <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '12px', marginBottom: '4px' }}>
-                      ${plan.annual}/año en total
+                      ${plan.annual}/año en total + IVA
                     </div>
                   </>
                 )}
@@ -447,7 +447,7 @@ export default function LedgerXpertzPage() {
               ))}
 
               <div style={{ color: 'rgba(255,255,255,0.60)', fontSize: '13px', padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>Precio mensual</div>
-              <div style={{ textAlign: 'center', color: '#C7171E', fontSize: '16px', fontWeight: 900, padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>$10</div>
+              <div style={{ textAlign: 'center', color: '#C7171E', fontSize: '16px', fontWeight: 900, padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>$15 + IVA</div>
               <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.40)', fontSize: '13px', padding: '12px 0', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>$20–$50</div>
             </div>
           </div>
@@ -479,7 +479,7 @@ export default function LedgerXpertzPage() {
               &iquest;Listo para dejar el Excel?
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.40)', fontSize: '15px', marginBottom: '32px' }}>
-              Primeros 30 clientes sin costo de instalación. Solo $10/mes.
+              Primeros 30 clientes sin costo de instalación. Solo $15/mes + IVA.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
