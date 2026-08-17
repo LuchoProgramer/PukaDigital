@@ -29,7 +29,7 @@ Guía de contexto para Claude Code al trabajar en este repositorio.
 | Producto | Planes | Notas |
 |---|---|---|
 | PukaIA | Básico $14.99/mes · Pro $25/mes · Business $60/mes | 1 mes gratis (sin plan gratuito permanente). Las 300 interacciones gratis se reactivarán si se aprueba el crédito Google for Startups Start Tier ($2,000). |
-| LedgerXpertz | Starter $10/mes · Grow $15/mes · Pro $20/mes | Descuento anual: 2 meses gratis |
+| LedgerXpertz | Starter $15/mes + IVA · Grow $20/mes + IVA · Pro $25/mes + IVA | Descuento anual: 2 meses gratis |
 | PukaHealth | Individual $50/mes · Anual $480/año | 30 días gratis, primeros 10 médicos sin setup |
 | PukaSalud | Sin precio visible — propuesta personalizada | Plan Pionero expiró. La página redirige a WhatsApp para cotización. |
 | Agencia | Sin precio visible | Cotización directa |

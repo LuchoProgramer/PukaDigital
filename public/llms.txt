@@ -45,8 +45,8 @@ ERP SaaS multi-tenant para pymes en Ecuador: inventario en tiempo real, facturac
 - E-commerce integrado con sincronización de bodega
 - Multi-sucursal: hasta 3 locales desde un solo dashboard
 - Reportes 24/7: ventas, kardex y cierre de caja
-- **Precios:** Starter $10/mes (1 sucursal) | Grow $15/mes (2 sucursales) | Pro $20/mes (3 sucursales)
-- **Descuento anual:** 2 meses gratis (Starter $96/año, Grow $144/año, Pro $192/año)
+- **Precios:** Starter $15/mes + IVA (1 sucursal) | Grow $20/mes + IVA (2 sucursales) | Pro $25/mes + IVA (3 sucursales)
+- **Descuento anual:** 2 meses gratis (Starter $144/año, Grow $192/año, Pro $240/año, + IVA)
 - Sin permanencia. Sin contrato. Soporte por WhatsApp.
 - Primeros 30 clientes: sin costo de instalación
 - Prueba 30 días gratis | Demo en vivo disponible por WhatsApp: +593964065880
