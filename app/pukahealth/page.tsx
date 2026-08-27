@@ -82,6 +82,15 @@ const COMPARISON_PRICES = {
 
 const DEMO_VIDEO_ID = 'taQRK-wR2SM';
 
+// YouTube removió el video el 2026-08-27 (falso positivo del clasificador de
+// harassment/cyberbullying — confundió una pantalla de demo con datos de un
+// paciente ficticio del tenant `demo` con información personal real). Apelado
+// el mismo día, respuesta esperada en ~72h. Mientras se resuelve, la sección
+// del video y su schema VideoObject quedan ocultos para no mostrar el aviso
+// de "video eliminado" de YouTube en la página pública. Volver a `true` en
+// cuanto se apruebe la apelación.
+const DEMO_VIDEO_LIVE = false;
+
 // Capítulos reales del video, verificados fotograma a fotograma contra el archivo
 // exportado (no estimados) — startOffset en segundos, debe calzar con los timestamps
 // ya publicados en la descripción de YouTube para que el schema no contradiga al video.
@@ -182,7 +191,7 @@ const schema = [
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   },
-  {
+  ...(DEMO_VIDEO_LIVE ? [{
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
     name: 'Manual de Usuario — Ficha Podológica (Toma A)',
@@ -199,7 +208,7 @@ const schema = [
       startOffset,
       url: `https://www.youtube.com/watch?v=${DEMO_VIDEO_ID}&t=${startOffset}s`,
     })),
-  },
+  }] : []),
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -389,7 +398,8 @@ export default function PukaHealthPage() {
         </div>
       </section>
 
-      {/* ── 3b. VIDEO DEMO ────────────────────────────────────────────── */}
+      {/* ── 3b. VIDEO DEMO (oculto mientras se resuelve la apelación en YouTube, ver DEMO_VIDEO_LIVE) ── */}
+      {DEMO_VIDEO_LIVE && (
       <section id="demo" style={{ padding: '80px 24px', background: '#fff' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <p style={{
@@ -463,6 +473,7 @@ export default function PukaHealthPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── 4. FEATURES ──────────────────────────────────────────────── */}
       <section id="funciones" style={{ padding: '80px 24px', background: '#fff' }}>
