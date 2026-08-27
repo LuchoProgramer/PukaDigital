@@ -1,7 +1,7 @@
 // app/pukahealth/page.tsx
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FileText,
   Receipt,
@@ -13,6 +13,7 @@ import {
   Check,
   CheckCircle,
   XCircle,
+  Play,
 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';
@@ -78,6 +79,32 @@ const COMPARISON_PRICES = {
   orpheus:    '~$60–$80',
   excel:      '$0 (pero horas perdidas)',
 };
+
+const DEMO_VIDEO_ID = 'taQRK-wR2SM';
+
+// Capítulos reales del video, verificados fotograma a fotograma contra el archivo
+// exportado (no estimados) — startOffset en segundos, debe calzar con los timestamps
+// ya publicados en la descripción de YouTube para que el schema no contradiga al video.
+const DEMO_VIDEO_CHAPTERS = [
+  { name: '¿Cada clínica tiene su propio dominio y datos aislados?', startOffset: 0 },
+  { name: '¿Cómo se registra un paciente nuevo?', startOffset: 18 },
+  { name: '¿El número de historia clínica se genera solo?', startOffset: 55 },
+  { name: '¿Cómo se ve la ficha de un paciente al llegar a consulta?', startOffset: 92 },
+  { name: '¿Cómo se registra el motivo y los signos vitales de la consulta?', startOffset: 117 },
+  { name: '¿Cómo se buscan y agregan diagnósticos CIE-10?', startOffset: 128 },
+  { name: '¿Cómo se documenta una onicomicosis?', startOffset: 144 },
+  { name: '¿Cómo se estadía una onicocriptosis (Heifetz/Mozena)?', startOffset: 171 },
+  { name: '¿Cómo se hace el examen biomecánico/postural con fotos?', startOffset: 195 },
+  { name: '¿Cómo se documenta el tratamiento de una verruga?', startOffset: 216 },
+  { name: '¿Cómo se evalúa y documenta el pie diabético?', startOffset: 237 },
+  { name: '¿Cómo se marca un heloma o lesión en el mapa del pie?', startOffset: 262 },
+  { name: '¿Cómo se registra el tipo de calzado y hábitos de autocuidado del paciente?', startOffset: 286 },
+  { name: '¿Cómo se documentan los procedimientos realizados en la sesión?', startOffset: 309 },
+  { name: '¿La consulta se guarda sola mientras se llena (auto-save)?', startOffset: 336 },
+  { name: '¿Cómo se agregan exámenes complementarios?', startOffset: 353 },
+  { name: '¿Cómo se emite una receta médica?', startOffset: 373 },
+  { name: '¿La consulta queda en el historial del paciente al guardar?', startOffset: 392 },
+];
 
 const FAQS = [
   {
@@ -155,11 +182,31 @@ const schema = [
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Manual de Usuario — Ficha Podológica (Toma A)',
+    description: 'Recorrido completo por una consulta inicial de Podología en PukaHealth: registro del paciente, historia clínica, diagnósticos CIE-10, hallazgos por especialidad y receta médica.',
+    thumbnailUrl: `https://img.youtube.com/vi/${DEMO_VIDEO_ID}/maxresdefault.jpg`,
+    uploadDate: '2026-08-27',
+    duration: 'PT6M52S',
+    embedUrl: `https://www.youtube.com/embed/${DEMO_VIDEO_ID}`,
+    contentUrl: `https://www.youtube.com/watch?v=${DEMO_VIDEO_ID}`,
+    publisher: { '@id': 'https://pukadigital.com/#organization' },
+    hasPart: DEMO_VIDEO_CHAPTERS.map(({ name, startOffset }) => ({
+      '@type': 'Clip',
+      name,
+      startOffset,
+      url: `https://www.youtube.com/watch?v=${DEMO_VIDEO_ID}&t=${startOffset}s`,
+    })),
+  },
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function PukaHealthPage() {
+  const [videoPlaying, setVideoPlaying] = useState(false);
+
   useEffect(() => {
     ga.trackTikTokViewContent('pukahealth', 'PukaHealth - Historias Clínicas Electrónicas', 50);
   }, []);
@@ -339,6 +386,81 @@ export default function PukaHealthPage() {
               <div style={{ color: '#64748b', fontSize: '13px' }}>{label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── 3b. VIDEO DEMO ────────────────────────────────────────────── */}
+      <section id="demo" style={{ padding: '80px 24px', background: '#fff' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <p style={{
+            textAlign: 'center', color: '#94a3b8',
+            letterSpacing: '3px', fontSize: '12px',
+            fontWeight: 700, marginBottom: '12px',
+          }}>VELO EN ACCI&Oacute;N</p>
+          <h2 className="font-display font-bold" style={{
+            textAlign: 'center', color: '#0f172a',
+            fontSize: 'clamp(24px, 3vw, 36px)', marginBottom: '16px',
+          }}>
+            Un recorrido completo por PukaHealth
+          </h2>
+          <p style={{
+            textAlign: 'center', color: '#64748b', fontSize: '16px',
+            maxWidth: '600px', margin: '0 auto 40px',
+          }}>
+            18 preguntas reales, respondidas dentro del sistema: desde crear un paciente
+            hasta emitir una receta m&eacute;dica.
+          </p>
+          <div style={{
+            borderRadius: '16px', overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+          }}>
+            {!videoPlaying ? (
+              <button
+                onClick={() => setVideoPlaying(true)}
+                aria-label="Reproducir video: Manual de Usuario — Ficha Podológica"
+                style={{
+                  position: 'relative', width: '100%', aspectRatio: '16 / 9',
+                  background: '#0f172a', border: 'none', padding: 0, cursor: 'pointer',
+                  display: 'block',
+                }}>
+                <img
+                  src={`https://img.youtube.com/vi/${DEMO_VIDEO_ID}/maxresdefault.jpg`}
+                  alt="Manual de Usuario — Ficha Podológica (Toma A)"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }}
+                />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <div style={{
+                    width: '76px', height: '76px', borderRadius: '50%',
+                    background: '#0ea5e9', color: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 0 32px rgba(14,165,233,0.5)',
+                  }}>
+                    <Play size={34} fill="currentColor" style={{ marginLeft: '4px' }} />
+                  </div>
+                </div>
+                <div style={{
+                  position: 'absolute', bottom: '16px', left: '16px',
+                  background: 'rgba(15,23,42,0.85)', color: '#fff',
+                  padding: '8px 16px', borderRadius: '8px', fontSize: '14px', fontWeight: 600,
+                }}>
+                  &#9654; Ver recorrido completo (6:52)
+                </div>
+              </button>
+            ) : (
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#000' }}>
+                <iframe
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                  src={`https://www.youtube.com/embed/${DEMO_VIDEO_ID}?rel=0&autoplay=1`}
+                  title="Manual de Usuario — Ficha Podológica (Toma A)"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
