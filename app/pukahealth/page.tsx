@@ -80,16 +80,16 @@ const COMPARISON_PRICES = {
   excel:      '$0 (pero horas perdidas)',
 };
 
-const DEMO_VIDEO_ID = 'taQRK-wR2SM';
+const DEMO_VIDEO_ID = '05qL9jwKZLc';
 
-// YouTube removió el video el 2026-08-27 (falso positivo del clasificador de
-// harassment/cyberbullying — confundió una pantalla de demo con datos de un
-// paciente ficticio del tenant `demo` con información personal real). Apelado
-// el mismo día, respuesta esperada en ~72h. Mientras se resuelve, la sección
-// del video y su schema VideoObject quedan ocultos para no mostrar el aviso
-// de "video eliminado" de YouTube en la página pública. Volver a `true` en
-// cuanto se apruebe la apelación.
-const DEMO_VIDEO_LIVE = false;
+// YouTube removió la primera subida el 2026-08-27 por su política de PII
+// ("medical records" — la Nota SOAP + Diagnósticos de un paciente ficticio del
+// tenant `demo`, sin ninguna aclaración en pantalla de que era un dato de
+// prueba). La apelación fue rechazada. Se resubió el mismo video con un
+// banner fijo quemado abajo ("Datos de paciente ficticios — sistema de
+// demostración") — cumple lo que pide la política de YouTube de declarar
+// explícitamente el PII falso. Nuevo video, mismo contenido y timestamps.
+const DEMO_VIDEO_LIVE = true;
 
 // Capítulos reales del video, verificados fotograma a fotograma contra el archivo
 // exportado (no estimados) — startOffset en segundos, debe calzar con los timestamps
