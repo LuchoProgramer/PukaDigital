@@ -1,343 +1,153 @@
 # CLAUDE.md — PukaDigital
 
-Guía de contexto para Claude Code al trabajar en este repositorio.
+Agencia de marketing digital y software SaaS para PYMEs en Ecuador y LATAM.
+Fundador: Luis Omar Viteri Sarango (LuchoDev) · Producción: **https://pukadigital.com**
 
----
+## Stack
 
-## Proyecto
+**Next.js 15 App Router · React 19 · TypeScript · Tailwind CSS · Lucide React**
 
-**PukaDigital** — agencia de marketing digital y software SaaS para PYMEs en Ecuador y LATAM.
-**Fundador:** Luis Omar Viteri Sarango (LuchoDev)
-**URL:** https://pukadigital.com
-**Stack:** Next.js 15 App Router, React 19, TypeScript, Tailwind CSS, Lucide React
+## Comandos
 
----
+```bash
+npm run dev          # desarrollo
+npm run build        # build de producción
+npm run lint         # ESLint
+npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de rutas eliminadas)
+```
+
+⚠️ `lint` arrastra 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son tuyos. **Los archivos en `app/` sí deben quedar limpios.**
+
+Deploy: automático en Vercel al pushear a `main`.
 
 ## Productos y URLs canónicas
 
-| Producto | URL | Descripción |
+| Producto | URL | Qué es |
 |---|---|---|
 | Agencia | `/agencia` | Marketing digital, Google Ads, SEO, desarrollo web |
-| PukaIA | `/agentes-ia` | Agentes IA para WhatsApp Business (Meta + Gemini) |
-| LedgerXpertz | `/ledgerxpertz` | ERP SaaS: POS + inventario + facturación SRI + e-commerce |
-| PukaHealth | `/pukahealth` | Historias clínicas electrónicas + facturación SRI para médicos |
-| PukaSalud | `/salud` | Marketing médico ético para profesionales de salud |
-| Desarrollo web | `/desarrollo-web-pymes` | Sitios web para PYMEs |
+| PukaIA | `/agentes-ia` | CRM con agentes IA para WhatsApp Business |
+| LedgerXpertz | `/ledgerxpertz` | ERP SaaS: POS + inventario + facturación SRI |
+| PukaHealth | `/pukahealth` | Historias clínicas + facturación SRI para médicos |
+| PukaSalud | `/salud` | Marketing médico ético |
+| Desarrollo web | `/desarrollo-web-pymes` | Sitios para PYMEs |
 
-### Precios actuales por producto
+**Una sola URL canónica por producto.** Al añadir o quitar rutas, actualizar `app/sitemap.ts`.
 
-| Producto | Planes | Notas |
-|---|---|---|
-| PukaIA | Básico $14.99/mes · Pro $25/mes · Business $60/mes | 1 mes gratis (sin plan gratuito permanente). Las 300 interacciones gratis se reactivarán si se aprueba el crédito Google for Startups Start Tier ($2,000). |
-| LedgerXpertz | Starter $15/mes + IVA · Grow $20/mes + IVA · Pro $25/mes + IVA | Descuento anual: 2 meses gratis |
-| PukaHealth | Individual $50/mes · Anual $480/año | 30 días gratis, primeros 10 médicos sin setup |
-| PukaSalud | Sin precio visible — propuesta personalizada | Plan Pionero expiró. La página redirige a WhatsApp para cotización. |
-| Agencia | Sin precio visible | Cotización directa |
-| Desarrollo web | Sin precio visible | Cotización directa |
+### Precios vigentes
 
-**Redirects activos:** Ninguno. `next.config.ts` está limpio — solo configuración de imágenes. Decisión tomada el 2026-04-12: empezar de cero sin deuda técnica de redirects. Google desindexará las URLs antiguas en 4-8 semanas de forma natural.
+| Producto | Planes |
+|---|---|
+| PukaIA | Básico $14.99/mes · Pro $25/mes · Business $60/mes — 1 mes gratis, sin plan gratuito permanente |
+| LedgerXpertz | Starter $15 · Grow $20 · Pro $25 (+IVA) — anual: 2 meses gratis |
+| PukaHealth | Individual $50/mes · Anual $480/año — 30 días gratis |
+| PukaSalud, Agencia, Desarrollo web | Sin precio visible, cotización por WhatsApp |
 
----
+**PukaIA es un CRM, no solo un chatbot.** Tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones. Los competidores que se posicionan como CRM cobran 5-15x más (Mercately $99-499/mes, Zolutium $79, Sellerchat $49). Ese es el ángulo competitivo; no lo describas como "chatbot" a secas.
+
+`next.config.ts` **no tiene redirects** — solo configuración de imágenes. Decisión del 2026-04-12: empezar limpio.
 
 ## Arquitectura
 
-### App Router (Next.js 15)
+- Páginas de producto son `'use client'` (usan estado, hooks y analytics).
+- Metadata SEO va en el `layout.tsx` de cada ruta, **no** en `page.tsx`.
+- JSON-LD se inyecta vía `<SEO structuredData={schema} />` en `page.tsx`, que **renderiza el `<script>` en el JSX**. Next renderiza los client components también en el servidor, así que el schema queda en el HTML servido.
 
-- Páginas de producto son `'use client'` — usan estado, hooks y analytics
-- Metadata SEO va en `layout.tsx` de cada ruta (no en `page.tsx`)
-- JSON-LD / Schema.org se inyecta via `<SEO structuredData={schema} />` en `page.tsx`. El componente **renderiza el `<script type="application/ld+json">` en el JSX**, no con `useEffect` — Next.js renderiza los client components también en el servidor, así que el schema queda en el HTML servido.
-  - **Nunca inyectar schema con `useEffect` + `document.head.appendChild`.** Los crawlers de LLM (GPTBot, PerplexityBot, ClaudeBot) no ejecutan JavaScript: el schema sería invisible para ellos. Así estuvo hasta el 2026-08-28 y se perdían 46 preguntas de FAQ en 6 páginas.
-  - Alternativa preferida para páginas nuevas: inyectar el `<script>` desde el `layout.tsx` (server component), que lo coloca en el `<head>`. Ver `app/cuanto-cuesta-una-landing-page/{layout,data}.tsx`.
-  - Escapar siempre `<` como `<` al serializar (`JSON.stringify(x).replace(/</g, '\\u003c')`), para que un texto con `</script>` no cierre la etiqueta antes de tiempo.
-- Rutas en español (ej. `/agentes-ia`, `/pukahealth`)
+### JSON-LD — regla crítica
 
-### Estilos
+**Nunca inyectar schema con `useEffect` + `document.head.appendChild`, ni con `<Script>` de `next/script`.** Ambos lo inyectan desde el cliente: el HTML servido queda sin schema y los crawlers que no ejecutan JS (GPTBot, PerplexityBot, ClaudeBot) no lo ven jamás. Así estuvo hasta el 2026-08-28 y se perdían 46 preguntas de FAQ en 6 páginas.
 
-- **Tailwind CSS** para utilidades base (tipografía, spacing, responsive)
-- **Inline styles** para valores glass exactos (los valores `rgba` y `backdrop-filter` arbitrarios no están disponibles como clases Tailwind estándar)
-- **Design system Dark Glass Rojo:**
-  - Fondo: `#080808`
-  - Acento: `#C7171E` (rojo PukaDigital)
-  - Cards glass: `background: rgba(255,255,255,0.04)` + `backdrop-filter: blur(24px)` + `-webkit-backdrop-filter`
-  - Bordes: `border: 1px solid rgba(255,255,255,0.08)` + `border-top: 1px solid rgba(255,255,255,0.12)`
-  - Glow en botones: `box-shadow: 0 0 16-24px rgba(199,23,30,0.4-0.5)`
+Para páginas nuevas, lo preferible es inyectar el `<script>` desde el `layout.tsx` (server component), que lo coloca en el `<head>`. Ver `app/cuanto-cuesta-una-landing-page/{layout,data}.tsx`.
 
-### Iconos
+Escapar siempre `<`: `JSON.stringify(x).replace(/</g, '\\u003c')`.
 
-- **Lucide React** exclusivamente — sin emojis como iconos
-- Íconos usados en LedgerXpertz: `FileText`, `Package`, `Monitor`, `ShoppingCart`, `Building2`, `BarChart3`, `Phone`, `Check`, `CheckCircle`, `XCircle`
+Verificar contra el HTML servido, nunca contra el navegador:
+```bash
+curl -s https://pukadigital.com/<ruta> | grep 'application/ld+json'
+```
 
-### Analytics
+### Estilos — Dark Glass Rojo
+
+- Fondo `#080808` · Acento `#C7171E`
+- Cards glass: `rgba(255,255,255,0.04)` + `backdrop-filter: blur(24px)` + `-webkit-backdrop-filter`
+- Bordes: `1px solid rgba(255,255,255,0.08)`, `border-top: rgba(255,255,255,0.12)`
+- Glow en botones: `0 0 16-24px rgba(199,23,30,0.4-0.5)`
+
+Tailwind para utilidades base; inline styles solo para los valores glass exactos (los `rgba` y `backdrop-filter` arbitrarios no existen como clases estándar). Objeto `glass` a nivel de módulo, reutilizado con spread: `...glass.card`.
+
+### Landings standalone
+
+Algunas páginas traen su propio navbar y footer (ej. `/ledgerxpertz`). Para que el shell global no se duplique, añadir la ruta a `STANDALONE_ROUTES` en `components/ConditionalShell.tsx`.
+
+No uses route groups `(landings)` para esto: en App Router el `app/layout.tsx` raíz envuelve **siempre** todas las rutas, así que un grupo solo añade una capa más. `ConditionalShell` logra el mismo resultado con un cambio mínimo.
+
+## Analytics y CTAs
 
 ```typescript
 import * as ga from '@/lib/analytics';
-ga.trackWhatsAppDirectoClick('nombre_ubicacion');
+ga.trackWhatsAppDirectoClick('ledgerxpertz_hero_primary');
 ```
 
-Formato de location: `{producto}_{seccion}` — ej. `ledgerxpertz_hero_primary`, `ledgerxpertz_nav`.
+Formato de location: `{producto}_{seccion}`.
 
-### WhatsApp CTAs
+WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`, siempre `window.open(url, '_blank', 'noopener,noreferrer')`, y **llamar al tracking antes de abrir**.
 
-- Número principal: `593964065880`
-- Patrón: `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`
-- Todos los CTAs: `window.open(url, '_blank', 'noopener,noreferrer')`
-- Llamar `ga.trackWhatsAppDirectoClick()` antes de `window.open()`
+## SEO y GEO
 
----
+Reglas por página de producto:
 
-## SEO y GEO (visibilidad en LLMs)
+1. `layout.tsx` — metadata completa: `title`, `description`, `keywords`, `canonical`, `openGraph`, `twitter`.
+2. `page.tsx` — dos schemas: `SoftwareApplication` + `FAQPage`.
+3. `public/llms.txt` — actualizar con URLs y precios al crear o modificar un producto.
+4. `public/robots.txt` — ya permite todos los crawlers de IA. No tocar sin leer `docs/GEO_LLM_VISIBILITY.md`.
 
-Ver guía completa: `docs/GEO_LLM_VISIBILITY.md`
+### El porqué correcto de GEO
 
-### Reglas por página de producto
+Google fue explícito en mayo de 2026: *"You don't need to create new machine readable files, AI text files, markup, or Markdown to appear in Google Search... Google Search ignores them"*, y *"Structured data isn't required for generative AI search, and there's no special schema.org markup you need to add."*
 
-1. `layout.tsx` — metadata Next.js completa: `title`, `description`, `keywords`, `canonical`, `openGraph`, `twitter`
-2. `page.tsx` — dos schemas JSON-LD: `SoftwareApplication` + `FAQPage`
-3. `public/llms.txt` — actualizar con nueva URL y precios cada vez que se cree o modifique un producto
-4. `public/robots.txt` — no tocar, ya tiene todos los crawlers de IA permitidos
+Es decir: **`llms.txt` y el schema no son lo que hace que la IA de Google te cite.** Se mantienen porque sirven para otra cosa, que sí importa:
 
-### Schema patterns
+- el schema alimenta los **rich results** de Google (FAQ, precios, estrellas) — tráfico real y medible;
+- `llms.txt` lo consumen algunos crawlers **no-Google**.
 
-```typescript
-// Múltiples schemas: pasar array al componente SEO
-const schema = [
-  { '@type': 'SoftwareApplication', ... },
-  { '@type': 'FAQPage', mainEntity: FAQS.map(({q, a}) => ({
-    '@type': 'Question',
-    name: q,
-    acceptedAnswer: { '@type': 'Answer', text: a },
-  }))},
-];
-```
+No inventes tácticas "para LLMs" ni trocees contenido para que "la IA lo entienda mejor" — Google dice expresamente que no hace falta. Lo que mueve la aguja es contenido útil, indexable, con criterio propio y datos originales.
 
-### FAQs para LLMs
+### FAQs
 
-- Preguntas en formato conversacional, como las escribe un usuario en ChatGPT/Perplexity
-- Incluir precios concretos en al menos una respuesta
-- Incluir contexto local ("en Ecuador", "SRI", "pymes")
-- Mínimo 5 preguntas, óptimo 8-12
+Formato conversacional, como las escribiría alguien en ChatGPT. Mínimo 5 preguntas, óptimo 8-12. Incluir precios concretos en al menos una respuesta y contexto local ("en Ecuador", "SRI", "pymes").
 
-### URLs y canibalización
+## Convenciones
 
-- Una sola URL canónica por producto
-- Si hay páginas duplicadas: consolidar en una, crear 301 en `next.config.ts`, eliminar directorios huérfanos
-- Actualizar `app/sitemap.ts` al añadir o eliminar rutas
-
----
-
-## Convenciones de código
-
-- TypeScript estricto — sin `any` en archivos nuevos
-- Un solo `<h1>` por página (SEO) — si se necesita split visual, usar `<span>` dentro del mismo `<h1>`
-- HTML entities para caracteres especiales en español: `&iquest;` (¿), `&Aacute;` (Á), `&Eacute;` (É), `&ntilde;` (ñ), `&copy;` (©), `&mdash;` (—)
-- Arrays de datos (`PLANS`, `FEATURES`, `FAQS`, etc.) declarados a nivel de módulo, fuera del componente
-- Glass styles en objeto `glass` a nivel de módulo para reutilización con spread: `...glass.card`
-
----
+- TypeScript estricto, sin `any` en archivos nuevos.
+- Un solo `<h1>` por página. Si hace falta split visual, `<span>` dentro del mismo `<h1>`.
+- Entidades HTML en español: `&iquest;` `&Aacute;` `&Eacute;` `&ntilde;` `&copy;` `&mdash;`.
+- Iconos: **Lucide React** exclusivamente, sin emojis como iconos.
+- Arrays de datos (`PLANS`, `FEATURES`, `FAQS`) a nivel de módulo, fuera del componente.
 
 ## Commits
 
-Formato: `tipo(scope): descripción en español`
+Formato: `tipo(scope): descripción en español`.
 
 ```
 feat(ledgerxpertz): add FAQ section with FAQPage schema
-fix(ledgerxpertz): fix missing accented chars per spec review
-feat(llms.txt): actualizar precios y rutas canónicas
+fix(analytics): eliminar el doble conteo de conversiones
 ```
-
----
-
-## Landings standalone (sin Navbar/Footer global)
-
-Algunas páginas de producto tienen su propio navbar y footer embebidos (ej. `/ledgerxpertz`). Para que el Navbar/Footer global del sitio no aparezca encima, se usa el componente `ConditionalShell`.
-
-### Cómo funciona
-
-`components/ConditionalShell.tsx` es un componente `'use client'` que usa `usePathname()` para detectar si la ruta actual es una landing standalone. Si lo es, no renderiza `<Navbar />`, `<Footer />`, `<MobileBottomNav />` ni `<SmartChatbot />`.
-
-### Para agregar una nueva landing standalone
-
-Añadir la ruta a `STANDALONE_ROUTES` en `components/ConditionalShell.tsx`:
-
-```typescript
-const STANDALONE_ROUTES = [
-  '/ledgerxpertz',
-  '/nueva-landing',  // ← añadir aquí
-];
-```
-
-### Por qué no usar route groups `(landings)`
-
-En Next.js App Router el `app/layout.tsx` raíz **siempre** envuelve todas las rutas sin excepción. Un route group `(landings)` con su propio layout solo añade una capa adicional — no reemplaza ni omite el root layout. Para verdaderamente aislar layouts habría que mover TODAS las páginas actuales a un grupo `(site)`, lo que es un refactor de alto riesgo. `ConditionalShell` logra el mismo resultado visual con un cambio mínimo y seguro.
-
-### Responsive en landings
-
-El navbar embebido en las landings usa clases Tailwind para ocultar elementos en móvil:
-- Links de navegación: `className="hidden sm:block"` — visibles solo desde 640px
-- Botón CTA: `whiteSpace: 'nowrap'` para que no se corte
-- Padding reducido en móvil: `padding: '12px 16px'`
-
----
 
 ## Archivos importantes
 
 | Archivo | Propósito |
 |---|---|
-| `public/robots.txt` | Permite crawlers de IA (no modificar sin revisar GEO_LLM_VISIBILITY.md) |
-| `public/llms.txt` | Mapa del sitio para LLMs — actualizar con cada producto nuevo |
-| `next.config.ts` | Solo configuración de imágenes — sin redirects (limpiado 2026-04-12) |
 | `app/sitemap.ts` | Sitemap dinámico — añadir/quitar rutas aquí |
-| `lib/analytics.ts` | Tracking de eventos GA — `trackWhatsAppDirectoClick` |
-| `components/ConditionalShell.tsx` | Oculta Navbar/Footer en landings standalone — añadir rutas a `STANDALONE_ROUTES` |
-| `components/SEO.tsx` | Inyecta JSON-LD via useEffect |
-| `docs/GEO_LLM_VISIBILITY.md` | Guía completa de GEO/LLM SEO reutilizable |
-| `docs/CRO_MASTERY_GUIDE.md` | Guía de landing pages de alta conversión |
-| `docs/ANALYTICS_TRACKING.md` | Convenciones de tracking de eventos |
+| `lib/analytics.ts` | Tracking de eventos GA |
+| `components/ConditionalShell.tsx` | Oculta el shell global en landings standalone |
+| `components/SEO.tsx` | Renderiza el JSON-LD en el JSX |
+| `public/llms.txt` | Mapa del sitio para crawlers no-Google |
+| `next.config.ts` | Solo imágenes, sin redirects |
 
----
+## Documentación relacionada
 
-## SEO — Keyword Research (2026-04-11)
-
-### Hallazgo principal: PukaIA es un CRM, no solo un chatbot
-
-**El posicionamiento actual en `/agentes-ia` está mal enfocado.** Las keywords actuales apuntan a "API de WhatsApp" y "chatbot con IA", pero el producto tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones — es un **CRM completo con agentes IA**. Esto es una ventaja competitiva que no se está comunicando en SEO.
-
-Competidores que sí se posicionan como CRM cobran 5-15x más:
-- Mercately (Ecuador): desde $99/mes hasta $499/mes
-- Zolutium: desde $79/mes
-- Sellerchat: desde $49/mes
-
-**PukaIA Pro ($25/mes) compite directamente con productos de $99-499/mes.**
-
-### Keywords con volumen real en Ecuador (Google Keyword Planner)
-
-| Keyword | Volumen | Competencia | Bid estimado |
-|---|---|---|---|
-| `crm para whatsapp business` | 10/mes | Alta | $12.78 |
-| `chatbot whatsapp ecuador` | 10/mes | Alta | — |
-| `crm barato` | 10/mes | Alta | — |
-| `chatbot con inteligencia artificial para whatsapp` | 10/mes | Alta | — |
-| `crm para whatsapp business gratis` | 10/mes | Media | — |
-
-> Nota: "10/mes" en Keyword Planner para Ecuador puede representar decenas o cientos de búsquedas reales — el planificador redondea a la baja en mercados pequeños.
-
-### Diagnóstico por página
-
-| Página | Estado keywords | Problema |
-|---|---|---|
-| `/agentes-ia` (`app/agentes-ia/layout.tsx`) | **CRÍTICO** | Cero keywords de "crm". Posicionada como "API de WhatsApp" en vez de "CRM con agentes IA" |
-| `app/layout.tsx` (raíz) | Disperso | 40+ keywords mezclando chatbot, ERP, diseño, marketing — dilución de señal SEO |
-| `/agencia` (`app/agencia/layout.tsx`) | Escaso | Solo 6 keywords, muy poco |
-| `/desarrollo-web-pymes` (`app/desarrollo-web-pymes/layout.tsx`) | **Bug** | Keywords como `string`, no como `string[]` — inconsistente con el resto |
-| `/ledgerxpertz` | OK | Bien enfocado, no requiere cambios |
-| `/pukahealth` | OK | Bien enfocado, no requiere cambios |
-
-### Keywords a agregar en `/agentes-ia/layout.tsx`
-
-Reemplazar o complementar las actuales con foco en CRM:
-
-```typescript
-keywords: [
-  // Posicionamiento CRM (nuevo — actualmente ausente)
-  'crm para whatsapp business',
-  'crm con inteligencia artificial',
-  'crm con ia para whatsapp',
-  'crm barato para pymes',
-  'crm whatsapp ecuador',
-  // Chatbot con IA (mantener)
-  'chatbot whatsapp ecuador',
-  'chatbot con inteligencia artificial para whatsapp',
-  'automatizar ventas whatsapp',
-  // Comparación competidores (capturar tráfico de búsqueda)
-  'alternativa mercately',
-  'alternativa sellerchat',
-  // Marca
-  'pukaia',
-],
-```
-
-### Auditoría SEO técnica — 2026-04-12 (commit 159125b)
-
-Todo resuelto en sesión del 2026-04-12:
-
-- [x] `/agentes-ia/layout.tsx` — reposicionado como CRM con IA: nuevo title, description, 12 keywords CRM, 2 FAQs nuevas con precios en schema
-- [x] `/desarrollo-web-pymes/layout.tsx` — keywords corregidas de `string` a `string[]`
-- [x] `app/layout.tsx` — keywords reducidas de 40+ a 10 focalizadas
-- [x] `/agencia/layout.tsx` — keywords ampliadas de 6 a 14
-- [x] `app/sistema-emprendedor/` — ruta eliminada (página muerta)
-- [x] `app/sitemap.ts` — rutas 301 removidas del sitemap
-- [x] `next.config.ts` — todos los redirects eliminados (decisión: empezar limpio)
-- [x] `app/gracias/layout.tsx` — creado con `noindex`
-
-### Auditoría SEO 2026-04-12 — sesión 2 (todo resuelto)
-
-- [x] **`www.` vs no-`www.`** — configurado en Vercel Dashboard: `www.pukadigital.com` redirige a `pukadigital.com`
-- [x] **Blog "por-que-me-bloquearon-whatsapp-business"** — Meta Title actualizado a `"Me Bloquearon WhatsApp Business: Cómo Recuperarlo en 2026 (Guía)"` desde pukapresscms.vercel.app
-- [x] **Blog "cuanto-cuesta-pagina-web-ecuador"** — ampliado en `data/localPosts.ts`: tabla precios 2026 por tipo de web, FAQ expandida de 5 a 10 preguntas, `metaTitle`/`metaDescription`/`tags` añadidos
-- [x] **GSC: re-indexación manual** solicitada para `/agentes-ia` y `/blog/cuanto-cuesta-pagina-web-ecuador`
-- [x] **GSC: URLs fantasma eliminadas** — solicitudes de eliminación enviadas para prefijos `/es`, `/en`, `/pt` (bloqueo temporal ~6 meses, sin afectar páginas reales)
-- [x] **pukapress-cms `ModernBlogEdit`** — agregados campos `metaTitle` y `metaDescription` en formulario de edición (commit `5992f80`)
-
-### Tareas SEO pendientes (próxima sesión)
-
-- [ ] **`lib/i18n` + `LanguageProvider`** — refactor de baja prioridad: 73 llamados a `t()` en 4 páginas (`productos`, `demos`, `contacto`, `casos`). No causa daño SEO. El sistema siempre estuvo hardcodeado a español — nunca generó rutas `/es/` ni `/en/`. Bundle impact mínimo (~2KB comprimido).
-
----
-
-## Comandos útiles
-
-```bash
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run lint         # ESLint (hay errores pre-existentes en proxy.ts y tipos — no son del trabajo nuevo)
-npx tsc --noEmit     # TypeScript check (limpiar .next/ primero si hay errores de rutas eliminadas)
-```
-
-**Nota sobre lint:** Hay 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son parte del código de las landing pages. Los archivos en `app/` deben estar limpios.
-
----
-
-## ⚠️ TAREA URGENTE PENDIENTE — Transición a Puka Digital LLC (Stripe Atlas)
-
-**Trigger:** Cuando Luis active Stripe Atlas y reciba la LLC de Wyoming + EIN.
-
-### Qué hace Atlas y qué cambia en el proyecto
-
-- **EIN (Tax ID USA):** Equivale al RUC pero en USA. Se usa para pasar de "Developer Individual" a "Verified Organization" en Google Cloud Console → Verification Center.
-- **Cuenta bancaria (Mercury/Novo):** Donde Stripe depositará cobros de clientes de PukaIA.
-- **Documentación legal:** Atlas entrega Bylaws + Operating Agreement con cláusulas de privacidad de datos de USA (California Privacy), que simplifican la actualización de `/legal`.
-
-### Checklist de cambios en este repositorio cuando llegue el EIN
-
-#### 1. Actualizar páginas legales con nueva razón social
-
-Archivos a modificar:
-- `app/legal/google-calendar-privacidad/page.tsx` — reemplazar "PukaDigital" por "Puka Digital LLC" donde corresponda, agregar EIN y dirección registrada en Wyoming
-- `app/legal/google-calendar-terminos/page.tsx` — ídem
-- `app/legal/politica-de-privacidad/page.tsx` — agregar sección de empresa en USA
-- `app/legal/terminos/page.tsx` — actualizar razón social y jurisdicción (Ecuador + Wyoming, USA)
-
-#### 2. Actualizar CLAUDE.md (este archivo)
-
-- Cambiar el campo "Fundador" por "Empresa: Puka Digital LLC (Wyoming, USA)"
-- Agregar EIN al contexto del proyecto
-
-#### 3. Google Cloud Console (fuera del repo)
-
-1. Entrar a Google Cloud Console → OAuth consent screen
-2. Cambiar "Organization Name" de "Luis Viteri" → "Puka Digital LLC"
-3. Subir logo oficial de PukaIA
-4. Actualizar los links de Privacy Policy y Terms of Service si cambia el dominio
-
-#### 4. Stripe Webhooks en chatbot-python (repo separado)
-
-En `chatbot-python`, configurar endpoint FastAPI para escuchar pagos de Stripe:
-- Guardar `tenant_id` como metadata en Stripe Customer
-- Cuando Stripe confirme pago → habilitar acceso a Google Calendar para ese tenant en Firestore
-- Configurar Stripe Tax: clientes Ecuador → sin tax USA
-
-### Contexto de decisión
-
-Stripe Atlas resuelve la burocracia de Wyoming en un solo flujo y se integra con el ecosistema Python/Next.js ya armado. El EIN es el prerequisito para la verificación de organización en Google Cloud y para cobros internacionales via Stripe.
-
-**Estado actual:** Pendiente activación de Stripe Atlas por Luis.
+- `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
+- `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
+- `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión
+- `docs/ANALYTICS_TRACKING.md` — convenciones de tracking
+- `docs/HISTORIAL_SEO.md` — auditorías cerradas y keyword research (historial, no doctrina)
+- `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
