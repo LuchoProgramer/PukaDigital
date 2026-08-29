@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle, Clock, Rocket, ExternalLink, Search, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Rocket, ExternalLink, Star } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import * as ga from '@/lib/analytics';
 
@@ -69,10 +69,10 @@ const CasosPage = () => {
           </h1>
           <div className="text-xl md:text-2xl mb-10 text-gray-400 max-w-2xl mx-auto space-y-2">
             <p className="flex items-center justify-center gap-2">
-              <CheckCircle size={20} className="text-puka-red" /> PodoclinicEC: De 3 a 15 rese&ntilde;as Google &bull; 33 conv/mes
+              <CheckCircle size={20} className="text-puka-red" /> PodoclinicEC: 371 conversiones a $2,52 &bull; 5,0&#9733; con 56 rese&ntilde;as
             </p>
             <p className="flex items-center justify-center gap-2">
-              <CheckCircle size={20} className="text-puka-red" /> HealppyPets: Mes 2 Ads activas &bull; 2 cupos para tu transformaci&oacute;n
+              <CheckCircle size={20} className="text-puka-red" /> HealppyPets: Top 3 en Google &bull; campa&ntilde;as activas
             </p>
           </div>
 
@@ -85,15 +85,15 @@ const CasosPage = () => {
               WhatsApp: Quiero resultados como Cristina
             </button>
             <button
-              onClick={() => handleWhatsAppClick('cases_hero_secondary', 'Hola, me gustaría mi diagnóstico gratuito para empezar el programa.')}
+              onClick={() => handleWhatsAppClick('cases_hero_secondary', 'Hola, me gustaría un diagnóstico de la presencia digital de mi negocio.')}
               className="bg-white text-puka-black px-8 py-4 rounded-sm font-bold text-lg hover:bg-gray-100 transition-colors w-full sm:w-auto text-center"
             >
               Ver mi diagn&oacute;stico gratis
             </button>
           </div>
 
-          <p className="mt-8 text-sm font-bold text-puka-red uppercase tracking-widest animate-pulse">
-            🔥 2 cupos para tu transformaci&oacute;n
+          <p className="mt-8 text-sm font-bold text-puka-red uppercase tracking-widest">
+            Cifras verificables en Google &mdash; comprueba cada una t&uacute; mismo
           </p>
         </div>
       </section>
@@ -102,7 +102,7 @@ const CasosPage = () => {
       <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
-            Estado Actual del Programa
+            Nuestros clientes ahora mismo
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -112,21 +112,21 @@ const CasosPage = () => {
             </div>
             <div className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm text-center border border-gray-200 dark:border-gray-700">
               <div className="text-4xl font-bold text-green-600">{completedCases.length}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Graduándose</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">En autogesti&oacute;n</div>
             </div>
             <div className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm text-center border border-gray-200 dark:border-gray-700">
               <div className="text-4xl font-bold text-yellow-600">{inProgressCases.length}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">En Progreso</div>
             </div>
             <div className="bg-white dark:bg-gray-900 p-6 rounded-sm shadow-sm text-center border border-gray-200 dark:border-gray-700">
-              <div className="text-4xl font-bold text-blue-600">2</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Cupos Disponibles</div>
+              <div className="text-4xl font-bold text-blue-600">{justStartedCases.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Empezando</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Caso Principal - Cristina (Graduándose) */}
+      {/* Caso principal - Cristina (en autogestión) */}
       {completedCases.map((caso) => (
         <section key={caso.slug} className="py-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="container mx-auto px-4 md:px-6">
@@ -162,7 +162,7 @@ const CasosPage = () => {
                   </div>
 
                   <blockquote className="text-lg italic text-gray-600 dark:text-gray-300 border-l-4 border-puka-red pl-4 my-6">
-                    "{caso.testimonialQuote}"
+                    &ldquo;{caso.testimonialQuote}&rdquo;
                   </blockquote>
 
                   <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -197,8 +197,8 @@ const CasosPage = () => {
                       <div className="text-xs text-gray-600 dark:text-gray-400">Conversiones Google Ads</div>
                     </div>
                     <div className="bg-white dark:bg-gray-800 p-4 rounded-sm text-center shadow-sm">
-                      <div className="text-3xl font-bold text-green-600">+{caso.metrics?.conversionsOrganic}</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400">Conversiones Orgánicas</div>
+                      <div className="text-3xl font-bold text-green-600">{caso.metrics?.conversionsOrganic}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">Clics org&aacute;nicos por trimestre</div>
                     </div>
                     <div className="bg-white dark:bg-gray-800 p-4 rounded-sm text-center shadow-sm">
                       <div className="text-3xl font-bold text-yellow-600">{caso.metrics?.reviewsBefore}→{caso.metrics?.reviewsAfter}</div>
@@ -213,7 +213,7 @@ const CasosPage = () => {
                   {/* Verificación */}
                   <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-sm">
                     <p className="text-sm text-purple-700 dark:text-purple-300 font-medium text-center">
-                      🔍 Verifica tú mismo: Busca "podóloga quito norte" en Google
+                      🔍 Verifica tú mismo: Busca &laquo;podóloga quito norte&raquo; en Google
                     </p>
                   </div>
                 </div>
@@ -323,10 +323,10 @@ const CasosPage = () => {
             href="/contacto"
             className="bg-white text-puka-red px-12 py-5 rounded-sm text-xl font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
           >
-            Aplicar al Programa <ArrowRight size={24} />
+            Hablemos de tu negocio <ArrowRight size={24} />
           </Link>
           <p className="text-sm mt-6 opacity-80">
-            Solo 2 cupos disponibles este mes
+            Te decimos con franqueza si podemos ayudarte, sin compromiso
           </p>
         </div>
       </section>
@@ -334,11 +334,11 @@ const CasosPage = () => {
       {/* STICKY WHATSAPP BAR (MOBILE) */}
       <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 p-4 z-50 md:hidden flex justify-center">
         <button
-          onClick={() => handleWhatsAppClick('sticky_cases_bar', 'Hola, quiero tomar uno de los 2 cupos para mi transformación digital.')}
+          onClick={() => handleWhatsAppClick('sticky_cases_bar', 'Hola, vi sus casos y quiero conversar sobre la presencia digital de mi negocio.')}
           className="bg-[#25D366] text-white w-full py-3 rounded-full font-bold flex items-center justify-center gap-3 shadow-xl active:scale-95 transition-all"
         >
           <WhatsAppIcon size={24} />
-          Apartar cupo por WhatsApp
+          Conversar por WhatsApp
         </button>
       </div>
     </div>

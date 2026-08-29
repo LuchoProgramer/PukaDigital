@@ -25,7 +25,7 @@ Antes de comparar proveedores, la pregunta correcta es: **&iquest;qu&eacute; tip
 
 | Tipo de Web | &iquest;Qu&eacute; incluye? | Precio Mercado (Agencia) | Precio PukaDigital |
 |-------------|---------------------------|--------------------------|-------------------|
-| **Landing Page** | 1 p&aacute;gina, CTA, formulario | $600 &mdash; $1,500 | Incluido en el programa $900 |
+| **Landing Page** | 1 p&aacute;gina, CTA, formulario | $600 &mdash; $1,500 | Desde $490 + IVA |
 | **Sitio Corporativo** | 5&ndash;8 p&aacute;ginas, blog, contacto | $1,500 &mdash; $4,000 | Incluido en el programa $900 |
 | **E-commerce B&aacute;sico** | Cat&aacute;logo, carrito, pagos | $3,000 &mdash; $8,000 | $900 + m&oacute;dulo $20/mes |
 | **Portal / App Web** | Login, dashboard, base de datos | $5,000 &mdash; $20,000 | Cotizaci&oacute;n personalizada |
@@ -181,7 +181,7 @@ R: Next.js es el framework que usa Netflix, Uber, Nike. No es "barato", es efici
 R: Te ense&ntilde;amos a configurar Gmail gratis con tu dominio.
 
 **P: &iquest;Cu&aacute;nto cuesta una landing page en Ecuador en 2026?**
-R: Las agencias cobran entre $600 y $1,500 por una landing de una sola p&aacute;gina. PukaDigital incluye landing page m&aacute;s sitio completo dentro del programa de $900 total (3 meses), sin costo adicional.
+R: Un freelancer cobra entre $350 y $700, y las agencias entre $600 y $1,500 por una landing de una sola p&aacute;gina. En PukaDigital arrancamos desde $490 + IVA con medici&oacute;n de conversiones incluida. El desglose completo est&aacute; en [&iquest;Cu&aacute;nto cuesta una landing page?](/cuanto-cuesta-una-landing-page).
 
 **P: &iquest;Cu&aacute;nto cuesta una tienda online (e-commerce) en Ecuador?**
 R: Un e-commerce funcional con carrito y pasarela de pago cuesta $3,000&ndash;$8,000 en una agencia. Con PukaDigital parte en $900 m&aacute;s un m&oacute;dulo de $20/mes para la tienda &mdash; con integraci&oacute;n a LedgerXpertz para control de inventario en tiempo real.
@@ -531,141 +531,103 @@ Cada día sin chatbot = clientes perdidos.
   },
   {
     id: 'local-14',
-    title: 'Caso de Éxito: Cómo PodoclinicEC Pasó de 3 a 15 Reseñas y 53 Conversiones Mensuales',
-    excerpt: 'De no tener presencia digital a dominar Google Maps en Quito Norte. Historia real de una podóloga que logró independencia digital en 3 meses.',
+    title: 'Caso Real: PodoclinicEC, 371 Conversiones a $2,52 en Google Ads',
+    excerpt: 'De 2 clics orgánicos en todo un trimestre a 281, y de 3 reseñas a 56. La historia verificable de una podóloga de Quito Norte que hoy gestiona su marketing sola.',
     content: `
-## La Historia de Cristina y PodoclinicEC
+## La historia de Cristina y PodoclinicEC
 
-**Nombre:** PodoclinicEC  
-**Ubicación:** Manuel Jordan y Av La Florida, Quito Norte  
-**Dueña:** Yadira Cristina Muñoz  
-**Especialidad:** Podología profesional + servicios a domicilio
+**Negocio:** PodoclinicEC — podología clínica  
+**Ubicación:** Manuel Jordán y Av. La Florida, Quito Norte  
+**Especialista:** Yadira Cristina Muñoz  
+**Trabajo con PukaDigital:** septiembre a diciembre de 2025
+
+> Todas las cifras de este artículo están verificadas en Google Ads, Google Search Console y Google Business Profile, con corte al 28 de agosto de 2026, y se publican con autorización de la clienta.
 
 ---
 
-## El Punto de Partida (Septiembre 2024)
+## El punto de partida (septiembre 2025)
 
-Cristina tenía un consultorio de podología establecido pero prácticamente invisible en internet.
+Cristina tenía un consultorio establecido y prácticamente invisible en internet.
 
-**La situación antes de PukaDigital:**
-- ❌ Sin página web
-- ❌ Google Business sin optimizar
-- ❌ Solo 3 reseñas en Google
-- ❌ Clientes llegaban solo por recomendación boca a boca
-- ❌ Los servicios a domicilio casi no existían
+- &#10060; Sin página web
+- &#10060; Google Business sin optimizar
+- &#10060; Solo 3 reseñas en Google
+- &#10060; **2 clics orgánicos en todo un trimestre**
+- &#10060; Posición media 17,2 &mdash; página 2 de Google
+- &#10060; Pacientes solo por recomendación boca a boca
 
-**El problema real:**
 > "Sabía que necesitaba estar en internet, pero no sabía por dónde empezar. Las agencias me pedían $500/mes y ni siquiera me explicaban qué harían."
 
-### El Momento de Cambio
-
-Cristina buscaba una solución que no la atrapara en pagos eternos. Encontró a PukaDigital con una propuesta diferente: **independencia, no dependencia**.
-
 ---
 
-## El Proceso: 3 Meses de Transformación
+## Los tres meses de trabajo
 
-### Mes 1: Construcción de Base
+### Mes 1 — Construir la base
 
-**Qué hicimos:**
-1. **Web profesional** en podoclinicec.com
-   - Diseño limpio y profesional
-   - Optimizada para SEO local
-   - Formulario de contacto + WhatsApp integrado
-   
-2. **Google Business Profile** completamente optimizado
-   - Fotos profesionales del consultorio
-   - Servicios detallados con precios
-   - Horarios de atención actualizados
-   
-3. **Capacitación inicial:**
-   - Cómo responder reseñas
-   - Cómo actualizar horarios y servicios
-   - Entender Google Analytics básico
+- Web propia en podoclinicec.com
+- Google Business Profile optimizado con fotos y servicios
+- Capacitación: responder reseñas, actualizar horarios, leer Analytics
 
-### Mes 2: Activación de Google Ads
+### Mes 2 — Activar Google Ads
 
-**Configuración de campaña:**
-- Keywords: "podóloga Quito Norte", "uñas encarnadas Quito", "podología a domicilio"
-- Presupuesto inicial: Incluido en el programa
-- Segmentación: Norte de Quito (su zona de influencia)
+La cuenta arrancó el **16 de septiembre de 2025**. Keywords iniciales: "podóloga Quito Norte", "uñas encarnadas Quito", "podología a domicilio", segmentado al norte de la ciudad.
 
-**Resultados en 30 días:**
-- 33 conversiones por Google Ads
-- Costo por conversión: eficiente y medible
+Lo importante de este mes no fueron las conversiones, sino que Cristina aprendió a leer las métricas y a pausar o activar campañas según su agenda.
 
-**Lo más importante:** Cristina aprendió a leer las métricas y a pausar/activar campañas según su agenda.
+### Mes 3 — El orgánico despega
 
-### Mes 3: Explosión Orgánica
-
-Algo inesperado sucedió: además de Google Ads, empezaron a llegar pacientes por **búsqueda orgánica**.
-
-**3 a 4 pacientes diarios (orgánicos):**
-- Pacientes que encontraban su web directamente en Google
-- Personas buscando "podóloga cerca de mí"
-- Referencias de Google Maps
-
-**Total de conversiones mensuales: ~100** (33 Ads + ~70 orgánicas/directas)
-
----
-
-## El Cambio en Reseñas de Google
-
-**Antes de PukaDigital:**
-- 3 reseñas en Google
-- Casi invisible en búsquedas locales
-
-**Después de 3 meses:**
-- 15 reseñas (5x más)
-- Aparece en top de búsquedas de podología en Quito Norte
-- Reseñas reales de pacientes satisfechos
-
-**La estrategia fue simple:**
-> "Aprendí a pedirles a mis pacientes satisfechos que dejaran una reseña. Antes me daba vergüenza. Ahora entiendo que es parte normal del negocio digital."
-
----
-
-## Los Servicios a Domicilio: El Gran Ganador
-
-Cristina ofrecía servicios a domicilio, pero casi nadie los conocía.
-
-**Después de optimizar la web y Google Ads:**
-- Los servicios a domicilio **explotaron**
-- Pacientes de toda el área norte de Quito la contactan
-- Agenda completa con anticipación
+Además de Ads empezaron a llegar pacientes por búsqueda orgánica, sobre todo buscando servicio a domicilio: un servicio que ella ya ofrecía y que casi nadie conocía.
 
 > "Nunca pensé que la gente buscara 'podóloga a domicilio' en Google. Ahora es una de mis fuentes principales de ingresos."
 
 ---
 
-## Lo Que Cristina Aprendió
+## Los resultados, once meses después
 
-### 1. Gestionar su Google Business
-- Actualiza horarios según temporada
-- Responde cada reseña (positiva y negativa)
-- Sube fotos de tratamientos (con permiso)
+### Google Ads (16 sep 2025 &mdash; 28 ago 2026)
 
-### 2. Entender Google Ads
-- Sabe qué keywords funcionan
-- Puede pausar campañas cuando está llena de citas
-- Entiende el costo por conversión
+| Métrica | Valor |
+|---|---|
+| Clics | 2.520 |
+| Costo por clic promedio | $0,37 |
+| **Conversiones** | **371** |
+| **Costo por conversión** | **$2,52** |
+| Inversión total aproximada | $933 |
 
-### 3. Independencia Real
-- No depende de ninguna agencia
-- Puede hacer cambios ella misma
-- Entiende qué significan sus métricas
+Una conversión aquí es un contacto: un clic a WhatsApp o una llamada desde el anuncio.
 
----
+### Búsqueda orgánica
 
-## Resultados Concretos
+Comparando junio&ndash;agosto de 2026 contra el mismo trimestre de 2025, antes de empezar:
 
 | Métrica | Antes | Después |
-|---------|-------|---------|
-| Reseñas Google | 3 | 15 |
-| Presencia web | Ninguna | podoclinicec.com |
-| Conversiones Ads | 0 | 33/mes |
-| Conversiones orgánicas | 0 | 3-4/día (~80/mes) |
-| Servicios a domicilio | Casi cero | Principal fuente de ingresos |
+|---|---|---|
+| Clics orgánicos | 2 | **281** |
+| Impresiones | 204 | **19.700** |
+| Posición media | 17,2 | **6,6** |
+
+### Posiciones actuales en búsquedas con intención de compra
+
+| Búsqueda en Google | Posición |
+|---|---|
+| podólogo quito precios | 2,9 |
+| podólogo quito norte | 3,0 |
+| podologo quito precios | 3,4 |
+| podologos quito norte | 4,4 |
+| podologo quito | 6,5 |
+
+### Reseñas: de 3 a 56
+
+| Consulta de podología en Quito Norte | Reseñas |
+|---|---|
+| **PodoClinic EC** | **56** &mdash; 5,0 &#9733; |
+| PODOCENTER | 10 |
+| Centro Podológico CHAKI | 9 |
+| PodoFamilyEc | 6 |
+
+Casi seis veces más reseñas que su competidor más cercano. Y la estrategia no tuvo misterio:
+
+> "Aprendí a pedirles a mis pacientes satisfechos que dejaran una reseña. Antes me daba vergüenza. Ahora entiendo que es parte normal del negocio digital."
 
 ---
 
@@ -673,78 +635,70 @@ Cristina ofrecía servicios a domicilio, pero casi nadie los conocía.
 
 > "Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente."
 >
-> [Ver Video Testimonio](https://www.youtube.com/watch?v=bSge9e1Se4w)
+> [Ver video testimonio](https://www.youtube.com/watch?v=bSge9e1Se4w)
 
 **Yadira Cristina Muñoz, PodoclinicEC**
 
 ---
 
-## ¿Qué Hace Cristina Diferente Ahora?
+## Lo que más importa: sigue creciendo sin nosotros
 
-**Cada semana dedica:**
-- 20 minutos revisando métricas de Google Ads
-- 10 minutos respondiendo reseñas nuevas
-- 5 minutos ajustando horarios si es necesario
+El trabajo con PukaDigital terminó el 2 de diciembre de 2025. Desde entonces Cristina gestiona todo ella misma, y los números siguieron subiendo:
 
-**Total: menos de 1 hora semanal** de gestión digital.
+- Amplió el equipo &mdash; ya no atiende sola
+- Publicó landings propias por servicio y por zona (La Florida, Iñaquito, Rumipamba, La Carolina, González Suárez)
+- Mantiene un blog y un quiz de evaluación para captar pacientes
+- Responde cada reseña que recibe
 
-El resto lo hacen las herramientas que aprendió a usar.
+Dedica **menos de una hora a la semana** a su gestión digital: 20 minutos revisando métricas de Google Ads, 10 respondiendo reseñas y 5 ajustando horarios. El resto lo hacen las herramientas que aprendió a usar.
 
----
-
-## Graduación: 2 de Diciembre 2025
-
-Cristina está en el proceso final de graduación del programa. En diciembre será oficialmente **independiente digital**.
-
-Significa que:
-- ✅ Maneja TODO ella misma
-- ✅ No paga fees mensuales a agencias
-- ✅ Tiene control total de sus cuentas
-- ✅ Puede crecer a su propio ritmo
+Ese es el punto. Un caso de éxito que depende de la agencia para sostenerse no es un caso de éxito: es una suscripción.
 
 ---
 
-## ¿Eres el Próximo Caso de Éxito?
+## Qué puedes sacar de este caso
 
-Si te identificas con la historia de Cristina:
-- ✅ Tienes un negocio pero poca presencia digital
-- ✅ No sabes por dónde empezar
-- ✅ Las agencias te parecen caras y confusas
-- ✅ Quieres entender, no solo "tener"
+**El costo por conversión depende de la landing, no solo de la puja.** $2,52 por contacto en una categoría médica es bajo porque la página carga rápido, es relevante para la búsqueda y tiene un único llamado a la acción.
 
-**Entonces el programa PukaDigital es para ti.**
+**El orgánico tarda, pero no desaparece.** Las primeras conversiones llegaron por Ads en el mes 2. El tráfico orgánico sostenido tomó cerca de seis meses. Hoy trae 281 clics por trimestre sin costo por clic.
 
-> 💡 **Recursos útiles:**
+**Las reseñas son el activo local más subestimado.** Pedirlas de forma sistemática marcó más diferencia que cualquier ajuste técnico.
+
+> 💡 **Recursos relacionados:**
+> - [¿Cuánto cuesta una landing page en Ecuador?](/cuanto-cuesta-una-landing-page)
 > - [¿Cuánto cuesta realmente una web? Análisis completo](/blog/cuanto-cuesta-pagina-web-ecuador)
-> - [5 señales de que necesitas un chatbot IA](/blog/5-senales-pyme-necesita-chatbot-ia)
-> - [Ver todas las herramientas disponibles](/productos)
+> - [Google My Business: la mina de oro que ignoran en Ecuador](/blog/google-my-business-ecuador)
 
 ---
 
-## Visita el Sitio de Cristina
+## Verifícalo tú mismo
 
-👉 **[podoclinicec.com](https://podoclinicec.com)**
+Nada de esto requiere que nos creas:
+
+- Busca **"podólogo quito norte"** en Google
+- Mira sus reseñas en [Google Maps](https://google.com/maps/search/podoclinicec)
+- Visita **[podoclinicec.com](https://podoclinicec.com)**
 
 ---
 
-## Empieza Tu Transformación
-
-👉 **[Ver Demos en Vivo](/demos)**  
-👉 **[Solicitar Entrevista Gratuita](/contacto)**  
-👉 **[Conocer el Programa de 3 Meses](/productos)**
-
-**Solo 2 cupos disponibles este mes.**
-
-No prometemos milagros. Prometemos **educación y autonomía**.
-
-Si Cristina pudo pasar de cero a 53 conversiones mensuales, tú también puedes.
+¿Tu negocio está en la misma situación en la que estaba Cristina en septiembre de 2025? [Escríbenos](/contacto) y te decimos con franqueza si podemos ayudarte.
 `,
     coverImage: 'https://res.cloudinary.com/dltfsttr7/image/upload/v1762797439/IMG_6879_lqniq0.jpg',
-    date: '2024-11-24',
+    date: '2026-08-28',
     category: 'Casos de Éxito',
     slug: 'caso-exito-podoclinicec-independencia-digital',
     source: 'local',
-    author: 'Cristina Muñoz & Equipo Puka'
+    author: 'Cristina Muñoz & Equipo Puka',
+    metaTitle: 'Caso Real: 371 Conversiones a $2,52 con Google Ads en Quito',
+    metaDescription: 'Cómo una podóloga de Quito Norte pasó de 2 a 281 clics orgánicos y de 3 a 56 reseñas en un año. Cifras verificables de Google Ads y Search Console.',
+    tags: [
+      'caso de exito marketing digital ecuador',
+      'google ads para medicos ecuador',
+      'costo por conversion google ads ecuador',
+      'marketing para consultorios medicos quito',
+      'seo local quito',
+      'podoclinicec',
+    ],
   },
   {
     id: 'local-5',
@@ -2838,6 +2792,16 @@ Empieza hoy: https://business.google.com
     category: 'SEO Local',
     slug: 'google-my-business-ecuador',
     source: 'local',
-    author: 'Equipo Puka'
+    author: 'Equipo Puka',
+    metaTitle: 'Google My Business Ecuador: Guía para Salir en Maps (2026)',
+    metaDescription: 'Cómo configurar tu perfil de empresa en Google y aparecer en Maps cuando buscan tu servicio en Quito o Guayaquil. Checklist de 7 pasos, gratis y sin agencia.',
+    tags: [
+      'google my business ecuador',
+      'perfil de empresa en google ecuador',
+      'como aparecer en google maps ecuador',
+      'ficha de google mi negocio',
+      'seo local quito',
+      'google business profile ecuador',
+    ],
   }
 ];
