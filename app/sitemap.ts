@@ -18,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/casos', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/preguntas-frecuentes', priority: 0.8, changeFreq: 'monthly' as const },
     { path: '/cuanto-cuesta-publicidad-google-ecuador', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/cuanto-cuesta-una-landing-page', priority: 0.9, changeFreq: 'weekly' as const },
   ];
 
   // Páginas de productos específicos (Landing Pages)
@@ -38,17 +39,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/casos/la-huequita-quitena-yanett-sarango', priority: 0.8, changeFreq: 'monthly' as const },
   ];
 
-  // Páginas Legales
-  const legalPages = [
-    { path: '/legal/terminos', priority: 0.3, changeFreq: 'yearly' as const },
-    { path: '/legal/politica-de-privacidad', priority: 0.3, changeFreq: 'yearly' as const },
-    { path: '/legal/cookies', priority: 0.3, changeFreq: 'yearly' as const },
-    { path: '/legal/garantia', priority: 0.5, changeFreq: 'monthly' as const },
-    { path: '/legal/google-calendar-privacidad', priority: 0.3, changeFreq: 'yearly' as const },
-    { path: '/legal/google-calendar-terminos', priority: 0.3, changeFreq: 'yearly' as const },
-  ];
+  // Las páginas legales se excluyen del sitemap: llevan noindex desde app/legal/layout.tsx
+  // (acumulaban 271 impresiones y 0 clics en posiciones 41+, GSC may–ago 2026).
 
-  const allStaticRoutes = [...staticPages, ...productPages, ...caseStudyPages, ...legalPages];
+  const allStaticRoutes = [...staticPages, ...productPages, ...caseStudyPages];
 
   const staticUrls: MetadataRoute.Sitemap = allStaticRoutes.map(page => ({
     url: `${baseUrl}${page.path}`,

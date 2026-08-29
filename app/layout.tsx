@@ -20,10 +20,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://pukadigital.com'),
   title: {
-    default: "PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador",
+    default: "Agencia de Marketing Digital en Quito, Ecuador | PukaDigital",
     template: `%s | PukaDigital`
   },
-  description: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
+  description: "Google Ads, SEO y desarrollo web para pymes en Quito y todo Ecuador. Más software propio: CRM con IA para WhatsApp, ERP con facturación SRI y más.",
   keywords: [
     "agencia marketing digital ecuador",
     "agencia digital quito",
@@ -62,22 +62,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_ES',
     url: 'https://pukadigital.com',
-    title: "PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador",
-    description: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
+    title: "Agencia de Marketing Digital en Quito, Ecuador | PukaDigital",
+    description: "Google Ads, SEO y desarrollo web para pymes en Quito y todo Ecuador. Más software propio: CRM con IA para WhatsApp, ERP con facturación SRI y más.",
     siteName: 'PukaDigital',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador',
+        alt: 'Agencia de Marketing Digital en Quito, Ecuador | PukaDigital',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "PukaDigital - Agencia de Marketing Digital y Desarrollo Web en Ecuador",
-    description: "Independencia tecnológica para pymes en Ecuador. Aprende a gestionar tu web, chatbot y ERP en 3 meses. Sin contratos eternos.",
+    title: "Agencia de Marketing Digital en Quito, Ecuador | PukaDigital",
+    description: "Google Ads, SEO y desarrollo web para pymes en Quito y todo Ecuador. Más software propio: CRM con IA para WhatsApp, ERP con facturación SRI y más.",
     images: ['/og-image.png'],
     creator: '@pukadigital',
   },

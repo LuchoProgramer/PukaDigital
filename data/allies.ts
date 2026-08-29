@@ -31,17 +31,19 @@ export const allies: Ally[] = [
         industry: 'Podología',
         city: 'Quito Norte',
         status: 'graduated',
-        statusLabel: 'Graduada 2 Dic 2025',
+        statusLabel: 'Autogestión desde Dic 2025',
         statusEmoji: '✅',
         photo: 'https://res.cloudinary.com/dltfsttr7/image/upload/v1759895245/IMG_6853_f0skfi.jpg',
         website: 'https://podoclinicec.com',
-        highlight: '53 conversiones/mes',
-        testimonialQuote: 'Nunca había tenido presencia digital. Con Puka, en 3 meses pasé de 3 reseñas en Google a 15.',
+        highlight: '371 conversiones a $2,52',
+        // Cita textual de Cristina. Se prefiere esta a la de las reseñas porque no
+        // caduca con el conteo de Google. Cifras verificadas al 2026-08-28.
+        testimonialQuote: 'Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios.',
         metrics: {
-            conversionsAds: 33,
-            conversionsOrganic: 20,
+            conversionsAds: 371,
+            conversionsOrganic: 281,
             reviewsBefore: 3,
-            reviewsAfter: 15,
+            reviewsAfter: 56,
         },
     },
     {
