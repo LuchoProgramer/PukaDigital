@@ -37,7 +37,7 @@ const CasoCarla = () => {
       completed: true,
       current: false,
       items: [
-        'Posición 2 en Google por «veterinaria carcelen», sin pagar publicidad',
+        'Posición 2 en Google por «veterinaria carcelen» con tráfico orgánico',
         'CTR del 5,3 % en esa búsqueda: 1 de cada 19 personas que la ven, entra',
         'Optimización de Landing Pages completada',
         'Primeros clientes llegando solo por búsqueda',
@@ -88,7 +88,7 @@ const CasoCarla = () => {
 
             <div className="text-center">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 animate-pulse border border-white/30">
-                SEO org&aacute;nico &mdash; Posici&oacute;n 2 en Google, $0 en publicidad
+                Prob&oacute; Ads 3 semanas &mdash; y volvi&oacute; al org&aacute;nico
               </span>
 
               <div className="text-7xl mb-6">🐕</div>
@@ -114,8 +114,8 @@ const CasoCarla = () => {
                 <div className="bg-white/10 px-4 py-2 rounded flex items-center gap-2">
                   <span className="text-2xl">💬</span>
                   <div className="text-left leading-tight">
-                    <div className="text-xs opacity-70 uppercase tracking-widest">Inversi&oacute;n en anuncios</div>
-                    <div className="font-bold">$0</div>
+                    <div className="text-xs opacity-70 uppercase tracking-widest">Ads: ene 2026, 3 semanas</div>
+                    <div className="font-bold">$47,74 &middot; luego pausado</div>
                   </div>
                 </div>
               </div>

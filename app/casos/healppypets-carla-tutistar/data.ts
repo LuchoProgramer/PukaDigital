@@ -51,8 +51,35 @@ export const GA4 = {
   organicAvgTime: 53,
 };
 
-/** Sin inversión publicitaria: todo el tráfico es orgánico, directo o social. */
-export const ADS_SPEND = 0;
+/**
+ * Google Ads. La clienta probó publicidad tres semanas en enero de 2026 y la
+ * detuvo: el posicionamiento orgánico ya le llenaba la agenda. Las dos campañas
+ * llevan pausadas desde entonces y la cuenta no ha vuelto a gastar.
+ *
+ * Verificado en la cuenta 216-637-4423 el 2026-08-29:
+ *   8 ene 2026   0 clics, aún sin arrancar
+ *   20 ene 2026  8 clics
+ *   31 ene 2026  36 clics, el máximo
+ *   5 feb 2026   0 clics, detenido
+ *   feb-ago      sin actividad
+ *
+ * Las 46 "conversiones" son clics al botón de WhatsApp, no pacientes: la acción
+ * de conversión configurada mide el clic, no la conversación ni la cita. Por eso
+ * el costo por conversión no se presenta como un logro.
+ */
+export const ADS = {
+  spend: 47.74,
+  clicks: 168,
+  impressions: 2967,
+  ctr: 5.66,
+  conversions: 46,
+  weeksActive: 3,
+  month: 'enero de 2026',
+  campaigns: [
+    { name: 'Búsqueda', type: 'Search', spend: 34.02, conversions: 14 },
+    { name: 'Performance Max', type: 'Performance Max', spend: 13.72, conversions: 32 },
+  ],
+};
 
 const PAGE_URL = 'https://pukadigital.com/casos/healppypets-carla-tutistar';
 
@@ -61,9 +88,9 @@ export const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline:
-      'Caso HealppyPets: posición 2 en Google para su búsqueda principal, sin invertir en publicidad',
+      'Caso HealppyPets: probó publicidad tres semanas y la dejó porque el orgánico le bastaba',
     description:
-      'Cómo una veterinaria de Carcelén, Quito, llegó al top 3 de Google para su búsqueda local principal con SEO orgánico y cero inversión en anuncios.',
+      'Una veterinaria de Carcelén, Quito, en posición 2 de Google para su búsqueda principal. Probó Google Ads en enero de 2026, lo detuvo a las tres semanas y siguió creciendo con SEO orgánico.',
     author: { '@type': 'Organization', name: 'PukaDigital', url: 'https://pukadigital.com' },
     publisher: { '@type': 'Organization', name: 'PukaDigital', url: 'https://pukadigital.com' },
     datePublished: '2026-01-07',
@@ -101,7 +128,15 @@ export const structuredData = [
         name: '¿Se puede posicionar un negocio local en Google sin pagar publicidad?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Sí. HealppyPets, una veterinaria de Carcelén en Quito, ocupa la posición ${RANKINGS[0].position.toString().replace('.', ',')} en Google para "veterinaria carcelen" sin haber invertido en anuncios. El tráfico llega por búsqueda orgánica, y su CTR medio es del ${SEO.ctr.toString().replace('.', ',')} %. El SEO local es más lento que la publicidad pagada, pero no tiene costo por clic.`,
+          text: `Sí. HealppyPets, una veterinaria de Carcelén en Quito, ocupa la posición ${RANKINGS[0].position.toString().replace('.', ',')} en Google para "veterinaria carcelen" con tráfico orgánico, y su CTR medio es del ${SEO.ctr.toString().replace('.', ',')} %. Probó publicidad pagada durante tres semanas en enero de 2026 y la detuvo porque el orgánico ya le llenaba la agenda. El SEO local es más lento que los anuncios, pero no tiene costo por clic y no se apaga cuando dejas de pagar.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Conviene pagar Google Ads si ya apareces primero en Google gratis?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Depende de si quieres crecer por encima de tu capacidad actual. HealppyPets probó Google Ads tres semanas en enero de 2026: ${ADS.clicks} clics y $${ADS.spend.toFixed(2)} de inversión. Detuvo las campañas porque el posicionamiento orgánico ya le llenaba la agenda, y pagar por tráfico que ya llegaba gratis no le añadía pacientes. La publicidad tiene sentido cuando la demanda orgánica se queda corta, no antes.`,
         },
       },
       {
