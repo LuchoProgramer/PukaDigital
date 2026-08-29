@@ -3,9 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ArrowLeft, CheckCircle, X, ExternalLink, Search, Star, Calendar, TrendingUp, Users, Globe, MessageSquare } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle, X, ExternalLink, Search, Star, TrendingUp, Users, Globe } from 'lucide-react';
 import VideoTestimonial from '@/components/VideoTestimonial';
 import * as ga from '@/lib/analytics';
+import { RANKINGS, COMPETITORS, SEO_YOY } from './data';
 
 const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg
@@ -70,7 +71,7 @@ const CasoCristina = () => {
       ],
     },
     {
-      month: 'Graduación',
+      month: 'Mes 4',
       title: 'Independencia Total',
       date: '2 Diciembre 2025',
       completed: true,
@@ -82,6 +83,23 @@ const CasoCristina = () => {
       ],
       metrics: [{ value: '100%', label: 'Independencia' }],
     },
+    {
+      month: 'Hoy',
+      title: 'Nueve meses después, sigue creciendo sola',
+      date: 'Agosto 2026',
+      completed: true,
+      items: [
+        'Lidera su categoría en Quito Norte: 56 reseñas contra 10 del segundo lugar',
+        'Top 3 en "podólogo quito precios" y "podólogo quito norte"',
+        'Amplió el equipo: ya no atiende sola',
+        'Landings propias por servicio y por zona (La Florida, Iñaquito, Rumipamba)',
+        'Blog activo y quiz de evaluación para captar pacientes',
+      ],
+      metrics: [
+        { value: '371', label: 'Conversiones Ads' },
+        { value: '$2,52', label: 'Costo por conversión' },
+      ],
+    },
   ];
 
   // Antes vs Después
@@ -89,19 +107,20 @@ const CasoCristina = () => {
     'Sin página web',
     'Google Business sin optimizar',
     'Solo 3 reseñas en Google',
+    '2 clics orgánicos en todo un trimestre',
+    'Posición media 17,2 — página 2 de Google',
     'Clientes solo por boca a boca',
     'Servicios a domicilio casi inexistentes',
-    'Invisible en búsquedas locales',
   ];
 
   const after = [
-    'Web profesional: podoclinicec.com',
-    'Google Business 100% optimizado',
-    '15 reseñas (5x más)',
-    '33 conversiones por Google Ads',
-    '3-4 pacientes diarios (aprox 80-100/mes)',
-    'Top resultados "podóloga Quito Norte"',
-    'Sistema de Citas Médicas (Alianza Estratégica)',
+    'Web propia con landings por servicio y por zona',
+    '56 reseñas con calificación 5,0 (18x más)',
+    '281 clics orgánicos por trimestre (140x más)',
+    'Posición media 6,6 — primera página',
+    '371 conversiones por Google Ads a $2,52 cada una',
+    'Top 3 en "podólogo quito precios" y "podólogo quito norte"',
+    'Equipo ampliado: ya no atiende sola',
   ];
 
   // Colores de marca PodoclinicEC
@@ -137,19 +156,29 @@ const CasoCristina = () => {
             <div className="text-center md:text-left grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-xs font-black mb-6 uppercase tracking-widest border border-white/30">
-                  ✅ RESULTADO VERIFICADO — GRADUADA
+                  ✅ DATOS VERIFICABLES &mdash; ACTUALIZADO AGOSTO 2026
                 </span>
 
                 <h1 className="font-display text-4xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-                  Cristina Muñoz lo logró: <span className="underline decoration-white/30 underline-offset-8">4 pacientes/día</span>
+                  371 conversiones a{' '}
+                  <span className="underline decoration-white/30 underline-offset-8">$2,52 cada una</span>
                 </h1>
 
-                <div className="flex flex-wrap items-center gap-4 mb-10 text-xl md:text-2xl font-medium opacity-90">
+                <p className="text-lg md:text-xl opacity-90 mb-8 max-w-xl leading-relaxed">
+                  Cristina Mu&ntilde;oz ten&iacute;a 20 pacientes al mes y 2 clics org&aacute;nicos
+                  en todo un trimestre. Once meses despu&eacute;s lidera la podolog&iacute;a de Quito
+                  Norte en Google &mdash; y lo gestiona ella misma.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4 mb-10 text-lg md:text-xl font-medium opacity-90">
                   <p className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-sm border border-white/20">
-                    <CheckCircle size={24} /> 33 conv. Google Ads
+                    <CheckCircle size={22} /> 371 conversiones
                   </p>
                   <p className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-sm border border-white/20">
-                    <CheckCircle size={24} /> Top 3 Google Maps
+                    <CheckCircle size={22} /> 5,0 &#9733; con 56 rese&ntilde;as
+                  </p>
+                  <p className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-sm border border-white/20">
+                    <CheckCircle size={22} /> Top 3 en Google
                   </p>
                 </div>
 
@@ -171,7 +200,7 @@ const CasoCristina = () => {
                 </div>
 
                 <p className="mt-8 text-sm font-bold uppercase tracking-widest text-white/70 animate-pulse">
-                  🔥 Solo 2 cupos para tu transformación digital
+                  Datos de Google Ads, Search Console y Google Business — publicados con autorización de la clienta
                 </p>
               </div>
 
@@ -185,8 +214,8 @@ const CasoCristina = () => {
                     className="rounded-sm object-cover"
                   />
                   <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-sm shadow-2xl">
-                    <p className="text-puka-black font-black text-4xl">33</p>
-                    <p className="text-puka-black/60 text-xs font-bold uppercase tracking-widest">Conversiones mes 2</p>
+                    <p className="text-puka-black font-black text-4xl">371</p>
+                    <p className="text-puka-black/60 text-xs font-bold uppercase tracking-widest">Conversiones a hoy</p>
                   </div>
                 </div>
               </div>
@@ -223,23 +252,23 @@ const CasoCristina = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <TrendingUp style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
-                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">33</div>
+                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">371</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Conversiones Google Ads</div>
               </div>
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Users style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
-                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">3-4</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Pacientes Diarios (Antes 20/mes)</div>
+                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">$2,52</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Costo por conversi&oacute;n</div>
               </div>
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Star style={{ color: brandColors.primary }} className="mx-auto mb-3" size={32} />
-                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">3→15</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Reseñas Google</div>
+                <div style={{ color: brandColors.primary }} className="text-4xl font-bold">5,0 &#9733;</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">56 reseñas en Google (antes 3)</div>
               </div>
               <div style={{ backgroundColor: '#e8f5f5' }} className="dark:bg-teal-900/20 p-6 rounded-sm text-center">
                 <Globe style={{ color: brandColors.secondary }} className="mx-auto mb-3" size={32} />
-                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">Top 3</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Google Maps Quito Norte</div>
+                <div style={{ color: brandColors.secondary }} className="text-4xl font-bold">&times;140</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Clics org&aacute;nicos vs. hace un a&ntilde;o</div>
               </div>
             </div>
           </div>
@@ -250,9 +279,9 @@ const CasoCristina = () => {
       <section style={{ backgroundColor: '#e8f5f5' }} className="py-16 dark:bg-teal-900/20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div style={{ color: brandColors.primary }} className="text-6xl opacity-30 font-serif">"</div>
+            <div style={{ color: brandColors.primary }} className="text-6xl opacity-30 font-serif">&ldquo;</div>
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-200 -mt-8">
-              "Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente."
+              &ldquo;Lo que más me sorprendió es que estoy logrando mi objetivo: hacer crecer Podoclinic. Antes tenía 20 pacientes al mes, ahora tengo 3 a 4 diarios. El reconocimiento de mi marca ha crecido increíblemente.&rdquo;
             </blockquote>
             <div className="mt-8 flex items-center justify-center gap-4">
               <Image
@@ -365,7 +394,7 @@ const CasoCristina = () => {
               {/* DESPUÉS */}
               <div style={{ backgroundColor: 'rgba(96, 190, 195, 0.15)', borderColor: brandColors.primary }} className="p-8 rounded-sm border">
                 <h3 style={{ color: brandColors.primary }} className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <CheckCircle size={28} /> DESPUÉS de 90 Días
+                  <CheckCircle size={28} /> HOY, 11 MESES DESPU&Eacute;S
                 </h3>
                 <ul className="space-y-4">
                   {after.map((item, i) => (
@@ -376,6 +405,105 @@ const CasoCristina = () => {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Posiciones ganadas en Google */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-puka-black dark:text-white">
+              De la p&aacute;gina 2 al top 3
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl">
+              Comparando junio&ndash;agosto de 2026 contra el mismo trimestre de 2025, antes de
+              empezar. Datos de Google Search Console.
+            </p>
+
+            <div className="grid sm:grid-cols-3 gap-6 mb-12">
+              {[
+                { label: 'Clics org\u00e1nicos', before: SEO_YOY.clicksBefore.toString(), after: SEO_YOY.clicksAfter.toString() },
+                { label: 'Impresiones', before: SEO_YOY.impressionsBefore.toLocaleString('es-EC'), after: SEO_YOY.impressionsAfter.toLocaleString('es-EC') },
+                { label: 'Posici\u00f3n media', before: SEO_YOY.positionBefore.toString().replace('.', ','), after: SEO_YOY.positionAfter.toString().replace('.', ',') },
+              ].map((row) => (
+                <div key={row.label} className="border border-gray-200 dark:border-white/10 rounded-sm p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">{row.label}</p>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl text-gray-400 line-through">{row.before}</span>
+                    <ArrowRight size={18} className="text-gray-400 shrink-0" />
+                    <span style={{ color: brandColors.primary }} className="text-4xl font-bold">{row.after}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <h3 className="text-xl font-bold mb-6 text-puka-black dark:text-white">
+              Posiciones actuales en b&uacute;squedas con intenci&oacute;n de compra
+            </h3>
+            <div className="overflow-x-auto border border-gray-200 dark:border-white/10 rounded-sm">
+              <table className="w-full min-w-[420px] text-left">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5">
+                    <th className="py-3 px-5 text-xs font-bold uppercase tracking-widest text-gray-500">B&uacute;squeda en Google</th>
+                    <th className="py-3 px-5 text-xs font-bold uppercase tracking-widest text-gray-500 text-right">Posici&oacute;n</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {RANKINGS.map((r) => (
+                    <tr key={r.query} className="border-b border-gray-100 dark:border-white/5 last:border-0">
+                      <td className="py-3 px-5 text-gray-700 dark:text-gray-300">&laquo;{r.query}&raquo;</td>
+                      <td className="py-3 px-5 text-right font-bold tabular-nums" style={{ color: brandColors.primary }}>
+                        {r.position.toString().replace('.', ',')}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparativa con la competencia local */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-puka-black dark:text-white">
+              C&oacute;mo se ve frente a su competencia
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl">
+              Rese&ntilde;as en Google Maps de las consultas de podolog&iacute;a que compiten en la
+              misma zona de Quito. Puedes comprobarlo buscando &laquo;pod&oacute;logo quito norte&raquo;.
+            </p>
+
+            <div className="flex flex-col gap-3">
+              {COMPETITORS.map((c, i) => {
+                const isPuka = i === 0;
+                const width = Math.max((c.count / COMPETITORS[0].count) * 100, 2);
+                return (
+                  <div key={c.name} className="flex items-center gap-4">
+                    <span className={`w-52 shrink-0 text-sm ${isPuka ? 'font-bold text-puka-black dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>
+                      {c.name}
+                    </span>
+                    <div className="flex-1 h-8 bg-gray-200 dark:bg-white/5 rounded-sm overflow-hidden">
+                      <div
+                        className="h-full rounded-sm"
+                        style={{
+                          width: `${width}%`,
+                          backgroundColor: isPuka ? brandColors.primary : '#cbd5d5',
+                        }}
+                      />
+                    </div>
+                    <span className="w-28 shrink-0 text-sm text-right tabular-nums text-gray-600 dark:text-gray-400">
+                      {c.count} rese&ntilde;as
+                      {c.rating !== null && <span className="ml-1">&middot; {c.rating.toFixed(1).replace('.', ',')}&#9733;</span>}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -402,7 +530,7 @@ const CasoCristina = () => {
                 <Search className="mx-auto mb-4" size={40} />
                 <h3 className="font-bold text-lg mb-2">Búscala en Google</h3>
                 <p className="text-sm opacity-80 mb-4">
-                  Busca "podóloga quito norte" y encuéntrala
+                  Busca &laquo;podóloga quito norte&raquo; y encuéntrala
                 </p>
                 <span className="text-sm font-bold">Buscar ahora →</span>
               </a>
@@ -502,7 +630,7 @@ const CasoCristina = () => {
             </button>
           </div>
           <p className="text-sm mt-8 font-bold uppercase tracking-widest opacity-80 flex items-center justify-center gap-2">
-            <TrendingUp size={16} /> Solo 2 cupos disponibles para graduación el próximo trimestre
+            <TrendingUp size={16} /> Cifras verificadas al 28 de agosto de 2026
           </p>
         </div>
       </section>
