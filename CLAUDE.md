@@ -45,7 +45,10 @@ Guía de contexto para Claude Code al trabajar en este repositorio.
 
 - Páginas de producto son `'use client'` — usan estado, hooks y analytics
 - Metadata SEO va en `layout.tsx` de cada ruta (no en `page.tsx`)
-- JSON-LD / Schema.org se inyecta via `<SEO structuredData={schema} />` en `page.tsx` usando `useEffect` (compatible con `'use client'`)
+- JSON-LD / Schema.org se inyecta via `<SEO structuredData={schema} />` en `page.tsx`. El componente **renderiza el `<script type="application/ld+json">` en el JSX**, no con `useEffect` — Next.js renderiza los client components también en el servidor, así que el schema queda en el HTML servido.
+  - **Nunca inyectar schema con `useEffect` + `document.head.appendChild`.** Los crawlers de LLM (GPTBot, PerplexityBot, ClaudeBot) no ejecutan JavaScript: el schema sería invisible para ellos. Así estuvo hasta el 2026-08-28 y se perdían 46 preguntas de FAQ en 6 páginas.
+  - Alternativa preferida para páginas nuevas: inyectar el `<script>` desde el `layout.tsx` (server component), que lo coloca en el `<head>`. Ver `app/cuanto-cuesta-una-landing-page/{layout,data}.tsx`.
+  - Escapar siempre `<` como `<` al serializar (`JSON.stringify(x).replace(/</g, '\\u003c')`), para que un texto con `</script>` no cierre la etiqueta antes de tiempo.
 - Rutas en español (ej. `/agentes-ia`, `/pukahealth`)
 
 ### Estilos
