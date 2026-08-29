@@ -53,16 +53,19 @@ export const allies: Ally[] = [
         industry: 'Veterinaria',
         city: 'Quito',
         status: 'in-progress',
-        statusLabel: 'Mes 2: Posicionamiento',
+        statusLabel: 'SEO orgánico, sin publicidad',
         statusEmoji: '🟡',
         photo: null,
         emoji: '🐕',
         website: 'https://healppypets.com',
-        highlight: 'Top 3 Google | Top 1 ChatGPT',
-        currentPhase: 'SEO Orgánico Dominante (Ads Pendiente)',
+        highlight: 'Posición 2 en Google · $0 en anuncios',
+        currentPhase: 'Posicionamiento orgánico (Ads pendiente)',
+        // Se retiró la afirmación "Top 1 en ChatGPT": los asistentes de IA no
+        // devuelven rankings estables ni reproducibles, así que no es auditable.
+        // La posición en Google sí lo es. Verificado en GSC el 2026-08-29.
         metrics: {
-            customLabel: 'Ranking ChatGPT (Carcelén)',
-            customValue: '#1',
+            customLabel: 'Google «veterinaria carcelen»',
+            customValue: 'Posición 2',
         }
     },
     {

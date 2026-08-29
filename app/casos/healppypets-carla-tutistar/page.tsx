@@ -37,8 +37,8 @@ const CasoCarla = () => {
       completed: true,
       current: false,
       items: [
-        'Top 1 en ChatGPT por "Veterinaria Carcelén"',
-        'Top 3 en Google Maps sin pagar publicidad',
+        'Posición 2 en Google por «veterinaria carcelen», sin pagar publicidad',
+        'CTR del 5,3 % en esa búsqueda: 1 de cada 19 personas que la ven, entra',
         'Optimización de Landing Pages completada',
         'Primeros clientes llegando solo por búsqueda',
       ],
@@ -88,7 +88,7 @@ const CasoCarla = () => {
 
             <div className="text-center">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 animate-pulse border border-white/30">
-                � SEO Orgánico Dominante - Top 3 Google / Top 1 IA
+                SEO org&aacute;nico &mdash; Posici&oacute;n 2 en Google, $0 en publicidad
               </span>
 
               <div className="text-7xl mb-6">🐕</div>
@@ -107,15 +107,15 @@ const CasoCarla = () => {
                 <div className="bg-white/10 px-4 py-2 rounded flex items-center gap-2">
                   <span className="text-2xl">🥇</span>
                   <div className="text-left leading-tight">
-                    <div className="text-xs opacity-70 uppercase tracking-widest">Ranking ChatGPT</div>
-                    <div className="font-bold">#1 "Veterinaria Carcelén"</div>
+                    <div className="text-xs opacity-70 uppercase tracking-widest">Google &laquo;veterinaria carcelen&raquo;</div>
+                    <div className="font-bold">Posici&oacute;n 2</div>
                   </div>
                 </div>
                 <div className="bg-white/10 px-4 py-2 rounded flex items-center gap-2">
-                  <span className="text-2xl">🥉</span>
+                  <span className="text-2xl">💬</span>
                   <div className="text-left leading-tight">
-                    <div className="text-xs opacity-70 uppercase tracking-widest">Ranking Google</div>
-                    <div className="font-bold">Top 3 Orgánico</div>
+                    <div className="text-xs opacity-70 uppercase tracking-widest">Inversi&oacute;n en anuncios</div>
+                    <div className="font-bold">$0</div>
                   </div>
                 </div>
               </div>
@@ -137,10 +137,10 @@ const CasoCarla = () => {
                   Update Honesto — 7 Ene 2026
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2 italic">
-                  "¿Para qué pagar si ya me encuentran gratis?"
+                  &laquo;&iquest;Para qu&eacute; pagar si ya me encuentran gratis?&raquo;
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  Esta es la pregunta real que enfrenta Carla hoy. El éxito orgánico (SEO) ha sido tan bueno que ha generado una comprensible resistencia a invertir dinero real en Ads. Como agencia, nuestro reto este mes no es técnico, es <b>estratégico</b>: Demostrarle que aunque el tráfico gratis es bueno, el tráfico pago es la llave para escalar de "estar llena" a "expandir el negocio".
+                  Esta es la pregunta real que enfrenta Carla hoy. El éxito orgánico (SEO) ha sido tan bueno que ha generado una comprensible resistencia a invertir dinero real en Ads. Como agencia, nuestro reto este mes no es técnico, es <b>estratégico</b>: Demostrarle que aunque el tráfico gratis es bueno, el tráfico pago es la llave para escalar de &laquo;estar llena&raquo; a &laquo;expandir el negocio&raquo;.
                 </p>
                 <div className="mt-4 bg-white/50 dark:bg-black/20 p-3 rounded-sm border-l-4 border-puka-red text-sm text-gray-700 dark:text-gray-300">
                   <strong>Estado Real:</strong> La tarjeta de crédito está lista, pero el miedo a invertir sigue presente. Documentamos esto porque es la realidad de muchos emprendedores.
