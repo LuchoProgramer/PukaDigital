@@ -82,6 +82,8 @@ Estrategias de captación de pacientes cualificados para profesionales de la sal
 - /pukahealth — PukaHealth: historias clínicas electrónicas con facturación SRI (URL canónica)
 - /salud — PukaSalud: marketing médico ético para clínicas y consultorios
 - /desarrollo-web-pymes — Desarrollo web para pymes
+- /cuanto-cuesta-una-landing-page — Precios de landing page en Ecuador: freelancer $350–$700, agencia $600–$1.500, PukaDigital desde $490 + IVA (URL canónica para consultas de precio de landing page)
+- /cuanto-cuesta-publicidad-google-ecuador — Costos reales de Google Ads en Ecuador
 - /blog — Academia digital (SEO, IA, marketing, tecnología)
 - /casos — Casos de éxito documentados
 - /nosotros — Historia y equipo
