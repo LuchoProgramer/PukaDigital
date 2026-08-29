@@ -46,16 +46,24 @@ export const getClientId = (): string | null => {
 /**
  * Devuelve el session_id de GA4 para esta propiedad.
  *
- * Vive en la cookie _ga_<MEASUREMENT_ID sin el prefijo G->, con formato
- * GS1.1.<session_id>.<numero_de_sesion>... Antes se enviaba Date.now(), lo que
- * hacía que cada evento inventara su propia sesión y ninguno se asociara a la
- * visita real.
+ * Vive en la cookie _ga_<MEASUREMENT_ID sin el prefijo G->. Antes se enviaba
+ * Date.now(), lo que hacía que cada evento inventara su propia sesión y ninguno
+ * se asociara a la visita real.
+ *
+ * El valor tiene dos formatos según la versión de gtag, y hay que aceptar los
+ * dos porque conviven:
+ *
+ *   GS1.1.1756400000.3.1.1756400123.0.0.0        antiguo, separado por puntos
+ *   GS2.1.s1788010593$o4$g0$t1788010593$j60      actual, con "s" y "$"
+ *
+ * De ahí el `s?` opcional: sin él la versión actual no coincide y la función
+ * devuelve null, que es justo lo que pasaba.
  */
 export const getSessionId = (): string | null => {
   if (typeof document === 'undefined') return null;
 
   const cookieName = `_ga_${GA_TRACKING_ID.replace('G-', '')}`;
-  const match = document.cookie.match(new RegExp(`${cookieName}=GS\\d+\\.\\d+\\.(\\d+)`));
+  const match = document.cookie.match(new RegExp(`${cookieName}=GS\\d+\\.\\d+\\.s?(\\d+)`));
   return match ? match[1] : null;
 };
 
