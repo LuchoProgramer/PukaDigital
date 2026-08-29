@@ -4,9 +4,9 @@ import { structuredData } from './data';
 
 export const metadata: Metadata = {
   // El root layout añade el template "| PukaDigital" (14 caracteres).
-  title: 'Caso HealppyPets: top 3 en Google sin pagar anuncios',
+  title: 'Caso HealppyPets: probó Google Ads y volvió al orgánico',
   description:
-    'Cómo una veterinaria de Carcelén, Quito, llegó a la posición 2 de Google para su búsqueda principal con SEO orgánico y cero inversión publicitaria. Datos verificables.',
+    'Una veterinaria de Carcelén en posición 2 de Google para su búsqueda principal. Probó publicidad tres semanas, la detuvo porque el orgánico le llenaba la agenda, y siguió creciendo. Datos verificables.',
   keywords: [
     'seo local quito',
     'posicionamiento organico ecuador',
@@ -22,16 +22,16 @@ export const metadata: Metadata = {
   openGraph: {
     url: 'https://pukadigital.com/casos/healppypets-carla-tutistar',
     type: 'article',
-    title: 'Caso HealppyPets: top 3 en Google sin pagar anuncios',
+    title: 'Caso HealppyPets: probó Google Ads y volvió al orgánico',
     description:
-      'Una veterinaria de Carcelén en posición 2 de Google para su búsqueda principal, con SEO orgánico y sin invertir un dólar en publicidad.',
+      'Probó publicidad tres semanas en enero de 2026 y la detuvo: el posicionamiento orgánico ya le llenaba la agenda.',
     locale: 'es_EC',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Caso HealppyPets: top 3 en Google sin pagar anuncios',
+    title: 'Caso HealppyPets: probó Google Ads y volvió al orgánico',
     description:
-      'Una veterinaria de Carcelén en posición 2 de Google para su búsqueda principal, con SEO orgánico y sin invertir un dólar en publicidad.',
+      'Probó publicidad tres semanas en enero de 2026 y la detuvo: el posicionamiento orgánico ya le llenaba la agenda.',
   },
 };
 

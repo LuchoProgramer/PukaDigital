@@ -58,7 +58,7 @@ export const allies: Ally[] = [
         photo: null,
         emoji: '🐕',
         website: 'https://healppypets.com',
-        highlight: 'Posición 2 en Google · $0 en anuncios',
+        highlight: 'Posición 2 en Google · orgánico por decisión propia',
         currentPhase: 'Posicionamiento orgánico (Ads pendiente)',
         // Se retiró la afirmación "Top 1 en ChatGPT": los asistentes de IA no
         // devuelven rankings estables ni reproducibles, así que no es auditable.
