@@ -4,14 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Users, HelpCircle, DollarSign } from 'lucide-react';
-import { allies } from '@/data/allies';
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
-
-  const totalSlots = 5;
-  const activeAlliesCount = allies.filter(a => a.status !== 'graduated').length;
-  const availableSlots = Math.max(0, totalSlots - activeAlliesCount);
 
   const isCustomFooterPage = pathname === '/' ||
     pathname?.includes('/sistema') ||
@@ -35,35 +30,6 @@ const Footer: React.FC = () => {
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
-
-        {/* Slots Counter */}
-        <div className="mb-16 text-center pb-16" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-          <h4 className="font-display font-bold text-lg mb-4" style={{ color: '#6B7280' }}>
-            Cupos Disponibles
-          </h4>
-          <div className="flex justify-center items-center gap-2 mb-3">
-            {Array.from({ length: activeAlliesCount }).map((_, i) => (
-              <div
-                key={`occupied-${i}`}
-                className="w-8 h-8 rounded-full bg-puka-red flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-puka-red/20"
-              >
-                ✗
-              </div>
-            ))}
-            {Array.from({ length: availableSlots }).map((_, i) => (
-              <div
-                key={`available-${i}`}
-                className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-sm font-bold animate-pulse shadow-lg shadow-green-500/20"
-              >
-                ✓
-              </div>
-            ))}
-          </div>
-          <p className="text-sm" style={{ color: '#9CA3AF' }}>
-            <span className="text-puka-red font-bold">{activeAlliesCount}</span> ocupados &middot;
-            <span className="text-green-500 font-bold ml-1">{availableSlots}</span> disponibles
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
 

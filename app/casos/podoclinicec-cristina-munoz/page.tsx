@@ -616,11 +616,11 @@ const CasoCristina = () => {
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <button
-              onClick={() => handleWhatsAppClick('caso_cristina_footer_primary', 'Hola Luis, vi el caso de Cristina y estoy listo para tomar mi cupo y obtener resultados similares.')}
+              onClick={() => handleWhatsAppClick('caso_cristina_footer_primary', 'Hola Luis, vi el caso de Cristina y quiero conversar sobre la presencia digital de mi negocio.')}
               className="bg-puka-black text-white px-12 py-5 rounded-sm text-2xl font-bold hover:bg-gray-900 transition-all flex items-center gap-3 shadow-2xl transform hover:scale-105"
             >
               <WhatsAppIcon size={32} className="text-[#25D366]" />
-              Tomo un cupo como Cristina
+              Quiero resultados como Cristina
             </button>
             <button
               onClick={() => handleWhatsAppClick('caso_cristina_footer_secondary', 'Hola Luis, verifiqué los resultados de PodoclinicEC, ¿crees que calificaría yo para el programa?')}

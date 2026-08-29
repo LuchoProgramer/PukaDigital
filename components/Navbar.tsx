@@ -31,10 +31,6 @@ const navGlass = {
     borderBottom: '1px solid rgba(0,0,0,0.06)',
     boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
   },
-  slotsBadge: {
-    background: 'rgba(199,23,30,0.08)',
-    border: '1px solid rgba(199,23,30,0.25)',
-  },
 };
 
 const Navbar: React.FC = () => {
@@ -123,17 +119,6 @@ const Navbar: React.FC = () => {
             ))}
 
             <div className="flex items-center gap-2 border-l pl-6" style={{ borderColor: 'rgba(0,0,0,0.08)' }}>
-              {/* Slots Badge */}
-              <div
-                className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full"
-                style={navGlass.slotsBadge}
-              >
-                <span className="text-sm tracking-wider">🔴🔴🔴🟢🟢</span>
-                <span className="text-xs font-bold" style={{ color: '#C7171E' }}>
-                  2 cupos disponibles
-                </span>
-              </div>
-
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
