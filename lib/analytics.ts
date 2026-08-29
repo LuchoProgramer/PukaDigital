@@ -22,16 +22,41 @@ declare global {
   }
 }
 
-// Generate or retrieve a persistent client ID for server-side tracking
-export const getClientId = (): string => {
-  if (typeof window === 'undefined') return 'server';
+/**
+ * Devuelve el client_id REAL que GA4 asigna al visitante.
+ *
+ * Vive en la cookie _ga con el formato GA1.1.<client_id>, donde client_id es
+ * "1234567890.1234567890". Antes esta función inventaba un id y lo guardaba en
+ * localStorage: GA4 no lo reconocía como el visitante real, así que los eventos
+ * enviados desde el servidor llegaban huérfanos y caían en (not set), sin
+ * sesión ni fuente de tráfico. Con la cookie real, el evento se une a la visita
+ * y conserva la atribución a la campaña.
+ *
+ * Devuelve null si la cookie aún no existe (primer render, o el usuario bloquea
+ * cookies). En ese caso no se envía el evento de servidor: es preferible perder
+ * un dato a registrar uno sin atribución.
+ */
+export const getClientId = (): string | null => {
+  if (typeof document === 'undefined') return null;
 
-  let clientId = localStorage.getItem('ga_client_id');
-  if (!clientId) {
-    clientId = `${Date.now()}.${Math.random().toString(36).substring(2, 15)}`;
-    localStorage.setItem('ga_client_id', clientId);
-  }
-  return clientId;
+  const match = document.cookie.match(/_ga=GA\d+\.\d+\.(\d+\.\d+)/);
+  return match ? match[1] : null;
+};
+
+/**
+ * Devuelve el session_id de GA4 para esta propiedad.
+ *
+ * Vive en la cookie _ga_<MEASUREMENT_ID sin el prefijo G->, con formato
+ * GS1.1.<session_id>.<numero_de_sesion>... Antes se enviaba Date.now(), lo que
+ * hacía que cada evento inventara su propia sesión y ninguno se asociara a la
+ * visita real.
+ */
+export const getSessionId = (): string | null => {
+  if (typeof document === 'undefined') return null;
+
+  const cookieName = `_ga_${GA_TRACKING_ID.replace('G-', '')}`;
+  const match = document.cookie.match(new RegExp(`${cookieName}=GS\\d+\\.\\d+\\.(\\d+)`));
+  return match ? match[1] : null;
 };
 
 // Log the page view with their URL (client-side)
@@ -69,6 +94,11 @@ export const trackServerEvent = async (
 ): Promise<boolean> => {
   try {
     const clientId = getClientId();
+    const sessionId = getSessionId();
+
+    // Sin las cookies de GA4 el evento llegaría sin atribución y caería en
+    // (not set). Es preferible perder el dato a ensuciar los informes.
+    if (!clientId) return false;
 
     const response = await fetch('/api/analytics', {
       method: 'POST',
@@ -77,6 +107,7 @@ export const trackServerEvent = async (
       },
       body: JSON.stringify({
         clientId,
+        sessionId,
         eventName,
         eventParams: {
           page_path: typeof window !== 'undefined' ? window.location.pathname : '',
@@ -97,17 +128,31 @@ export const trackServerEvent = async (
  * Hybrid tracking: sends to both client-side (gtag) and server-side (API)
  * Use for critical conversion events
  */
+/**
+ * Registra una conversión UNA sola vez.
+ *
+ * Antes esta función disparaba el evento por los dos caminos a la vez —gtag en
+ * el navegador y Measurement Protocol desde el servidor—, así que cada
+ * conversión se contaba dos veces en GA4. Y como el envío de servidor llegaba
+ * sin client_id ni session_id válidos, esa segunda copia caía en (not set): sin
+ * sesión, sin fuente y sin campaña.
+ *
+ * Ahora manda el navegador, que es el único camino que sabe atribuir a la
+ * campaña que trajo la visita. El envío de servidor queda como respaldo y solo
+ * entra si gtag no está disponible, que es el caso que justificaba tenerlo:
+ * un bloqueador de anuncios. Así no se duplica y no se pierde cobertura.
+ */
 export const trackConversion = async (
   eventName: string,
   eventParams: Record<string, string | number | boolean> = {}
 ) => {
-  // Client-side tracking (may be blocked)
-  if (typeof window.gtag !== 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
     window.gtag('event', eventName, eventParams);
+    return true;
   }
 
-  // Server-side tracking (reliable, not blocked)
-  await trackServerEvent(eventName, eventParams);
+  // gtag bloqueado: se usa el respaldo de servidor.
+  return trackServerEvent(eventName, eventParams);
 };
 
 // ============================================
@@ -369,11 +414,75 @@ export const trackWhatsAppDirectoClick = async (
     trackTikTokCompleteRegistration(tiktok.contentId, tiktok.contentName, tiktok.value ?? 0);
   }
 
+  confirmWhatsAppOpened(buttonLocation);
+
   return trackConversion('whatsapp_directo_click', {
     button_location: buttonLocation,
     intent: 'whatsapp_direct',
     from_page: typeof window !== 'undefined' ? window.location.pathname : '',
   });
+};
+
+/** Margen para que el navegador entregue el control a WhatsApp. */
+const WHATSAPP_OPEN_WINDOW_MS = 8000;
+
+let cancelPendingWhatsAppCheck: (() => void) | null = null;
+
+/**
+ * Confirma que WhatsApp se abrió de verdad y emite 'whatsapp_opened'.
+ *
+ * 'whatsapp_directo_click' cuenta el clic, no el contacto: entran los toques
+ * accidentales, los rebotes y quien pulsa y se arrepiente. Si una campaña
+ * optimiza hacia esa señal, Smart Bidding aprende a comprar toques de botón
+ * baratos, que es lo más fácil de conseguir y lo menos valioso.
+ *
+ * Cuando el navegador abre WhatsApp —la app o web.whatsapp.com— la pestaña queda
+ * en segundo plano y el documento pasa a 'hidden'. Si eso ocurre en los segundos
+ * siguientes al clic, el usuario salió de verdad hacia WhatsApp.
+ *
+ * Sigue sin ser una conversación: nadie fuera de WhatsApp puede saber si llegó a
+ * enviar el mensaje. Pero descarta el ruido y es la señal más honesta medible
+ * desde el sitio, así que es la que conviene usar como conversión de Google Ads.
+ */
+const confirmWhatsAppOpened = (buttonLocation: string) => {
+  if (typeof document === 'undefined') return;
+
+  // Si el usuario pulsa varias veces sin salir, solo cuenta la última espera.
+  // Sin esto quedarían varias escuchas pendientes y una sola salida hacia
+  // WhatsApp dispararía una conversión por cada clic previo.
+  cancelPendingWhatsAppCheck?.();
+
+  let settled = false;
+
+  const cleanup = () => {
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.clearTimeout(timer);
+    if (cancelPendingWhatsAppCheck === cancel) cancelPendingWhatsAppCheck = null;
+  };
+
+  const cancel = () => {
+    if (settled) return;
+    settled = true;
+    cleanup();
+  };
+
+  const onVisibilityChange = () => {
+    if (settled || document.visibilityState !== 'hidden') return;
+    settled = true;
+    cleanup();
+
+    void trackConversion('whatsapp_opened', {
+      button_location: buttonLocation,
+      intent: 'whatsapp_direct',
+      from_page: typeof window !== 'undefined' ? window.location.pathname : '',
+    });
+  };
+
+  // Si la pestaña nunca se oculta, el clic no llevó a WhatsApp: se descarta.
+  const timer = window.setTimeout(cancel, WHATSAPP_OPEN_WINDOW_MS);
+
+  cancelPendingWhatsAppCheck = cancel;
+  document.addEventListener('visibilitychange', onVisibilityChange);
 };
 
 /**

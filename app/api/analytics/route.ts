@@ -5,6 +5,8 @@ const GA_API_SECRET = process.env.GA_API_SECRET;
 
 interface AnalyticsEvent {
   clientId: string;
+  /** session_id real de GA4, leído de la cookie _ga_<ID> en el cliente. */
+  sessionId?: string | null;
   eventName: string;
   eventParams?: Record<string, string | number | boolean>;
 }
@@ -26,7 +28,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { clientId, eventName, eventParams = {} }: AnalyticsEvent = await req.json();
+    const { clientId, sessionId, eventName, eventParams = {} }: AnalyticsEvent = await req.json();
 
     // Validate required fields
     if (!clientId || !eventName) {
@@ -44,7 +46,10 @@ export async function POST(req: NextRequest) {
           name: eventName,
           params: {
             engagement_time_msec: 100,
-            session_id: Date.now().toString(),
+            // El session_id debe ser el que GA4 asignó a la visita. Antes se
+            // enviaba Date.now(), así que cada evento inventaba su propia sesión
+            // y ninguno se unía a la real: por eso caían en (not set).
+            ...(sessionId ? { session_id: sessionId } : {}),
             ...eventParams,
           },
         },
