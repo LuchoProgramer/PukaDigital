@@ -18,6 +18,8 @@ npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de ruta
 
 ⚠️ `lint` arrastra 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son tuyos. **Los archivos en `app/` sí deben quedar limpios.**
 
+**Este es el único repo del ecosistema con `node_modules` instalado**, así que aquí sí se compila en local. Los clones de `~/Proyectos/Podoclinic` y `~/Proyectos/HealppyPets` son solo para leer y editar código: no tienen dependencias y no se instalan. Si trabajas en ellos, verifica contra producción con `curl` y deja que Vercel compile en el preview del PR.
+
 Deploy: automático en Vercel al pushear a `main`.
 
 ## Productos y URLs canónicas
