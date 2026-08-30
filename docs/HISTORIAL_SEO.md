@@ -88,9 +88,12 @@ Todo resuelto en sesión del 2026-04-12:
 ### Actualización SEO & Knowledge Graph — 2026-08-30 (Sesión Transición LLC y Redes)
 
 - [x] **Google Analytics 4 ↔ Google Search Console:** Asociación completada entre `Puka Digital (514366233)` y `sc-domain:pukadigital.com`. Desbloquea en **Search Console Insights** las métricas de tráfico y referidos de redes sociales (Instagram, Facebook, TikTok, LinkedIn, YouTube).
-- [x] **Schema.org `sameAs` & Entity Recognition:** Actualizado [lib/schema.ts](file:///Users/luisviteri/Proyectos/PukaDigital/lib/schema.ts) agregando perfiles oficiales de Facebook (`facebook.com/pukadigital`), Instagram (`instagram.com/pukadigital`), LinkedIn, YouTube y GitHub en la entidad `Organization`, y perfiles personales en `Person (Fundador)`. Esto consolida la autoridad de marca en el Knowledge Graph de Google y motores de IA.
+- [x] **Schema.org `sameAs` & Entity Recognition:** Actualizado [lib/schema.ts](file:///Users/luisviteri/Proyectos/PukaDigital/lib/schema.ts) agregando perfiles oficiales de Facebook (`facebook.com/pukadigital`), Instagram (`instagram.com/pukadigital`), LinkedIn, YouTube, Clutch.co (`clutch.co/profile/pukadigital`), Crunchbase (`crunchbase.com/organization/puka-digital-llc`) y GitHub en la entidad `Organization`, y perfiles personales y de Crunchbase en `Person (Fundador)`. Esto consolida la autoridad de marca en el Knowledge Graph de Google y motores de IA.
 - [x] **Google Business Profile:** Vinculadas las 4 redes sociales oficiales en la ficha de Google Maps / Search (*Puka Digital - Agencia de Marketing y Desarrollo Web*).
 - [x] **Verificación de Dominio en Meta:** `<meta name="facebook-domain-verification" content="zb46u0vripnq10zx6svtlcgj2n7k5o" />` desplegado y validado.
+- [x] **Clutch.co:** Perfil oficial creado y vinculado en [clutch.co/profile/pukadigital](https://clutch.co/profile/pukadigital) con categorías de Custom Software, AI Development y Web Development. Correo oficial configurado a `luis.viteri@pukadigital.com`.
+- [x] **Crunchbase:** Ficha corporativa de `Puka Digital LLC` ([crunchbase.com/organization/puka-digital-llc](https://www.crunchbase.com/organization/puka-digital-llc)) y de fundador ([crunchbase.com/person/luis-omar-viteri-sarango](https://www.crunchbase.com/person/luis-omar-viteri-sarango)) publicadas y verificadas con autoridad DR 91.
+- [x] **Bing Places for Business:** Ficha importada y sincronizada automáticamente desde Google Business Profile (sincronización semanal activa) con correo `luis.viteri@pukadigital.com`. Expande la presencia a Bing Search, Bing Maps y Microsoft Copilot.
 
 ### Tareas SEO pendientes (próxima sesión)
 
