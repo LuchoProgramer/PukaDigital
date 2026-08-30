@@ -95,6 +95,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://pukadigital.com',
   },
+  verification: {
+    other: {
+      'facebook-domain-verification': ['zb46u0vripnq10zx6svtlcgj2n7k5o'],
+    },
+  },
 };
 
 export default function RootLayout({
@@ -108,6 +113,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        <meta name="facebook-domain-verification" content="zb46u0vripnq10zx6svtlcgj2n7k5o" />
         <meta name="theme-color" content="#C7171E" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
