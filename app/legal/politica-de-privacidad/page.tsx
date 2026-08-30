@@ -44,17 +44,17 @@ const PoliticaPrivacidadPage = () => {
                                 <FileText size={20} className="text-puka-red" /> 1. Qui&eacute;nes somos
                             </h2>
                             <p className="mt-4">
-                                <strong>PukaDigital</strong> es una empresa de tecnolog&iacute;a y marketing digital con sede en Quito, Ecuador, que desarrolla y opera los siguientes productos SaaS:
+                                <strong>PukaDigital</strong> es operada por <strong>Puka Digital LLC</strong>, una sociedad de responsabilidad limitada constituida en el Estado de Wyoming, Estados Unidos (EIN: <code>320856610</code>, Direcci&oacute;n: 5830 East 2nd Street, Ste 7000, Casper, WY 82609, USA), con operaciones y representaci&oacute;n para Ecuador y Latinoam&eacute;rica con sede en Quito, Ecuador. PukaDigital desarrolla y opera los siguientes productos y servicios SaaS:
                             </p>
                             <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li><strong>PukaIA</strong> &mdash; Agente conversacional con IA para WhatsApp Business</li>
+                                <li><strong>PukaIA</strong> &mdash; Agente conversacional con IA y CRM para WhatsApp Business</li>
                                 <li><strong>LedgerXpertz</strong> &mdash; Sistema POS, inventario y facturaci&oacute;n SRI</li>
                                 <li><strong>PukaHealth</strong> &mdash; Historias cl&iacute;nicas electr&oacute;nicas con facturaci&oacute;n SRI</li>
                                 <li><strong>PukaSalud</strong> &mdash; Marketing m&eacute;dico para profesionales de la salud</li>
                                 <li><strong>Agencia de Marketing Digital</strong> &mdash; Google Ads, SEO y desarrollo web para PYMEs</li>
                             </ul>
                             <p className="mt-4">
-                                <strong>Contacto del responsable:</strong> legal@pukadigital.com &nbsp;|&nbsp; +593 96 406 5880
+                                <strong>Contacto del responsable de privacidad:</strong> legal@pukadigital.com &nbsp;|&nbsp; +593 96 406 5880
                             </p>
                         </section>
 
@@ -242,10 +242,10 @@ const PoliticaPrivacidadPage = () => {
                                 <Globe size={20} className="text-puka-red" /> 8. Jurisdicci&oacute;n y transferencias internacionales
                             </h2>
                             <p className="mt-4">
-                                PukaDigital cumple con la <strong>Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP)</strong> de Ecuador. Los datos se procesan principalmente en servidores de Google Cloud en Estados Unidos.
+                                Puka Digital LLC cumple con la normativa de protecci&oacute;n al consumidor y privacidad aplicable en los Estados Unidos (incluyendo los est&aacute;ndares de privacidad de California CCPA/CPRA cuando aplique), as&iacute; como con la <strong>Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP)</strong> del Ecuador para usuarios y operaciones locales. Los datos se procesan en infraestructura segura de Google Cloud en Estados Unidos.
                             </p>
                             <p className="mt-4">
-                                Para clientes o usuarios en la Uni&oacute;n Europea o Reino Unido, el tratamiento se realiza conforme a los principios del <strong>RGPD (GDPR)</strong>: minimizaci&oacute;n de datos, limitaci&oacute;n de finalidad, exactitud y derecho a supresi&oacute;n. Las transferencias a Google LLC se amparan en las <strong>Cl&aacute;usulas Contractuales Est&aacute;ndar</strong> de la Comisi&oacute;n Europea.
+                                Para clientes o usuarios en la Uni&oacute;n Europea o Reino Unido, el tratamiento se realiza conforme a los principios del <strong>RGPD (GDPR)</strong>: minimizaci&oacute;n de datos, limitaci&oacute;n de finalidad, exactitud y derecho a supresi&oacute;n. Las transferencias a Google LLC y Meta se amparan en las <strong>Cl&aacute;usulas Contractuales Est&aacute;ndar</strong> de la Comisi&oacute;n Europea y marcos de privacidad de datos reconocidos.
                             </p>
                         </section>
 
@@ -298,15 +298,17 @@ const PoliticaPrivacidadPage = () => {
                             </h2>
                             <p className="mt-4">Para consultas sobre privacidad, ejercicio de derechos o reporte de incidentes:</p>
                             <p className="mt-2">
+                                <strong>Razón Social:</strong> Puka Digital LLC (EIN: 320856610)<br />
+                                <strong>Direcci&oacute;n principal:</strong> 5830 East 2nd Street, Ste 7000, Casper, Wyoming 82609, USA<br />
+                                <strong>Oficina Regional LATAM:</strong> Quito, Pichincha, Ecuador<br />
                                 <strong>Email:</strong> legal@pukadigital.com<br />
-                                <strong>WhatsApp:</strong> +593 96 406 5880<br />
-                                <strong>Direcci&oacute;n:</strong> Quito, Pichincha, Ecuador
+                                <strong>WhatsApp / Teléfono:</strong> +593 96 406 5880
                             </p>
                         </section>
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                &Uacute;ltima actualizaci&oacute;n: 08 de abril de 2026. Esta pol&iacute;tica aplica a todos los servicios operados por PukaDigital en <strong>pukadigital.com</strong> y sus subdominios.
+                                &Uacute;ltima actualizaci&oacute;n: 30 de agosto de 2026. Esta pol&iacute;tica aplica a todos los servicios operados por Puka Digital LLC en <strong>pukadigital.com</strong> y sus subdominios.
                             </p>
                         </div>
                     </div>

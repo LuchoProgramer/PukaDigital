@@ -31,7 +31,7 @@ const TerminosPage = () => {
                                 <CheckCircle size={20} className="text-puka-red" /> 1. Introducción
                             </h2>
                             <p className="mt-4">
-                                Bienvenido a PukaDigital. Estos términos y condiciones rigen el uso de nuestros servicios, incluyendo nuestro CMS Headless, Chatbots con IA, ERP para PYMES y el Programa de Independencia Digital de 3 meses. Al contratar nuestros servicios, aceptas estos términos en su totalidad.
+                                Bienvenido a PukaDigital. Estos t&eacute;rminos y condiciones rigen el uso de nuestros servicios y software SaaS (PukaIA, LedgerXpertz, PukaHealth, Agencia de Marketing y desarrollo web), operados legalmente por <strong>Puka Digital LLC</strong> (Casper, Wyoming, USA · EIN: <code>320856610</code>) y sus representantes en Ecuador. Al contratar o utilizar nuestros servicios, aceptas estos t&eacute;rminos en su totalidad.
                             </p>
                         </section>
 
@@ -70,22 +70,22 @@ const TerminosPage = () => {
                                 <CheckCircle size={20} className="text-puka-red" /> 5. Uso Responsable de IA
                             </h2>
                             <p className="mt-4">
-                                Nuestros chatbots utilizan modelos de Inteligencia Artificial de terceros (como OpenAI). PukaDigital no se hace responsable por alucinaciones o respuestas incorrectas generadas por el modelo, aunque trabajamos activamente en los "prompts" y bases de conocimiento para minimizar estos riesgos.
+                                Nuestros chatbots y agentes utilizan modelos de Inteligencia Artificial de terceros (Google Gemini, OpenAI). PukaDigital implementa prompts y bases de conocimiento supervisadas, pero no se hace responsable por interpretaciones o alucinaciones generadas por los modelos fuera de los flujos programados.
                             </p>
                         </section>
 
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <CheckCircle size={20} className="text-puka-red" /> 6. Facturación SRI (Ecuador)
+                                <CheckCircle size={20} className="text-puka-red" /> 6. Facturación y Jurisdicción
                             </h2>
                             <p className="mt-4">
-                                PukaDigital emite facturas electrónicas válidas en Ecuador por todos sus servicios. Los precios mostrados no incluyen IVA a menos que se especifique lo contrario.
+                                Los servicios internacionales y suscripciones SaaS son provistos por <strong>Puka Digital LLC</strong> bajo las leyes del Estado de Wyoming, Estados Unidos. Para transacciones y clientes locales en Ecuador, se emiten facturas electr&oacute;nicas v&aacute;lidas conforme a la normativa del <strong>Servicio de Rentas Internas (SRI)</strong>.
                             </p>
                         </section>
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                Última actualización: 28 de diciembre de 2025. Para dudas legales específicas, contáctanos a legal@pukadigital.com
+                                &Uacute;ltima actualizaci&oacute;n: 30 de agosto de 2026. Empresa: Puka Digital LLC (Wyoming, USA). Para dudas legales espec&iacute;ficas, cont&aacute;ctanos a <strong>legal@pukadigital.com</strong>
                             </p>
                         </div>
                     </div>
