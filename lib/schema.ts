@@ -39,6 +39,9 @@ export const CONTACT_INFO = {
     instagram: 'https://www.instagram.com/pukadigital/',
     facebook: 'https://www.facebook.com/pukadigital',
     clutch: 'https://clutch.co/profile/pukadigital',
+    goodfirms: 'https://www.goodfirms.co/company/pukadigital',
+    trustpilot: 'https://www.trustpilot.com/review/pukadigital.com',
+    sortlist: 'https://www.sortlist.com/agency/pukadigital',
     crunchbaseCompany: 'https://www.crunchbase.com/organization/puka-digital-llc',
     crunchbasePersonal: 'https://www.crunchbase.com/person/luis-omar-viteri-sarango',
     github: 'https://github.com/LuchoProgramer/PukaDigital'
@@ -129,6 +132,9 @@ export const getOrganizationSchema = () => ({
     CONTACT_INFO.social.linkedinCompany,
     CONTACT_INFO.social.youtube,
     CONTACT_INFO.social.clutch,
+    CONTACT_INFO.social.goodfirms,
+    CONTACT_INFO.social.trustpilot,
+    CONTACT_INFO.social.sortlist,
     CONTACT_INFO.social.crunchbaseCompany,
     CONTACT_INFO.social.github
   ],
