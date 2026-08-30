@@ -109,8 +109,8 @@ WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeUR
 - **Business Center:** `Luis Omar Viteri Sarango_bc_q69h51` (`7631984317779722256`).
 - **Cuenta Publicitaria:** `Luis Omar Viteri Sarango_adv` (`7631984365191938064` · USD · America/Guayaquil).
 - **TikTok Pixel:** `Pixel_PukaDigital` (`D7L49URC77U471PGSURG` en `app/layout.tsx` y `lib/analytics.ts`).
-- **Cuenta Orgánica:** `@pukadigital` (`7631945712427009041`).
-- ⚠️ **Pendiente:** Escanear QR/autorizar `@pukadigital` desde la app móvil y completar datos de facturación en [TikTok Ads](https://ads.tiktok.com/i18n/account/payment).
+- **Cuenta Orgánica:** `@pukadigital` (`7561567291788296209`) — ✅ **Conectada y autorizada** (Deliver ads / Spark Ads habilitado).
+- ⚠️ **Pendiente:** Completar datos de facturación y método de pago en [TikTok Ads](https://ads.tiktok.com/i18n/account/payment).
 
 ## SEO y GEO
 
