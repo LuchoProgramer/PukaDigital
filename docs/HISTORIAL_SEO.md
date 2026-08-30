@@ -94,6 +94,7 @@ Todo resuelto en sesión del 2026-04-12:
 - [x] **Clutch.co:** Perfil oficial creado y vinculado en [clutch.co/profile/pukadigital](https://clutch.co/profile/pukadigital) con categorías de Custom Software, AI Development y Web Development. Correo oficial configurado a `luis.viteri@pukadigital.com`.
 - [x] **Crunchbase:** Ficha corporativa de `Puka Digital LLC` ([crunchbase.com/organization/puka-digital-llc](https://www.crunchbase.com/organization/puka-digital-llc)) y de fundador ([crunchbase.com/person/luis-omar-viteri-sarango](https://www.crunchbase.com/person/luis-omar-viteri-sarango)) publicadas y verificadas con autoridad DR 91.
 - [x] **Bing Places for Business:** Ficha importada y sincronizada automáticamente desde Google Business Profile (sincronización semanal activa) con correo `luis.viteri@pukadigital.com`. Expande la presencia a Bing Search, Bing Maps y Microsoft Copilot.
+- [x] **Bing Webmaster Tools:** Sincronización completa desde Google Search Console. 7 propiedades verificadas (`pukadigital.com`, `podoclinicec.com`, `hoteleudiq.com`, `healppypets.com`, `lahuequitaquitena.com`, `pukahealth.com`, `toga-fashion.com`). Sitemap de `pukadigital.com/sitemap.xml` procesado con éxito (44 URLs descubiertas, 0 errores) y re-indexación manual solicitada para acelerar la publicación de Bing Places.
 
 ### Tareas SEO pendientes (próxima sesión)
 
