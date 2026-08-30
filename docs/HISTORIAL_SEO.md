@@ -85,6 +85,13 @@ Todo resuelto en sesión del 2026-04-12:
 - [x] **GSC: URLs fantasma eliminadas** — solicitudes de eliminación enviadas para prefijos `/es`, `/en`, `/pt` (bloqueo temporal ~6 meses, sin afectar páginas reales)
 - [x] **pukapress-cms `ModernBlogEdit`** — agregados campos `metaTitle` y `metaDescription` en formulario de edición (commit `5992f80`)
 
+### Actualización SEO & Knowledge Graph — 2026-08-30 (Sesión Transición LLC y Redes)
+
+- [x] **Google Analytics 4 ↔ Google Search Console:** Asociación completada entre `Puka Digital (514366233)` y `sc-domain:pukadigital.com`. Desbloquea en **Search Console Insights** las métricas de tráfico y referidos de redes sociales (Instagram, Facebook, TikTok, LinkedIn, YouTube).
+- [x] **Schema.org `sameAs` & Entity Recognition:** Actualizado [lib/schema.ts](file:///Users/luisviteri/Proyectos/PukaDigital/lib/schema.ts) agregando perfiles oficiales de Facebook (`facebook.com/pukadigital`), Instagram (`instagram.com/pukadigital`), LinkedIn, YouTube y GitHub en la entidad `Organization`, y perfiles personales en `Person (Fundador)`. Esto consolida la autoridad de marca en el Knowledge Graph de Google y motores de IA.
+- [x] **Google Business Profile:** Vinculadas las 4 redes sociales oficiales en la ficha de Google Maps / Search (*Puka Digital - Agencia de Marketing y Desarrollo Web*).
+- [x] **Verificación de Dominio en Meta:** `<meta name="facebook-domain-verification" content="zb46u0vripnq10zx6svtlcgj2n7k5o" />` desplegado y validado.
+
 ### Tareas SEO pendientes (próxima sesión)
 
 - [ ] **`lib/i18n` + `LanguageProvider`** — refactor de baja prioridad: 73 llamados a `t()` en 4 páginas (`productos`, `demos`, `contacto`, `casos`). No causa daño SEO. El sistema siempre estuvo hardcodeado a español — nunca generó rutas `/es/` ni `/en/`. Bundle impact mínimo (~2KB comprimido).
