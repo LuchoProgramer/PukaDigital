@@ -38,6 +38,7 @@ export const CONTACT_INFO = {
     instagramPersonal: 'https://www.instagram.com/luchodev_/',
     instagram: 'https://www.instagram.com/pukadigital/',
     facebook: 'https://www.facebook.com/pukadigital',
+    clutch: 'https://clutch.co/profile/pukadigital',
     github: 'https://github.com/LuchoProgramer/PukaDigital'
   }
 };
@@ -124,6 +125,7 @@ export const getOrganizationSchema = () => ({
     CONTACT_INFO.social.instagram,
     CONTACT_INFO.social.linkedinCompany,
     CONTACT_INFO.social.youtube,
+    CONTACT_INFO.social.clutch,
     CONTACT_INFO.social.github
   ],
   "contactPoint": {
