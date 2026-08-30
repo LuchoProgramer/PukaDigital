@@ -1,48 +1,47 @@
-# Transición a Puka Digital LLC (Stripe Atlas)
+# Transición a Puka Digital LLC (Wyoming, USA)
 
-> Extraído de `CLAUDE.md` el 2026-08-29. Tarea pendiente, sin fecha: se activa cuando llegue el EIN.
+> Actualizado el **2026-08-30** tras verificar la cuenta comercial en Meta Business Suite.
 
-## ⚠️ TAREA URGENTE PENDIENTE — Transición a Puka Digital LLC (Stripe Atlas)
+## 📌 Datos de la Empresa (Activos y Confirmados)
 
-**Trigger:** Cuando Luis active Stripe Atlas y reciba la LLC de Wyoming + EIN.
+- **Razón Social:** Puka Digital LLC
+- **Jurisdicción:** Casper, Wyoming, Estados Unidos
+- **Dirección Registrada:** 5830 East 2nd Street, Ste 7000, Casper, Wyoming 82609, USA
+- **EIN (Tax ID):** `320856610`
+- **Estado en Meta Business Suite:** ✅ Verificada como Organización + Tech Provider (ID: `758680150376625`)
+- **Dominio Verificado en Meta:** ✅ `pukadigital.com` (Meta tag `zb46u0vripnq10zx6svtlcgj2n7k5o`)
+- **Cuenta Publicitaria Creada:** ✅ `PukaDigital Ads` (ID `1097475412619983`, vinculada al Píxel `2045774666297992`)
 
-### Qué hace Atlas y qué cambia en el proyecto
+---
 
-- **EIN (Tax ID USA):** Equivale al RUC pero en USA. Se usa para pasar de "Developer Individual" a "Verified Organization" en Google Cloud Console → Verification Center.
-- **Cuenta bancaria (Mercury/Novo):** Donde Stripe depositará cobros de clientes de PukaIA.
-- **Documentación legal:** Atlas entrega Bylaws + Operating Agreement con cláusulas de privacidad de datos de USA (California Privacy), que simplifican la actualización de `/legal`.
+## 📋 Checklist de Tareas
 
-### Checklist de cambios en este repositorio cuando llegue el EIN
+### ✅ Completadas (2026-08-30)
+- [x] Registro y verificación de Puka Digital LLC en Meta Business Suite.
+- [x] Verificación de Tech Provider para APIs de WhatsApp.
+- [x] Inyección de metaetiqueta y verificación del dominio `pukadigital.com`.
+- [x] Creación de cuenta publicitaria `PukaDigital Ads` y vinculación del Píxel.
+- [x] Actualización del contexto de `CLAUDE.md`.
 
-#### 1. Actualizar páginas legales con nueva razón social
+### ⚠️ Pendientes
 
+#### 1. Actualizar páginas legales con la razón social de la LLC
 Archivos a modificar:
-- `app/legal/google-calendar-privacidad/page.tsx` — reemplazar "PukaDigital" por "Puka Digital LLC" donde corresponda, agregar EIN y dirección registrada en Wyoming
-- `app/legal/google-calendar-terminos/page.tsx` — ídem
-- `app/legal/politica-de-privacidad/page.tsx` — agregar sección de empresa en USA
-- `app/legal/terminos/page.tsx` — actualizar razón social y jurisdicción (Ecuador + Wyoming, USA)
+- [ ] `app/legal/politica-de-privacidad/page.tsx` — agregar Puka Digital LLC (Wyoming, EIN 320856610).
+- [ ] `app/legal/terminos/page.tsx` — actualizar razón social y jurisdicción (Ecuador + Wyoming, USA).
+- [ ] `app/legal/google-calendar-privacidad/page.tsx` — actualizar nombre legal y dirección de Wyoming.
+- [ ] `app/legal/google-calendar-terminos/page.tsx` — ídem.
 
-#### 2. Actualizar CLAUDE.md (este archivo)
+#### 2. Configurar Método de Pago para Pauta
+- [ ] Entrar a [Billing Hub](https://business.facebook.com/billing_hub/payment_methods) y agregar tarjeta de crédito/débito a `PukaDigital Ads` (`1097475412619983`).
 
-- Cambiar el campo "Fundador" por "Empresa: Puka Digital LLC (Wyoming, USA)"
-- Agregar EIN al contexto del proyecto
-
-#### 3. Google Cloud Console (fuera del repo)
-
-1. Entrar a Google Cloud Console → OAuth consent screen
-2. Cambiar "Organization Name" de "Luis Viteri" → "Puka Digital LLC"
-3. Subir logo oficial de PukaIA
-4. Actualizar los links de Privacy Policy y Terms of Service si cambia el dominio
+#### 3. Google Cloud Console (OAuth & Verified Organization)
+- [ ] Entrar a Google Cloud Console → OAuth consent screen.
+- [ ] Cambiar "Organization Name" a "Puka Digital LLC" y pasar verificación de organización con el EIN `320856610`.
+- [ ] Subir logo oficial de PukaIA.
 
 #### 4. Stripe Webhooks en chatbot-python (repo separado)
-
-En `chatbot-python`, configurar endpoint FastAPI para escuchar pagos de Stripe:
-- Guardar `tenant_id` como metadata en Stripe Customer
-- Cuando Stripe confirme pago → habilitar acceso a Google Calendar para ese tenant en Firestore
-- Configurar Stripe Tax: clientes Ecuador → sin tax USA
-
-### Contexto de decisión
-
-Stripe Atlas resuelve la burocracia de Wyoming en un solo flujo y se integra con el ecosistema Python/Next.js ya armado. El EIN es el prerequisito para la verificación de organización en Google Cloud y para cobros internacionales via Stripe.
-
-**Estado actual:** Pendiente activación de Stripe Atlas por Luis.
+- [ ] En `chatbot-python`, configurar endpoint FastAPI para escuchar pagos de Stripe:
+  - Guardar `tenant_id` como metadata en Stripe Customer.
+  - Al confirmar pago → habilitar acceso a Google Calendar para ese tenant en Firestore.
+  - Configurar Stripe Tax (Ecuador sin tax USA).

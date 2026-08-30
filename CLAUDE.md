@@ -1,7 +1,8 @@
 # CLAUDE.md — PukaDigital
 
-Agencia de marketing digital y software SaaS para PYMEs en Ecuador y LATAM.
+Empresa: **Puka Digital LLC** (Casper, Wyoming, USA · EIN: `320856610`)
 Fundador: Luis Omar Viteri Sarango (LuchoDev) · Producción: **https://pukadigital.com**
+Agencia de marketing digital y software SaaS para PYMEs en Ecuador y LATAM.
 
 ## Stack
 
@@ -92,6 +93,16 @@ ga.trackWhatsAppDirectoClick('ledgerxpertz_hero_primary');
 Formato de location: `{producto}_{seccion}`.
 
 WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`, siempre `window.open(url, '_blank', 'noopener,noreferrer')`, y **llamar al tracking antes de abrir**.
+
+## Ecosistema Meta y Publicidad
+
+- **Portfolio Comercial:** `PukaDigital` (`758680150376625`) — Verificado (**Puka Digital LLC**) + Tech Provider.
+- **Cuenta Publicitaria:** `PukaDigital Ads` (`1097475412619983` · USD · America/Guayaquil).
+- **Píxel / Dataset:** `PukaDigital Web` (`2045774666297992` · conectado a `PukaDigital Ads`).
+- **Dominio Verificado:** `pukadigital.com` (Meta tag `zb46u0vripnq10zx6svtlcgj2n7k5o` en `app/layout.tsx`).
+- **WhatsApp Cloud API:** `PukaIA` (`1124927996392227` · `+593 96 406 5880` · verificada).
+- **Instagram:** `@pukadigital` (`17841476784325626`) conectado a la página `PukaDigital`.
+- ⚠️ **Pendiente pauta:** Asociar tarjeta en [Billing Hub](https://business.facebook.com/billing_hub/payment_methods) para `PukaDigital Ads`.
 
 ## SEO y GEO
 
