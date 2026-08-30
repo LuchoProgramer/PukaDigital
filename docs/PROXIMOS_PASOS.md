@@ -52,6 +52,16 @@ No lo cambies porque lo diga un blog: es una hipótesis, y el dato viene de agre
 
 - [ ] `lib/i18n` + `LanguageProvider` — 73 llamadas a `t()` en 4 páginas (`productos`, `demos`, `contacto`, `casos`). El sistema siempre estuvo hardcodeado a español y nunca generó rutas `/es/` ni `/en/`. **No causa daño SEO.** Impacto de bundle mínimo (~2 KB comprimido). Baja prioridad.
 
+## 6. Documento de Estrategia de Ads / Pauta Publicitaria (Pendiente próxima sesión)
+
+- [ ] Crear `docs/ADS_STRATEGY.md` con estructura de campañas (Meta, TikTok, Google), copies, presupuestos mínimos ($3-$5/día), retargeting y automatización por API.
+
+## 7. Estrategia de Reseñas Verificadas en Clutch.co & Directorios
+
+- [ ] Configurar Cloudflare Email Routing (o Zoho Mail Free) para clientes reales (`podoclinicec.com`, `healppypets.com`, `hoteleudiq.com`) para crear alias corporativos (ej. `contacto@podoclinicec.com` reenviando a sus Gmails).
+- [ ] Enviar enlace directo de reseña de [Clutch.co](https://clutch.co/profile/pukadigital) a los clientes clave.
+- [ ] Obtener 3 a 5 reseñas verificadas (vía email corporativo o LinkedIn) para desbloquear la insignia de **Top Verified Agency** en Clutch.
+
 ## Lo que está bien y conviene no romper
 
 Verificado en producción el 2026-08-29:

@@ -39,6 +39,8 @@ export const CONTACT_INFO = {
     instagram: 'https://www.instagram.com/pukadigital/',
     facebook: 'https://www.facebook.com/pukadigital',
     clutch: 'https://clutch.co/profile/pukadigital',
+    crunchbaseCompany: 'https://www.crunchbase.com/organization/puka-digital-llc',
+    crunchbasePersonal: 'https://www.crunchbase.com/person/luis-omar-viteri-sarango',
     github: 'https://github.com/LuchoProgramer/PukaDigital'
   }
 };
@@ -57,7 +59,8 @@ export const getFounderSchema = () => ({
   "email": CONTACT_INFO.email,
   "sameAs": [
     CONTACT_INFO.social.linkedinPersonal,
-    CONTACT_INFO.social.instagramPersonal
+    CONTACT_INFO.social.instagramPersonal,
+    CONTACT_INFO.social.crunchbasePersonal
   ],
   "knowsAbout": [
     "Digital Marketing",
@@ -126,6 +129,7 @@ export const getOrganizationSchema = () => ({
     CONTACT_INFO.social.linkedinCompany,
     CONTACT_INFO.social.youtube,
     CONTACT_INFO.social.clutch,
+    CONTACT_INFO.social.crunchbaseCompany,
     CONTACT_INFO.social.github
   ],
   "contactPoint": {
