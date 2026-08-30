@@ -94,8 +94,9 @@ Formato de location: `{producto}_{seccion}`.
 
 WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`, siempre `window.open(url, '_blank', 'noopener,noreferrer')`, y **llamar al tracking antes de abrir**.
 
-## Ecosistema Meta y Publicidad
+## Ecosistema Publicitario (Meta & TikTok)
 
+### Meta (Facebook & Instagram)
 - **Portfolio Comercial:** `PukaDigital` (`758680150376625`) — Verificado (**Puka Digital LLC**) + Tech Provider.
 - **Cuenta Publicitaria:** `PukaDigital Ads` (`1097475412619983` · USD · America/Guayaquil).
 - **Píxel / Dataset:** `PukaDigital Web` (`2045774666297992` · conectado a `PukaDigital Ads`).
@@ -103,6 +104,13 @@ WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeUR
 - **WhatsApp Cloud API:** `PukaIA` (`1124927996392227` · `+593 96 406 5880` · verificada).
 - **Instagram:** `@pukadigital` (`17841476784325626`) conectado a la página `PukaDigital`.
 - ⚠️ **Pendiente pauta:** Asociar tarjeta en [Billing Hub](https://business.facebook.com/billing_hub/payment_methods) para `PukaDigital Ads`.
+
+### TikTok
+- **Business Center:** `Luis Omar Viteri Sarango_bc_q69h51` (`7631984317779722256`).
+- **Cuenta Publicitaria:** `Luis Omar Viteri Sarango_adv` (`7631984365191938064` · USD · America/Guayaquil).
+- **TikTok Pixel:** `Pixel_PukaDigital` (`D7L49URC77U471PGSURG` en `app/layout.tsx` y `lib/analytics.ts`).
+- **Cuenta Orgánica:** `@pukadigital` (`7631945712427009041`).
+- ⚠️ **Pendiente:** Escanear QR/autorizar `@pukadigital` desde la app móvil y completar datos de facturación en [TikTok Ads](https://ads.tiktok.com/i18n/account/payment).
 
 ## SEO y GEO
 
