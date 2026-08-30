@@ -138,8 +138,8 @@ const ROICalculator: React.FC = () => {
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorDebt" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#E30613" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#E30613" stopOpacity={0.05}/>
+                  <stop offset="5%" stopColor="#C7171E" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#C7171E" stopOpacity={0.05}/>
                 </linearGradient>
                 <linearGradient id="colorFreedom" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3}/>
@@ -167,7 +167,7 @@ const ROICalculator: React.FC = () => {
               <Area 
                 type="monotone" 
                 dataKey="Agencia" 
-                stroke="#E30613" 
+                stroke="#C7171E" 
                 strokeWidth={3} 
                 fillOpacity={1} 
                 fill="url(#colorDebt)" 

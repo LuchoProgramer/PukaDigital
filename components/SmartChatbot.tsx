@@ -179,7 +179,7 @@ const SmartChatbot: React.FC = () => {
                 className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 group flex items-center justify-center"
             >
                 <div className="absolute inset-0 bg-puka-red/20 rounded-full animate-ping"></div>
-                <div className="relative bg-[#E30613] text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 pr-6 h-14">
+                <div className="relative bg-[#C7171E] text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 pr-6 h-14">
                     <div className="bg-white/20 p-2 rounded-full">
                         <Bot size={24} className="text-white" />
                     </div>
@@ -198,7 +198,7 @@ const SmartChatbot: React.FC = () => {
             <div className="w-full h-full sm:w-[350px] md:w-[380px] sm:h-[550px] sm:max-h-[85vh] bg-[#E5DDD5] sm:rounded-xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-gray-200 dark:border-gray-800 relative">
 
                 {/* Header */}
-                <div className="bg-[#E30613] text-white p-3 flex items-center justify-between shadow-md z-10">
+                <div className="bg-[#C7171E] text-white p-3 flex items-center justify-between shadow-md z-10">
                     <div className="flex items-center gap-3">
                         <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-1 rounded-full"><ArrowLeftIcon /></button>
                         <div className="relative">
@@ -301,7 +301,7 @@ const SmartChatbot: React.FC = () => {
 
                 {/* Input Area */}
                 <div className="bg-[#F0F2F5] p-2 flex items-center gap-2 z-10 border-t border-gray-200">
-                    <div className="flex-1 bg-white rounded-full px-4 py-2 shadow-sm border-none focus-within:ring-1 focus-within:ring-[#E30613]/30 flex items-center">
+                    <div className="flex-1 bg-white rounded-full px-4 py-2 shadow-sm border-none focus-within:ring-1 focus-within:ring-[#C7171E]/30 flex items-center">
                         <input
                             type="text"
                             value={input}
@@ -315,7 +315,7 @@ const SmartChatbot: React.FC = () => {
                     <button
                         onClick={() => handleSend()}
                         disabled={!input.trim() || isLoading}
-                        className={`p-3 rounded-full flex items-center justify-center transition-all shadow-md ${input.trim() ? 'bg-[#E30613] text-white hover:bg-[#c20510] rotate-0' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        className={`p-3 rounded-full flex items-center justify-center transition-all shadow-md ${input.trim() ? 'bg-[#C7171E] text-white hover:bg-[#A9141A] rotate-0' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
                     >
                         <Send size={18} />

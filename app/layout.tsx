@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       { url: '/pegaso-rojo-180x180.svg', sizes: '180x180', type: 'image/svg+xml' },
     ],
     other: [
-      { rel: 'mask-icon', url: '/pegaso-rojo.svg', color: '#E30613' },
+      { rel: 'mask-icon', url: '/pegaso-rojo.svg', color: '#C7171E' },
     ],
   },
   manifest: '/manifest.json',
@@ -108,7 +108,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#E30613" />
+        <meta name="theme-color" content="#C7171E" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
