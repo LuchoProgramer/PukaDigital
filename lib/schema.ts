@@ -35,7 +35,9 @@ export const CONTACT_INFO = {
     linkedinPersonal: 'https://www.linkedin.com/in/luisviteri/',
     linkedinCompany: 'https://www.linkedin.com/company/pukadigital/',
     youtube: 'https://www.youtube.com/@PukaDigital',
-    instagram: 'https://www.instagram.com/luchodev_/',
+    instagramPersonal: 'https://www.instagram.com/luchodev_/',
+    instagram: 'https://www.instagram.com/pukadigital/',
+    facebook: 'https://www.facebook.com/pukadigital',
     github: 'https://github.com/LuchoProgramer/PukaDigital'
   }
 };
@@ -54,7 +56,7 @@ export const getFounderSchema = () => ({
   "email": CONTACT_INFO.email,
   "sameAs": [
     CONTACT_INFO.social.linkedinPersonal,
-    CONTACT_INFO.social.instagram
+    CONTACT_INFO.social.instagramPersonal
   ],
   "knowsAbout": [
     "Digital Marketing",
@@ -118,10 +120,11 @@ export const getOrganizationSchema = () => ({
     "WhatsApp Business Automation"
   ],
   "sameAs": [
-    CONTACT_INFO.social.github,
+    CONTACT_INFO.social.facebook,
+    CONTACT_INFO.social.instagram,
     CONTACT_INFO.social.linkedinCompany,
     CONTACT_INFO.social.youtube,
-    CONTACT_INFO.social.instagram
+    CONTACT_INFO.social.github
   ],
   "contactPoint": {
     "@type": "ContactPoint",
