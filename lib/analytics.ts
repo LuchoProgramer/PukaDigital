@@ -6,7 +6,13 @@ export const GA_TRACKING_ID = 'G-VSGYR0EJSZ';
 export const GOOGLE_ADS_ID = 'AW-17832260485';
 export const GOOGLE_ADS_LABEL = '4UcUCNio2d4bEIXnirdC';
 
-// Extend Window interface for gtag and TikTok Pixel
+// Meta Pixel (Facebook/Instagram)
+// Conjunto de datos "PukaDigital Web" del portfolio PukaDigital.
+// El layout solo renderiza el script si esta constante tiene valor: dejarla
+// vacía desactiva el pixel sin romper el build.
+export const META_PIXEL_ID = '2045774666297992';
+
+// Extend Window interface for gtag, TikTok Pixel and Meta Pixel
 declare global {
   interface Window {
     gtag?: (
@@ -19,6 +25,11 @@ declare global {
       page: () => void;
       identify: (params: Record<string, string>) => void;
     };
+    fbq?: (
+      command: string,
+      event: string,
+      params?: Record<string, unknown>
+    ) => void;
   }
 }
 
