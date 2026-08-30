@@ -23,6 +23,8 @@
 - [x] Creación de cuenta publicitaria `PukaDigital Ads` y vinculación del Píxel.
 - [x] Actualización de páginas legales en el repo (`/legal/politica-de-privacidad`, `/legal/terminos`, `/legal/google-calendar-privacidad`, `/legal/google-calendar-terminos`) con la razón social Puka Digital LLC (Wyoming, EIN 320856610).
 - [x] Actualización del nombre de la App en Google Cloud Console OAuth Consent Screen a `PukaIA` y vinculación de URLs legales.
+- [x] Asociación de Google Analytics 4 (`514366233`) a Google Search Console (`sc-domain:pukadigital.com`) para Search Console Insights.
+- [x] Vinculación de las 4 redes sociales oficiales (Instagram, Facebook, LinkedIn, YouTube) en el Perfil de Empresa en Google (Google Business Profile).
 - [x] Actualización del contexto de `CLAUDE.md`.
 
 ### ⚠️ Pendientes
