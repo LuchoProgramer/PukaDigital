@@ -21,26 +21,20 @@
 - [x] Verificación de Tech Provider para APIs de WhatsApp.
 - [x] Inyección de metaetiqueta y verificación del dominio `pukadigital.com`.
 - [x] Creación de cuenta publicitaria `PukaDigital Ads` y vinculación del Píxel.
+- [x] Actualización de páginas legales en el repo (`/legal/politica-de-privacidad`, `/legal/terminos`, `/legal/google-calendar-privacidad`, `/legal/google-calendar-terminos`) con la razón social Puka Digital LLC (Wyoming, EIN 320856610).
+- [x] Actualización del nombre de la App en Google Cloud Console OAuth Consent Screen a `PukaIA` y vinculación de URLs legales.
 - [x] Actualización del contexto de `CLAUDE.md`.
 
 ### ⚠️ Pendientes
 
-#### 1. Actualizar páginas legales con la razón social de la LLC
-Archivos a modificar:
-- [ ] `app/legal/politica-de-privacidad/page.tsx` — agregar Puka Digital LLC (Wyoming, EIN 320856610).
-- [ ] `app/legal/terminos/page.tsx` — actualizar razón social y jurisdicción (Ecuador + Wyoming, USA).
-- [ ] `app/legal/google-calendar-privacidad/page.tsx` — actualizar nombre legal y dirección de Wyoming.
-- [ ] `app/legal/google-calendar-terminos/page.tsx` — ídem.
+#### 1. Configurar Método de Pago para Pauta
+- [ ] Entrar a [Billing Hub de Meta](https://business.facebook.com/billing_hub/payment_methods) y agregar tarjeta de crédito/débito a `PukaDigital Ads` (`1097475412619983`).
 
-#### 2. Configurar Método de Pago para Pauta
-- [ ] Entrar a [Billing Hub](https://business.facebook.com/billing_hub/payment_methods) y agregar tarjeta de crédito/débito a `PukaDigital Ads` (`1097475412619983`).
+#### 2. Google Cloud Console (Verificación de Marca / Brand Verification)
+- [ ] Diseñar el logo definitivo de PukaIA (120x120px).
+- [ ] Subir el logo oficial a Google Cloud Console → Branding y enviar a verificación de marca.
 
-#### 3. Google Cloud Console (OAuth & Verified Organization)
-- [ ] Entrar a Google Cloud Console → OAuth consent screen.
-- [ ] Cambiar "Organization Name" a "Puka Digital LLC" y pasar verificación de organización con el EIN `320856610`.
-- [ ] Subir logo oficial de PukaIA.
-
-#### 4. Stripe Webhooks en chatbot-python (repo separado)
+#### 3. Stripe Webhooks en chatbot-python (repo separado)
 - [ ] En `chatbot-python`, configurar endpoint FastAPI para escuchar pagos de Stripe:
   - Guardar `tenant_id` como metadata en Stripe Customer.
   - Al confirmar pago → habilitar acceso a Google Calendar para ese tenant en Firestore.
