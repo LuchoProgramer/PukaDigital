@@ -98,10 +98,15 @@ Todo resuelto en sesión del 2026-04-12:
 - [x] **GoodFirms.co:** Perfil de empresa creado y configurado en [goodfirms.co/company/pukadigital](https://www.goodfirms.co/company/pukadigital) con distribución 40% Custom Software, 30% AI, 30% Web Development y logo oficial.
 - [x] **Trustpilot Business:** Perfil verificado y reclamado (*Claimed Profile*) en [trustpilot.com/review/pukadigital.com](https://www.trustpilot.com/review/pukadigital.com) en categorías de Software Company, Marketing Agency y Web Designer.
 - [x] **Sortlist:** Perfil de agencia creado y optimizado (75% Profile Quality Index) en [sortlist.com/agency/pukadigital](https://www.sortlist.com/agency/pukadigital) para captación de clientes de software y desarrollo web en LATAM.
+- [x] **Unificación de WhatsApp Oficial:** `app/agentes-ia/page.tsx` y `public/llms.txt` unificados al 100% en la línea principal de la agencia `+593 96 406 5880`. El número secundario fue liberado de la Cloud API de Meta para uso personal privado.
+- [x] **Servidores MCP de Asistente IA:** Integración en vivo de `google-calendar` y `gmail` en `~/.gemini/config/mcp_config.json` con tokens permanentes para `luchoviteri1990@gmail.com`.
+- [x] **Cumplimiento Legal & Fiscal LLC:** Creado `docs/COMPLIANCE_LLC.md` y agendados recordatorios con alta prioridad (Rojo Tomate) en Google Calendar para el IRS Form 5472 ($25k multa) y Wyoming Annual Report ($60).
+- [x] **Control de Navegador Autónomo:** Configurado alias permanente `chrome` con perfil de depuración y probado control total en vivo.
 
 ### Tareas SEO pendientes (próxima sesión)
 
 - [ ] **`lib/i18n` + `LanguageProvider`** — refactor de baja prioridad: 73 llamados a `t()` en 4 páginas (`productos`, `demos`, `contacto`, `casos`). No causa daño SEO. El sistema siempre estuvo hardcodeado a español — nunca generó rutas `/es/` ni `/en/`. Bundle impact mínimo (~2KB comprimido).
 
 ---
+
 
