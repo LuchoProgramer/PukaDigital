@@ -62,6 +62,15 @@ No lo cambies porque lo diga un blog: es una hipótesis, y el dato viene de agre
 - [ ] Enviar enlace directo de reseña de [Clutch.co](https://clutch.co/profile/pukadigital) a los clientes clave.
 - [ ] Obtener 3 a 5 reseñas verificadas (vía email corporativo o LinkedIn) para desbloquear la insignia de **Top Verified Agency** en Clutch.
 
+## 8. Conexión de WhatsApp Coexistence para PukaDigital (+593 96 406 5880)
+
+- [ ] Conectar el número oficial de la agencia (`+593 96 406 5880`) a la WABA `PukaIA` (`1124927996392227`) usando **WhatsApp Coexistence (Coexistencia)**.
+- [ ] Conectar al backend `chatbot-python` en Hetzner (`https://bot.pukadigital.com/webhook`):
+  - El bot de IA responde automáticamente con el contexto de PukaDigital y califica leads 24/7.
+  - Cuando Luis contesta manualmente desde su app móvil de WhatsApp Business, el bot se pausa en ese chat vía `smb_message_echoes`.
+  - Sirve como entorno de prueba y "dogfooding" del producto comercial de PukaIA para clientes.
+
+
 ## Lo que está bien y conviene no romper
 
 Verificado en producción el 2026-08-29:
