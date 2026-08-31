@@ -23,7 +23,7 @@ Estrategias de alto rendimiento para empresas que buscan ROI, no likes.
 
 ### 2. PukaIA — API de WhatsApp Business con Inteligencia Artificial (/agentes-ia)
 PukaIA es la solución principal de Puka Digital para conectar la API Oficial de WhatsApp Business con Inteligencia Artificial. Permite a negocios, clínicas y hoteles automatizar su atención al cliente, calificar leads y agendar citas 24/7 sin necesidad de saber código. Es la alternativa más segura y oficial frente a soluciones como Twilio o Callmebot. Oferta principal: configuración técnica incluida y 300 interacciones de IA completamente gratis para probar. Planes de precios flexibles que empiezan desde $14.99/mes, donde el cliente solo paga por las respuestas que la IA consume.
-- **Demo en vivo disponible en WhatsApp:** +593984800282
+- **Demo en vivo disponible en WhatsApp:** +593964065880
 - Tecnología: Meta Cloud API oficial + Gemini 2.5 Flash (Google)
 - Respuestas automáticas 24/7 con comprensión de contexto real (no respuestas fijas)
 - Calificación de prospectos y agendamiento de citas de forma autónoma

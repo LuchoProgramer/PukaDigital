@@ -14,7 +14,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 
-const WA_DEMO_LINK = 'https://wa.me/593984800282?text=Hola%2C%20quiero%20probar%20PukaIA';
+const WA_DEMO_LINK = 'https://wa.me/593964065880?text=Hola%2C%20quiero%20probar%20PukaIA';
 
 const openWA = (location: string) => {
   ga.trackWhatsAppDirectoClick(location, { contentId: 'pukaia', contentName: 'PukaIA - CRM con Agentes IA', value: 14.99 });
