@@ -94,23 +94,15 @@ Formato de location: `{producto}_{seccion}`.
 
 WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`, siempre `window.open(url, '_blank', 'noopener,noreferrer')`, y **llamar al tracking antes de abrir**.
 
-## Ecosistema Publicitario (Meta & TikTok)
+## Publicidad y redes
 
-### Meta (Facebook & Instagram)
-- **Portfolio Comercial:** `PukaDigital` (`758680150376625`) — Verificado (**Puka Digital LLC**) + Tech Provider.
-- **Cuenta Publicitaria:** `PukaDigital Ads` (`1097475412619983` · USD · America/Guayaquil).
-- **Píxel / Dataset:** `PukaDigital Web` (`2045774666297992` · conectado a `PukaDigital Ads`).
-- **Dominio Verificado:** `pukadigital.com` (Meta tag `zb46u0vripnq10zx6svtlcgj2n7k5o` en `app/layout.tsx`).
-- **WhatsApp Cloud API:** `PukaIA` (`1124927996392227` · `+593 96 406 5880` · verificada).
-- **Instagram:** `@pukadigital` (`17841476784325626`) conectado a la página `PukaDigital`.
-- ⚠️ **Pendiente pauta:** Asociar tarjeta en [Billing Hub](https://business.facebook.com/billing_hub/payment_methods) para `PukaDigital Ads`.
+Cuentas, píxeles e identificadores de Meta y TikTok: `docs/ECOSISTEMA_ADS.md`.
+Trabajo orgánico y calendario de la community manager: `docs/COMMUNITY_MANAGEMENT.md`.
 
-### TikTok
-- **Business Center:** `Luis Omar Viteri Sarango_bc_q69h51` (`7631984317779722256`).
-- **Cuenta Publicitaria:** `Luis Omar Viteri Sarango_adv` (`7631984365191938064` · USD · America/Guayaquil).
-- **TikTok Pixel:** `Pixel_PukaDigital` (`D7L49URC77U471PGSURG` en `app/layout.tsx` y `lib/analytics.ts`).
-- **Cuenta Orgánica:** `@pukadigital` (`7561567291788296209`) — ✅ **Conectada y autorizada** (Deliver ads / Spark Ads habilitado).
-- ⚠️ **Pendiente:** Completar datos de facturación y método de pago en [TikTok Ads](https://ads.tiktok.com/i18n/account/payment).
+Lo único que vive en el código: `META_PIXEL_ID` y el pixel de TikTok en
+`lib/analytics.ts`, inyectados desde `app/layout.tsx`. **No pautar sin leer
+`docs/ECOSISTEMA_ADS.md`**: la secuencia acordada es contacto directo primero y
+pauta recién en el mes 5.
 
 ## SEO y GEO
 
@@ -172,3 +164,5 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/ANALYTICS_TRACKING.md` — convenciones de tracking
 - `docs/HISTORIAL_SEO.md` — auditorías cerradas y keyword research (historial, no doctrina)
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
+- `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
+- `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
