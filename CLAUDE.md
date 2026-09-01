@@ -19,7 +19,14 @@ npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de ruta
 
 ⚠️ `lint` arrastra 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son tuyos. **Los archivos en `app/` sí deben quedar limpios.**
 
-**Este es el único repo del ecosistema con `node_modules` instalado**, así que aquí sí se compila en local. Los clones de `~/Proyectos/Podoclinic` y `~/Proyectos/HealppyPets` son solo para leer y editar código: no tienen dependencias y no se instalan. Si trabajas en ellos, verifica contra producción con `curl` y deja que Vercel compile en el preview del PR.
+Aquí se compila en local. **No todos los repos del ecosistema lo hacen** — verificar antes de correr nada:
+
+| Repo | Compila | Notas |
+|---|---|---|
+| `PukaDigital` | sí | Este. Deploy automático en Vercel al pushear a `main` |
+| `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer `docs/claude/deployment.md` antes de desplegar |
+| `prospecting-tools` | sí, con venv | Prospección de podólogos. Python; usa `.venv/bin/python`, no el del sistema (PEP 668) |
+| `Podoclinic`, `HealppyPets` | no | Clones solo lectura, sin dependencias. Verificar contra producción con `curl` y dejar que Vercel compile en el preview del PR |
 
 Deploy: automático en Vercel al pushear a `main`.
 
