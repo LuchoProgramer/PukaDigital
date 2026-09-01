@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme";
 import ConditionalShell from "@/components/ConditionalShell";
 import { getGlobalSchemaGraph } from "@/lib/schema";
 import { GA_TRACKING_ID, GOOGLE_ADS_ID, META_PIXEL_ID } from "@/lib/analytics";
 
-const geistSans = Geist({
-  variable: "--font-futura",
+// Titulares. Es la que le da carácter a la marca.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display-marca",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-inter",
+// Texto corrido y todo lo que se lee de verdad.
+const instrument = Instrument_Sans({
+  variable: "--font-sans-marca",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Cifras: precios, fechas y datos. Monoespaciada para que los números alineen.
+const jetbrains = JetBrains_Mono({
+  variable: "--font-mono-marca",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -185,7 +196,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable} antialiased`}>
         <ThemeProvider>
           <ConditionalShell>
             {children}
