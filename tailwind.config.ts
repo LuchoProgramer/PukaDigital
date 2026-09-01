@@ -15,8 +15,12 @@ const config: Config = {
         'puka-beige': '#EBDFC9',
       },
       fontFamily: {
-        'display': ['var(--font-futura)', 'system-ui', 'sans-serif'],
-        'sans': ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        // 'sans' apuntaba a --font-inter, que en realidad era Geist Mono: todo
+        // lo que llevaba font-sans se renderizaba monoespaciado, incluido el
+        // div raíz de la home y de /agencia.
+        'display': ['var(--font-display-marca)', 'system-ui', 'sans-serif'],
+        'sans': ['var(--font-sans-marca)', 'system-ui', 'sans-serif'],
+        'mono': ['var(--font-mono-marca)', 'ui-monospace', 'monospace'],
       },
     },
   },
