@@ -20,6 +20,21 @@ RESEND_API_KEY=re_xxxxxxxxxxxxx
 
 ---
 
+## Píxeles de publicidad
+
+Este documento cubre **eventos de GA4**. Los píxeles de anuncios viven aparte:
+
+| Píxel | Id | Dónde |
+|---|---|---|
+| Meta | `2045774666297992` | `META_PIXEL_ID` en `lib/analytics.ts`, inyectado desde `app/layout.tsx` |
+| TikTok | `D7L49URC77U471PGSURG` | Inline en `app/layout.tsx` |
+
+El bloque de Meta va envuelto en `{META_PIXEL_ID && ...}`: vaciar la constante lo desactiva sin romper el build.
+
+⚠️ **Un evento de GA4 no llega a Meta ni a TikTok.** Son sistemas separados; si una conversión tiene que verse en los tres, hay que dispararla en los tres.
+
+Cuentas, datasets y reglas de pauta: `ECOSISTEMA_ADS.md`.
+
 ## 🎯 Eventos Implementados
 
 ### PRIORIDAD 1 - Conversiones Críticas (Server-side + Client)
