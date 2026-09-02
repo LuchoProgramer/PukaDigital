@@ -57,7 +57,7 @@ content/piezas/2026-09.ts   →   render   →   public/piezas/2026-09/*.png
 | **1** | **Fábrica de estáticos** — datos → PNG en `public/piezas/` | nada |
 | 2 | Un agente redacta las piezas del mes y abre el PR | fase 1 |
 | 3 | Publicación a Facebook + Instagram por Graph API directa | app de Meta |
-| 4 | TikTok | auditoría de 2-4 semanas, iniciar el trámite en paralelo |
+| 4 | TikTok | servicio ya auditado, o a mano. Ver el riesgo 4 |
 
 Esta spec cubre **la fase 1**.
 
@@ -383,5 +383,21 @@ en disco.
    logos del producto en SistemaSalud (`app/icon.svg` y `public/icons/logo.svg`) usan
    `#2563eb`. El `#0ea5e9` de la spec de la landing es el que se desvió. Las piezas usan
    `#2563EB`; corregir la landing es trabajo aparte, fuera de alcance.
-4. **La auditoría de TikTok tarda 2-4 semanas.** No bloquea esta fase, pero el trámite
-   conviene iniciarlo ya, en paralelo, porque el reloj corre solo.
+4. ⚠️ **Corregido el 2026-09-02: una app propia de TikTok no es viable.** Durante toda
+   la fase se repitió que había que iniciar el trámite cuanto antes «porque el reloj
+   corre solo». Es falso. Las *Content Sharing Guidelines* de TikTok excluyen este caso
+   de uso de forma explícita:
+
+   > «API Clients must not be limited to test applications and should be intended for a
+   > wide audience, not limited to internal groups/private use.»
+
+   Y ponen como ejemplo de lo no aceptable «a utility tool to help upload contents to
+   the account(s) you or your team manages», que es exactamente esto. Sin auditoría,
+   `privacy_level` se fuerza a `SELF_ONLY` y todo lo publicado queda privado.
+
+   Esto tumba también el Postiz autoalojado para TikTok: al autoalojar se aportan
+   credenciales propias, luego hace falta app propia auditada, luego el mismo rechazo.
+
+   Caminos reales: **publicar a mano** —con dos videos al mes son dos minutos— o un
+   servicio multi-tenant ya auditado (Upload-Post $24/mes, Blotato $29, Postiz cloud).
+   No corre prisa: la fábrica produce estáticos y TikTok es video.

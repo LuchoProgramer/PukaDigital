@@ -301,5 +301,9 @@ correctos según el producto. `npm test` en verde.
 ## Lo que sigue, y no entra aquí
 
 Fase 2 (un agente redacta las piezas y abre el PR), fase 3 (publicación a Meta por
-Graph API) y fase 4 (TikTok). El trámite de la app de TikTok conviene iniciarlo en
-paralelo: son 2-4 semanas de auditoría.
+Graph API) y fase 4 (TikTok).
+
+⚠️ **La fase 4 no lleva app propia.** TikTok excluye explícitamente las herramientas
+para publicar en la cuenta que uno mismo gestiona, así que una app propia sería
+rechazada y sin auditoría todo sale privado. Se publica a mano o con un servicio
+multi-tenant ya auditado. Detalle en la spec.
