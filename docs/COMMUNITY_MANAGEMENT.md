@@ -53,6 +53,29 @@ Si un producto no tiene sistema propio documentado, es Dark Glass Rojo.
 Ante una duda de color dentro de un sistema, abrir la fuente de ese sistema — el
 sitio para Dark Glass Rojo, la spec para PukaHealth — y copiarla.
 
+### La firma del pie
+
+Abajo a la izquierda va **un solo elemento**: un punto rojo de 8 px y un texto.
+Nada a la derecha.
+
+| Sistema | Texto | Qué trabajo hace |
+|---|---|---|
+| Dark Glass Rojo | `pukadigital.com` | Marca de agua: dice adónde ir |
+| PukaHealth | `por PukaDigital` | Respaldo de sub-brand: PukaHealth tiene identidad propia y la casa la avala |
+
+**No son dos versiones de lo mismo**, y por eso no hay que unificarlas. Una dice
+*dónde*; la otra dice *de quién*.
+
+**Nunca va `@pukadigital` en el arte.** Dentro de Instagram la plataforma ya pone
+el handle en la cabecera del post, y fuera de Instagram —que es como circula el
+contenido útil, reenviado por WhatsApp— un `@handle` no lleva a ninguna parte. La
+URL funciona en los dos sitios; el handle en ninguno de los dos que importan.
+
+La firma es igual en los tres formatos. Una regla que cambia según el formato es
+una regla que nadie recuerda.
+
+---
+
 ### Formatos
 
 Los tres van en cada entrega, sea cual sea el sistema:

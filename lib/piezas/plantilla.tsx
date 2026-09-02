@@ -302,54 +302,45 @@ export function Plantilla({
         )}
       </div>
 
-      {/* FOOTER: Firma de marca y canal */}
+      {/*
+        PIE: un solo elemento, con dos trabajos distintos segun el sistema.
+
+        En puka es una marca de agua: dice donde ir cuando la pieza viaja fuera
+        de Instagram, que es como circula el contenido util por WhatsApp. Un
+        @handle no seria accionable ahi, y dentro del feed la plataforma ya lo
+        muestra en la cabecera del post.
+
+        En health es un lockup de respaldo de sub-brand: PukaHealth tiene
+        identidad propia y la marca madre la avala. Es doctrina aprobada.
+      */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
           alignItems: 'center',
+          gap: 10,
           width: '100%',
         }}
       >
+        {/* En health el punto rojo de 8px es la única presencia de #C7171E */}
         <div
           style={{
+            width: 8,
+            height: 8,
+            borderRadius: 4,
+            backgroundColor: '#C7171E',
             display: 'flex',
-            alignItems: 'center',
-            gap: 10,
           }}
-        >
-          {/* En health el punto rojo de 8px es la única presencia de #C7171E */}
-          <div
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: '#C7171E',
-              display: 'flex',
-            }}
-          />
-          <span
-            style={{
-              fontSize: 18,
-              fontFamily: 'Instrument Sans',
-              fontWeight: 500,
-              color: tokens.apoyo,
-            }}
-          >
-            {esPuka ? 'pukadigital.com' : 'por PukaDigital'}
-          </span>
-        </div>
-
+        />
         <span
           style={{
             fontSize: 18,
             fontFamily: 'Instrument Sans',
-            fontWeight: 400,
+            fontWeight: 500,
             color: tokens.apoyo,
           }}
         >
-          @pukadigital
+          {esPuka ? 'pukadigital.com' : 'por PukaDigital'}
         </span>
       </div>
     </div>

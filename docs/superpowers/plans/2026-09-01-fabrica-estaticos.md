@@ -288,8 +288,10 @@ correctos según el producto. `npm test` en verde.
 
 ## Deuda conocida
 
-- **Dos sistemas de firma sin decidir**: `puka` firma `pukadigital.com`, `health`
-  firma «por PukaDigital». Nadie eligió eso; se heredó.
+- ~~Dos sistemas de firma sin decidir.~~ **Resuelto el 2026-09-02.** No eran dos
+  versiones de lo mismo: `pukadigital.com` es marca de agua y «por PukaDigital» es
+  respaldo de sub-brand. Se quitó `@pukadigital`, que sí sobraba —redundante dentro
+  de Instagram, inservible fuera—. Documentado en `COMMUNITY_MANAGEMENT.md`.
 - **Los dos azules de PukaHealth**: la landing usa `#0ea5e9`, las piezas `#2563EB`.
   Los dos logos del producto en `SistemaSalud` usan `#2563eb`, así que el desviado
   es el de la landing. Corregirlo es trabajo aparte.
