@@ -25,7 +25,7 @@ async function cargarMes(mes: string): Promise<Pieza[]> {
 
 async function mesesDisponibles(): Promise<string[]> {
   const archivos = await readdir(DIR_CONTENIDO).catch(() => [] as string[]);
-  return archivos.filter((a) => a.endsWith('.ts')).map((a) => a.replace(/\.ts$/, '')).sort();
+  return archivos.filter((a) => /^\d{4}-\d{2}\.ts$/.test(a)).map((a) => a.replace(/\.ts$/, '')).sort();
 }
 
 /**
