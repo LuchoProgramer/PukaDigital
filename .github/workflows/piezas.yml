@@ -1,0 +1,64 @@
+name: Piezas
+
+# El validador solo es una barrera si corre sin que nadie se acuerde de correrlo.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # tsx es necesario: el type stripping nativo de Node no procesa JSX, y los
+      # tests alcanzan plantilla.tsx.
+      - name: Tests
+        run: npm test
+
+      # Solo tsc comprueba tipos: tsx los quita sin mirarlos.
+      - name: Tipos
+        run: npx tsc --noEmit
+
+      # Un mes por archivo. Se validan todos: los ids solo tienen que ser unicos
+      # dentro de su mes, asi que cada archivo se valida por separado.
+      - name: Validar las piezas de cada mes
+        run: |
+          shopt -s nullglob
+          archivos=(content/piezas/*.ts)
+          if [ ${#archivos[@]} -eq 0 ]; then
+            echo "No hay meses que validar."
+            exit 0
+          fi
+          for archivo in "${archivos[@]}"; do
+            mes=$(basename "$archivo" .ts)
+            echo "::group::$mes"
+            npm run piezas -- --mes "$mes" --check
+            echo "::endgroup::"
+          done
+
+      # Si alguien edita el contenido y olvida regenerar, los PNG publicados
+      # dejan de corresponder a los datos. Como public/piezas/ es lo que sirve
+      # de CDN para la Graph API, un PNG viejo se publica de verdad.
+      - name: Los PNG corresponden a los datos
+        run: |
+          shopt -s nullglob
+          for archivo in content/piezas/*.ts; do
+            npm run piezas -- --mes "$(basename "$archivo" .ts)"
+          done
+          if ! git diff --exit-code --stat -- public/piezas/; then
+            echo "::error::Los PNG de public/piezas/ no corresponden al contenido. Corre 'npm run piezas' y commitea el resultado."
+            exit 1
+          fi
+
+      - name: Build
+        run: npm run build
