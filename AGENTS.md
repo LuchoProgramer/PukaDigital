@@ -65,6 +65,28 @@ Deploy: automático en Vercel al pushear a `main`.
 | PukaHealth | Individual $50/mes · Anual $480/año — 30 días gratis |
 | PukaSalud, Agencia, Desarrollo web | Sin precio visible, cotización por WhatsApp |
 
+### PukaHealth: lo que el producto NO hace
+
+Verificado contra el código de `SistemaSalud` el 2026-09-02. Escribir esto como si
+estuviera hecho es publicar algo falso, y en salud pesa más que en cualquier otro
+producto.
+
+| No escribir | La verdad |
+|---|---|
+| «Se adapta a cualquier especialidad» | **Solo podología está implementada.** Las demás caen a un formulario genérico. Sí vale: «la arquitectura permite sumar especialidades sin reescribir el sistema» |
+| «Recordatorios por WhatsApp» | **No existe.** El bot vive en otro proyecto y el enganche no está construido |
+| «Sincronización bidireccional con Google Calendar» | **Es unidireccional**, sistema → Google |
+| «Nuestra app» | Es web instalable, no nativa. «Funciona en el celular» sí |
+| «Firma electrónica del profesional» | Hay autoría y auditoría; no firma criptográfica |
+| «Tu paciente reserva solo» | No hay portal de reservas. Es decisión deliberada |
+
+⚠️ El precio beta de **$25/mes es un acuerdo privado con la clienta piloto** y no
+se publica en ningún sitio. Los públicos son $50/mes y $480/año.
+
+⚠️ Toda captura que muestre una historia clínica lleva **dentro de la imagen** el
+aviso «Datos de paciente ficticios — sistema de demostración». YouTube ya retiró
+un video de este proyecto por esto y la apelación fue rechazada.
+
 **PukaIA es un CRM, no solo un chatbot.** Tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones. Los competidores que se posicionan como CRM cobran 5-15x más (Mercately $99-499/mes, Zolutium $79, Sellerchat $49). Ese es el ángulo competitivo; no lo describas como "chatbot" a secas.
 
 `next.config.ts` **no tiene redirects** — solo configuración de imágenes. Decisión del 2026-04-12: empezar limpio.
