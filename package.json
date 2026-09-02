@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test lib/piezas/*.test.ts"
+    "test": "node --import tsx --test lib/piezas/*.test.ts",
+    "piezas": "tsx lib/piezas/muestra.ts"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
