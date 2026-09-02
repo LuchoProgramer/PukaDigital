@@ -8,18 +8,22 @@ import type { Pieza } from '../../lib/piezas/tipos.ts';
  *   martes  → PukaHealth, el producto del mes
  *   jueves  → la casa, en Dark Glass Rojo
  *
+ * La primera semana es la excepción: las dos primeras van miércoles 2 y jueves 3
+ * para estrenar el cron con la cuenta real antes de dejarlo solo. A partir del 8
+ * ya es martes y jueves.
+ *
  * El jueves no es relleno: es el ancla visual que impide que un mes entero de
  * piezas claras convierta el feed en el de otra cuenta.
  *
  * Los temas salen de `docs/CALENDARIO_CONTENIDO.md`, de más a menos fuerte.
  */
 const piezas: Pieza[] = [
-  // ─────────────────────────────  martes 8  ·  PukaHealth  ─────────────────
+  // ─────────────────────────────  miércoles 2  ·  PukaHealth  ──────────────
   {
     id: 'podologo-no-receta',
     sistema: 'health',
     producto: 'pukahealth',
-    publicarEl: '2026-09-08T09:00',
+    publicarEl: '2026-09-02T18:00',
     caption:
       '¿Un podólogo puede recetar medicamentos en Ecuador?\n\n' +
       'No. El Art. 168 de la Ley Orgánica de Salud es explícito: solo médicos, ' +
@@ -66,14 +70,14 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  jueves 10  ·  la casa  ────────────────────
+  // ─────────────────────────────  jueves 3  ·  la casa  ─────────────────────
   {
     id: 'precios-software-ecuador',
     sistema: 'puka',
     producto: 'pukaia',
     // De la competencia, no nuestros. Ver `preciosAjenos` en tipos.ts.
     preciosAjenos: ['49', '499'],
-    publicarEl: '2026-09-10T18:00',
+    publicarEl: '2026-09-03T09:00',
     caption:
       '¿Cuánto cuesta un CRM con WhatsApp en Ecuador?\n\n' +
       'Los que se venden aquí como CRM cobran entre $49 y $499 al mes. Los ' +
@@ -117,12 +121,12 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  martes 15  ·  PukaHealth  ─────────────────
+  // ─────────────────────────────  martes 8  ·  PukaHealth  ──────────────────
   {
     id: 'proteccion-datos-clinicas',
     sistema: 'health',
     producto: 'pukahealth',
-    publicarEl: '2026-09-15T09:00',
+    publicarEl: '2026-09-08T09:00',
     caption:
       '¿Tu clínica necesita un Delegado de Protección de Datos?\n\n' +
       'Según la Resolución SPDP-SPD-2026-0005-R, los datos de salud califican ' +
@@ -168,12 +172,12 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  jueves 17  ·  la casa  ────────────────────
+  // ─────────────────────────────  jueves 10  ·  la casa  ────────────────────
   {
     id: 'crm-no-chatbot',
     sistema: 'puka',
     producto: 'pukaia',
-    publicarEl: '2026-09-17T18:00',
+    publicarEl: '2026-09-10T18:00',
     caption:
       'Un chatbot responde. Un CRM te dice a quién llamar mañana.\n\n' +
       'La diferencia importa cuando tienes 40 conversaciones abiertas en ' +
@@ -216,12 +220,12 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  martes 22  ·  PukaHealth  ─────────────────
+  // ─────────────────────────────  martes 15  ·  PukaHealth  ─────────────────
   {
     id: 'enter-tumba-factura',
     sistema: 'health',
     producto: 'pukahealth',
-    publicarEl: '2026-09-22T09:00',
+    publicarEl: '2026-09-15T09:00',
     caption:
       '¿Por qué el SRI te devuelve el error 35?\n\n' +
       'Porque pulsaste Enter. El esquema XSD del SRI prohíbe los saltos de línea ' +
@@ -266,11 +270,11 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  jueves 24  ·  la casa  ────────────────────
+  // ─────────────────────────────  jueves 17  ·  la casa  ────────────────────
   {
     id: 'requisitos-facturar-sri',
     sistema: 'puka',
-    publicarEl: '2026-09-24T18:00',
+    publicarEl: '2026-09-17T18:00',
     caption:
       '¿Qué necesitas para facturar electrónicamente en Ecuador?\n\n' +
       'Son cuatro cosas, y ninguna es el software: RUC activo, firma electrónica ' +
@@ -315,12 +319,12 @@ const piezas: Pieza[] = [
     ],
   },
 
-  // ─────────────────────────────  martes 29  ·  PukaHealth  ─────────────────
+  // ─────────────────────────────  martes 22  ·  PukaHealth  ─────────────────
   {
     id: 'receta-contenido-minimo',
     sistema: 'health',
     producto: 'pukahealth',
-    publicarEl: '2026-09-29T09:00',
+    publicarEl: '2026-09-22T09:00',
     caption:
       '¿Qué debe llevar una receta médica en Ecuador?\n\n' +
       'La Resolución ACESS-2023-0030 lo detalla en su Art. 5, y hay siete cosas ' +
