@@ -21,7 +21,11 @@ La página `/pukahealth` es una landing standalone — usa `ConditionalShell` pa
 - **Estilo:** Claro Profesional — blanco, azul médico
 - **Fondo:** `#f8fafc` (gris muy claro) con secciones alternas en `#fff`
 - **Cards:** `background: #fff`, `border: 1px solid #e2e8f0`, `box-shadow: 0 2px 12px rgba(0,0,0,0.06)`, `border-radius: 12px`
-- **Acento:** `#0ea5e9` (azul médico) con `box-shadow: 0 0 20px rgba(14,165,233,0.25)` en botones CTA
+- **Acento:** ~~`#0ea5e9`~~ → **`#2563eb`** desde el 2026-09-02. Dos motivos: es el
+  azul del logo del producto (`SistemaSalud`, commit del 2026-05-28, posterior a esta
+  spec), y `#0ea5e9` da **2,77:1** sobre blanco, que no llega ni al umbral de 3,0:1
+  de WCAG para texto grande — y aquí se usaba para texto de 14 px y para botones con
+  texto blanco encima. `#2563eb` da 5,17:1 y pasa AA con `box-shadow: 0 0 20px rgba(14,165,233,0.25)` en botones CTA
 - **Hover en botones:** `background: #0284c7`
 - **Iconos:** Lucide React exclusivamente — sin emojis
 - **Tipografía:** `font-display font-bold` para títulos, `font-sans` para cuerpo

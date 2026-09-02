@@ -1,6 +1,6 @@
 # Community management — @pukadigital
 
-Cómo se trabaja el orgánico de Facebook e Instagram. Actualizado: **2026-08-31**.
+Cómo se trabaja el orgánico de Facebook e Instagram. Actualizado: **2026-09-01**.
 
 Para pauta, píxeles y atribución, ver `ECOSISTEMA_ADS.md`.
 
@@ -26,12 +26,67 @@ primeros diez clientes en la mano, no antes.
 
 ## La regla que resuelve casi todo
 
-Si una pieza no parece venir de `pukadigital.com`, está mal. Ante cualquier duda
-de color, tipografía o espaciado, abrir el sitio y copiarlo.
+**Abrir el sistema del producto antes de diseñar.** Lo que une a las piezas es la
+tipografía, la retícula y el ritmo — no el color. Cada producto puede traer su
+propio ambiente.
 
-El sistema visual completo — paleta, retícula, formatos y badges — vive en el kit
-**Dark Glass Rojo**. Los valores exactos están también en `CLAUDE.md`, sección
-*Estilos*.
+| Producto | Sistema | Dónde |
+|---|---|---|
+| Cuenta `@pukadigital` y todo lo demás | Dark Glass Rojo · fondo `#080808`, acento `#C7171E` | `CLAUDE.md` § *Estilos* |
+| PukaHealth | Claro y azul · `#2563EB`, tinta `#0F172B`, gris `#45556C`, fondo `#FFFFFF` | `docs/superpowers/specs/2026-03-25-pukahealth-landing-design.md` |
+
+Dark Glass Rojo es el kit **de la cuenta**, no de los productos: vale por defecto,
+pero un producto con sistema aprobado manda sobre él. Hoy el único es PukaHealth.
+Si un producto no tiene sistema propio documentado, es Dark Glass Rojo.
+
+### PukaHealth, que es la excepción
+
+- El rojo `#C7171E` va **solo** en el punto de 8 px de la firma «por PukaDigital»
+  del pie. Nunca en titulares, botones ni fondos: en salud el rojo grande dice
+  sangre y urgencia.
+- **El pegaso no aparece nunca.** Arriba a la izquierda va el logo de PukaHealth
+  (cuadrado azul con estetoscopio).
+- Prohibidos: fondos oscuros, glassmorphism y cualquier «otro azul» parecido al
+  del logo.
+- Se comparten con la casa la tipografía, la retícula y los márgenes.
+
+Ante una duda de color dentro de un sistema, abrir la fuente de ese sistema — el
+sitio para Dark Glass Rojo, la spec para PukaHealth — y copiarla.
+
+### La firma del pie
+
+Abajo a la izquierda va **un solo elemento**: un punto rojo de 8 px y un texto.
+Nada a la derecha.
+
+| Sistema | Texto | Qué trabajo hace |
+|---|---|---|
+| Dark Glass Rojo | `pukadigital.com` | Marca de agua: dice adónde ir |
+| PukaHealth | `por PukaDigital` | Respaldo de sub-brand: PukaHealth tiene identidad propia y la casa la avala |
+
+**No son dos versiones de lo mismo**, y por eso no hay que unificarlas. Una dice
+*dónde*; la otra dice *de quién*.
+
+**Nunca va `@pukadigital` en el arte.** Dentro de Instagram la plataforma ya pone
+el handle en la cabecera del post, y fuera de Instagram —que es como circula el
+contenido útil, reenviado por WhatsApp— un `@handle` no lleva a ninguna parte. La
+URL funciona en los dos sitios; el handle en ninguno de los dos que importan.
+
+La firma es igual en los tres formatos. Una regla que cambia según el formato es
+una regla que nadie recuerda.
+
+---
+
+### Formatos
+
+Los tres van en cada entrega, sea cual sea el sistema:
+
+| Uso | Medida | Nota |
+|---|---|---|
+| Feed y carrusel | `1080 × 1350` (4:5) | El principal |
+| Cuadrado | `1080 × 1080` (1:1) | |
+| Historia | `1080 × 1920` (9:16) | Dejar **250 px libres arriba y 320 abajo** para la UI de Instagram |
+
+Margen de **88 px sobre 1080** en los tres.
 
 ---
 
@@ -127,8 +182,10 @@ cada quince días impide saber qué causó qué.
 
 - **Emojis como iconos** dentro del arte. En el caption están bien; los iconos
   salen de `lucide.dev`.
-- **Fondos claros** en piezas de marca. El sistema es oscuro.
-- **Otro rojo** que no sea `#C7171E`.
+- **Fondos claros** en piezas de Dark Glass Rojo. Ahí el sistema es oscuro — en
+  PukaHealth es al revés y el fondo blanco es lo correcto.
+- **Otro rojo** que no sea `#C7171E`. Y en PukaHealth, ese rojo fuera del punto
+  de la firma.
 - **Degradados de moda**, morado a azul. El único permitido es el resplandor rojo
   tenue detrás del titular.
 - **Texto pegado al borde**: el margen de 88 px sobre 1080 es intocable.

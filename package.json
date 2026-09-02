@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run piezas -- --check && npm test && tsc --noEmit",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --import tsx --test lib/piezas/*.test.ts",
+    "piezas": "tsx lib/piezas/cli.ts",
+    "piezas:muestra": "tsx lib/piezas/muestra.ts"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
+    "@resvg/resvg-js": "^2.6.2",
     "lucide-react": "^0.554.0",
     "next": "16.0.7",
     "react": "19.2.0",
@@ -17,7 +22,8 @@
     "react-markdown": "^10.1.0",
     "recharts": "^3.5.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "satori": "^0.33.4"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -28,6 +34,7 @@
     "eslint-config-next": "16.0.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

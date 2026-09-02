@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="#2563eb"/>
+  <g stroke="#ffffff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Estetoscopio -->
+    <path d="M168 132v92a72 72 0 0 0 144 0v-92"/>
+    <path d="M168 132h-22"/>
+    <path d="M312 132h22"/>
+    <path d="M240 296v52a52 52 0 0 0 52 52h0a52 52 0 0 0 52-52v-12"/>
+    <circle cx="344" cy="336" r="36" fill="#ffffff" stroke="#ffffff"/>
+    <circle cx="344" cy="336" r="20" fill="#2563eb" stroke="none"/>
+  </g>
+</svg>

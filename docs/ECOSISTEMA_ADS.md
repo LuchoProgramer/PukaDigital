@@ -50,6 +50,26 @@ Existe un segundo dataset, `PukaDigital Engine` (`922568993500779`), que es de
 y seguidores. Es el puente con el trabajo de la community manager: un post que
 funcione solo es candidato a pauta, y rinde más que un anuncio hecho desde cero.
 
+### Publicar en TikTok por API: no con app propia
+
+Las *Content Sharing Guidelines* de TikTok excluyen este caso de uso:
+
+> «API Clients must not be limited to test applications and should be intended for a
+> wide audience, not limited to internal groups/private use.»
+
+El ejemplo que dan de lo **no** aceptable es «a utility tool to help upload contents
+to the account(s) you or your team manages» — literalmente esto. Una app propia se
+rechaza, y mientras no esté auditada `privacy_level` se fuerza a `SELF_ONLY`: todo lo
+publicado queda privado.
+
+Aplica igual a Postiz autoalojado, que usa credenciales propias y por tanto necesita
+app propia auditada.
+
+Lo que sí funciona: **publicar a mano** —con dos videos al mes son dos minutos— o un
+servicio multi-tenant ya auditado (Upload-Post $24/mes, Blotato $29, Postiz cloud).
+Meta es distinto: ahí sí se puede publicar con Graph API propia, y el portfolio ya
+está verificado como Tech Provider.
+
 ---
 
 ## Qué se pauta y cuándo
