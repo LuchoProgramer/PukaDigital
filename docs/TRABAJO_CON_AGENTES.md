@@ -28,11 +28,48 @@ agy -p "la pregunta o la tarea"
 Google retira el Gemini CLI el **18 de junio de 2026** y lo sustituye por `agy`.
 Existen servidores MCP que lo envuelven; para llamarlo desde aquí no hacen falta.
 
-⚠️ **En headless, un permiso denegado deja la respuesta vacía.** Si el modelo
-decide usar una herramienta y no hay regla que la permita, `agy` no puede
-preguntar y aborta con `no output produced`. Se resuelve añadiendo reglas en
-`permissions.allow` de su `settings.json`, o con `--dangerously-skip-permissions`,
-que aprueba **todo** y conviene tratar con el respeto que sugiere el nombre.
+### La invocación que funciona
+
+```bash
+agy --sandbox --dangerously-skip-permissions -p "lee AGENTS.md y ..."
+```
+
+Las tres partes son necesarias y ninguna es opcional:
+
+| Parte | Por qué |
+|---|---|
+| `--dangerously-skip-permissions` | **`permissions.allow` no se consulta en headless.** Es un bug abierto ([#548](https://github.com/google-antigravity/antigravity-cli/issues/548)): las llamadas a herramientas se deniegan solas y la respuesta sale vacía con `no output produced`. Ampliar la lista de `allow` no arregla nada |
+| `--sandbox` | Restringe la terminal. Es lo que hace tolerable el flag anterior |
+| «lee AGENTS.md» en el prompt | Sin eso el agente no tiene las reglas. Ver abajo |
+
+⚠️ **`deny` sí se respeta, incluso con `--dangerously-skip-permissions`.** Verificado
+el 2026-09-02: es la única barrera que sobrevive al flag, y por eso es donde tiene
+que estar la protección de verdad.
+
+### Los permisos, en `~/.gemini/antigravity-cli/settings.json`
+
+Siete tipos de acción —`read_file`, `write_file`, `read_url`, `execute_url`,
+`command`, `mcp`, `unsandboxed`— sobre tres listas que se evalúan en orden estricto:
+**`deny` > `ask` > `allow`**.
+
+```json
+{
+  "permissions": {
+    "allow": ["command(git status)", "command(npm run)"],
+    "deny":  ["command(sudo)", "read_file(/Users/tu-usuario/.ssh/)"]
+  }
+}
+```
+
+⚠️ **En las rutas, `~` no se expande.** `read_file(~/.ssh/)` **no bloquea nada**: se
+comprobó leyendo el archivo con esa regla puesta. Hay que escribir la ruta absoluta.
+Los comandos usan regex por tokens: `command(npm run (build|lint|test))`.
+
+La lista `deny` instalada el 2026-09-02 cubre escalada de privilegios (`sudo`,
+`chmod 777`), reescritura de historia y pérdida de trabajo no commiteado
+(`git push --force`, `git reset --hard`, `git clean -fd`) y las credenciales de la
+máquina (`.ssh/`, `.aws/`, el token OAuth de la propia CLI). El `allow` acumulado
+—840 y pico de reglas -- se dejó intacto: sirve en modo interactivo.
 
 ---
 
@@ -99,18 +136,26 @@ La última fila es la que explica las anteriores: **no lo tenía en contexto y f
 buscarlo.** En una pregunta suelta, sin abrir ningún archivo, no se dispara el
 recorrido jerárquico y las reglas no entran.
 
-**Lo que queda sin verificar:** si al tocar un archivo del repositorio las reglas
-entran de verdad. Hace falta desbloquear permisos en `agy` para comprobarlo.
+### Verificado el 2026-09-02, ya con los permisos desbloqueados
+
+| Prueba | Resultado |
+|---|---|
+| Preguntar el color de acento sin nombrar ningún archivo | **`#1a73e8`** — respondió con los colores de *Antigravity*, de su propio skill interno. No miró el proyecto |
+| Pedirle que **lea `AGENTS.md`** y luego responder | `#C7171E` citando la línea 87, y el formato de commits citando la línea 149 |
+
+La segunda fila cierra dos preguntas a la vez: el archivo entra **entero** —la línea
+149 está casi al final— así que a 9.000 caracteres no hay truncado; y la carga
+jerárquica **no ocurre sola** en `-p`.
+
+**Conclusión: `agy -p` no carga `AGENTS.md` por su cuenta.** Sin nombrarlo en el
+prompt, el agente no tiene las reglas y responde con lo que sea que traiga dentro.
 
 ### Cómo se soluciona
 
 En headless, **no dar por hecho que las reglas están**. Por orden de preferencia:
 
-1. **Nombrar el archivo en el propio prompt** — «lee `AGENTS.md` antes de nada» —
-   para que la primera acción sea una lectura y dispare el recorrido.
-2. **Pasar las reglas por `stdin`** cuando la tarea sea corta y no se quiera
-   depender de permisos de herramienta.
-3. **Que la primera instrucción sea una operación de archivo** dentro del repo.
+**Nombrar el archivo en el propio prompt.** Es lo único que se ha comprobado que
+funciona: «lee `AGENTS.md` y…». No es una precaución, es el requisito.
 
 Para la fase 2 de la fábrica de piezas —un agente redactando el contenido del
 mes— esto no es un detalle: si las reglas no entran, el agente inventa precios.
