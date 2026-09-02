@@ -308,6 +308,7 @@ lib/piezas/
   plantilla.tsx   la plantilla paramétrica (Flexbox)
   render.ts       Pieza → PNG[]  (satori + resvg)
 assets/fonts/     los .ttf vendorizados
+assets/marca/     pukahealth-logo.svg, pegaso-rojo.svg
 content/piezas/
   2026-09.ts      las piezas del mes
 public/piezas/    la salida, versionada
@@ -356,13 +357,17 @@ en disco.
 
 ## Bloqueos y riesgos conocidos
 
-1. **El SVG del logo de PukaHealth no está en el repositorio.** Lo entrega Luis por
-   WhatsApp. Sin él, el sistema `health` renderiza con un hueco marcado y visible. No
-   detiene la fase 1: el día que el archivo caiga en `assets/`, `health` queda completo.
+1. ~~El SVG del logo de PukaHealth no está en el repositorio.~~ **Resuelto el
+   2026-09-01.** Estaba en `SistemaSalud/salud-frontend/public/icons/logo.svg` (commit
+   `d521fa5`); copiado a `assets/marca/pukahealth-logo.svg`. Es una **copia entre
+   repositorios sin vínculo**: si el logo cambia en SistemaSalud, aquí no se entera
+   nadie. El pegaso vive junto a él en `assets/marca/pegaso-rojo.svg`.
 2. **Los PNG en `public/` son públicos desde el merge**, incluso antes de publicarse en
    la red. Se acepta: son piezas destinadas a ser públicas en días, y esa exposición es
    justamente lo que permite que la Graph API las consuma por URL.
-3. **Los dos azules de PukaHealth** (`#0ea5e9` en la landing, `#2563EB` en las piezas)
-   quedan sin unificar. Fuera de alcance, anotado.
+3. **Los dos azules de PukaHealth** quedan sin unificar, pero ya no en empate: los dos
+   logos del producto en SistemaSalud (`app/icon.svg` y `public/icons/logo.svg`) usan
+   `#2563eb`. El `#0ea5e9` de la spec de la landing es el que se desvió. Las piezas usan
+   `#2563EB`; corregir la landing es trabajo aparte, fuera de alcance.
 4. **La auditoría de TikTok tarda 2-4 semanas.** No bloquea esta fase, pero el trámite
    conviene iniciarlo ya, en paralelo, porque el reloj corre solo.
