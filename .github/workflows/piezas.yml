@@ -29,22 +29,9 @@ jobs:
       - name: Tipos
         run: npx tsc --noEmit
 
-      # Un mes por archivo. Se validan todos: los ids solo tienen que ser unicos
-      # dentro de su mes, asi que cada archivo se valida por separado.
-      - name: Validar las piezas de cada mes
-        run: |
-          shopt -s nullglob
-          archivos=(content/piezas/*.ts)
-          if [ ${#archivos[@]} -eq 0 ]; then
-            echo "No hay meses que validar."
-            exit 0
-          fi
-          for archivo in "${archivos[@]}"; do
-            mes=$(basename "$archivo" .ts)
-            echo "::group::$mes"
-            npm run piezas -- --mes "$mes" --check
-            echo "::endgroup::"
-          done
+      # Sin --mes valida todos los meses, cada uno por separado.
+      - name: Validar las piezas
+        run: npm run piezas -- --check
 
       # Si alguien edita el contenido y olvida regenerar, los PNG publicados
       # dejan de corresponder a los datos. Como public/piezas/ es lo que sirve
@@ -60,5 +47,7 @@ jobs:
             exit 1
           fi
 
+      # prebuild vuelve a correr validacion, tests y tipos. Es barato y asegura
+      # que el gate de Vercel —que es el mismo prebuild— no esta roto.
       - name: Build
         run: npm run build

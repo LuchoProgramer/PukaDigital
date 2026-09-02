@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderPieza } from './render.ts';
@@ -15,14 +15,59 @@ function mesActual(): string {
   return `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`;
 }
 
+const DIR_CONTENIDO = join(process.cwd(), 'content', 'piezas');
+
+/** pathToFileURL: en ESM un import() de ruta absoluta falla sin el esquema file:// */
+async function cargarMes(mes: string): Promise<Pieza[]> {
+  const ruta = pathToFileURL(join(DIR_CONTENIDO, `${mes}.ts`)).href;
+  return (await import(ruta)).default;
+}
+
+async function mesesDisponibles(): Promise<string[]> {
+  const archivos = await readdir(DIR_CONTENIDO).catch(() => [] as string[]);
+  return archivos.filter((a) => a.endsWith('.ts')).map((a) => a.replace(/\.ts$/, '')).sort();
+}
+
+/**
+ * Valida todos los meses del repositorio. Cada uno por separado: los ids solo
+ * tienen que ser únicos dentro de su mes.
+ *
+ * Sin --mes se validan todos y no solo el actual, para que el 1 de octubre —con
+ * el archivo del mes todavía sin escribir— el build no se rompa solo.
+ */
+async function comprobarTodos(): Promise<void> {
+  const meses = await mesesDisponibles();
+  if (meses.length === 0) {
+    console.log('No hay meses que validar.');
+    return;
+  }
+
+  let fallos = 0;
+  for (const mes of meses) {
+    const piezas = await cargarMes(mes);
+    const errores = validar(piezas);
+    if (errores.length > 0) {
+      console.error(`${errores.length} error(es) en ${mes}:\n${formatear(errores)}`);
+      fallos++;
+    } else {
+      console.log(`${piezas.length} pieza(s) validas en ${mes}.`);
+    }
+  }
+  if (fallos > 0) process.exit(1);
+}
+
 async function main() {
-  const mes = argumento('mes') ?? mesActual();
+  const mesPedido = argumento('mes');
   const soloId = argumento('id');
   const soloCheck = process.argv.includes('--check');
 
-  // pathToFileURL: en ESM un import() de ruta absoluta falla sin el esquema file://
-  const ruta = pathToFileURL(join(process.cwd(), 'content', 'piezas', `${mes}.ts`)).href;
-  const todas: Pieza[] = (await import(ruta)).default;
+  if (soloCheck && !mesPedido) {
+    await comprobarTodos();
+    return;
+  }
+
+  const mes = mesPedido ?? mesActual();
+  const todas: Pieza[] = await cargarMes(mes);
 
   // Se valida el mes completo aunque se renderice una sola pieza: los ids
   // duplicados solo se ven mirando todo.
