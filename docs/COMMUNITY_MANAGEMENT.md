@@ -76,6 +76,37 @@ una regla que nadie recuerda.
 
 ---
 
+### El caption es la superficie de búsqueda
+
+Instagram funciona como buscador: **indexa los captions** y los usa para rankear.
+Las señales son coincidencia de texto, interacción del post y con qué cuenta se
+queda la gente después de buscar un término.
+
+Por eso el caption se escribe pensando en **lo que alguien teclea**, no en lo que
+suena bien:
+
+- **La primera línea lleva la búsqueda.** Es lo único que se ve antes del «más».
+  «¿Un podólogo puede recetar medicamentos en Ecuador?» es una búsqueda real;
+  «El Art. 168 es claro» no lo busca nadie.
+- **Los términos que usa la gente**, no los del sector. «Historia clínica
+  electrónica» y «software médico» antes que «gestión clínica integral».
+- **Ecuador, siempre.** El contexto local es parte de la búsqueda.
+- **Sin amontonar palabras clave.** La interacción también pesa en el ranking, y
+  un texto ilegible no la consigue.
+
+### Hashtags: 3-5 y olvidarse
+
+Mosseri, julio de 2026: *«Hashtags work, but they've never been a good way to
+actually increase your reach.»* Instagram bajó el máximo de 30 a 5, y el mejor
+dato disponible —1,6 millones de posts— da un **2% más de alcance** frente a no
+poner ninguno.
+
+Sirven para etiquetar contexto, no para que te encuentren. Tres a cinco,
+concretos: `#facturacionelectronica`, `#SRI`, `#Ecuador`. **No dedicar tiempo ni
+dinero a investigarlos**: la palanca es el caption.
+
+---
+
 ### Formatos
 
 Los tres van en cada entrega, sea cual sea el sistema:

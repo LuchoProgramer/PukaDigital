@@ -15,10 +15,13 @@ const piezas: Pieza[] = [
     publicarEl: '2026-09-08T09:00',
     producto: 'ledgerxpertz',
     caption:
-      'El SRI no rechaza tu factura por el sistema. La rechaza por un dato del ' +
-      'cliente mal escrito: cédula, razón social, correo.\n\n' +
-      '¿Te ha pasado? Escríbenos y te contamos cómo lo resolvemos.\n\n' +
-      'pukadigital.com',
+      '¿Por qué el SRI te rechaza la factura electrónica?\n\n' +
+      'Casi nunca es el sistema. Es un dato del cliente mal escrito: la cédula, ' +
+      'la razón social, el correo.\n\n' +
+      'Si facturas en Ecuador y llevas semanas peleando con comprobantes ' +
+      'rechazados, escríbenos y te contamos cómo lo resolvemos.\n\n' +
+      'pukadigital.com\n\n' +
+      '#facturacionelectronica #SRI #Ecuador #pymes',
     slides: [
       {
         badge: 'SRI',
@@ -34,10 +37,13 @@ const piezas: Pieza[] = [
     publicarEl: '2026-09-10T18:00',
     producto: 'pukahealth',
     caption:
-      'Historia clínica y facturación electrónica en el mismo sitio, sin pasar ' +
-      'nada a mano dos veces.\n\n' +
-      'PukaHealth · $50 al mes · 30 días para probarlo.\n\n' +
-      'pukadigital.com/pukahealth',
+      'Historia clínica electrónica y facturación al SRI en el mismo sistema.\n\n' +
+      'Si tu consultorio todavía lleva las fichas en papel y factura aparte, ' +
+      'estás escribiendo los mismos datos dos veces todos los días.\n\n' +
+      'PukaHealth es software médico hecho en Ecuador, con facturación ' +
+      'electrónica incluida. $50 al mes, 30 días para probarlo.\n\n' +
+      'pukadigital.com/pukahealth\n\n' +
+      '#historiaclinicaelectronica #softwaremedico #Ecuador #consultoriomedico',
     slides: [
       {
         badge: 'HISTORIA CLÍNICA',
@@ -57,13 +63,16 @@ const piezas: Pieza[] = [
     producto: 'pukahealth',
     publicarEl: '2026-09-15T09:00',
     caption:
-      'El Art. 168 de la Ley Orgánica de Salud es claro: solo médicos, ' +
-      'odontólogos y obstetrices pueden prescribir medicamentos.\n\n' +
-      'Un podólogo no receta. Emite indicaciones de tratamiento podológico, ' +
-      'que es otra cosa y así debe decirlo el documento.\n\n' +
-      'Si tu sistema te deja imprimir algo titulado «receta», te está poniendo ' +
-      'en un problema que no es tuyo.\n\n' +
-      'pukadigital.com/pukahealth',
+      '¿Un podólogo puede recetar medicamentos en Ecuador?\n\n' +
+      'No. El Art. 168 de la Ley Orgánica de Salud es explícito: solo médicos, ' +
+      'odontólogos y obstetrices pueden prescribir.\n\n' +
+      'Un podólogo emite indicaciones de tratamiento podológico. Es otra cosa, ' +
+      'y el documento tiene que decirlo así.\n\n' +
+      'Si tu software te deja imprimir algo titulado «receta médica», te está ' +
+      'poniendo en un problema que no es tuyo: el papel lleva tu nombre y tu ' +
+      'registro profesional, no el del sistema.\n\n' +
+      'pukadigital.com/pukahealth\n\n' +
+      '#podologia #recetamedica #Ecuador #normativasalud',
     slides: [
       {
         badge: 'LEY ORGÁNICA DE SALUD',
