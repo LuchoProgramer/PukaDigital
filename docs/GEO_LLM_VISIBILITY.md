@@ -284,3 +284,23 @@ Herramientas para monitorear si tu marca aparece en respuestas de IA:
 ---
 
 *Última actualización: 2026-03-24 | Basado en investigación de Firebrand, LLMrefs, Profound, Averi.ai, Omniscient Digital.*
+
+---
+
+## El porqué correcto de GEO
+
+Movido desde `AGENTS.md` el 2026-09-02 para no reventar el tope de 12.000
+caracteres de Antigravity.
+
+Google fue explícito en mayo de 2026: *"You don't need to create new machine readable files, AI text files, markup, or Markdown to appear in Google Search... Google Search ignores them"*, y *"Structured data isn't required for generative AI search, and there's no special schema.org markup you need to add."*
+
+Es decir: **`llms.txt` y el schema no son lo que hace que la IA de Google te cite.** Se mantienen porque sirven para otra cosa, que sí importa:
+
+- el schema alimenta los **rich results** de Google (FAQ, precios, estrellas) — tráfico real y medible;
+- `llms.txt` lo consumen algunos crawlers **no-Google**.
+
+No inventes tácticas "para LLMs" ni trocees contenido para que "la IA lo entienda mejor" — Google dice expresamente que no hace falta. Lo que mueve la aguja es contenido útil, indexable, con criterio propio y datos originales.
+
+## FAQs
+
+Formato conversacional, como las escribiría alguien en ChatGPT. Mínimo 5 preguntas, óptimo 8-12. Incluir precios concretos en al menos una respuesta y contexto local ("en Ecuador", "SRI", "pymes").
