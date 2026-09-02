@@ -136,3 +136,35 @@ test('las prohibiciones son de PukaHealth: no aplican a otro producto', () => {
   };
   assert.deepEqual(validar([otra]), []);
 });
+
+test('los precios de terceros se declaran y entonces se permiten', () => {
+  const comparativa: Pieza = {
+    id: 'x',
+    sistema: 'puka',
+    producto: 'pukaia',
+    preciosAjenos: ['49', '499'],
+    slides: [{ titular: 'Cobran entre $49 y $499', dato: { valor: '$14.99', etiqueta: 'al mes' } }],
+  };
+  assert.deepEqual(validar([comparativa]), []);
+});
+
+test('un precio de tercero sin declarar sigue bloqueado', () => {
+  const mala: Pieza = {
+    id: 'x',
+    sistema: 'puka',
+    producto: 'pukaia',
+    slides: [{ titular: 'Cobran $49' }],
+  };
+  assert.deepEqual(validar([mala]).map((e) => e.campo), ['titular']);
+});
+
+test('declarar un precio ajeno no habilita otro distinto', () => {
+  const mala: Pieza = {
+    id: 'x',
+    sistema: 'puka',
+    producto: 'pukaia',
+    preciosAjenos: ['49'],
+    slides: [{ titular: 'Cobran $49 y hasta $999' }],
+  };
+  assert.equal(validar([mala]).length, 1);
+});

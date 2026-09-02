@@ -146,8 +146,9 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
           }
         }
 
+        const ajenos = pieza.preciosAjenos ?? [];
         for (const precio of preciosEn(texto)) {
-          if (!producto.precios.includes(precio)) {
+          if (!producto.precios.includes(precio) && !ajenos.includes(precio)) {
             const permitidos = producto.precios.length > 0
               ? `los de ${producto.nombre} son ${producto.precios.map((p) => `$${p}`).join(', ')}`
               : `${producto.nombre} no lleva precio visible: se cotiza por WhatsApp`;

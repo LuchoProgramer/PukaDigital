@@ -41,6 +41,13 @@ export type Pieza = {
   /** El texto del post. Va aparte del arte: es lo que se lee bajo la imagen. */
   caption?: string;
   /**
+   * Precios que **no son nuestros**: los de la competencia en una comparativa.
+   * Hay que declararlos uno a uno, sin el símbolo. Sin esto el validador los
+   * confunde con un precio propio equivocado, que es lo que debe hacer: la
+   * excepción se pide a mano, no se deduce.
+   */
+  preciosAjenos?: string[];
+  /**
    * Cuándo publicarla, en hora de Ecuador: `2026-09-09T09:00`.
    * Sin este campo, la pieza no entra en el cron y solo se publica a mano.
    */
