@@ -110,8 +110,12 @@ export function Plantilla({
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
-          // La historia agrupa cabecera y cuerpo abajo en vez de repartirlos.
-          ...(formato === '9x16' ? { marginTop: 'auto', marginBottom: 56 } : {}),
+          // Cabecera y cuerpo viajan juntos. El 'auto' de arriba, con el del
+          // cuerpo abajo, centra el grupo en el espacio libre sobre el pie. Sin
+          // esto el logo se queda arriba del todo y el 4x5 sale con un 60% de
+          // la pieza en negro.
+          marginTop: 'auto',
+          marginBottom: 40,
         }}
       >
         <div
@@ -167,11 +171,11 @@ export function Plantilla({
         style={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-end',
-          flex: formato === '9x16' ? 'none' : 1,
+          justifyContent: 'flex-start',
+          flex: 'none',
           gap: formato === '1x1' ? 18 : 24,
-          marginTop: 20,
-          marginBottom: formato === '1x1' ? 24 : 48,
+          // Cierra el centrado que abre el marginTop de la cabecera.
+          marginBottom: 'auto',
         }}
       >
         {/* Slot: Badge */}
