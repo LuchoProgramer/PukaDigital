@@ -18,7 +18,7 @@ Agencia de marketing digital y software SaaS para PYMEs en Ecuador y LATAM.
 
 ## Stack
 
-**Next.js 15 App Router · React 19 · TypeScript · Tailwind CSS · Lucide React**
+**Next.js 16 App Router · React 19 · TypeScript · Tailwind CSS · Lucide React**
 
 ## Comandos
 
@@ -178,4 +178,5 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
+- `docs/PUBLICAR_EN_FACEBOOK.md` — investigación sin decidir: hoy solo se publica en Instagram
 - `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026
