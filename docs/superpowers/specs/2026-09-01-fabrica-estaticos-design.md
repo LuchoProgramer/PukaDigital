@@ -105,6 +105,12 @@ Es también lo que funciona en Windows sin permisos de administrador.
 
 Nunca se copia contenido de un archivo al otro. Duplicar deriva en una semana.
 
+⚠️ **Corregido el 2026-09-02.** Lo de abajo vale para Claude Code y **solo** para
+Claude Code. En Antigravity está comprobado que `agy -p` **no** trae las reglas en una
+pregunta suelta: la carga jerárquica se dispara al tocar archivos, no al arrancar. Un
+agente headless necesita que el prompt le nombre `AGENTS.md`. Detalle y pruebas en
+`docs/TRABAJO_CON_AGENTES.md`.
+
 **Verificado el 2026-09-01** en una sesión limpia de Claude Code: las reglas de
 `AGENTS.md` llegan completas y **una sola vez**, sin duplicar contexto. Llegan como
 bloque hermano etiquetado con su propia ruta, no embebidas dentro del texto de

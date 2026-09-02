@@ -169,6 +169,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 ## Documentación relacionada
 
 - `docs/ARQUITECTURA.md` — detalle de arquitectura, estilos y tipografía
+- `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión
