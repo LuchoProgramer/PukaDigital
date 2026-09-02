@@ -52,12 +52,14 @@ export function Plantilla({
 
   let titularSize = 66;
   if (formato === '1x1') {
-    titularSize = totalSlots >= 3 ? 48 : totalSlots >= 1 ? 54 : 62;
+    // El unico formato con menos alto util: 904 px frente a 1174.
+    titularSize = totalSlots >= 3 ? 52 : totalSlots >= 1 ? 58 : 66;
   } else if (formato === '9x16') {
-    titularSize = totalSlots >= 3 ? 54 : totalSlots >= 1 ? 60 : 68;
+    // Misma altura util que 4x5 y se ve a pantalla completa: mas cuerpo.
+    titularSize = totalSlots >= 3 ? 68 : totalSlots >= 1 ? 74 : 82;
   } else {
     // 4x5
-    titularSize = totalSlots >= 3 ? 56 : totalSlots >= 1 ? 62 : 70;
+    titularSize = totalSlots >= 3 ? 62 : totalSlots >= 1 ? 68 : 76;
   }
 
   const logoUri = esPuka ? LOGO_PEGASO : LOGO_HEALTH;
@@ -108,6 +110,8 @@ export function Plantilla({
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
+          // La historia agrupa cabecera y cuerpo abajo en vez de repartirlos.
+          ...(formato === '9x16' ? { marginTop: 'auto', marginBottom: 56 } : {}),
         }}
       >
         <div
@@ -163,11 +167,11 @@ export function Plantilla({
         style={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          flex: 1,
+          justifyContent: 'flex-end',
+          flex: formato === '9x16' ? 'none' : 1,
           gap: formato === '1x1' ? 18 : 24,
           marginTop: 20,
-          marginBottom: 20,
+          marginBottom: formato === '1x1' ? 24 : 48,
         }}
       >
         {/* Slot: Badge */}

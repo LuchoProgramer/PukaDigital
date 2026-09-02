@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { cargarFuentes } from './fuentes.ts';
-import { FORMATOS } from './formatos.ts';
+import { FORMATOS, formatosDe } from './formatos.ts';
 import { sistemas } from './sistemas.ts';
 import { Plantilla } from './plantilla.tsx';
 import { validar } from './validar.ts';
@@ -33,6 +33,32 @@ const SLIDE_HEALTH: Slide = {
   cta: 'Empieza gratis hoy',
 };
 
+/**
+ * Carrusel de tres slides. Ejercita el contador indice/total y la regla de que
+ * el CTA solo aparece en la ultima. Sale solo en 4x5, como manda formatosDe.
+ */
+const CARRUSEL: Pieza = {
+  id: 'muestra-carrusel',
+  sistema: 'puka',
+  producto: 'pukaia',
+  slides: [
+    {
+      badge: 'WHATSAPP',
+      titular: 'Tres ventas que perdiste ayer',
+      bajada: 'El 78% de los clientes escribe fuera de horario de oficina.',
+    },
+    {
+      titular: 'Contesta mientras duermes',
+      bajada: 'El agente responde, califica y agenda. Tu revisas por la manana.',
+    },
+    {
+      titular: 'Un CRM, no un chatbot',
+      dato: { valor: '$14.99', etiqueta: 'al mes' },
+      cta: 'Escribenos',
+    },
+  ],
+};
+
 const SISTEMAS_LIST: Sistema[] = ['puka', 'health'];
 const FORMATOS_LIST: Formato[] = ['4x5', '1x1', '9x16'];
 
@@ -55,6 +81,7 @@ async function main() {
       formatos: FORMATOS_LIST,
       slides: [SLIDE_HEALTH],
     },
+    CARRUSEL,
   ];
 
   const errores = validar(piezasParaValidar);
@@ -113,6 +140,37 @@ async function main() {
       const rutaArchivo = join(dirSalida, nombreArchivo);
       writeFileSync(rutaArchivo, pngBuffer);
 
+      console.log(`  ✔ Guardado en: public/piezas/muestra/${nombreArchivo}`);
+    }
+  }
+
+  // 5. Renderizar el carrusel: una imagen por slide, con su contador.
+  const formatoCarrusel = formatosDe(CARRUSEL);
+  const totalSlides = CARRUSEL.slides.length;
+  console.log(`🎠 Carrusel de ${totalSlides} slides en [${formatoCarrusel.join(', ')}]...`);
+
+  for (const formato of formatoCarrusel) {
+    const { ancho, alto } = FORMATOS[formato];
+
+    for (const [i, slide] of CARRUSEL.slides.entries()) {
+      const indice = i + 1;
+      const jsx = Plantilla({
+        slide,
+        tokens: sistemas[CARRUSEL.sistema],
+        formato,
+        indice,
+        total: totalSlides,
+      });
+
+      const svg = await satori(jsx, { width: ancho, height: alto, fonts });
+      const pngBuffer = new Resvg(svg, {
+        fitTo: { mode: 'width', value: ancho },
+      })
+        .render()
+        .asPng();
+
+      const nombreArchivo = `carrusel-${indice}-${formato}.png`;
+      writeFileSync(join(dirSalida, nombreArchivo), pngBuffer);
       console.log(`  ✔ Guardado en: public/piezas/muestra/${nombreArchivo}`);
     }
   }
