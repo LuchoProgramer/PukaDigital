@@ -8,9 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --import tsx --test lib/piezas/*.test.ts",
+    "test": "node --import tsx --test lib/*/*.test.ts",
     "piezas": "tsx lib/piezas/cli.ts",
-    "piezas:muestra": "tsx lib/piezas/muestra.ts"
+    "piezas:muestra": "tsx lib/piezas/muestra.ts",
+    "publicar": "tsx lib/publicar/cli.ts"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",

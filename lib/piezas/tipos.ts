@@ -32,6 +32,8 @@ export type Pieza = {
    */
   producto?: ProductoId;
   formatos?: Formato[];
+  /** El texto del post. Va aparte del arte: es lo que se lee bajo la imagen. */
+  caption?: string;
   slides: Slide[];
 };
 
