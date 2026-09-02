@@ -99,6 +99,21 @@ mostrar el contenido.
 **Seis de las diez van al producto del mes.** Las otras cuatro sostienen el resto,
 apareciendo de refilón dentro de contenido útil.
 
+### Al menos una pieza de la casa por semana
+
+Concentrarse en un producto **no significa que el mes entero salga con su
+sistema visual**. Cuando el producto del mes es PukaHealth —claro y azul, sin
+pegaso— un mes completo de piezas suyas convierte el feed en el de otra cuenta:
+quien entra al perfil ya no reconoce de quién es.
+
+Así que cada semana entra **al menos una pieza en Dark Glass Rojo**, aunque el
+foco esté en otro producto. Sirve de ancla visual y mantiene la continuidad de
+`@pukadigital`.
+
+Con los productos que comparten el kit de la casa —Agencia, LedgerXpertz,
+PukaIA, PukaSalud, desarrollo web— esto no aplica: ahí el foco del mes no cambia
+el aspecto del feed.
+
 ### Mezcla: cinco, tres y dos
 
 | Tipo | Cuántas | Qué es |
