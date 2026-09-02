@@ -225,3 +225,4 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
+- `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026
