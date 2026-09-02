@@ -34,6 +34,11 @@ export type Pieza = {
   formatos?: Formato[];
   /** El texto del post. Va aparte del arte: es lo que se lee bajo la imagen. */
   caption?: string;
+  /**
+   * Cuándo publicarla, en hora de Ecuador: `2026-09-09T09:00`.
+   * Sin este campo, la pieza no entra en el cron y solo se publica a mano.
+   */
+  publicarEl?: string;
   slides: Slide[];
 };
 

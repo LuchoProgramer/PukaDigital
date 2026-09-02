@@ -12,6 +12,7 @@ const piezas: Pieza[] = [
   {
     id: 'sri-rechazo-01',
     sistema: 'puka',
+    publicarEl: '2026-09-08T09:00',
     producto: 'ledgerxpertz',
     caption:
       'El SRI no rechaza tu factura por el sistema. La rechaza por un dato del ' +
@@ -30,6 +31,7 @@ const piezas: Pieza[] = [
   {
     id: 'historia-clinica-papel',
     sistema: 'health',
+    publicarEl: '2026-09-10T18:00',
     producto: 'pukahealth',
     caption:
       'Historia clínica y facturación electrónica en el mismo sitio, sin pasar ' +
