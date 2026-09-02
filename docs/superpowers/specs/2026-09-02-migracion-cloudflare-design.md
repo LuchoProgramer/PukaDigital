@@ -41,7 +41,7 @@ Verificado el 2026-09-02, no supuesto:
 | Las imágenes remotas ya salen de **Cloudinary**, no del optimizador de Vercel | No hay migración de imágenes que hacer |
 | **No hay `middleware.ts`** | Una fuente clásica de fricción que aquí no existe |
 | El DNS de `pukadigital.com` **ya está en Cloudflare** (`virginia`/`sonny.ns.cloudflare.com`), apuntando a `216.198.79.1` de Vercel | El cutover es cambiar un registro dentro de Cloudflare. No hay migración de nameservers y la vuelta atrás son minutos |
-| Satori y `@resvg/resvg-js` **no son alcanzables desde `app/`** | Las dependencias nativas se quedan en el CLI local y no tocan el Worker |
+| Satori y `@resvg/resvg-js` **no son alcanzables desde `app/`**: la única referencia es `import type { Pieza }` en la ruta del cron, y `lib/piezas/tipos.ts` no tiene ni un `import` ni un solo export en tiempo de ejecución | Las dependencias nativas se quedan en el CLI local. Un `import type` se borra al compilar, así que no llega nada al Worker |
 
 ---
 
@@ -61,8 +61,12 @@ existe en el runtime de Workers. Los PNG se siguen generando en la máquina y
 versionando en `public/piezas/`.
 
 `public/` son **5,0 MB en 69 archivos** (44 de ellos piezas). Van como *static
-assets* de Workers, que **no cuentan contra el límite de bundle del Worker**. Los
-límites ahí son 20.000 archivos: a 35 piezas por mes, hay margen para décadas.
+assets* de Workers, que **no cuentan contra el límite de bundle del Worker**.
+
+Los límites documentados en el plan Paid son **100.000 archivos por versión** y
+**25 MiB por archivo**, y las peticiones a static assets son «free and
+unlimited», sin coste de almacenamiento. A 35 piezas al mes, el techo de
+archivos queda a más de dos siglos.
 
 ### Desaparece
 
@@ -162,8 +166,14 @@ lugar de convertirse en un mes de silencio.
   **solo en el último paso del cutover**
 
 **Sin bucket R2 de caché incremental de entrada.** `salud-frontend` lo usa, pero
-aquí son 28 páginas casi todas estáticas o de cliente. YAGNI: se añade si el
-build lo pide, no antes.
+aquí son 28 páginas casi todas estáticas o de cliente.
+
+El precio de no ponerlo no es cero, y conviene decirlo: hay **tres
+`next: { revalidate: 300 }`** en el código (`lib/cms.ts:40` y `:106`,
+`app/api/cms-proxy/route.ts:33`). Sin caché incremental persistente, esas
+cachés de cinco minutos no sobreviven entre invocaciones y el CMS recibe más
+peticiones. Para el tráfico de este sitio es asumible, y añadir R2 después es
+un binding y un redespliegue. Se empieza sin él.
 
 Los scripts siguen el patrón que ya funciona:
 
@@ -175,16 +185,45 @@ Los scripts siguen el patrón que ya funciona:
 
 ### Secretos y variables
 
-Cinco secretos: `GA_API_SECRET`, `RESEND_API_KEY`, `CRON_SECRET`, `IG_USER_ID`,
-`IG_ACCESS_TOKEN`.
+Inventario completo, sacado de `grep -rho "process\.env\.[A-Z_0-9]*" app lib components`
+— **seis secretos, no cinco**:
+
+| Variable | Dónde | Para qué |
+|---|---|---|
+| `GA_API_SECRET` | `app/api/analytics/route.ts` | Measurement Protocol de GA |
+| `RESEND_API_KEY` | `app/api/send-lead/route.ts` | Envío de leads |
+| `API_KEY` | `lib/genai.ts:4` | **Gemini.** El nombre es genérico de más y no dice qué abre |
+| `CRON_SECRET` | `app/api/cron/publicar/route.ts` | Autoriza el disparo manual |
+| `IG_USER_ID` | íd. | Cuenta de Instagram. No es secreto, pero viaja con los otros |
+| `IG_ACCESS_TOKEN` | íd. | Token de Meta |
 
 ⚠️ **Los introduce el operador.** Claude no maneja tokens ni claves, ni aunque se
 le pidan. Se cargan en el panel de Cloudflare o con `wrangler secret put`.
 
-Las `NEXT_PUBLIC_*` (`NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_CMS_URL`,
+Las tres `NEXT_PUBLIC_*` (`NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_CMS_URL`,
 `NEXT_PUBLIC_CMS_TENANT_ID`) **no son secretos y se inlinean en el build**, así
 que tienen que existir como variables de entorno en Workers Builds o el bundle
 saldrá con los valores por defecto del código.
+
+`NODE_ENV` lo pone el runtime. `VERCEL_URL` se trata abajo.
+
+### Limpieza que la mudanza obliga a hacer
+
+Dos restos que hoy no molestan y en Cloudflare serían mentira:
+
+**`process.env.VERCEL_URL` en `lib/cms.ts:15`.** Vive dentro de
+`HybridCMSService.getBaseUrl()`, un método privado que **no se llama desde
+ningún sitio** — verificado: la única aparición de `getBaseUrl` en el archivo es
+su propia declaración. Es código muerto, no un fallo latente: en el servidor,
+`getAllPosts()` va directo a `CMS_URL`. Se borra el método entero. Dejarlo sería
+peor que borrarlo, porque en Workers `VERCEL_URL` es `undefined` y la rama viva
+devolvería `http://localhost:3000`.
+
+**`satori` y `@resvg/resvg-js` están en `dependencies`, no en
+`devDependencies`.** Solo los usa el CLI local de la fábrica. `@resvg/resvg-js`
+es un binding nativo de Rust: tenerlo como dependencia de producción es
+engañoso y una invitación a que el bundler o el instalador de Workers Builds
+tropiecen con él. Se mueven a `devDependencies`.
 
 ### La barrera de CI
 
@@ -280,21 +319,37 @@ navegador.
 
 ## Riesgos abiertos
 
-**El carrusel dentro de un Worker.** Publicar una pieza de 5 slides son 6
-llamadas a Meta más el sondeo del contenedor, hasta 30 intentos con 2 segundos de
-espera. El plan Paid da 30 s de CPU por invocación y 1.000 subpeticiones, y casi
-todo el tiempo es espera de red, que no cuenta como CPU. **No está probado**, y
-es exactamente lo que verifica el paso previo al armado del trigger. Si no
-entrara, la salida es reducir `INTENTOS` y el intervalo de sondeo, que hoy son
-generosos.
+**El carrusel dentro de un Worker — riesgo rebajado tras contar bien.** En la
+primera redacción de esta spec dije «6 llamadas» y cité límites de memoria. Los
+números reales, contados sobre `lib/publicar/meta.ts` y verificados contra la
+documentación de Cloudflare:
+
+| | Cuánto |
+|---|---|
+| Llamadas fijas por pieza de 5 slides | **7** (5 hijos + 1 padre + 1 `media_publish`) |
+| Sondeo del contenedor | 1 a 30 más, con 2 s de espera (`INTENTOS = 30`) |
+| Lectura de captions | 1 por ejecución del cron, no por pieza |
+| **Peor caso por ejecución** | **~38 subpeticiones y ~65 s de reloj** |
+
+Contra los límites del plan Paid para un cron de intervalo ≥ 1 hora —el nuestro
+es diario—: **10.000 subpeticiones**, **15 min de CPU** y **15 min de reloj**. No
+es que quepa: sobra por dos órdenes de magnitud. Y la espera del sondeo es E/S,
+que no cuenta como CPU.
+
+Así que **los límites dejan de ser el riesgo**. Lo que sigue sin probarse es el
+comportamiento del runtime —`nodejs_compat`, el `fetch` de OpenNext, el camino
+entero de punta a punta—, y eso es exactamente lo que verifica el paso previo a
+armar el trigger.
+
+**El bundle.** Los candidatos a pesar son `@google/genai` (lo arrastra
+`generate-blog`), `recharts` y `react-markdown` con `remark-gfm` y `rehype-raw`.
+El techo es 10 MB comprimidos en Paid. Si se pasa, el primer sitio donde mirar
+es `generate-blog`, que es la ruta con más superficie de dependencias y la de
+uso menos frecuente.
 
 **Next 16.0.7 aquí contra 16.1.6 en `salud-frontend`.** Misma major, distinta
 minor. Riesgo bajo, pero es la diferencia entre «ya funciona» y «funciona algo
 muy parecido».
-
-**`generate-blog` y el SDK de GenAI.** Es la ruta con más superficie de
-dependencias y la que más puede pesar en el bundle. Si el Worker se pasa de los
-10 MB comprimidos, es la primera candidata a mirar.
 
 ---
 
