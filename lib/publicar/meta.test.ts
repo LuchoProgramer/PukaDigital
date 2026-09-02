@@ -23,10 +23,14 @@ const carrusel: Pieza = {
 
 /** fetch de mentira: registra las llamadas y devuelve respuestas preparadas. */
 function fetchFalso(respuestas: unknown[]) {
-  const llamadas: Array<{ url: string; body: string }> = [];
+  const llamadas: Array<{ url: string; body: string; metodo: string }> = [];
   let i = 0;
   const impl = async (url: string | URL, init?: RequestInit) => {
-    llamadas.push({ url: String(url), body: String(init?.body ?? '') });
+    llamadas.push({
+      url: String(url),
+      body: String(init?.body ?? ''),
+      metodo: String(init?.method ?? 'GET'),
+    });
     return {
       ok: true,
       json: async () => respuestas[Math.min(i++, respuestas.length - 1)],
@@ -95,6 +99,22 @@ test('el caption viaja en el contenedor que se publica', async () => {
   ]);
   await publicarPieza(suelta, '2026-09', opciones(impl));
   assert.match(llamadas[0].body, /caption=Tu\+factura\+no\+pas/);
+});
+
+test('el estado del contenedor se consulta con GET, no con POST', async () => {
+  // Con POST, Meta responde «does not exist ... or does not support this
+  // operation» aunque el contenedor exista. Costo una publicacion fallida.
+  const { impl, llamadas } = fetchFalso([
+    { id: 'C' },
+    { status_code: 'FINISHED' },
+    { id: 'P' },
+  ]);
+  await publicarPieza(suelta, '2026-09', opciones(impl));
+
+  assert.equal(llamadas[0].metodo, 'POST', 'crear el contenedor es POST');
+  assert.equal(llamadas[1].metodo, 'GET', 'consultar el estado es GET');
+  assert.match(llamadas[1].url, /status_code/);
+  assert.equal(llamadas[2].metodo, 'POST', 'publicar es POST');
 });
 
 test('espera a que el contenedor termine antes de publicar', async () => {

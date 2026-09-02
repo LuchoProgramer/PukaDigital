@@ -11,7 +11,7 @@
     "test": "node --import tsx --test lib/*/*.test.ts",
     "piezas": "tsx lib/piezas/cli.ts",
     "piezas:muestra": "tsx lib/piezas/muestra.ts",
-    "publicar": "tsx lib/publicar/cli.ts"
+    "publicar": "node --import tsx --env-file-if-exists=.env.local lib/publicar/cli.ts"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",

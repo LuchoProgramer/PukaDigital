@@ -31,20 +31,29 @@ export function archivosDe(pieza: Pieza): string[] {
   return pieza.slides.map((_, i) => `${pieza.id}-${i + 1}-4x5.png`);
 }
 
-/** El token va en el cuerpo, nunca en la URL: así no acaba en logs ni en el historial. */
+/**
+ * El token va en el cuerpo, nunca en la URL: así no acaba en logs ni en el historial.
+ *
+ * El verbo importa: crear y publicar son POST, pero consultar el estado de un
+ * contenedor es GET. Con POST, Meta responde «does not exist ... or does not
+ * support this operation», que despista porque el contenedor sí existe.
+ */
 async function llamar(
   ruta: string,
   params: Record<string, string>,
   opciones: Opciones,
+  metodo: 'GET' | 'POST' = 'POST',
 ): Promise<Record<string, unknown>> {
   const hacer = opciones.fetchImpl ?? fetch;
-  const body = new URLSearchParams({ ...params, access_token: opciones.token });
+  const cuerpo = new URLSearchParams({ ...params, access_token: opciones.token });
 
-  const res = await hacer(`${GRAPH}/${ruta}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body,
-  });
+  const res = metodo === 'GET'
+    ? await hacer(`${GRAPH}/${ruta}?${cuerpo}`, { method: 'GET' })
+    : await hacer(`${GRAPH}/${ruta}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: cuerpo,
+      });
 
   const json = (await res.json()) as Record<string, unknown>;
   if (!res.ok || json.error) {
@@ -67,7 +76,7 @@ async function esperarContenedor(id: string, opciones: Opciones): Promise<void> 
   const espera = opciones.esperarMs ?? 2000;
 
   for (let i = 0; i < INTENTOS; i++) {
-    const estado = await llamar(id, { fields: 'status_code,status' }, opciones);
+    const estado = await llamar(id, { fields: 'status_code,status' }, opciones, 'GET');
     const codigo = String(estado.status_code ?? '');
 
     if (codigo === 'FINISHED') return;
