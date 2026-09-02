@@ -361,6 +361,64 @@ rompe en silencio— es justo lo que lo pide.
 
 ---
 
+## Fase 2: el validador no basta, hacen falta evals
+
+Cuando un agente redacte las piezas, habrá **dos cosas distintas que medir** y hoy
+solo tenemos una.
+
+**El validador es una puerta.** Responde sí o no sobre hechos comprobables: el
+precio es del producto, la oferta existe, el titular cabe, la afirmación no está
+prohibida. Es determinista, corre en CI y no admite discusión.
+
+**Los evals son una medida.** Responden *qué tan bueno* es lo que escribió el
+agente. Y esa pregunta el validador no la toca:
+
+| El validador **sí** caza | El validador **no** caza |
+|---|---|
+| Un precio que no es del producto | Un titular aburrido |
+| «Sincronización bidireccional» | Un gancho que no engancha |
+| Un titular de doce palabras | Cinco carruseles con la misma estructura |
+| Un CTA en la slide equivocada | Una primera línea que nadie buscaría |
+| Un caption de 3.000 caracteres | Tono de folleto en vez de tono de consultorio |
+
+Una pieza puede pasar los 67 tests y ser mala. Eso es exactamente lo que un
+agente produce cuando se le deja solo: contenido correcto y olvidable.
+
+### Cómo montarlos
+
+**1. Un conjunto de referencia.** Cinco o seis piezas que consideramos buenas —el
+carrusel del Art. 168 sirve de primera— guardadas como el listón. Cuando el
+agente escriba, se compara contra ellas, no contra la nada.
+
+**2. Criterios automatizables**, que son más de los que parece:
+
+- La primera línea, ¿es una búsqueda real? Heurística: empieza con pregunta o
+  contiene un término del calendario de temas.
+- ¿Aparece «Ecuador», «SRI» o el contexto local?
+- ¿Hay palabras de folleto? Una lista negra —«solución integral», «potencia tu»,
+  «lleva tu negocio al siguiente nivel»— es barata y caza mucho.
+- ¿Las slides tienen estructuras distintas entre sí, o son la misma plantilla
+  rellenada?
+- ¿La pieza enseña algo antes de vender?
+
+**3. Criterios de juicio**, para lo que no se puede medir así: un modelo distinto
+del que escribió puntúa gancho, claridad y tono contra una rúbrica. ⚠️ Es
+ruidoso: sirve para detectar caídas grandes, no para afinar. Y **nunca debe
+juzgar el mismo modelo que escribió**.
+
+**4. El eval que más importa: la realidad.** Guardados, compartidos y
+conversaciones de WhatsApp por pieza. Es lento —90 días, según la propia
+doctrina— pero es el único que no se puede engañar.
+
+### La regla
+
+**Los evals no bloquean el PR; el validador sí.** Un eval que falla es una señal
+para revisar a mano, no un fallo de compilación. Confundirlos lleva a lo peor de
+los dos mundos: un pipeline que se cae por criterios subjetivos, y nadie mirando
+los hechos.
+
+---
+
 ## Fuera de alcance
 
 Generación de texto por LLM, publicación a las redes, editor visual, video, variantes

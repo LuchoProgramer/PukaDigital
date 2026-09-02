@@ -93,3 +93,46 @@ test('una pieza de utilidad sin producto ni precio sigue siendo valida', () => {
   };
   assert.deepEqual(validar([utilidad]), []);
 });
+
+test('una pieza de PukaHealth no puede prometer lo que el producto no hace', () => {
+  const mala: Pieza = {
+    id: 'x',
+    sistema: 'health',
+    producto: 'pukahealth',
+    caption: 'Se adapta a cualquier especialidad médica.',
+    slides: [{ titular: 'Uno' }],
+  };
+  const [e] = validar([mala]);
+  assert.equal(e.campo, 'caption');
+  assert.match(e.mensaje, /podolog/i);
+});
+
+test('la prohibicion tambien aplica al arte, no solo al caption', () => {
+  const mala: Pieza = {
+    id: 'x',
+    sistema: 'health',
+    producto: 'pukahealth',
+    slides: [{ titular: 'Sincronización bidireccional' }],
+  };
+  assert.deepEqual(validar([mala]).map((e) => e.campo), ['titular']);
+});
+
+test('el mensaje dice que escribir en su lugar', () => {
+  const mala: Pieza = {
+    id: 'x',
+    sistema: 'health',
+    producto: 'pukahealth',
+    slides: [{ titular: 'Descarga la app' }],
+  };
+  assert.match(validar([mala])[0].mensaje, /funciona en el celular/);
+});
+
+test('las prohibiciones son de PukaHealth: no aplican a otro producto', () => {
+  const otra: Pieza = {
+    id: 'x',
+    sistema: 'puka',
+    producto: 'ledgerxpertz',
+    slides: [{ titular: 'Sincronización bidireccional con tu tienda' }],
+  };
+  assert.deepEqual(validar([otra]), []);
+});

@@ -9,7 +9,14 @@
 
 PukaHealth es un ERP SaaS multi-tenant para médicos en Ecuador. Incluye historias clínicas electrónicas con campos JSON adaptables por especialidad y facturación electrónica SRI. Vive en un proyecto separado y se promueve desde pukadigital.com.
 
-Cliente piloto activo: Dra. Cristina Muñoz, Podoclinic (podología). Precio beta: $25/mes primer año. Precio regular: $50/mes por médico.
+Cliente piloto activo: Podoclinic (podología). Precio: **$50/mes por médico**.
+
+⚠️ **Corregido el 2026-09-02.** Esta línea decía «Precio beta: $25/mes primer año».
+Ese $25 no es de PukaHealth: viene de un estudio de mercado de LedgerXpertz de
+diciembre de 2025, donde es un precio *promedio* para calcular el punto de
+equilibrio. Se copió aquí seis semanas después. Verificado con `git log -S` sobre
+toda la historia del monorepo: en el lado de PukaHealth nunca existió. **No se le
+ofreció a ningún cliente.**
 
 La página `/pukahealth` es una landing standalone — usa `ConditionalShell` para suprimir el Navbar/Footer global del sitio. Añadir `/pukahealth` a `STANDALONE_ROUTES` en `components/ConditionalShell.tsx`.
 
@@ -130,7 +137,9 @@ Cada card: `background: #fff`, `border: 1px solid #e2e8f0`, `box-shadow: 0 2px 8
 Label sección: "ELIGE TU PLAN"
 Sin toggle — modelo simple por médico:
 
-> **Nota precio beta:** Dra. Cristina tiene precio especial $25/mes por acuerdo privado. **No mostrar precio beta en la landing.** La landing pública muestra solo los precios regulares ($50/mes, $480/año).
+> ~~**Nota precio beta:** Dra. Cristina tiene precio especial $25/mes por acuerdo
+> privado.~~ **Falso, corregido el 2026-09-02.** No hay tal acuerdo: la cifra se
+> copió de LedgerXpertz. La landing muestra $50/mes y $480/año, que es lo correcto.
 
 **2 cards:**
 

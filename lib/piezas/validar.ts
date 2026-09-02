@@ -1,4 +1,5 @@
 import { CATALOGO, ofertasEn, preciosEn } from './catalogo.ts';
+import { afirmacionesProhibidas } from './prohibidas.ts';
 import { formatosDe } from './formatos.ts';
 import type { ErrorValidacion, Pieza, Slide } from './tipos.ts';
 
@@ -83,6 +84,12 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       }
     }
 
+    if (pieza.producto === 'pukahealth' && pieza.caption) {
+      for (const p of afirmacionesProhibidas(pieza.caption)) {
+        en('caption', `${p.motivo}. En cambio: ${p.enCambio}`);
+      }
+    }
+
     const formatos = formatosDe(pieza);
     const topeTitular = formatos.includes('9x16')
       ? TOPES.titular9x16
@@ -131,6 +138,14 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       if (!producto) return;
 
       for (const [campo, texto] of textos(slide)) {
+        // Lo que el producto no hace. Solo PukaHealth: en los demas productos
+        // estas frases pueden ser ciertas.
+        if (pieza.producto === 'pukahealth') {
+          for (const p of afirmacionesProhibidas(texto)) {
+            en(campo, `${p.motivo}. En cambio: ${p.enCambio}`, n);
+          }
+        }
+
         for (const precio of preciosEn(texto)) {
           if (!producto.precios.includes(precio)) {
             const permitidos = producto.precios.length > 0

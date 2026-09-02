@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Formato, Slide } from './tipos.ts';
 import { FORMATOS, MARGEN } from './formatos.ts';
+import { AVISO, FONDO_AVISO, cargarCaptura, medidasAviso } from './capturas.ts';
 import type { TokensSistema } from './sistemas.ts';
 
 const DIR_MARCA = join(process.cwd(), 'assets', 'marca');
@@ -110,8 +111,12 @@ export function Plantilla({
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
-          // La historia agrupa cabecera y cuerpo abajo en vez de repartirlos.
-          ...(formato === '9x16' ? { marginTop: 'auto', marginBottom: 56 } : {}),
+          // Cabecera y cuerpo viajan juntos. El 'auto' de arriba, con el del
+          // cuerpo abajo, centra el grupo en el espacio libre sobre el pie. Sin
+          // esto el logo se queda arriba del todo y el 4x5 sale con un 60% de
+          // la pieza en negro.
+          marginTop: 'auto',
+          marginBottom: 40,
         }}
       >
         <div
@@ -167,11 +172,11 @@ export function Plantilla({
         style={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-end',
-          flex: formato === '9x16' ? 'none' : 1,
+          justifyContent: 'flex-start',
+          flex: 'none',
           gap: formato === '1x1' ? 18 : 24,
-          marginTop: 20,
-          marginBottom: formato === '1x1' ? 24 : 48,
+          // Cierra el centrado que abre el marginTop de la cabecera.
+          marginBottom: 'auto',
         }}
       >
         {/* Slot: Badge */}
@@ -272,6 +277,44 @@ export function Plantilla({
             >
               {slide.dato.etiqueta}
             </span>
+          </div>
+        )}
+
+        {/* Slot: Captura del producto, con el aviso obligatorio encima */}
+        {slide.captura && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              borderRadius: 14,
+              overflow: 'hidden',
+              border: `1px solid ${tokens.borde ?? 'rgba(0,0,0,0.10)'}`,
+            }}
+          >
+            <img src={cargarCaptura(slide.captura)} width={medidas.ancho - MARGEN * 2} />
+            {/*
+              El aviso va pegado a la captura, no al pie de la pieza: si alguien
+              recorta la imagen, el aviso se va con el recorte. Y va en cada
+              slide que muestre pantalla, no solo en la portada — ese fue el
+              error que costo la retirada de un video en YouTube.
+            */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: medidasAviso(medidas.alto, medidas.ancho - MARGEN * 2).alto,
+                backgroundColor: FONDO_AVISO,
+                color: '#FFFFFF',
+                fontFamily: 'Instrument Sans',
+                fontWeight: 600,
+                fontSize: medidasAviso(medidas.alto, medidas.ancho - MARGEN * 2).fuente,
+              }}
+            >
+              {AVISO}
+            </div>
           </div>
         )}
 

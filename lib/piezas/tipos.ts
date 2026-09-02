@@ -11,6 +11,12 @@ export type Slide = {
     etiqueta: string;
   };
   cta?: string;
+  /**
+   * Captura del producto, archivo de `assets/capturas/`. La plantilla le estampa
+   * encima el aviso de datos ficticios **siempre**, sin bandera para quitarlo:
+   * distinguir cuándo hace falta es criterio, y el criterio falla.
+   */
+  captura?: string;
 };
 
 /** Los seis productos del catalogo. Ver catalogo.ts. */
@@ -32,6 +38,13 @@ export type Pieza = {
    */
   producto?: ProductoId;
   formatos?: Formato[];
+  /** El texto del post. Va aparte del arte: es lo que se lee bajo la imagen. */
+  caption?: string;
+  /**
+   * Cuándo publicarla, en hora de Ecuador: `2026-09-09T09:00`.
+   * Sin este campo, la pieza no entra en el cron y solo se publica a mano.
+   */
+  publicarEl?: string;
   slides: Slide[];
 };
 

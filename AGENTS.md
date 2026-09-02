@@ -5,9 +5,12 @@ de forma nativa; Claude Code las carga vía el `@AGENTS.md` de `CLAUDE.md`, que 
 añade encima lo específico de ese agente. **Cada regla tiene un solo dueño: lo que es
 del proyecto vive aquí y no se copia al otro archivo.**
 
-⚠️ **Tope de 12.000 caracteres.** Antigravity trunca los archivos de reglas ahí, en
-silencio y por el final. Este archivo va por ~8.600: al añadir, sacar detalle a
-`docs/` y referenciarlo con `@`, como se hizo con la arquitectura.
+⚠️ **Tope de 12.000 caracteres.** Antigravity trunca los archivos de reglas ahí,
+en silencio y por el final. Este archivo va por ~8.500 y llegó a rozar 11.500: lo
+que crece son los detalles de producto. **Al añadir algo, sacar el detalle a
+`docs/` y referenciarlo con `@`.** Aquí solo lo que se usa a diario.
+
+Comprobar el tamaño: `wc -m AGENTS.md`
 
 Empresa: **Puka Digital LLC** (Casper, Wyoming, USA · EIN: `320856610`)
 Fundador: Luis Omar Viteri Sarango (LuchoDev) · Producción: **https://pukadigital.com**
@@ -65,9 +68,14 @@ Deploy: automático en Vercel al pushear a `main`.
 | PukaHealth | Individual $50/mes · Anual $480/año — 30 días gratis |
 | PukaSalud, Agencia, Desarrollo web | Sin precio visible, cotización por WhatsApp |
 
-**PukaIA es un CRM, no solo un chatbot.** Tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones. Los competidores que se posicionan como CRM cobran 5-15x más (Mercately $99-499/mes, Zolutium $79, Sellerchat $49). Ese es el ángulo competitivo; no lo describas como "chatbot" a secas.
+### PukaHealth: leer antes de escribir sobre él
 
-`next.config.ts` **no tiene redirects** — solo configuración de imágenes. Decisión del 2026-04-12: empezar limpio.
+⚠️ **Cuatro cosas que este repositorio daba por hechas y no lo están**: solo hay
+una especialidad implementada, no hay recordatorios por WhatsApp, Google Calendar
+es unidireccional y no hay app nativa. **El «precio beta de $25» no existe.** Y
+toda captura de pantalla lleva el aviso de datos ficticios dentro de la imagen.
+
+La lista completa, con el texto exacto del aviso, en @docs/PUKAHEALTH_LIMITES.md
 
 ## Arquitectura
 
@@ -121,20 +129,11 @@ Reglas por página de producto:
 3. `public/llms.txt` — actualizar con URLs y precios al crear o modificar un producto.
 4. `public/robots.txt` — ya permite todos los crawlers de IA. No tocar sin leer `docs/GEO_LLM_VISIBILITY.md`.
 
-### El porqué correcto de GEO
+El porqué de todo esto, y el formato de las FAQ, en @docs/GEO_LLM_VISIBILITY.md
 
-Google fue explícito en mayo de 2026: *"You don't need to create new machine readable files, AI text files, markup, or Markdown to appear in Google Search... Google Search ignores them"*, y *"Structured data isn't required for generative AI search, and there's no special schema.org markup you need to add."*
-
-Es decir: **`llms.txt` y el schema no son lo que hace que la IA de Google te cite.** Se mantienen porque sirven para otra cosa, que sí importa:
-
-- el schema alimenta los **rich results** de Google (FAQ, precios, estrellas) — tráfico real y medible;
-- `llms.txt` lo consumen algunos crawlers **no-Google**.
-
-No inventes tácticas "para LLMs" ni trocees contenido para que "la IA lo entienda mejor" — Google dice expresamente que no hace falta. Lo que mueve la aguja es contenido útil, indexable, con criterio propio y datos originales.
-
-### FAQs
-
-Formato conversacional, como las escribiría alguien en ChatGPT. Mínimo 5 preguntas, óptimo 8-12. Incluir precios concretos en al menos una respuesta y contexto local ("en Ecuador", "SRI", "pymes").
+⚠️ En resumen: Google dice expresamente que **no** necesita `llms.txt` ni schema
+para citarte en su IA. Se mantienen porque el schema alimenta los rich results y
+`llms.txt` lo leen crawlers no-Google. No inventes tácticas «para LLMs».
 
 ## Convenciones
 
@@ -169,6 +168,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 ## Documentación relacionada
 
 - `docs/ARQUITECTURA.md` — detalle de arquitectura, estilos y tipografía
+- `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
@@ -178,3 +178,4 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
+- `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026
