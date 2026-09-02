@@ -51,6 +51,54 @@ const piezas: Pieza[] = [
       },
     ],
   },
+  {
+    id: 'podologo-no-receta',
+    sistema: 'health',
+    producto: 'pukahealth',
+    publicarEl: '2026-09-15T09:00',
+    caption:
+      'El Art. 168 de la Ley Orgánica de Salud es claro: solo médicos, ' +
+      'odontólogos y obstetrices pueden prescribir medicamentos.\n\n' +
+      'Un podólogo no receta. Emite indicaciones de tratamiento podológico, ' +
+      'que es otra cosa y así debe decirlo el documento.\n\n' +
+      'Si tu sistema te deja imprimir algo titulado «receta», te está poniendo ' +
+      'en un problema que no es tuyo.\n\n' +
+      'pukadigital.com/pukahealth',
+    slides: [
+      {
+        badge: 'LEY ORGÁNICA DE SALUD',
+        titular: 'Un podólogo no puede recetar',
+        bajada:
+          'Y muchos sistemas dejan imprimir «receta médica» igual. Ahí empieza el problema.',
+      },
+      {
+        titular: 'Lo dice el Art. 168',
+        bajada:
+          'Solo médicos, odontólogos y obstetrices están facultados para prescribir ' +
+          'medicamentos. La podología no está en esa lista.',
+      },
+      {
+        titular: 'No es un tecnicismo',
+        bajada:
+          'Un documento mal titulado te expone a ti, no al software. El papel lleva ' +
+          'tu nombre y tu registro profesional.',
+      },
+      {
+        titular: 'Lo correcto: indicaciones',
+        bajada:
+          'El documento se llama «indicaciones de tratamiento podológico» y lo dice ' +
+          'en su propio pie. Así se ve en PukaHealth:',
+        captura: 'validar-receta.png',
+      },
+      {
+        titular: 'Y el paciente lo verifica',
+        bajada:
+          'Cada documento sale con un enlace propio. Quien lo reciba comprueba que es ' +
+          'auténtico sin llamar a la consulta.',
+        cta: 'Empieza gratis hoy',
+      },
+    ],
+  },
 ];
 
 export default piezas;

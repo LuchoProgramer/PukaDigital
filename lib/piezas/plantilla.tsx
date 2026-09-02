@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Formato, Slide } from './tipos.ts';
 import { FORMATOS, MARGEN } from './formatos.ts';
+import { AVISO, FONDO_AVISO, cargarCaptura, medidasAviso } from './capturas.ts';
 import type { TokensSistema } from './sistemas.ts';
 
 const DIR_MARCA = join(process.cwd(), 'assets', 'marca');
@@ -276,6 +277,44 @@ export function Plantilla({
             >
               {slide.dato.etiqueta}
             </span>
+          </div>
+        )}
+
+        {/* Slot: Captura del producto, con el aviso obligatorio encima */}
+        {slide.captura && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              borderRadius: 14,
+              overflow: 'hidden',
+              border: `1px solid ${tokens.borde ?? 'rgba(0,0,0,0.10)'}`,
+            }}
+          >
+            <img src={cargarCaptura(slide.captura)} width={medidas.ancho - MARGEN * 2} />
+            {/*
+              El aviso va pegado a la captura, no al pie de la pieza: si alguien
+              recorta la imagen, el aviso se va con el recorte. Y va en cada
+              slide que muestre pantalla, no solo en la portada — ese fue el
+              error que costo la retirada de un video en YouTube.
+            */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: medidasAviso(medidas.alto, medidas.ancho - MARGEN * 2).alto,
+                backgroundColor: FONDO_AVISO,
+                color: '#FFFFFF',
+                fontFamily: 'Instrument Sans',
+                fontWeight: 600,
+                fontSize: medidasAviso(medidas.alto, medidas.ancho - MARGEN * 2).fuente,
+              }}
+            >
+              {AVISO}
+            </div>
           </div>
         )}
 
