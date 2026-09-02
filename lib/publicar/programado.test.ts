@@ -19,7 +19,7 @@ test('la hora se escribe en hora de Ecuador y se convierte a UTC', () => {
   assert.equal(aUTC('2026-09-09T21:00').toISOString(), '2026-09-10T02:00:00.000Z');
 });
 
-test('solo entra lo que ya toca, con margen de una hora', () => {
+test('solo entra lo que ya toca, con margen de hora y media', () => {
   const piezas: Pieza[] = [
     { ...base, id: 'ayer', caption: 'ayer', publicarEl: '2026-09-08T09:00' },
     { ...base, id: 'ahora', caption: 'ahora', publicarEl: '2026-09-09T09:00' },
@@ -28,6 +28,19 @@ test('solo entra lo que ya toca, con margen de una hora', () => {
   // 09:05 de Ecuador = 14:05 UTC
   const ahora = new Date('2026-09-09T14:05:00Z');
   assert.deepEqual(pendientes(piezas, ahora, []).map((p) => p.id), ['ahora']);
+});
+
+test('la ventana absorbe el desfase de una hora del plan Hobby', () => {
+  // El cron pide las 23:00 UTC, pero en Hobby salta en cualquier momento hasta
+  // las 23:59, y la funcion arranca en frio unos segundos despues. Con la
+  // ventana en 60 esto se perdia, y se perdia en silencio.
+  const pieza: Pieza = { ...base, id: 'tarde', publicarEl: '2026-09-02T18:00' };
+  assert.deepEqual(
+    pendientes([pieza], new Date('2026-09-02T23:59:30Z'), []).map((p) => p.id),
+    ['tarde'],
+  );
+  // Hora y media tarde ya no: eso no es el desfase de Hobby, es un cron caido.
+  assert.deepEqual(pendientes([pieza], new Date('2026-09-03T00:31:00Z'), []), []);
 });
 
 test('lo viejo no se publica con retraso: la ventana se cierra', () => {
