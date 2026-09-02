@@ -335,13 +335,21 @@ cumple las reglas, antes de que nadie mire un PNG.
 
 ## Verificación
 
-El repositorio no tiene runner de tests, y añadir uno queda fuera de alcance.
+**Corregido el 2026-09-02.** Esta sección decía que el repositorio no tenía runner de
+tests y que añadir uno quedaba fuera de alcance. Node 26 trae `node --test` incorporado,
+así que hay TDD sin ninguna dependencia nueva, y el validador —una función pura que se
+rompe en silencio— es justo lo que lo pide.
 
-- `validar.ts` es una función pura sin dependencias: se ejercita desde `--check` con un
-  archivo de piezas deliberadamente inválidas.
-- Se genera un juego de muestra de **6 combinaciones** —dos sistemas × tres formatos—
-  más un carrusel de 4 slides, y se revisa a ojo una vez contra la doctrina: márgenes,
-  color, firma, pegaso.
+- `npm test` cubre formatos, validador, catálogo comercial, fuentes, sistemas y las
+  medidas reales de los PNG, leídas de la cabecera IHDR del archivo.
+- ⚠️ Hacen falta **los dos comandos**: `npm test` corre con el cargador `tsx` porque el
+  type stripping nativo de Node no procesa JSX, y `npx tsc --noEmit` es el único que
+  comprueba tipos —`tsx` los quita sin mirarlos—.
+- `npm run piezas -- --check` valida el mes sin escribir nada y sale con código 1 si
+  algo falla. Es lo que corre en CI sobre el pull request.
+- Se genera un juego de muestra con `npm run piezas:muestra`: las seis combinaciones de
+  sistema × formato más un carrusel de tres slides, para revisar a ojo contra la
+  doctrina: márgenes, color, firma, pegaso.
 - Criterio de aceptación de la fase: una pieza real del calendario de septiembre sale
   por el comando, en los tres formatos, sin retoque manual.
 

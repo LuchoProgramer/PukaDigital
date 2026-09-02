@@ -20,6 +20,10 @@ npm run dev          # desarrollo
 npm run build        # build de producción
 npm run lint         # ESLint
 npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de rutas eliminadas)
+
+npm run piezas       # genera las piezas de redes del mes en public/piezas/
+npm run piezas -- --check   # solo valida, sin escribir nada. Es lo que corre en CI
+npm test             # tests de la fabrica de piezas
 ```
 
 ⚠️ `lint` arrastra 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son tuyos. **Los archivos en `app/` sí deben quedar limpios.**
@@ -178,6 +182,8 @@ fix(analytics): eliminar el doble conteo de conversiones
 | Archivo | Propósito |
 |---|---|
 | `app/sitemap.ts` | Sitemap dinámico — añadir/quitar rutas aquí |
+| `lib/piezas/` | Fábrica de estáticos para redes — spec del 2026-09-01 |
+| `content/piezas/` | Las piezas de cada mes, como datos versionados |
 | `lib/analytics.ts` | Tracking de eventos GA |
 | `components/ConditionalShell.tsx` | Oculta el shell global en landings standalone |
 | `components/SEO.tsx` | Renderiza el JSON-LD en el JSX |

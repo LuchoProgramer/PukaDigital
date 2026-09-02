@@ -29,7 +29,8 @@ Las tareas 1-7 están **hechas** (commits `7c0f25c` y `e5eef53`). 32 tests en ve
 | `lib/piezas/render.ts` | `renderPieza()` — valida y devuelve los PNG |
 | `lib/piezas/muestra.ts` | Nueve muestras: 2 sistemas × 3 formatos + carrusel |
 
-Falta la **tarea 8** (contenido real del mes y CLI) y la **tarea 9** (documentación).
+**Las tareas 8 y 9 están hechas** (commit al cierre de esta rama). La fase 1 está
+completa: `npm run piezas` genera el mes desde datos versionados.
 
 ### Lo que se corrigió sobre la marcha
 
@@ -61,7 +62,7 @@ por mes, para que un agente o una persona lo escriba sin tocar código.
 - Create: `lib/piezas/cli.ts`
 - Modify: `package.json`
 
-- [ ] **Paso 1: Crear el archivo del mes**
+- [x] **Paso 1: Crear el archivo del mes**
 
 Dos piezas reales, una por sistema. Los tipos de contenido salen de la mezcla de
 `docs/COMMUNITY_MANAGEMENT.md`: utilidad, producto y prueba.
@@ -105,7 +106,7 @@ const piezas: Pieza[] = [
 export default piezas;
 ```
 
-- [ ] **Paso 2: Escribir la CLI**
+- [x] **Paso 2: Escribir la CLI**
 
 `pathToFileURL` no es opcional: en ESM un `import()` de ruta absoluta falla en
 macOS sin el esquema `file://`.
@@ -175,7 +176,7 @@ main().catch((e) => {
 });
 ```
 
-- [ ] **Paso 3: Apuntar los scripts al nuevo destino**
+- [x] **Paso 3: Apuntar los scripts al nuevo destino**
 
 En `package.json`, `piezas` deja de apuntar a las muestras:
 
@@ -184,12 +185,12 @@ En `package.json`, `piezas` deja de apuntar a las muestras:
 "piezas:muestra": "tsx lib/piezas/muestra.ts"
 ```
 
-- [ ] **Paso 4: Verificar que `--check` acepta lo válido**
+- [x] **Paso 4: Verificar que `--check` acepta lo válido**
 
 Run: `npm run piezas -- --mes 2026-09 --check`
 Expected: `2 pieza(s) validas en 2026-09.`
 
-- [ ] **Paso 5: Verificar que `--check` rechaza lo inválido**
+- [x] **Paso 5: Verificar que `--check` rechaza lo inválido**
 
 Añadir temporalmente al final del array de `content/piezas/2026-09.ts`:
 
@@ -203,17 +204,17 @@ Añadir temporalmente al final del array de `content/piezas/2026-09.ts`:
 ```
 
 Run: `npm run piezas -- --mes 2026-09 --check`
-Expected: salida distinta de cero con cuatro errores — `id` por no ser kebab-case,
-`titular` por pasarse de 48 caracteres en 9x16, y dos más de `titular` por el precio
-y la oferta, que no son de LedgerXpertz. Quitar la pieza después.
+Expected: código de salida 1 y tres errores — `id` por no ser kebab-case, y dos de
+`titular` por el precio y la oferta, que no son de LedgerXpertz. Quitar la pieza
+después.
 
-- [ ] **Paso 6: Generar el mes**
+- [x] **Paso 6: Generar el mes**
 
 Run: `npm run piezas -- --mes 2026-09`
 Expected: 5 archivos — 3 de `sri-rechazo-01` (los tres formatos, por ser de una
 sola slide) y 2 de `historia-clinica-papel` (carrusel, solo 4x5).
 
-- [ ] **Paso 7: Commit**
+- [x] **Paso 7: Commit**
 
 ```bash
 git add content/piezas lib/piezas/cli.ts package.json public/piezas
@@ -228,7 +229,7 @@ git commit -m "feat(piezas): cli del mes y contenido de septiembre"
 - Modify: `AGENTS.md`
 - Modify: `docs/superpowers/specs/2026-09-01-fabrica-estaticos-design.md`
 
-- [ ] **Paso 1: Abrir las piezas del mes**
+- [x] **Paso 1: Abrir las piezas del mes**
 
 Run: `open public/piezas/2026-09/*.png`
 
@@ -243,13 +244,13 @@ Run: `open public/piezas/2026-09/*.png`
 | Firma | El punto rojo en las dos |
 | Carrusel | Contador `01/02` en la primera; CTA solo en la segunda |
 
-- [ ] **Paso 2: Corregir lo que aparezca**
+- [x] **Paso 2: Corregir lo que aparezca**
 
 Si un texto se sale, **bajar el tope en `TOPES` de `validar.ts`**, no reducir el
 cuerpo de letra en la plantilla. La regla es que el sistema no permita expresar lo
 que no cabe.
 
-- [ ] **Paso 3: Documentar los comandos en `AGENTS.md`**
+- [x] **Paso 3: Documentar los comandos en `AGENTS.md`**
 
 En la sección *Comandos*:
 
@@ -265,12 +266,12 @@ Y en *Archivos importantes*:
 | `content/piezas/` | Las piezas de cada mes, como datos |
 ```
 
-- [ ] **Paso 4: Corregir la sección *Verificación* de la spec**
+- [x] **Paso 4: Corregir la sección *Verificación* de la spec**
 
 Dice que el repositorio no tiene runner de tests y que añadir uno queda fuera de
 alcance. Node 26 trae `node --test` incorporado: se usa, sin dependencia nueva.
 
-- [ ] **Paso 5: Commit**
+- [x] **Paso 5: Commit**
 
 ```bash
 git add AGENTS.md docs/superpowers/specs/2026-09-01-fabrica-estaticos-design.md
