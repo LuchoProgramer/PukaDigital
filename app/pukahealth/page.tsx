@@ -242,13 +242,13 @@ export default function PukaHealthPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="animate-pulse" style={{
             width: '8px', height: '8px', borderRadius: '50%',
-            background: '#0ea5e9',
+            background: '#2563eb',
             boxShadow: '0 0 8px rgba(14,165,233,1)',
             display: 'inline-block',
           }} />
           <span style={{ fontWeight: 900, letterSpacing: '2px', fontSize: '18px' }}>
             <span style={{ color: '#0f172a' }}>PUKA</span>
-            <span style={{ color: '#0ea5e9' }}>HEALTH</span>
+            <span style={{ color: '#2563eb' }}>HEALTH</span>
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
@@ -263,7 +263,7 @@ export default function PukaHealthPage() {
           <button
             onClick={() => handleCTA('pukahealth_nav', WA_LINKS.nav)}
             style={{
-              background: '#0ea5e9', color: '#fff', border: 'none',
+              background: '#2563eb', color: '#fff', border: 'none',
               borderRadius: '8px', padding: '10px 20px',
               fontWeight: 700, fontSize: '14px', cursor: 'pointer',
               whiteSpace: 'nowrap',
@@ -297,7 +297,7 @@ export default function PukaHealthPage() {
               <span style={{ display: 'block', color: '#0f172a', fontSize: 'clamp(36px, 5vw, 58px)' }}>
                 Tu consultorio sin papeles.
               </span>
-              <span style={{ display: 'block', color: '#0ea5e9', fontSize: 'clamp(36px, 5vw, 58px)' }}>
+              <span style={{ display: 'block', color: '#2563eb', fontSize: 'clamp(36px, 5vw, 58px)' }}>
                 El software m&eacute;dico que factura por ti.
               </span>
             </h1>
@@ -310,7 +310,7 @@ export default function PukaHealthPage() {
               <button
                 onClick={() => handleCTA('pukahealth_hero_primary', WA_LINKS.hero_primary)}
                 style={{
-                  background: '#0ea5e9', color: '#fff', border: 'none',
+                  background: '#2563eb', color: '#fff', border: 'none',
                   borderRadius: '10px', padding: '14px 28px',
                   fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                   boxShadow: '0 0 20px rgba(14,165,233,0.25)',
@@ -342,7 +342,7 @@ export default function PukaHealthPage() {
           <div style={{
             background: '#fff',
             border: '1px solid #e2e8f0',
-            borderLeft: '4px solid #0ea5e9',
+            borderLeft: '4px solid #2563eb',
             borderRadius: '16px',
             padding: '32px',
             boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
@@ -366,7 +366,7 @@ export default function PukaHealthPage() {
                   textAlign: 'center', background: '#f8fafc',
                   borderRadius: '8px', padding: '12px',
                 }}>
-                  <div style={{ color: '#0ea5e9', fontWeight: 900, fontSize: '20px' }}
+                  <div style={{ color: '#2563eb', fontWeight: 900, fontSize: '20px' }}
                     dangerouslySetInnerHTML={{ __html: value }} />
                   <div style={{ color: '#64748b', fontSize: '11px' }}
                     dangerouslySetInnerHTML={{ __html: label }} />
@@ -379,9 +379,9 @@ export default function PukaHealthPage() {
 
       {/* ── 3. SOCIAL PROOF BAR ───────────────────────────────────────── */}
       <section style={{
-        background: '#f0f9ff',
-        borderTop: '1px solid #bae6fd',
-        borderBottom: '1px solid #bae6fd',
+        background: '#eff6ff',
+        borderTop: '1px solid #bfdbfe',
+        borderBottom: '1px solid #bfdbfe',
         padding: '24px',
       }}>
         <div style={{
@@ -391,7 +391,7 @@ export default function PukaHealthPage() {
         }}>
           {SOCIAL_PROOF.map(({ value, label }) => (
             <div key={value} style={{ textAlign: 'center' }}>
-              <div style={{ color: '#0ea5e9', fontWeight: 700, fontSize: '22px' }}>{value}</div>
+              <div style={{ color: '#2563eb', fontWeight: 700, fontSize: '22px' }}>{value}</div>
               <div style={{ color: '#64748b', fontSize: '13px' }}>{label}</div>
             </div>
           ))}
@@ -444,7 +444,7 @@ export default function PukaHealthPage() {
                 }}>
                   <div style={{
                     width: '76px', height: '76px', borderRadius: '50%',
-                    background: '#0ea5e9', color: '#fff',
+                    background: '#2563eb', color: '#fff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     boxShadow: '0 0 32px rgba(14,165,233,0.5)',
                   }}>
@@ -498,12 +498,12 @@ export default function PukaHealthPage() {
               <div key={title} style={{
                 background: '#fff',
                 border: '1px solid #e2e8f0',
-                borderTop: '3px solid #0ea5e9',
+                borderTop: '3px solid #2563eb',
                 borderRadius: '12px',
                 padding: '28px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
               }}>
-                <Icon size={22} color="#0ea5e9" style={{ marginBottom: '12px' }} />
+                <Icon size={22} color="#2563eb" style={{ marginBottom: '12px' }} />
                 <h3 style={{ color: '#0f172a', fontWeight: 700, fontSize: '16px', marginBottom: '8px' }}>
                   {title}
                 </h3>
@@ -536,7 +536,7 @@ export default function PukaHealthPage() {
             {/* Individual — highlighted */}
             <div style={{
               background: '#fff',
-              border: '2px solid #0ea5e9',
+              border: '2px solid #2563eb',
               borderRadius: '16px',
               padding: '36px',
               boxShadow: '0 8px 32px rgba(14,165,233,0.15)',
@@ -545,7 +545,7 @@ export default function PukaHealthPage() {
               <div style={{
                 position: 'absolute', top: '-14px', left: '50%',
                 transform: 'translateX(-50%)',
-                background: '#0ea5e9', color: '#fff',
+                background: '#2563eb', color: '#fff',
                 borderRadius: '20px', padding: '4px 16px',
                 fontSize: '11px', fontWeight: 700, letterSpacing: '1px',
                 whiteSpace: 'nowrap',
@@ -564,7 +564,7 @@ export default function PukaHealthPage() {
               </p>
               {PLAN_INCLUDES.map((item) => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                  <Check size={16} color="#0ea5e9" />
+                  <Check size={16} color="#2563eb" />
                   <span style={{ color: '#475569', fontSize: '14px' }}>{item}</span>
                 </div>
               ))}
@@ -572,7 +572,7 @@ export default function PukaHealthPage() {
                 onClick={() => handleCTA('pukahealth_pricing_individual', WA_LINKS.pricing_individual)}
                 style={{
                   width: '100%', marginTop: '24px',
-                  background: '#0ea5e9', color: '#fff', border: 'none',
+                  background: '#2563eb', color: '#fff', border: 'none',
                   borderRadius: '10px', padding: '14px',
                   fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                   boxShadow: '0 0 20px rgba(14,165,233,0.25)',
@@ -596,7 +596,7 @@ export default function PukaHealthPage() {
                 <span style={{ color: '#0f172a', fontWeight: 900, fontSize: '40px' }}>$480</span>
                 <span style={{ color: '#64748b', fontSize: '16px' }}>/a&ntilde;o</span>
               </div>
-              <p style={{ color: '#0ea5e9', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
+              <p style={{ color: '#2563eb', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
                 Equivale a $40/mes &mdash; 2 meses gratis
               </p>
               <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
@@ -604,7 +604,7 @@ export default function PukaHealthPage() {
               </p>
               {PLAN_INCLUDES.map((item) => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                  <Check size={16} color="#0ea5e9" />
+                  <Check size={16} color="#2563eb" />
                   <span style={{ color: '#475569', fontSize: '14px' }}>{item}</span>
                 </div>
               ))}
@@ -612,7 +612,7 @@ export default function PukaHealthPage() {
                 onClick={() => handleCTA('pukahealth_pricing_anual', WA_LINKS.pricing_anual)}
                 style={{
                   width: '100%', marginTop: '24px',
-                  background: '#fff', color: '#0ea5e9',
+                  background: '#fff', color: '#2563eb',
                   border: '1px solid #e2e8f0',
                   borderRadius: '10px', padding: '14px',
                   fontWeight: 700, fontSize: '16px', cursor: 'pointer',
@@ -641,7 +641,7 @@ export default function PukaHealthPage() {
             gap: '8px', marginBottom: '8px', padding: '0 8px',
           }}>
             <div />
-            <div style={{ textAlign: 'center', color: '#0ea5e9', fontWeight: 700, fontSize: '14px' }}>PukaHealth</div>
+            <div style={{ textAlign: 'center', color: '#2563eb', fontWeight: 700, fontSize: '14px' }}>PukaHealth</div>
             <div style={{ textAlign: 'center', color: '#64748b', fontWeight: 600, fontSize: '14px' }}>Orpheus</div>
             <div style={{ textAlign: 'center', color: '#64748b', fontWeight: 600, fontSize: '14px' }}>Excel</div>
           </div>
@@ -670,7 +670,7 @@ export default function PukaHealthPage() {
             background: '#f8fafc', borderRadius: '8px',
           }}>
             <div style={{ color: '#475569', fontSize: '14px', fontWeight: 600 }}>Precio mensual</div>
-            <div style={{ textAlign: 'center', color: '#0ea5e9', fontWeight: 700, fontSize: '15px' }}>{COMPARISON_PRICES.pukahealth}</div>
+            <div style={{ textAlign: 'center', color: '#2563eb', fontWeight: 700, fontSize: '15px' }}>{COMPARISON_PRICES.pukahealth}</div>
             <div style={{ textAlign: 'center', color: '#64748b', fontSize: '13px' }}>{COMPARISON_PRICES.orpheus}</div>
             <div style={{ textAlign: 'center', color: '#64748b', fontSize: '12px' }}>{COMPARISON_PRICES.excel}</div>
           </div>
@@ -742,7 +742,7 @@ export default function PukaHealthPage() {
             <button
               onClick={() => handleCTA('pukahealth_footer_primary', WA_LINKS.footer_primary)}
               style={{
-                background: '#0ea5e9', color: '#fff', border: 'none',
+                background: '#2563eb', color: '#fff', border: 'none',
                 borderRadius: '10px', padding: '14px 28px',
                 fontWeight: 700, fontSize: '16px', cursor: 'pointer',
                 boxShadow: '0 0 20px rgba(14,165,233,0.25)',

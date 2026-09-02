@@ -292,9 +292,9 @@ correctos según el producto. `npm test` en verde.
   versiones de lo mismo: `pukadigital.com` es marca de agua y «por PukaDigital» es
   respaldo de sub-brand. Se quitó `@pukadigital`, que sí sobraba —redundante dentro
   de Instagram, inservible fuera—. Documentado en `COMMUNITY_MANAGEMENT.md`.
-- **Los dos azules de PukaHealth**: la landing usa `#0ea5e9`, las piezas `#2563EB`.
-  Los dos logos del producto en `SistemaSalud` usan `#2563eb`, así que el desviado
-  es el de la landing. Corregirlo es trabajo aparte.
+- ~~Los dos azules de PukaHealth.~~ **Resuelto el 2026-09-02.** La landing pasa a
+  `#2563eb`, el del logo. El motivo que decidió no fue de marca sino de accesibilidad:
+  `#0ea5e9` da 2,77:1 sobre blanco y fallaba WCAG incluso para texto grande.
 - **`assets/marca/pukahealth-logo.svg` es una copia** de `SistemaSalud`, sin vínculo:
   si el logo cambia allí, aquí no se entera nadie.
 
