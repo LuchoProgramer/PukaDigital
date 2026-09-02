@@ -109,6 +109,19 @@ diferencia entre que esto dure tres meses o tres años.
   similares la exponen y la retratan mal. Tampoco nombres del personal sin
   consentimiento escrito.
 
+## Si algún día esto lo escribe un agente
+
+El validador impide publicar algo **falso**. No impide publicar algo **malo**, y
+son problemas distintos: una pieza puede pasar los 67 tests y ser olvidable.
+
+Para eso hacen falta evals —conjunto de referencia, criterios automatizables,
+juicio de un modelo distinto del que escribió, y las métricas reales a 90 días—.
+Está desarrollado en la spec de la fábrica, sección *Fase 2*.
+
+La regla corta: **los evals no bloquean, el validador sí.**
+
+---
+
 ## Números que sí se pueden publicar
 
 1.733 tests automatizados en backend y 934 en frontend · en producción desde
