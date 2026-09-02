@@ -80,12 +80,37 @@ producto.
 | «Firma electrónica del profesional» | Hay autoría y auditoría; no firma criptográfica |
 | «Tu paciente reserva solo» | No hay portal de reservas. Es decisión deliberada |
 
-⚠️ El precio beta de **$25/mes es un acuerdo privado con la clienta piloto** y no
-se publica en ningún sitio. Los públicos son $50/mes y $480/año.
+⚠️ **El «precio beta de $25/mes» no existe.** Salió de un estudio de mercado de
+LedgerXpertz —un precio promedio para calcular el punto de equilibrio— y se copió
+a la spec de PukaHealth. No se le ofreció nunca a nadie. Los precios son **$50/mes
+y $480/año**, y la única fuente son ellos: no están respaldados en ningún
+repositorio.
 
-⚠️ Toda captura que muestre una historia clínica lleva **dentro de la imagen** el
-aviso «Datos de paciente ficticios — sistema de demostración». YouTube ya retiró
-un video de este proyecto por esto y la apelación fue rechazada.
+⚠️ Y no son solo marketing: los Términos de Servicio de PukaHealth delegan el
+precio **en el sitio web**. Lo que se publique aquí pasa a ser la referencia
+contractual.
+
+### El aviso de datos ficticios
+
+Toda pieza que muestre una pantalla del sistema lleva, **dentro de la imagen**,
+este texto exacto —con raya larga, no guion—:
+
+```
+Datos de paciente ficticios — sistema de demostración
+```
+
+⚠️ **Va en cada slide que muestre pantalla, no solo en la portada.** Ese fue
+exactamente el error que le costó a este proyecto la retirada de un video en
+YouTube, con la apelación rechazada: el aviso estaba en las cards y faltaba en
+los fotogramas donde se veía la historia clínica.
+
+Proporciones, medidas sobre el video original y expresadas relativas para que
+escalen a vertical: barra del **6,1%** del alto, fuente del **2,7%** del alto,
+barra en `#0D1717` con texto blanco centrado. Lo que debe ser idéntico es **el
+texto**, no la geometría.
+
+⚠️ Revisar también qué más entra en el encuadre. En un video de este proyecto se
+colaron el dock de macOS y una ruta con nombres de archivo reales.
 
 **PukaIA es un CRM, no solo un chatbot.** Tiene inbox centralizado, pipeline Kanban, gestión de clientes, reportes e integraciones. Los competidores que se posicionan como CRM cobran 5-15x más (Mercately $99-499/mes, Zolutium $79, Sellerchat $49). Ese es el ángulo competitivo; no lo describas como "chatbot" a secas.
 
