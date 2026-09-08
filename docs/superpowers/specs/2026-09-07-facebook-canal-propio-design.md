@@ -119,6 +119,31 @@ las dos redes y publica lo que esté en ventana, cada una según su propia fecha
   una pieza de Instagram de las 09:00 sale en Facebook a las 18:00 del mismo día;
   una de las 18:00 sale a las 09:00 del día siguiente.
 
+🔴 **La franja siguiente puede caer en el mes que viene, y ahí se pierde.** El cron
+carga **un solo archivo**, el del mes actual (`route.ts:15,44`):
+
+```typescript
+function mesDe(fecha: Date): string {
+  return `${fecha.getUTCFullYear()}-${String(fecha.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+piezas = (await import(`@/content/piezas/${mes}`)).default;
+```
+
+Una pieza que sale en Instagram el **30 a las 18:00** tiene su Facebook el **1 a las
+09:00**. Ese día el cron carga `2026-10.ts`, donde esa pieza no está: **la
+publicación se pierde en silencio**, sin error y sin rastro.
+
+**Solución:** en cada corrida, cargar el mes actual **y el anterior**, y unir las
+listas. Es barato —un `import()` más, con el mismo `catch` que ya tolera un mes sin
+archivo— y cierra el agujero sin tocar el formato de los datos. Los ids solo tienen
+que ser únicos dentro de su mes, y `--check` ya los valida así (`cli.ts`), de modo
+que unir dos meses no introduce colisiones nuevas.
+
+⚠️ **Y `mesDe()` usa `getUTCMonth()`, no la hora de Ecuador.** Hoy no muerde porque
+los dos crons (14:00 y 23:00 UTC) caen dentro del mismo día UTC, incluso con los 59
+minutos de retraso de Vercel Hobby. Al migrar a Workers o al añadir franjas sí
+mordería. Cargar dos meses lo vuelve inocuo, pero conviene saberlo.
+
 Se conserva el escalonado —que era el objetivo— sin hora fija por red, sin franjas
 nuevas y sin romper ninguna pieza existente.
 
@@ -155,9 +180,10 @@ se queda como CLI local y solo viaja el publicador.
   ESCRITURA — a mano, al preparar el mes
   npm run captions -- --mes 2026-10
      └─ Gemini lee slides + catálogo + afirmaciones prohibidas
-        └─ escribe facebook.caption en content/piezas/2026-10.ts
-           └─ npm run piezas -- --check valida hechos, precios y topes
-              └─ pull request ← revisión humana. La puerta de calidad está aquí.
+        └─ IMPRIME los bloques facebook: { ... } por pantalla
+           └─ los pegás en content/piezas/2026-10.ts
+              └─ npm run piezas -- --check valida hechos, precios y topes
+                 └─ pull request ← revisión humana. La puerta de calidad está aquí.
 
   PUBLICACIÓN — cron, determinista, sin IA y sin clave de API
      cada corrida revisa LAS DOS redes y publica lo que este en ventana
@@ -191,7 +217,7 @@ Esto no es ceremonia. Resuelve tres cosas a la vez:
 | `lib/captions/componer.ts` | **Función pura**: slides → caption. Es el fallback | nada |
 | `lib/captions/prompt.ts` | El prompt, como dato | nada |
 | `lib/captions/gemini.ts` | Una llamada, un caption. Sin lógica de negocio | `@google/genai` |
-| `lib/captions/cli.ts` | `npm run captions` — escribe en el archivo del mes | los tres de arriba |
+| `lib/captions/cli.ts` | `npm run captions` — **imprime** los captions. No escribe en el archivo del mes | los tres de arriba |
 
 `componer.ts` sin dependencias es lo que permite probar el fallback sin red y sin
 clave. `prompt.ts` como dato es lo que permite probar el prompt sin llamar a
@@ -210,10 +236,29 @@ Es decir: **hoy un caption puede inventar un precio y el build pasa.** Ya es un
 hueco con el caption de Instagram escrito a mano; con uno escrito por un LLM sería
 temerario.
 
-Este spec lo cierra: precios, ofertas y afirmaciones prohibidas pasan a validarse
-sobre los dos captions y para todos los productos, no solo PukaHealth. Un caption
-que invente un precio o diga «recordatorios por WhatsApp» rompe el build, venga de
-Gemini o de un teclado.
+Este spec lo cierra, **pero solo hasta donde debe**:
+
+| Regla | Se extiende al caption | ¿Para todos los productos? |
+|---|---|---|
+| Precios y ofertas | **Sí** | **Sí** |
+| Afirmaciones prohibidas | **Sí** | **No: solo PukaHealth**, como hoy |
+
+⚠️ **Generalizar las prohibiciones a todos los productos sería un error**, y el
+primer intento de corrección lo cometió. La lista de `prohibidas.ts` es médica y
+específica de PukaHealth: «sincronización bidireccional» es falso ahí y **cierto**
+en LedgerXpertz, que sí sincroniza con una tienda. `validar.ts:141` lo comenta
+—«en los demas productos estas frases pueden ser ciertas»— y `hechos.test.ts:130`
+lo prueba a propósito. Ese test debe seguir en verde.
+
+⚠️ **Y hay un límite estructural que el plan tiene que resolver:** `validar.ts:138`
+hace `if (!producto) return;`. Las piezas sin `producto` —`requisitos-facturar-sri`
+es una— **no validan ningún hecho hoy**. Al llevar la validación al caption hay que
+decidir si esas piezas siguen exentas o si un precio en su caption debe romper el
+build. Este spec dice que **sí debe romperlo**: un precio es un precio, lo diga la
+pieza que lo diga.
+
+Un caption que invente un precio o que diga «recordatorios por WhatsApp» en una
+pieza de PukaHealth rompe el build, venga de Gemini o de un teclado.
 
 ### Publicar en la página son dos pasos
 
@@ -292,6 +337,31 @@ pukadigital.com/agentes-ia
 Es legible y publicable tal cual. Gemini existe para mejorarlo, no para
 rescatarlo.
 
+### 🔴 Por qué el CLI imprime y no escribe
+
+**El archivo del mes no es JSON: es TypeScript con cosas que se perderían.** Tiene
+`import type { Pieza }`, un bloque JSDoc con las reglas editoriales, separadores de
+fecha (`// ─── jueves 3 · la casa ───`), comentarios dentro de los objetos —«De la
+competencia, no nuestros»— y captions como concatenaciones multilínea.
+
+Las dos formas obvias de escribirlo automáticamente fallan:
+
+| Cómo | Qué rompe |
+|---|---|
+| Importar el módulo y volver a serializarlo | Borra **todos** los comentarios y el formato. El archivo deja de ser legible |
+| Insertar con expresiones regulares | Frágil ante cualquier variación de formato; un fallo produce TypeScript inválido |
+
+Escribirlo bien pediría un manipulador de AST que preserve formato —`ts-morph` o
+`recast`—, y **no hay ninguno en `package.json`**: solo `typescript`.
+
+⇒ **El CLI imprime los bloques por pantalla y se pegan a mano.** Son entre 2 y 9 al
+mes. No merece una dependencia de peso, y encaja con el diseño: el PR ya es la
+puerta de revisión, así que vas a leer esos textos de todas formas. Pegarlos **es**
+la revisión.
+
+Es la misma lógica que ya gobierna la fábrica: la tubería no toca el contenido; el
+humano decide qué entra en git.
+
 ### Qué modelo
 
 **Gemini 3.x Flash, el más reciente disponible.** Verificar el ID exacto al
@@ -318,7 +388,8 @@ export type Pieza = {
   // ...lo que ya hay
   /**
    * Facebook. Si falta el bloque entero, la pieza igual se publica: el caption
-   * se compone desde las slides y la hora cae a las 18:00 del mismo día.
+   * se compone desde las slides y la fecha cae a la franja siguiente a la de
+   * Instagram — 09:00 → 18:00 del mismo día; 18:00 → 09:00 del día siguiente.
    */
   facebook?: {
     caption?: string;
@@ -374,6 +445,10 @@ sería peor que no publicar.
 Todo lo nuevo es puro o inyectable, siguiendo el patrón que `meta.ts` ya usa con
 `fetchImpl`.
 
+**Línea base medida el 2026-09-07: `npm test` da 71 pasando, 0 fallando, en 2,4 s.**
+Es contra ese número que se compara cualquier ejecución. (`docs/ESTADO_2026-09-04.md`
+dice «14/14»: está desactualizado.)
+
 | Qué | Cómo |
 |---|---|
 | `componer.ts` | Casos fijos entrada→salida. Sin red |
@@ -381,6 +456,8 @@ Todo lo nuevo es puro o inyectable, siguiendo el patrón que `meta.ts` ya usa co
 | `facebook.ts` | `fetchImpl` falso: los dos pasos en orden, el token en el cuerpo y no en la URL, y que el fallo de una pieza no arrastre al resto |
 | `programado.ts` | Que **las 3 piezas de septiembre con `publicarEl` a las 18:00 sigan saliendo en Instagram**, y que las 4 de las 09:00 lleguen a Facebook. Es el caso que el primer diseño rompía |
 | `yaPublicada()` | Que compare el texto de Facebook y no el de Instagram. Un test que la llame con el caption de Instagram debe dar `false` |
+| **Tests que hay que adaptar** | `programado.test.ts:64-67` llama a `yaPublicada(pieza, [...])` con la firma vieja: al parametrizarla dejan de compilar. `hechos.test.ts:130` debe seguir **en verde** — es el que prueba que las prohibiciones no salen de PukaHealth |
+| Fin de mes | Una pieza con `publicarEl` el día 30 a las 18:00 debe publicarse en Facebook el 1 del mes siguiente. Es el caso que se pierde si el cron carga un solo mes |
 
 ### Evals del prompt
 
