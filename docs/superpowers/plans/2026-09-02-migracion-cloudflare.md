@@ -1113,6 +1113,25 @@ Expected: `200` en todas y el mismo número de bloques JSON-LD que en la Task 8.
 ⚠️ **La vuelta atrás** es quitar las `routes`, redesplegar y devolver el registro
 DNS a Vercel en el panel de Cloudflare. Son minutos.
 
+**El estado al que hay que volver, capturado el 2026-09-08 antes del cambio:**
+
+| Registro | Valor |
+|---|---|
+| `pukadigital.com` A | `216.198.79.1` |
+| `www.pukadigital.com` CNAME | `b5fe3a3e4854df7d.vercel-dns-017.com` |
+| Proxy de Cloudflare | **desactivado** — no habia cabecera `cf-ray`, el trafico iba directo a Vercel |
+
+Verificado tambien que la zona **si esta en Cloudflare** (nameservers
+`virginia`/`sonny.ns.cloudflare.com`, dominio registrado con Cloudflare), que es
+lo que hace posible `custom_domain: true`. Sin eso, este paso no funciona.
+
+⚠️ **El token OAuth de wrangler NO sirve para la API de DNS**: da
+`9109 Invalid access token`. Tiene alcance de Workers, no de zonas. Para tocar
+registros a mano hace falta el panel o un API token con permiso de DNS.
+
+⚠️ **El MX apunta a Zoho**, no a Cloudflare Email Routing. Al tocar la zona, no
+tocar los MX: el correo del dominio depende de ellos.
+
 - [ ] **Step 5: Commit**
 
 ```bash
