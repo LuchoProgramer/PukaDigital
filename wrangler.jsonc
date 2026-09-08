@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pukadigital",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-02",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  // 7 archivos usan next/image; sin este binding no hay optimizacion en el edge.
+  "images": {
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // Sin "routes": el dominio se conecta en el ultimo paso del cutover.
+  // Sin "triggers": el cron se mueve cuando se quita el de Vercel, nunca antes.
+}
