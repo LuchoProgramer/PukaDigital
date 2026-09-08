@@ -43,7 +43,7 @@ Aquí se compila en local. **No todos los repos del ecosistema lo hacen** — ve
 | Repo | Compila | Notas |
 |---|---|---|
 | `PukaDigital` | sí | Este. **Cloudflare Workers**, con `npm run deploy:cloudflare` |
-| `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer `docs/claude/deployment.md` antes de desplegar |
+| `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer su `docs/claude/deployment.md` —de ese repo, no de este— antes de desplegar |
 | `prospecting-tools` | sí, con venv | Prospección de podólogos. Python; usa `.venv/bin/python`, no el del sistema (PEP 668) |
 | `Podoclinic`, `HealppyPets` | no | Clones solo lectura, sin dependencias. Verificar contra producción con `curl` y dejar que Vercel compile en el preview del PR |
 
@@ -183,6 +183,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/ARQUITECTURA.md` — detalle de arquitectura, estilos y tipografía
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
+- `docs/METODO_AGENTES_PARALELOS.md` — método de contraste, ejecución y verificación con `agy`
 - `docs/ESTADO_2026-09-08.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
