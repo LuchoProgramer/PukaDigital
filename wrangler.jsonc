@@ -12,9 +12,16 @@
   "images": {
     "binding": "IMAGES"
   },
+  // 09:00 y 18:00 de Ecuador (UTC-5, sin horario de verano).
+  // ⚠️ No armar esto hasta que el deploy de Vercel que vacia vercel.json figure
+  // como Ready y su pestana Cron Jobs este vacia: antes de eso habria dos crons
+  // vivos publicando sobre la misma cuenta de Instagram.
+  "triggers": {
+    "crons": ["0 14 * * *", "0 23 * * *"]
+  },
   "observability": {
     "enabled": true
   }
   // Sin "routes": el dominio se conecta en el ultimo paso del cutover.
-  // Sin "triggers": el cron se mueve cuando se quita el de Vercel, nunca antes.
+  // Los "triggers" van arriba, armados en el cutover del 2026-09-07.
 }
