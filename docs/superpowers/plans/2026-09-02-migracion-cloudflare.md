@@ -713,6 +713,20 @@ Expected: los seis nombres. Los valores no se muestran, y así debe ser.
 
 ---
 
+> ⚠️ **Si los secretos se suben ANTES del primer `wrangler deploy`, hay que
+> redesplegar.** Ejecutado el 2026-09-07: los seis `secret put` crearon el Worker
+> —wrangler avisa «There doesn't seem to be a Worker called X... Using fallback
+> value in non-interactive context: yes»— pero ese Worker vacio no reconcilia los
+> secretos con el codigo que se despliega despues. El sintoma es engañoso:
+> `wrangler secret list` los muestra los seis, y aun asi `process.env.X` sale
+> `undefined` en runtime. Peor todavia, falla de forma **selectiva**: el secreto
+> subido despues del ultimo deploy si se lee, y los anteriores no, lo que parece
+> un problema de valores mal tecleados y no lo es.
+>
+> Se arregla con un `npx wrangler deploy` cualquiera. Verificado: el mismo
+> endpoint pasaba de `500 Faltan IG_USER_ID o IG_ACCESS_TOKEN` a `200` sin tocar
+> ni un secreto ni una linea de codigo.
+
 ### Task 8: Verificar el sitio desplegado
 
 Contra el Worker, **comparando con producción**. Sustituye `<WORKER>` por la URL
@@ -1098,6 +1112,25 @@ Expected: `200` en todas y el mismo número de bloques JSON-LD que en la Task 8.
 
 ⚠️ **La vuelta atrás** es quitar las `routes`, redesplegar y devolver el registro
 DNS a Vercel en el panel de Cloudflare. Son minutos.
+
+**El estado al que hay que volver, capturado el 2026-09-08 antes del cambio:**
+
+| Registro | Valor |
+|---|---|
+| `pukadigital.com` A | `216.198.79.1` |
+| `www.pukadigital.com` CNAME | `b5fe3a3e4854df7d.vercel-dns-017.com` |
+| Proxy de Cloudflare | **desactivado** — no habia cabecera `cf-ray`, el trafico iba directo a Vercel |
+
+Verificado tambien que la zona **si esta en Cloudflare** (nameservers
+`virginia`/`sonny.ns.cloudflare.com`, dominio registrado con Cloudflare), que es
+lo que hace posible `custom_domain: true`. Sin eso, este paso no funciona.
+
+⚠️ **El token OAuth de wrangler NO sirve para la API de DNS**: da
+`9109 Invalid access token`. Tiene alcance de Workers, no de zonas. Para tocar
+registros a mano hace falta el panel o un API token con permiso de DNS.
+
+⚠️ **El MX apunta a Zoho**, no a Cloudflare Email Routing. Al tocar la zona, no
+tocar los MX: el correo del dominio depende de ellos.
 
 - [ ] **Step 5: Commit**
 

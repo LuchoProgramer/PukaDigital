@@ -28,8 +28,11 @@ advertencia de tipografía en `AGENTS.md`, que compilaba perfecto y renderizaba 
 
 ## Ramas y commits
 
-`main` es la rama por defecto y despliega a producción en Vercel. Trabajar siempre en
-rama y entrar por PR.
+`main` es la rama por defecto. Trabajar siempre en rama y entrar por PR.
+
+⚠️ **Entrar en `main` ya no despliega el sitio.** Desde el 2026-09-08 sirve un
+Cloudflare Worker y el despliegue es a mano: `npm run deploy:cloudflare`. Mergear
+un PR ya no basta para que un cambio salga a producción.
 
 Formato de commit y ejemplos: sección *Commits* de `AGENTS.md`. Añadir además el pie de
 atribución de Claude Code.

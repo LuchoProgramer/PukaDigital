@@ -3,21 +3,6 @@ import { LOCAL_POSTS } from '../data/localPosts';
 
 export class HybridCMSService {
 
-  /**
-   * Obtiene la URL base interna para peticiones del servidor o relativa para el cliente
-   */
-  private static getBaseUrl(): string {
-    if (typeof window !== 'undefined') {
-      return ''; // Relativa en el cliente: /api/cms-proxy
-    }
-
-    // En el servidor
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
-    }
-
-    return 'http://localhost:3000';
-  }
 
   /**
    * Obtiene todos los posts combinando CMS y Local
