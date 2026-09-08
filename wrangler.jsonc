@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pukadigital",
+  "main": "worker.ts",
+  "compatibility_date": "2026-09-02",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  // 7 archivos usan next/image; sin este binding no hay optimizacion en el edge.
+  "images": {
+    "binding": "IMAGES"
+  },
+  // 09:00 y 18:00 de Ecuador (UTC-5, sin horario de verano).
+  // ⚠️ No armar esto hasta que el deploy de Vercel que vacia vercel.json figure
+  // como Ready y su pestana Cron Jobs este vacia: antes de eso habria dos crons
+  // vivos publicando sobre la misma cuenta de Instagram.
+  "triggers": {
+    "crons": ["0 14 * * *", "0 23 * * *"]
+  },
+  "observability": {
+    "enabled": true
+  }
+  // Sin "routes": el dominio se conecta en el ultimo paso del cutover.
+  // Los "triggers" van arriba, armados en el cutover del 2026-09-07.
+}

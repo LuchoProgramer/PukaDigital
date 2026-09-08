@@ -43,3 +43,7 @@ next-env.d.ts
 # automation & security
 /scripts/
 check-api.js
+
+# OpenNext / Cloudflare
+.open-next/
+.wrangler/

@@ -713,6 +713,20 @@ Expected: los seis nombres. Los valores no se muestran, y así debe ser.
 
 ---
 
+> ⚠️ **Si los secretos se suben ANTES del primer `wrangler deploy`, hay que
+> redesplegar.** Ejecutado el 2026-09-07: los seis `secret put` crearon el Worker
+> —wrangler avisa «There doesn't seem to be a Worker called X... Using fallback
+> value in non-interactive context: yes»— pero ese Worker vacio no reconcilia los
+> secretos con el codigo que se despliega despues. El sintoma es engañoso:
+> `wrangler secret list` los muestra los seis, y aun asi `process.env.X` sale
+> `undefined` en runtime. Peor todavia, falla de forma **selectiva**: el secreto
+> subido despues del ultimo deploy si se lee, y los anteriores no, lo que parece
+> un problema de valores mal tecleados y no lo es.
+>
+> Se arregla con un `npx wrangler deploy` cualquiera. Verificado: el mismo
+> endpoint pasaba de `500 Faltan IG_USER_ID o IG_ACCESS_TOKEN` a `200` sin tocar
+> ni un secreto ni una linea de codigo.
+
 ### Task 8: Verificar el sitio desplegado
 
 Contra el Worker, **comparando con producción**. Sustituye `<WORKER>` por la URL
