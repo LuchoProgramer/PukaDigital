@@ -109,7 +109,7 @@ publicación**, no dos canales: cada pieza elige la suya en su `publicarEl`. De 
 Atar cada red a una hora fija rompía las dos direcciones: esas 3 no habrían salido
 nunca en Instagram, y las otras 4 —las de las 09:00— no habrían llegado nunca a
 Facebook, porque al correr el cron de las 18:00 llevarían 540 minutos de retraso y
-`VENTANA_MINUTOS` son 90.
+`VENTANA_MINUTOS` son 60 (eran 90 hasta el 2026-09-08).
 
 **La regla correcta no mira la hora, mira la pieza.** Cada corrida del cron revisa
 las dos redes y publica lo que esté en ventana, cada una según su propia fecha:
