@@ -59,7 +59,7 @@ cinco slides.
 | Qué imagen | La **slide 1 en 4x5**, que ya existe renderizada |
 | Qué texto | Caption largo con el argumento entero, distinto del de Instagram |
 | Quién lo escribe | Gemini, en tiempo de PR. Compositor determinista como red |
-| Cuándo | Mismo día, franjas distintas: Instagram 09:00, Facebook 18:00 |
+| Cuándo | Facebook en la franja siguiente a la de Instagram. Nunca por hora fija |
 | Modelo de datos | Campo `facebook` opcional dentro de `Pieza` |
 | Arranque | Los 7 carruseles de septiembre se republican en Facebook |
 
@@ -89,20 +89,52 @@ redes. El caption de Instagram es prosa narrativa con hashtags; el de Facebook
 es argumentado en bloques y **sin hashtags**, que en Facebook no hacen
 prácticamente nada y solo acercarían los dos textos.
 
-### Por qué las franjas ya existentes
+### Por qué la franja siguiente, y no una hora fija por red
 
-`vercel.json` ya corre el cron a las 09:00 y 18:00 de Ecuador. Dar a cada red su
-franja no cuesta infraestructura. Desfasar Facebook dos o tres días estiraría el
-calendario, pero exigiría más franjas y un campo de fecha propio para ganar algo
-que no está medido.
+⚠️ **Este punto se diseñó mal en el primer borrador y lo corrigió un contraste
+con `agy`.** Queda escrito porque el error es fácil de repetir.
+
+El borrador decía «Instagram a las 09:00, Facebook a las 18:00», dando por hecho
+que las 09:00 eran la franja de Instagram y las 18:00 estaba libre. **Es falso.**
+`vercel.json` corre el cron a las dos horas, pero son **dos oportunidades de
+publicación**, no dos canales: cada pieza elige la suya en su `publicarEl`. De las
+7 piezas de septiembre, **3 publican en Instagram a las 18:00**:
+
+| Pieza | `publicarEl` |
+|---|---|
+| `podologo-no-receta` | `2026-09-02T18:00` |
+| `crm-no-chatbot` | `2026-09-10T18:00` |
+| `requisitos-facturar-sri` | `2026-09-17T18:00` |
+
+Atar cada red a una hora fija rompía las dos direcciones: esas 3 no habrían salido
+nunca en Instagram, y las otras 4 —las de las 09:00— no habrían llegado nunca a
+Facebook, porque al correr el cron de las 18:00 llevarían 540 minutos de retraso y
+`VENTANA_MINUTOS` son 90.
+
+**La regla correcta no mira la hora, mira la pieza.** Cada corrida del cron revisa
+las dos redes y publica lo que esté en ventana, cada una según su propia fecha:
+
+- Instagram usa `publicarEl`, como hoy.
+- Facebook usa `facebook.publicarEl`. Si falta, cae a **la franja siguiente**:
+  una pieza de Instagram de las 09:00 sale en Facebook a las 18:00 del mismo día;
+  una de las 18:00 sale a las 09:00 del día siguiente.
+
+Se conserva el escalonado —que era el objetivo— sin hora fija por red, sin franjas
+nuevas y sin romper ninguna pieza existente.
 
 ---
 
 ## Por qué va después de Cloudflare
 
-Facebook se construye dentro de `/api/cron/publicar`, que es exactamente el
-archivo que la migración mueve. Construirlo en Vercel y migrarlo después es
-hacer el mismo trabajo dos veces.
+Facebook se construye dentro de la lógica que la migración mueve. Construirlo en
+Vercel y migrarlo después es hacer el mismo trabajo dos veces.
+
+⚠️ **Y el destino importa, no solo el momento.** Cloudflare no dispara rutas HTTP:
+invoca un handler `scheduled()`. La spec de migración extrae la lógica de
+`app/api/cron/publicar/route.ts` a **`lib/publicar/tanda.ts`**
+(`publicarLoQueToca`), con dos llamadores: el `scheduled()` del Worker y la ruta
+HTTP. **Facebook va en `tanda.ts`.** Implementarlo en la ruta HTTP dejaría los
+crons desatendidos de Cloudflare sin publicar nunca en Facebook.
 
 Además Workers da crons de precisión por minuto. Eso permite bajar
 `VENTANA_MINUTOS` de 90 a 60 en `lib/publicar/programado.ts` y publicar dentro
@@ -128,9 +160,10 @@ se queda como CLI local y solo viaja el publicador.
               └─ pull request ← revisión humana. La puerta de calidad está aquí.
 
   PUBLICACIÓN — cron, determinista, sin IA y sin clave de API
-     ├─ 09:00 Ecuador → Instagram: carrusel 5 slides + caption de Instagram
-     └─ 18:00 Ecuador → Facebook:  slide 1 en 4x5 + facebook.caption
-                                    └─ si falta → componer.ts desde las slides
+     cada corrida revisa LAS DOS redes y publica lo que este en ventana
+     ├─ Instagram (publicarEl):          carrusel 5 slides + caption
+     └─ Facebook  (facebook.publicarEl): slide 1 en 4x5 + facebook.caption
+                                          └─ sin fecha → la franja siguiente
 ```
 
 Es la regla que la spec de la fábrica ya impuso, aplicada al caption:
@@ -164,10 +197,23 @@ Esto no es ceremonia. Resuelve tres cosas a la vez:
 clave. `prompt.ts` como dato es lo que permite probar el prompt sin llamar a
 Gemini.
 
-`lib/piezas/validar.ts` no cambia de responsabilidad: valida el
-`facebook.caption` con las mismas reglas de hechos, precios y afirmaciones
-prohibidas que ya aplica al de Instagram. Un caption que invente un precio o diga
-«recordatorios por WhatsApp» rompe el build, venga de Gemini o de un teclado.
+⚠️ **`lib/piezas/validar.ts` sí cambia, y el primer borrador decía lo contrario.**
+Afirmaba que el validador «ya aplica» reglas de precios y afirmaciones prohibidas
+a los captions. No es cierto:
+
+| Qué se valida hoy | Sobre qué | Dónde |
+|---|---|---|
+| Afirmaciones prohibidas | El caption, **solo si `producto === 'pukahealth'`** | `validar.ts:87` |
+| Precios y ofertas | **Solo `textos(slide)`** — el arte, nunca el caption | `validar.ts:150,158` |
+
+Es decir: **hoy un caption puede inventar un precio y el build pasa.** Ya es un
+hueco con el caption de Instagram escrito a mano; con uno escrito por un LLM sería
+temerario.
+
+Este spec lo cierra: precios, ofertas y afirmaciones prohibidas pasan a validarse
+sobre los dos captions y para todos los productos, no solo PukaHealth. Un caption
+que invente un precio o diga «recordatorios por WhatsApp» rompe el build, venga de
+Gemini o de un teclado.
 
 ### Publicar en la página son dos pasos
 
@@ -183,12 +229,41 @@ versionados. `urlPublica()` en `meta.ts:25` ya la construye y se reutiliza.
 El token va **en el cuerpo, nunca en la URL**, por la misma razón que en
 `meta.ts:35`: así no acaba en logs ni en historiales.
 
+### `yaPublicada()` no se reutiliza tal cual
+
+El primer borrador decía que la función actual sirve para Facebook. No sirve, por
+dos motivos independientes:
+
+**1. Compara el campo equivocado.** `programado.ts:41` hace `if (!pieza.caption)` y
+compara contra `pieza.caption` — el de Instagram, con hashtags y otra redacción. El
+texto que sale en Facebook es `facebook.caption` o el compuesto. Reutilizarla sin
+tocar devolvería siempre `false` y **anularía la defensa entera, en silencio**. Hay
+que parametrizar qué texto se compara.
+
+**2. El campo de la Graph API es otro.** El cron pide hoy `fields=caption` contra
+`{ig-user-id}/media`, y para Instagram es correcto. En posts de **página** el texto
+está en **`message`**: `caption` quedó **obsoleto para page posts desde la v3.3**, y
+cuando existía significaba otra cosa — la leyenda de un enlace, no el cuerpo del
+post. Pedir `fields=caption` contra `{page-id}/posts` da
+`#100 Tried accessing nonexisting field`.
+
+⇒ Facebook consulta `{page-id}/posts?fields=message`.
+
 ### El formato del caption compuesto
 
 `componer.ts` recorre las slides y emite, por cada una, el titular en una línea y
 la bajada debajo, separadas por línea en blanco. Si la slide trae `dato`, el
-valor y la etiqueta se anexan al titular. Cierra con la URL canónica del producto
-según `catalogo.ts`. Sin hashtags.
+valor y la etiqueta se anexan al titular. Sin hashtags.
+
+⚠️ **Dos trampas al cerrar con la URL**, las dos verificadas contra el código:
+
+1. **`producto` es opcional** (`tipos.ts:39`): las piezas de utilidad, que no
+   venden nada, lo omiten. `requisitos-facturar-sri` es una de ellas — 1 de las 7
+   de septiembre. Buscar `CATALOGO[pieza.producto]` a ciegas revienta con
+   `Cannot read properties of undefined`. Sin producto se cierra con
+   `pukadigital.com` a secas.
+2. **`catalogo.ts` guarda rutas relativas**, no dominios: `url: '/agentes-ia'`.
+   Hay que anteponer el dominio.
 
 Sobre `crm-no-chatbot`, que ya existe, produce:
 
@@ -271,15 +346,26 @@ canales y el tercero, TikTok, es manual por decisión ajena.
 | Fallo | Qué pasa |
 |---|---|
 | Gemini se cae al escribir | El PR no se escribe. La publicación no se entera: el LLM no está en ese camino |
-| Pieza con `publicarEl` y sin caption de Facebook | **`piezas --check` falla y rompe el build.** Se detecta en el PR, no en producción |
+| Pieza que **declara** `facebook` con `publicarEl` pero sin `caption` | **`piezas --check` falla y rompe el build.** Se detecta en el PR |
+| Pieza que **no declara** `facebook` en absoluto | Válida. `componer.ts` genera el texto y la fecha cae a la franja siguiente |
 | Ese caso llega a producción igual | `componer.ts` genera el texto. Pasa por `validar.ts` como cualquier otro |
 | Facebook rechaza la foto o el post | Se registra y se sigue con la siguiente pieza. Instagram no se ve afectado |
 | Riesgo de publicar dos veces | `yaPublicada()` pregunta a la página por los captions recientes. Funciona porque el texto es fijo en el archivo |
 
-⚠️ El fallback **no debería activarse nunca**. Existe para el despiste, no como
-puerta trasera: por eso `--check` falla antes, y por eso el texto compuesto pasa
-por el mismo validador. Un fallback que publique texto sin revisar sería peor que
-no publicar.
+⚠️ **El primer borrador se contradecía aquí y lo corrigió un contraste con `agy`.**
+Decía a la vez que `--check` falla si una pieza con `publicarEl` no tiene caption de
+Facebook, y que las 7 piezas de septiembre funcionan sin tocarlas. Las dos no pueden
+ser ciertas: ninguna de las 7 declara `facebook`, así que `prebuild`
+—`piezas --check && npm test && tsc --noEmit`, en `package.json:7`— habría roto el
+build del repositorio entero en cuanto se añadiera la regla.
+
+**La regla que sí funciona distingue el descuido de la ausencia.** Un bloque
+`facebook` a medias —con fecha y sin texto— es un descuido y rompe el build. No
+declararlo es una elección válida: el compositor actúa y la pieza sale igual.
+
+El fallback existe para el despiste, no como puerta trasera, y por eso el texto
+compuesto pasa por el mismo validador. Un fallback que publique texto sin revisar
+sería peor que no publicar.
 
 ---
 
@@ -293,7 +379,8 @@ Todo lo nuevo es puro o inyectable, siguiendo el patrón que `meta.ts` ya usa co
 | `componer.ts` | Casos fijos entrada→salida. Sin red |
 | `prompt.ts` | Que incluya los precios del catálogo y las afirmaciones prohibidas |
 | `facebook.ts` | `fetchImpl` falso: los dos pasos en orden, el token en el cuerpo y no en la URL, y que el fallo de una pieza no arrastre al resto |
-| `programado.ts` | Que la franja de las 18:00 seleccione Facebook y la de las 09:00 Instagram |
+| `programado.ts` | Que **las 3 piezas de septiembre con `publicarEl` a las 18:00 sigan saliendo en Instagram**, y que las 4 de las 09:00 lleguen a Facebook. Es el caso que el primer diseño rompía |
+| `yaPublicada()` | Que compare el texto de Facebook y no el de Instagram. Un test que la llame con el caption de Instagram debe dar `false` |
 
 ### Evals del prompt
 
@@ -335,10 +422,17 @@ Cuatro reglas al producirlas, todas con historia detrás:
 
 ## Arranque
 
-Los 7 carruseles de septiembre se republican en Facebook, uno al día en la franja
-de las 18:00. Es contenido ya probado en Instagram: da inercia inmediata a una
-página que hoy no publica y produce el primer dato de alcance comparable entre
-las dos redes, sin producir nada nuevo.
+Los 7 carruseles de septiembre se republican en Facebook, uno al día. Es contenido
+ya probado en Instagram: da inercia inmediata a una página que hoy no publica y
+produce el primer dato de alcance comparable entre las dos redes.
+
+⚠️ **Sí hay que tocar `content/piezas/2026-09.ts`**, y el primer borrador decía que
+no. Ninguna de las 7 declara `facebook`, así que hay que añadirles el bloque con su
+fecha. Es un commit único y acotado, no trabajo recurrente — pero conviene no
+prometer lo contrario.
+
+El caption de esas 7 puede salir de Gemini o del compositor; las dos opciones son
+válidas y la decisión no bloquea nada de este diseño.
 
 ---
 
