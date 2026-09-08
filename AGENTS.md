@@ -170,6 +170,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/ARQUITECTURA.md` — detalle de arquitectura, estilos y tipografía
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
+- `docs/METODO_AGENTES_PARALELOS.md` — método de contraste, ejecución y verificación con `agy`
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión
