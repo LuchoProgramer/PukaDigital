@@ -8,18 +8,21 @@ const DESFASE_ECUADOR_HORAS = 5;
  * publica: más vale una pieza sin salir que una saliendo de madrugada, cuando
  * nadie la ve y encima descoloca el calendario.
  *
- * ⚠️ Son 90 y no 60 por el plan **Hobby** de Vercel, que documenta una
- * precisión de «per-hour (±59 min)»: un cron `0 23 * * *` se dispara en
- * cualquier momento entre las 23:00 y las 23:59. Con la ventana en 60 la pieza
- * entraba por un minuto, y ese minuto se lo puede comer el arranque en frío de
- * la función — fallando en silencio, porque una pieza fuera de ventana no es
- * un error, simplemente no sale.
+ * Fueron 90 mientras el cron vivía en el plan **Hobby** de Vercel, que documenta
+ * una precisión de «per-hour (±59 min)»: un cron `0 23 * * *` saltaba en
+ * cualquier momento hasta las 23:59, y con la ventana en 60 la pieza entraba por
+ * un minuto — un minuto que se podía comer el arranque en frío, fallando en
+ * silencio, porque una pieza fuera de ventana no da error: simplemente no sale.
  *
- * 90 deja media hora de margen real y sigue publicando dentro de la franja: en
- * el peor caso una pieza de las 09:00 sale a las 10:30. Al pasar a Pro, la
- * precisión es por minuto y esto se puede volver a bajar.
+ * Desde el 2026-09-08 el cron corre en **Cloudflare Workers**, con precisión al
+ * minuto. Medido en la primera publicación automática: pedida a las 09:00, salió
+ * a las **09:03**. Los 90 minutos ya no compensan nada y solo ensanchan la
+ * ventana en la que una pieza puede salir a deshora.
+ *
+ * 60 sigue dejando una hora de margen para un fallo puntual, y acota el daño: en
+ * el peor caso una pieza de las 09:00 sale a las 10:00, no a las 10:30.
  */
-const VENTANA_MINUTOS = 90;
+const VENTANA_MINUTOS = 60;
 
 /** `2026-09-09T09:00` en hora de Ecuador → el instante UTC equivalente. */
 export function aUTC(local: string): Date {

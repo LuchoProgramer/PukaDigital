@@ -1104,7 +1104,7 @@ const DESFASE_ECUADOR_HORAS = 5;
  * Cuánto margen tiene el cron para publicar una pieza. Si se pasa, no la
  * publica: más vale una pieza sin salir que una saliendo de madrugada.
  */
-const VENTANA_MINUTOS = 90;
+const VENTANA_MINUTOS = 60; // bajado de 90 el 2026-09-08, ver programado.ts
 
 /** `2026-09-09T09:00` en hora de Ecuador → el instante UTC equivalente. */
 export function aUTC(local: string): Date {
