@@ -1,7 +1,12 @@
 # Publicar en Facebook — investigación previa
 
-**Estado: sin decidir.** Investigado el 2026-09-02, pendiente de pasar por
-`brainstorming` antes de tocar código. Hoy solo se publica en Instagram.
+> ⚠️ **YA ESTA DECIDIDO.** Esta investigacion la sucede
+> `docs/superpowers/specs/2026-09-07-facebook-canal-propio-design.md`, que ademas
+> **corrige dos cosas de este documento**: la fabrica no genera 1:1 para
+> carruseles, y el caption de Facebook no hay que escribirlo a mano. Este archivo
+> queda como el porque de las decisiones, no como el plan.
+
+Investigado el 2026-09-02. Hoy solo se publica en Instagram.
 
 ---
 

@@ -31,6 +31,9 @@ npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de ruta
 npm run piezas       # genera las piezas de redes del mes en public/piezas/
 npm run piezas -- --check   # solo valida, sin escribir nada. Es lo que corre en CI
 npm test             # tests de la fabrica de piezas
+
+npm run deploy:cloudflare   # build de OpenNext + wrangler deploy. Es como se despliega
+npm run build:cloudflare    # solo construye, sin desplegar
 ```
 
 ⚠️ `lint` arrastra 180+ problemas pre-existentes en `proxy.ts`, `types/index.ts` y scripts. No son tuyos. **Los archivos en `app/` sí deben quedar limpios.**
@@ -39,12 +42,22 @@ Aquí se compila en local. **No todos los repos del ecosistema lo hacen** — ve
 
 | Repo | Compila | Notas |
 |---|---|---|
-| `PukaDigital` | sí | Este. Deploy automático en Vercel al pushear a `main` |
+| `PukaDigital` | sí | Este. **Cloudflare Workers**, con `npm run deploy:cloudflare` |
 | `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer `docs/claude/deployment.md` antes de desplegar |
 | `prospecting-tools` | sí, con venv | Prospección de podólogos. Python; usa `.venv/bin/python`, no el del sistema (PEP 668) |
 | `Podoclinic`, `HealppyPets` | no | Clones solo lectura, sin dependencias. Verificar contra producción con `curl` y dejar que Vercel compile en el preview del PR |
 
-Deploy: automático en Vercel al pushear a `main`.
+## Deploy
+
+⚠️ **Ya no es Vercel.** Desde el 2026-09-08 `pukadigital.com` lo sirve un
+**Cloudflare Worker**, y el despliegue **no** es automático al pushear: se hace a
+mano con `npm run deploy:cloudflare` desde la máquina.
+
+El cron de publicación también vive ahí (`0 14` y `0 23` UTC = 09:00 y 18:00 de
+Ecuador), con precisión al minuto. Vercel sigue detrás como origen de respaldo y
+se apaga a partir del 2026-09-15.
+
+Detalle, vuelta atrás y lo que falta: @docs/ESTADO_2026-09-08.md
 
 ## Productos y URLs canónicas
 
@@ -170,6 +183,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/ARQUITECTURA.md` — detalle de arquitectura, estilos y tipografía
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
+- `docs/ESTADO_2026-09-08.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión
@@ -178,5 +192,5 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
-- `docs/PUBLICAR_EN_FACEBOOK.md` — investigación sin decidir: hoy solo se publica en Instagram
+- `docs/PUBLICAR_EN_FACEBOOK.md` — investigación previa; la decisión está en la spec del 2026-09-07
 - `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026

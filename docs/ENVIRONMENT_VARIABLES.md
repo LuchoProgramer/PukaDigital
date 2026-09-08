@@ -47,7 +47,43 @@ RESEND_API_KEY=re_your_resend_api_key
 
 ---
 
+## Configuración en Cloudflare Workers
+
+⚠️ **Desde el 2026-09-08 esto es lo que importa**: `pukadigital.com` lo sirve un
+Worker, y las variables que usa en producción son **los secretos de Cloudflare**,
+no las de Vercel. Cambiar una en Vercel ya no afecta al sitio.
+
+```bash
+npx wrangler secret put NOMBRE      # pide el valor por teclado
+npx wrangler secret list            # lista los nombres, nunca los valores
+```
+
+Los seis que necesita el Worker: `API_KEY` (es la de **Gemini**, el nombre no lo
+dice), `CRON_SECRET`, `GA_API_SECRET`, `IG_ACCESS_TOKEN`, `IG_USER_ID` y
+`RESEND_API_KEY`.
+
+🔴 **Tras subir un secreto hay que redesplegar** (`npm run deploy:cloudflare`), o
+el Worker no lo ve. Falla de forma engañosa: `wrangler secret list` lo muestra y
+`process.env` lo devuelve `undefined`, y además solo falla con los secretos
+subidos **antes** del último despliegue. Ver `docs/ESTADO_2026-09-08.md`.
+
+⚠️ `CRON_SECRET` está marcado como **Sensitive** en Vercel: se puede escribir pero
+**no leer**, ni por CLI ni por panel. Si hace falta el valor, se genera uno nuevo:
+
+```bash
+S=$(openssl rand -hex 32); printf '%s' "$S" | npx wrangler secret put CRON_SECRET
+```
+
+Solo protege la ruta HTTP `/api/cron/publicar`; el handler `scheduled()` no lo usa,
+así que no tiene que coincidir con el de Vercel.
+
+---
+
 ## Configuración en Vercel
+
+⚠️ **Ya no sirve el sitio**, pero sigue construyendo y es la red de seguridad hasta
+que se apague (Task 14, no antes del 15/09). Mantener sus variables al día mientras
+tanto.
 
 ### Pasos:
 1. Ve a tu proyecto en Vercel
