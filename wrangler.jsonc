@@ -4,6 +4,27 @@
   "main": "worker.ts",
   "compatibility_date": "2026-09-02",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Explicito a proposito: al declarar "routes", wrangler apaga workers.dev por
+  // defecto y el Worker se queda sin ninguna URL accesible. Paso el 2026-09-08.
+  "workers_dev": true,
+  /**
+   * El dominio, conectado el 2026-09-08 con ROUTES, no con custom_domain.
+   *
+   * ⚠️ custom_domain NO sirve aqui: exige que el hostname no tenga registros DNS
+   * previos y falla con «already has externally managed DNS records» (100117).
+   * El flag override_existing_dns_record que sugiere el propio error esta roto
+   * -wrangler lo ignora, issue cloudflare/workers-sdk#9878-, asi que la unica via
+   * seria borrar el DNS de Vercel, con una ventana sin servicio.
+   *
+   * Con routes no hace falta: el Worker se pone DELANTE del origen existente.
+   * Solo exige que el registro este proxied, que es un flag y no un cambio de
+   * destino, asi que el cambio es instantaneo y sin propagacion DNS. Vercel se
+   * queda detras como origen real, y la vuelta atras es quitar estas dos lineas.
+   */
+  "routes": [
+    { "pattern": "pukadigital.com/*", "zone_name": "pukadigital.com" },
+    { "pattern": "www.pukadigital.com/*", "zone_name": "pukadigital.com" }
+  ],
   "assets": {
     "binding": "ASSETS",
     "directory": ".open-next/assets"
