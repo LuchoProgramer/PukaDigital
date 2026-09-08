@@ -43,7 +43,7 @@ Aquí se compila en local. **No todos los repos del ecosistema lo hacen** — ve
 | Repo | Compila | Notas |
 |---|---|---|
 | `PukaDigital` | sí | Este. **Cloudflare Workers**, con `npm run deploy:cloudflare` |
-| `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer `docs/claude/deployment.md` antes de desplegar |
+| `SistemaSalud` | sí (`salud-frontend/`) | PukaHealth. **No es Vercel**: frontend a Cloudflare con `npm run deploy`, backend al VPS por SSH. Leer su `docs/claude/deployment.md` —de ese repo, no de este— antes de desplegar |
 | `prospecting-tools` | sí, con venv | Prospección de podólogos. Python; usa `.venv/bin/python`, no el del sistema (PEP 668) |
 | `Podoclinic`, `HealppyPets` | no | Clones solo lectura, sin dependencias. Verificar contra producción con `curl` y dejar que Vercel compile en el preview del PR |
 
