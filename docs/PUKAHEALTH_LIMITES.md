@@ -32,6 +32,17 @@ repositorio.
 precio **en el sitio web**. Lo que se publique aquí pasa a ser la referencia
 contractual.
 
+## Lo que sí hace, y se puso en duda
+
+Esta lista existe porque una afirmación ausente de la tabla de arriba **no está
+permitida por omisión**: `prohibidas.ts` solo caza lo que tiene escrito, así que
+lo que no está ahí no lo atrapa nadie. Lo de abajo se preguntó expresamente y se
+confirmó; anotarlo evita volver a dudarlo.
+
+| Sí se puede decir | Confirmado |
+|---|---|
+| Cada documento sale con un **enlace propio de verificación**: quien lo recibe comprueba que es auténtico sin llamar a la consulta | 2026-09-09 |
+
 ## El aviso de datos ficticios
 
 Toda pieza que muestre una pantalla del sistema lleva, **dentro de la imagen**,
