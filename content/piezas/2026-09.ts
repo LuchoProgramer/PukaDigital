@@ -169,7 +169,7 @@ const piezas: Pieza[] = [
       'pukadigital.com/pukahealth\n\n' +
       '#proteccciondedatos #clinicas #Ecuador #normativasalud',
     facebook: {
-      publicarEl: '2026-09-08T18:00',
+      publicarEl: '2026-09-09T12:35',
       caption:
         'Tu clínica ya está en falta\n' +
         'Y el plazo para corregirlo venció hace meses. Casi nadie se enteró.\n\n' +
