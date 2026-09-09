@@ -227,3 +227,85 @@ test('una fecha mal formada no pasa la validacion: si no, el cron la descarta si
   };
   assert.equal(validar([diaImposible]).length, 1, '31 de septiembre no existe');
 });
+
+test('el titular de la imagen de Facebook es obligatorio y no puede ir vacio', () => {
+  const pieza: Pieza = {
+    id: 'sin-titular',
+    sistema: 'puka',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'fb', imagen: { titular: '   ' } },
+    slides: [{ titular: 'T' }],
+  };
+  const errores = validar([pieza]);
+  assert.equal(errores.length, 1);
+  assert.match(errores[0].campo, /facebook\.imagen\.titular/);
+});
+
+test('el titular de Facebook respeta los mismos topes que una slide', () => {
+  const base = {
+    id: 'topes',
+    sistema: 'puka' as const,
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    slides: [{ titular: 'T' }],
+  };
+  // 10 palabras: una por encima de MAX_PALABRAS_TITULAR.
+  const diezPalabras: Pieza = {
+    ...base,
+    facebook: { caption: 'fb', imagen: { titular: 'una dos tres cuatro cinco seis siete ocho nueve diez' } },
+  };
+  assert.equal(validar([diezPalabras]).length, 1, '10 palabras debe fallar');
+
+  // 61 caracteres: uno por encima de TOPES.titular.
+  const largo: Pieza = {
+    ...base,
+    facebook: { caption: 'fb', imagen: { titular: 'a'.repeat(61) } },
+  };
+  assert.equal(validar([largo]).length, 1, '61 caracteres debe fallar');
+});
+
+test('una captura de Facebook que no existe en disco rompe la validacion', () => {
+  const pieza: Pieza = {
+    id: 'captura-fantasma',
+    sistema: 'puka',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'fb', imagen: { titular: 'Un titular', captura: 'no-existe.png' } },
+    slides: [{ titular: 'T' }],
+  };
+  const errores = validar([pieza]);
+  assert.equal(errores.length, 1);
+  assert.match(errores[0].campo, /facebook\.imagen\.captura/);
+});
+
+test('un precio ajeno al catalogo en la imagen de Facebook rompe la validacion', () => {
+  // Una imagen es tan publicable como un caption, y un precio falso impreso en
+  // un PNG es peor: sobrevive a la captura de pantalla.
+  const pieza: Pieza = {
+    id: 'precio-falso',
+    sistema: 'puka',
+    producto: 'pukaia',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'fb', imagen: { titular: 'Desde $7 al mes' } },
+    slides: [{ titular: 'T' }],
+  };
+  const errores = validar([pieza]);
+  assert.ok(errores.some((e) => e.campo.includes('facebook.imagen')));
+});
+
+test('una afirmacion prohibida en la imagen de PukaHealth rompe la validacion', () => {
+  const pieza: Pieza = {
+    id: 'prohibida-en-imagen',
+    sistema: 'health',
+    producto: 'pukahealth',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'fb', imagen: { titular: 'Descarga nuestra app' } },
+    slides: [{ titular: 'T' }],
+  };
+  const errores = validar([pieza]);
+  assert.ok(errores.some((e) => e.campo.includes('facebook.imagen')));
+});
+

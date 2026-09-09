@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { CATALOGO, ofertasEn, preciosEn } from './catalogo.ts';
 import { afirmacionesProhibidas } from './prohibidas.ts';
 import { formatosDe } from './formatos.ts';
@@ -107,6 +109,35 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       if (pieza.facebook.publicarEl && !fechaValida(pieza.facebook.publicarEl)) {
         en('facebook.publicarEl', `«${pieza.facebook.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
       }
+
+      const img = pieza.facebook.imagen;
+      if (img) {
+        const titular = img.titular?.trim() ?? '';
+        if (titular === '') {
+          en('facebook.imagen.titular', 'el titular de la imagen de Facebook está vacío');
+        } else {
+          // Los mismos topes que una slide: si no cabe grande, está mal escrito.
+          const palabras = titular.split(/\s+/).length;
+          if (palabras > MAX_PALABRAS_TITULAR) {
+            en(
+              'facebook.imagen.titular',
+              `${palabras} palabras, máximo ${MAX_PALABRAS_TITULAR}: si no cabe grande, está mal escrito`,
+            );
+          }
+          if (titular.length > TOPES.titular) {
+            en('facebook.imagen.titular', `${titular.length} caracteres, máximo ${TOPES.titular}`);
+          }
+        }
+
+        if (img.dato) {
+          if (!img.dato.valor?.trim()) en('facebook.imagen.dato.valor', 'el valor del dato está vacío');
+          if (!img.dato.etiqueta?.trim()) en('facebook.imagen.dato.etiqueta', 'la etiqueta del dato está vacía');
+        }
+
+        if (img.captura && !existsSync(join(process.cwd(), 'assets', 'capturas', img.captura))) {
+          en('facebook.imagen.captura', `la captura ${img.captura} no existe en assets/capturas/`);
+        }
+      }
     }
 
     // Un precio o una oferta sin producto declarado no se puede verificar.
@@ -129,6 +160,12 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
     const captionsAValidar: Array<[string, string | undefined]> = [
       ['caption', pieza.caption],
       ['facebook.caption', pieza.facebook?.caption],
+      // La imagen se valida igual que un caption: un precio falso impreso en un
+      // PNG es peor que en un texto, porque sobrevive a la captura de pantalla.
+      ['facebook.imagen.titular', pieza.facebook?.imagen?.titular],
+      ['facebook.imagen.dato', pieza.facebook?.imagen?.dato
+        ? `${pieza.facebook.imagen.dato.valor} ${pieza.facebook.imagen.dato.etiqueta}`
+        : undefined],
     ];
 
     for (const [campo, texto] of captionsAValidar) {
