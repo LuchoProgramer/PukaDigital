@@ -128,6 +128,24 @@ Formato de location: `{producto}_{seccion}`.
 
 WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeURIComponent(mensaje)}`, siempre `window.open(url, '_blank', 'noopener,noreferrer')`, y **llamar al tracking antes de abrir**.
 
+## Publicación en redes
+
+Una pieza de `content/piezas/` sale en **dos canales**: el carrusel completo en
+Instagram, y en Facebook **una sola imagen** con su caption largo, en la franja
+siguiente (09:00 → 18:00; 18:00 → 09:00 del día siguiente).
+
+⚠️ **La imagen de Facebook no es la slide 1 del carrusel.** Cada pieza declara su
+`facebook.imagen` con un titular que dice la **conclusión**, no el gancho: una
+slide 1 existe para que deslices y sola no dice nada. Sin ese campo, la pieza no
+se publica en Facebook y `piezas --check` la rechaza.
+
+⚠️ **Los PNG están versionados y hay que desplegar**: `npm run piezas`, commit, y
+`npm run deploy:cloudflare`. Sin desplegar, la publicación pide al CDN un archivo
+que en producción no existe.
+
+Cómo escribir el titular, las capturas, la ventana de 60 minutos y cómo se evita
+publicar dos veces: @docs/PUBLICACION_EN_REDES.md
+
 ## Publicidad y redes
 
 Cuentas, píxeles e identificadores de Meta y TikTok: `docs/ECOSISTEMA_ADS.md`.
@@ -197,6 +215,8 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/HISTORIAL_SEO.md` — auditorías cerradas y keyword research (historial, no doctrina)
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
+- `docs/PUBLICACION_EN_REDES.md` — cómo publica la fábrica en Instagram y Facebook
+- `docs/ENVIRONMENT_VARIABLES.md` — las variables, y **cómo se sacan los tokens de Meta**
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
 - `docs/PUBLICAR_EN_FACEBOOK.md` — investigación previa; la decisión está en la spec del 2026-09-07
 - `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026

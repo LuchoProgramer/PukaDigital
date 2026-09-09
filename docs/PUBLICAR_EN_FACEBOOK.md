@@ -6,7 +6,10 @@
 > carruseles, y el caption de Facebook no hay que escribirlo a mano. Este archivo
 > queda como el porque de las decisiones, no como el plan.
 
-Investigado el 2026-09-02. Hoy solo se publica en Instagram.
+Investigado el 2026-09-02, cuando solo se publicaba en Instagram.
+
+✅ **Desde el 2026-09-09 se publica en los dos canales.** Cómo funciona hoy:
+`PUBLICACION_EN_REDES.md`. Este archivo queda como el porqué de las decisiones.
 
 ---
 
