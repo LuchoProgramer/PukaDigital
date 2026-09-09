@@ -57,7 +57,7 @@ El cron de publicación también vive ahí (`0 14` y `0 23` UTC = 09:00 y 18:00 
 Ecuador), con precisión al minuto. Vercel sigue detrás como origen de respaldo y
 se apaga a partir del 2026-09-15.
 
-Detalle, vuelta atrás y lo que falta: @docs/ESTADO_2026-09-08.md
+Detalle, vuelta atrás y lo que falta: @docs/ESTADO_2026-09-09.md
 
 ## Productos y URLs canónicas
 
@@ -83,10 +83,15 @@ Detalle, vuelta atrás y lo que falta: @docs/ESTADO_2026-09-08.md
 
 ### PukaHealth: leer antes de escribir sobre él
 
-⚠️ **Cuatro cosas que este repositorio daba por hechas y no lo están**: solo hay
-una especialidad implementada, no hay recordatorios por WhatsApp, Google Calendar
-es unidireccional y no hay app nativa. **El «precio beta de $25» no existe.** Y
-toda captura de pantalla lleva el aviso de datos ficticios dentro de la imagen.
+⚠️ **Cuatro cosas que este repositorio daba por hechas y no lo están**: no hay
+recordatorios por WhatsApp, Google Calendar es unidireccional, no hay app nativa
+y no hay portal de reservas. **El «precio beta de $25» no existe.** Y toda
+captura de pantalla lleva el aviso de datos ficticios dentro de la imagen.
+
+Hay **dos** verticales clínicas —podología y hemodiálisis, verificado el
+2026-09-09—, no una. Las demás usan el sistema completo sin bloque clínico
+propio. «Se adapta a cualquier especialidad» sigue prohibido: suena a
+configuración y es desarrollo a medida.
 
 La lista completa, con el texto exacto del aviso, en @docs/PUKAHEALTH_LIMITES.md
 
@@ -184,7 +189,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
 - `docs/METODO_AGENTES_PARALELOS.md` — método de contraste, ejecución y verificación con `agy`
-- `docs/ESTADO_2026-09-08.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
+- `docs/ESTADO_2026-09-09.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión

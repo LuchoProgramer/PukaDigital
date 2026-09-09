@@ -69,7 +69,7 @@ y la tanda sigue publicando en Instagram. Ver `canalesDe()` en
 🔴 **Tras subir un secreto hay que redesplegar** (`npm run deploy:cloudflare`), o
 el Worker no lo ve. Falla de forma engañosa: `wrangler secret list` lo muestra y
 `process.env` lo devuelve `undefined`, y además solo falla con los secretos
-subidos **antes** del último despliegue. Ver `docs/ESTADO_2026-09-08.md`.
+subidos **antes** del último despliegue. Ver `docs/ESTADO_2026-09-09.md`.
 
 ⚠️ `CRON_SECRET` está marcado como **Sensitive** en Vercel: se puede escribir pero
 **no leer**, ni por CLI ni por panel. Si hace falta el valor, se genera uno nuevo:
