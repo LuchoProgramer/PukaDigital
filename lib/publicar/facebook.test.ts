@@ -10,11 +10,21 @@ const piezaBase: Pieza = {
   sistema: 'puka',
   producto: 'ledgerxpertz',
   caption: 'Caption de Instagram con #hashtag',
+  facebook: {
+    imagen: { titular: 'Tu factura no pasó' },
+  },
   slides: [
     { titular: 'Tu factura no pasó', bajada: 'El error más común es un dato mal escrito.' },
     { titular: 'Revisa antes de enviar', bajada: 'Evita rechazos del SRI.' },
   ],
 };
+
+function json(cuerpo: unknown, status = 200): Response {
+  return new Response(JSON.stringify(cuerpo), {
+    status,
+    headers: { 'content-type': 'application/json' },
+  });
+}
 
 function fetchFalso(respuestas: unknown[]) {
   const llamadas: Array<{ url: string; body: string; metodo: string }> = [];
@@ -52,7 +62,7 @@ test('publicar en Facebook realiza los dos pasos en orden con token en el cuerpo
   assert.equal(llamadas[0].metodo, 'POST');
   assert.match(llamadas[0].url, /PAGE_DE_PRUEBA\/photos$/);
   assert.match(llamadas[0].body, /published=false/);
-  assert.match(llamadas[0].body, /url=https%3A%2F%2Fpukadigital\.com%2Fpiezas%2F2026-09%2Fsri-rechazo-01-1-4x5\.png/);
+  assert.match(llamadas[0].body, /url=https%3A%2F%2Fpukadigital\.com%2Fpiezas%2F2026-09%2Fsri-rechazo-01-fb\.png/);
   assert.match(llamadas[0].body, /access_token=TOKEN-SECRETO-DE-PAGINA-FB/);
   assert.ok(!llamadas[0].url.includes(TOKEN), 'el token no debe viajar en la URL');
 
@@ -149,3 +159,19 @@ test('un error HTTP sin campo error en el cuerpo tambien lanza, no devuelve un i
   // Y para en el paso 1: no debe intentar el post del feed con un id inventado.
   assert.equal(llamadas.length, 1);
 });
+
+test('sube el -fb.png, no la slide 1 del carrusel', async () => {
+  const llamadas: string[] = [];
+  const impl = (async (url: string | URL | Request, init?: RequestInit) => {
+    llamadas.push(String(init?.body ?? ''));
+    const u = String(url);
+    if (u.endsWith('/photos')) return json({ id: 'foto-1' });
+    return json({ id: 'post-77' });
+  }) as unknown as typeof fetch;
+
+  await publicarPiezaFacebook(piezaBase, '2026-09', opciones(impl));
+  const subida = decodeURIComponent(llamadas[0]);
+  assert.match(subida, /-fb\.png/);
+  assert.doesNotMatch(subida, /-1-4x5\.png/);
+});
+

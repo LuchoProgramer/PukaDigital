@@ -39,7 +39,7 @@ test('fechaPublicacionFacebook usa facebook.publicarEl si existe, o cae a la fra
     ...base,
     id: 'exp',
     publicarEl: '2026-09-03T09:00',
-    facebook: { publicarEl: '2026-09-05T12:00' },
+    facebook: { publicarEl: '2026-09-05T12:00', imagen: { titular: 'Titular' } },
   };
   assert.equal(fechaPublicacionFacebook(explicita), '2026-09-05T12:00');
 
@@ -47,6 +47,7 @@ test('fechaPublicacionFacebook usa facebook.publicarEl si existe, o cae a la fra
     ...base,
     id: 'auto',
     publicarEl: '2026-09-03T09:00',
+    facebook: { imagen: { titular: 'Titular' } },
   };
   assert.equal(fechaPublicacionFacebook(automatica), '2026-09-03T18:00');
 
@@ -143,11 +144,13 @@ test('pendientesFacebook selecciona piezas según su fecha de Facebook', () => {
       ...base,
       id: 'ig-18-fb-siguiente',
       publicarEl: '2026-09-02T18:00',
+      facebook: { imagen: { titular: 'Titular' } },
     },
     {
       ...base,
       id: 'ig-09-fb-mismo-dia',
       publicarEl: '2026-09-03T09:00',
+      facebook: { imagen: { titular: 'Titular' } },
     },
   ];
 
@@ -169,7 +172,13 @@ test('pendientesFacebook selecciona piezas según su fecha de Facebook', () => {
 test('las 3 piezas de septiembre a las 18:00 salen en Instagram y las 4 a las 09:00 llegan a Facebook', () => {
   const piezasSeptiembre: Pieza[] = [
     { ...base, id: 'podologo-no-receta', publicarEl: '2026-09-02T18:00', caption: 'IG 1' },
-    { ...base, id: 'precios-software-ecuador', publicarEl: '2026-09-03T09:00', caption: 'IG 2' },
+    {
+      ...base,
+      id: 'precios-software-ecuador',
+      publicarEl: '2026-09-03T09:00',
+      caption: 'IG 2',
+      facebook: { imagen: { titular: 'Titular' } },
+    },
   ];
 
   // A las 18:00 del día 2 (23:00 UTC): podologo-no-receta sale en Instagram
@@ -203,3 +212,22 @@ test('una fecha de Facebook imposible descarta la pieza, no la cuela por la vent
   };
   assert.deepEqual(pendientesFacebook([pieza], new Date('2026-09-09T14:05:00Z'), []), []);
 });
+
+test('una pieza sin facebook.imagen no se programa para Facebook', () => {
+  // Si se programara, se intentaria subir un -fb.png que no existe: 404 en el
+  // CDN y un fallo en produccion que nadie ve venir.
+  const pieza: Pieza = { ...base, id: 'sin-imagen', publicarEl: '2026-09-09T09:00' };
+  assert.equal(fechaPublicacionFacebook(pieza), undefined);
+  assert.deepEqual(pendientesFacebook([pieza], new Date('2026-09-09T23:05:00Z'), []), []);
+});
+
+test('una pieza con facebook.imagen si se programa, por la franja siguiente', () => {
+  const pieza: Pieza = {
+    ...base,
+    id: 'con-imagen',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'texto de facebook', imagen: { titular: 'Un titular' } },
+  };
+  assert.equal(fechaPublicacionFacebook(pieza), '2026-09-09T18:00');
+});
+

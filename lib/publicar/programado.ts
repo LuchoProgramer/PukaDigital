@@ -81,7 +81,10 @@ export function franjaSiguiente(fechaLocal: string): string {
  * Obtiene la fecha programada para Facebook: explícita o calculada por franja siguiente.
  */
 export function fechaPublicacionFacebook(pieza: Pieza): string | undefined {
-  if (pieza.facebook?.publicarEl) return pieza.facebook.publicarEl;
+  // Sin imagen no hay nada que publicar: el `-fb.png` no se genera, asi que
+  // programarla terminaria pidiendo al CDN un archivo que no existe.
+  if (!pieza.facebook?.imagen) return undefined;
+  if (pieza.facebook.publicarEl) return pieza.facebook.publicarEl;
   if (pieza.publicarEl) return franjaSiguiente(pieza.publicarEl);
   return undefined;
 }

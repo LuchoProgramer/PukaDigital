@@ -39,7 +39,7 @@ async function main() {
 
   console.log(`${pieza.id} · ${pieza.producto ?? 'sin producto'} · ${pieza.slides.length} slide(s)`);
   if (esFacebook) {
-    console.log(`  ${urlPublica(mes, `${pieza.id}-1-4x5.png`)}`);
+    console.log(`  ${urlPublica(mes, `${pieza.id}-fb.png`)}`);
     console.log(`  caption: ${captionFacebook(pieza)}`);
   } else {
     for (const archivo of archivosDe(pieza)) console.log(`  ${urlPublica(mes, archivo)}`);

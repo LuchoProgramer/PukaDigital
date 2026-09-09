@@ -54,7 +54,7 @@ export async function publicarPiezaFacebook(
     throw new Error(`La pieza no pasa la validacion:\n${formatear(errores)}`);
   }
 
-  const archivo = `${pieza.id}-1-4x5.png`;
+  const archivo = `${pieza.id}-fb.png`;
   const urlFoto = urlPublica(mes, archivo);
   const texto = pieza.facebook?.caption ?? componer(pieza);
   const pageId = opciones.pageId;
