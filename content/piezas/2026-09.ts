@@ -234,6 +234,10 @@ const piezas: Pieza[] = [
       '#CRM #WhatsAppBusiness #ventas #Ecuador',
     facebook: {
       publicarEl: '2026-09-11T09:00',
+      imagen: {
+        titular: 'Un bot contesta.\nUn CRM recuerda\nquién eres',
+        dato: { valor: '$14.99', etiqueta: 'al mes' },
+      },
       caption:
         'No es un chatbot\n' +
         'Y la diferencia se nota el día que tienes 40 conversaciones abiertas.\n\n' +
@@ -298,6 +302,9 @@ const piezas: Pieza[] = [
       '#SRI #facturacionelectronica #Ecuador #consultoriomedico',
     facebook: {
       publicarEl: '2026-09-15T18:00',
+      imagen: {
+        titular: 'Un Enter invisible\ntumba tu factura\nen el SRI',
+      },
       caption:
         'Pulsaste Enter y se cayó\n' +
         '«Archivo no cumple estructura XML». El motivo es más tonto de lo que parece.\n\n' +
@@ -362,6 +369,9 @@ const piezas: Pieza[] = [
       '#SRI #facturacionelectronica #Ecuador #emprendimiento',
     facebook: {
       publicarEl: '2026-09-18T09:00',
+      imagen: {
+        titular: 'Facturar al SRI:\ncuatro requisitos,\nninguno es el software',
+      },
       caption:
         'Cuatro cosas, y ninguna es el software\n' +
         'Lo que de verdad te pide el SRI para emitir tu primera factura electrónica.\n\n' +
@@ -427,6 +437,10 @@ const piezas: Pieza[] = [
       '#recetamedica #ACESS #Ecuador #normativasalud',
     facebook: {
       publicarEl: '2026-09-22T18:00',
+      imagen: {
+        titular: 'Tu receta necesita\nsiete datos que\ncasi nadie pone',
+        dato: { valor: '7', etiqueta: 'datos obligatorios' },
+      },
       caption:
         'Siete cosas que faltan en tu receta\n' +
         'Y una de ellas la confunde casi todo el mundo.\n\n' +

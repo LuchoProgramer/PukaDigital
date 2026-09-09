@@ -18,13 +18,16 @@ export type Prohibida = {
 export const PROHIBIDAS: Prohibida[] = [
   {
     nombre: 'especialidades',
-    patron: /(cualquier|toda|todas las|cada)\s+especialidad/,
-    motivo: 'Solo hay una especialidad implementada: podología. Las demás caen a un formulario genérico',
+    patron: /(cualquier|toda|todas las|cada)\s+(especialidad|rubro|sector|[aá]rea|profesi[oó]n)/,
+    motivo:
+      'Hay dos verticales clínicas: podología y hemodiálisis. Las demás usan el ' +
+      'sistema completo (historia clínica, SOAP, CIE-10, recetas, certificados, ' +
+      'facturación SRI) pero sin bloque clínico propio de su rubro',
     enCambio: '«la arquitectura permite sumar especialidades sin reescribir el sistema»',
   },
   {
     nombre: 'whatsapp',
-    patron: /(recordatorio|recordatorios|aviso|avisos|notificacion|notificaciones)[^.]{0,40}whatsapp/,
+    patron: /(recordatorio|recordatorios|aviso|avisos|notificacion|notificaciones|mensaje|mensajes)\s*(automatico|automaticos|automático|automáticos)?[^.]{0,40}whatsapp/,
     motivo: 'El enganche entre el sistema clínico y el bot de WhatsApp no está construido',
     enCambio: 'no prometerlo hasta que exista',
   },
@@ -38,7 +41,7 @@ export const PROHIBIDAS: Prohibida[] = [
   },
   {
     nombre: 'app-nativa',
-    patron: /(nuestra|la)\s+app\b|descarga\s+la\s+app|app\s+nativa/,
+    patron: /(nuestra|la)\s+(app|aplicaci[oó]n)\b|descarga\s+(la|nuestra)\s+(app|aplicaci[oó]n)|app\s+nativa/,
     motivo: 'Es una web instalable, no una app nativa',
     enCambio: '«funciona en el celular»',
   },
@@ -50,7 +53,7 @@ export const PROHIBIDAS: Prohibida[] = [
   },
   {
     nombre: 'reservas-paciente',
-    patron: /(paciente|pacientes)[^.]{0,30}(reserva|agenda|agendan?)\s+(solo|por su cuenta|en l[ií]nea)/,
+    patron: /(paciente|pacientes)[^.]{0,30}(reserva|agenda|agendan?|pide|solicita)\s+(su\s+)?(turno|cita|hora)?\s*(solo|por su cuenta|en l[ií]nea|sin llamar\w*)/,
     motivo: 'No hay portal de reservas para el paciente. Es una decisión deliberada, no un pendiente',
     enCambio: 'no mencionarlo',
   },

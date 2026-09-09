@@ -49,3 +49,52 @@ test('un texto correcto no dispara nada', () => {
     [],
   );
 });
+
+/**
+ * Las cuatro fugas las encontro el usuario redactando, no el validador: la
+ * frase «nos adaptamos a cualquier rubro» es como se escribe de verdad, no un
+ * caso rebuscado. Los patrones estaban anclados a una palabra literal, asi que
+ * un sinonimo corriente los esquivaba.
+ */
+test('las prohibiciones no se esquivan cambiando una palabra por su sinonimo', () => {
+  const fugas = [
+    'Nos adaptamos a cualquier rubro medico',
+    'Servimos a cualquier sector de la salud',
+    'Descarga nuestra aplicacion movil',
+    'Tu paciente pide su turno sin llamarte',
+    'Le llega un mensaje automatico por WhatsApp',
+  ];
+  for (const texto of fugas) {
+    assert.ok(afirmacionesProhibidas(texto).length > 0, `deberia atrapar: "${texto}"`);
+  }
+});
+
+test('las prohibiciones que ya funcionaban siguen funcionando', () => {
+  const conocidas = [
+    'Se adapta a cualquier especialidad',
+    'Descarga nuestra app',
+    'Tu paciente agenda solo',
+    'Recordatorios por WhatsApp',
+    'Sincronizacion bidireccional con Google',
+    'Precio beta $25/mes',
+  ];
+  for (const texto of conocidas) {
+    assert.ok(afirmacionesProhibidas(texto).length > 0, `dejo de atrapar: "${texto}"`);
+  }
+});
+
+test('una frase legitima no se marca como prohibida', () => {
+  // La red contra patrones demasiado anchos: ensanchar un patron es tan
+  // peligroso como dejarlo estrecho, solo que el fallo se ve al reves.
+  const buenas = [
+    'La arquitectura permite sumar especialidades sin reescribir el sistema',
+    'Funciona en el celular',
+    'Tus citas se envian a tu Google Calendar',
+    'Historia clinica digital para cualquier consultorio medico',
+    'Un bot contesta. Un CRM recuerda quien eres',
+    'Tu receta necesita siete datos que casi nadie pone',
+  ];
+  for (const texto of buenas) {
+    assert.deepEqual(afirmacionesProhibidas(texto), [], `falso positivo en: "${texto}"`);
+  }
+});

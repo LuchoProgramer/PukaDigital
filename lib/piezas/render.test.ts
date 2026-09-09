@@ -72,3 +72,33 @@ test('los dos sistemas producen imagenes distintas', async () => {
   const [health] = await renderPieza({ ...base, sistema: 'health' });
   assert.notEqual(puka.png.toString('base64'), health.png.toString('base64'));
 });
+
+test('una pieza con facebook.imagen emite ademas su -fb.png', async () => {
+  const pieza: Pieza = {
+    id: 'con-imagen-fb',
+    sistema: 'puka',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    formatos: ['4x5'],
+    facebook: { caption: 'fb', imagen: { titular: 'Un titular de conclusion' } },
+    slides: [{ titular: 'Slide uno' }, { titular: 'Slide dos' }],
+  };
+  const salida = await renderPieza(pieza);
+  const nombres = salida.map((s) => s.nombre);
+  assert.ok(nombres.includes('con-imagen-fb-fb.png'), `falta el -fb.png en ${nombres.join(', ')}`);
+  assert.equal(nombres.filter((n) => n.endsWith('-fb.png')).length, 1, 'solo uno');
+});
+
+test('una pieza sin facebook.imagen no emite -fb.png', async () => {
+  const pieza: Pieza = {
+    id: 'sin-imagen-fb',
+    sistema: 'puka',
+    caption: 'ig',
+    publicarEl: '2026-09-09T09:00',
+    formatos: ['4x5'],
+    slides: [{ titular: 'Slide uno' }],
+  };
+  const salida = await renderPieza(pieza);
+  assert.ok(!salida.some((s) => s.nombre.endsWith('-fb.png')));
+});
+

@@ -15,7 +15,7 @@ producto.
 
 | No escribir | La verdad |
 |---|---|
-| «Se adapta a cualquier especialidad» | **Solo podología está implementada.** Las demás caen a un formulario genérico. Sí vale: «la arquitectura permite sumar especialidades sin reescribir el sistema» |
+| «Se adapta a cualquier especialidad» | **Hay dos verticales clínicas: podología y hemodiálisis** (verificado contra el código de `SistemaSalud` el 2026-09-09: `LedgerXpertz/hemodialisis/`, 260 commits en un mes, ~32.700 líneas, 50 migraciones en producción, y un cliente real —`dialife`— con 166 sesiones registradas). Las demás especialidades **usan el sistema completo** —historia clínica, SOAP, CIE-10, recetas, certificados, estudios en PDF y facturación al SRI— pero sin bloque clínico propio de su rubro. Añadir uno es **desarrollo a medida**, no configuración. Sí vale: «la arquitectura permite sumar especialidades sin reescribir el sistema» |
 | «Recordatorios por WhatsApp» | **No existe.** El bot vive en otro proyecto y el enganche no está construido |
 | «Sincronización bidireccional con Google Calendar» | **Es unidireccional**, sistema → Google |
 | «Nuestra app» | Es web instalable, no nativa. «Funciona en el celular» sí |
@@ -31,6 +31,29 @@ repositorio.
 ⚠️ Y no son solo marketing: los Términos de Servicio de PukaHealth delegan el
 precio **en el sitio web**. Lo que se publique aquí pasa a ser la referencia
 contractual.
+
+
+⚠️ **Lo que sí se puede decir sobre la velocidad**, y es mejor material que
+cualquier promesa de adaptabilidad: «en un mes construimos la vertical completa
+de hemodiálisis, con la normativa del IESS incluida». Es verificable —están los
+commits— y concreto, que es lo que funciona en salud: prueba por encima de
+promesa.
+
+Tres cuidados para que la frase no se rompa ante el primer cliente que pregunte:
+
+- **No se generaliza.** Ese mes incluyó sesiones semanales con una auditora
+  clínica externa. Sin ese acompañamiento el plazo no se sostiene, así que
+  «cualquier especialidad en un mes» no está respaldado.
+- **Mostrar el caso, no prometer el plazo.** «Tu especialidad en un mes» es una
+  promesa que un solo caso no respalda.
+- **Decir «vertical» o «módulo», no «especialidad»** al hablar de hemodiálisis:
+  en el código no está en el registry, y quien lo revise se confundirá.
+
+⚠️ Y el porqué de que la prohibición siga en pie: «se adapta a cualquier
+especialidad» le suena al lector a **configuración** —me registro, elijo mi
+especialidad, ya está—, y no lo es: es desarrollo a medida, por rápido que se
+haga. Un cliente que lea eso y descubra que su ficha requiere semanas se sentirá
+engañado aunque las semanas sean pocas.
 
 ## Lo que sí hace, y se puso en duda
 

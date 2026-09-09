@@ -9,6 +9,7 @@ const pieza = (id: string, publicarEl: string): Pieza => ({
   caption: `caption de ${id}`,
   publicarEl,
   formatos: ['4x5'],
+  facebook: { imagen: { titular: 'Titular' } },
   slides: [{ titular: 'Un titular corto' }],
 });
 
@@ -206,7 +207,7 @@ test('dos piezas con el mismo id en meses distintos no se pisan el mes de la ima
   assert.ok(subida, 'debe subir la foto a Facebook');
   assert.match(
     decodeURIComponent(subida),
-    /piezas\/2026-09\/repe-1-4x5\.png/,
+    /piezas\/2026-09\/repe-fb\.png/,
     'la imagen debe pedirse a su propio mes, no al de la corrida',
   );
 });
