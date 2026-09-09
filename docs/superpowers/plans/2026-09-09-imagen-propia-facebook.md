@@ -785,7 +785,22 @@ Abrir los cuatro PNG y comprobar, uno por uno:
 ⚠️ Este paso no se salta. «Compila» no es «se ve bien»: en este proyecto una
 tipografía compilaba perfecto y renderizaba en monoespaciado.
 
-- [ ] **Paso 5: Commit**
+- [ ] **Paso 5: Comprobar que la red de seguridad está puesta**
+
+Aquí no hay guarda de código que mutar —es contenido—, pero sí se puede
+comprobar que **la validación protege este contenido de verdad**, que es lo que
+importa. Sobre `content/piezas/2026-09.ts`, una a una y restaurando después:
+
+1. Añadir una palabra al titular de una imagen hasta pasar de 9 →
+   `npx tsx lib/piezas/cli.ts --check` debe salir con **código 1**.
+2. Cambiar el `$14.99` de `crm-no-chatbot` por `$7` → debe salir con código 1 y
+   decir que no es un precio de PukaIA.
+3. Poner `captura: 'no-existe.png'` en cualquiera → código 1.
+
+**Si alguna de las tres sale con código 0, la validación no está protegiendo el
+contenido** y hay que volver a la Tarea 2 antes de seguir.
+
+- [ ] **Paso 6: Commit**
 
 ```bash
 git add content/piezas/2026-09.ts public/piezas/2026-09/
@@ -892,7 +907,24 @@ Ejecutar: `npm run piezas -- --check`
 Esperado: `7 pieza(s) validas`. Si alguna pieza real cae, el patrón se pasó de
 ancho: estrecharlo, **no borrar el test**.
 
-- [ ] **Paso 6: Commit**
+- [ ] **Paso 6: Comprobar por mutación, patrón por patrón**
+
+Devolver **uno solo** de los cuatro patrones a su versión vieja, correr los tests
+y confirmar que cae el test de fugas. Restaurar y repetir con el siguiente.
+
+| Patrón devuelto a su versión vieja | Debe caer |
+|---|---|
+| `especialidades` | el test de fugas |
+| `app-nativa` | el test de fugas |
+| `reservas-paciente` | el test de fugas |
+| `whatsapp` | el test de fugas |
+
+🔑 **Los cuatro por separado, no los cuatro a la vez.** Mutándolos juntos, el
+test cae igual y no demuestra que cada patrón esté cubierto: bastaría con que uno
+solo funcionase. Si al devolver un patrón el test **no** cae, esa fuga concreta no
+tiene test y hay que añadirlo.
+
+- [ ] **Paso 7: Commit**
 
 ```bash
 git add lib/piezas/prohibidas.ts lib/piezas/prohibidas.test.ts
@@ -954,6 +986,11 @@ registry.
 ```
 
 - [ ] **Paso 3: Comprobar**
+
+ℹ️ **Aquí tampoco hay mutación**, y también es correcto: lo que cambia es el
+**texto** del mensaje de error y un documento. No hay guarda nueva ni
+comportamiento nuevo — el patrón que decide qué se atrapa ya se mutó en la Tarea
+7. Lo único que hay que comprobar es que el cambio de texto no rompe nada.
 
 Ejecutar: `npm test && npm run piezas -- --check`
 Esperado: verde. El `motivo` es texto de mensaje, no debería romper tests — si
