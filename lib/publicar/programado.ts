@@ -1,3 +1,4 @@
+import { componer } from '../captions/componer.ts';
 import type { Pieza } from '../piezas/tipos.ts';
 
 /** Ecuador es UTC-5 todo el año: no hay horario de verano que compensar. */
@@ -36,23 +37,66 @@ function normalizar(texto: string): string {
 }
 
 /**
- * Si el caption ya está en el perfil, la pieza salió antes. Es la defensa
- * contra publicar dos veces: no hay base de datos donde apuntar lo enviado,
- * así que se le pregunta a Instagram.
+ * Si el texto ya está en el perfil, la pieza salió antes. Es la defensa contra
+ * publicar dos veces: no hay base de datos donde apuntar lo enviado, así que se
+ * le pregunta a la red — a Instagram el `caption`, a Facebook el `message`.
+ *
+ * Recibe el texto y no la pieza justamente para servir a los dos canales.
  */
-export function yaPublicada(pieza: Pieza, captionsRecientes: string[]): boolean {
-  if (!pieza.caption) return false;
-  const mio = normalizar(pieza.caption);
-  return captionsRecientes.some((c) => normalizar(c) === mio);
+export function yaPublicada(
+  texto: string | undefined,
+  textosRecientes: string[],
+): boolean {
+  if (!texto || texto.trim() === '') return false;
+  const mio = normalizar(texto);
+  return textosRecientes.some((c) => normalizar(c) === mio);
 }
 
 /**
- * Qué piezas toca publicar ahora mismo.
- *
- * Una pieza sin `caption` nunca entra: sin él no se puede comprobar si ya salió,
- * y publicar dos veces es peor que no publicar.
+ * Calcula la franja horaria siguiente para publicar en Facebook:
+ * - Publicaciones de las 09:00 salen a las 18:00 del mismo día.
+ * - Publicaciones de las 18:00 salen a las 09:00 del día siguiente.
  */
-export function pendientes(
+export function franjaSiguiente(fechaLocal: string): string {
+  const [fechaStr, horaStr] = fechaLocal.split('T');
+  if (!fechaStr || !horaStr) return fechaLocal;
+
+  const hora = horaStr.slice(0, 5);
+  if (hora <= '09:00') {
+    return `${fechaStr}T18:00`;
+  }
+
+  // 18:00 o posterior -> siguiente día a las 09:00
+  const [y, m, d] = fechaStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + 1);
+
+  const ny = dt.getUTCFullYear();
+  const nm = String(dt.getUTCMonth() + 1).padStart(2, '0');
+  const nd = String(dt.getUTCDate()).padStart(2, '0');
+  return `${ny}-${nm}-${nd}T09:00`;
+}
+
+/**
+ * Obtiene la fecha programada para Facebook: explícita o calculada por franja siguiente.
+ */
+export function fechaPublicacionFacebook(pieza: Pieza): string | undefined {
+  if (pieza.facebook?.publicarEl) return pieza.facebook.publicarEl;
+  if (pieza.publicarEl) return franjaSiguiente(pieza.publicarEl);
+  return undefined;
+}
+
+/**
+ * Obtiene el caption a publicar en Facebook: explícito o compuesto desde slides.
+ */
+export function captionFacebook(pieza: Pieza): string {
+  return pieza.facebook?.caption ?? componer(pieza);
+}
+
+/**
+ * Piezas pendientes para publicar en Instagram.
+ */
+export function pendientesInstagram(
   piezas: Pieza[],
   ahora: Date,
   captionsRecientes: string[],
@@ -66,6 +110,32 @@ export function pendientes(
     const minutos = (ahora.getTime() - cuando.getTime()) / 60_000;
     if (minutos < 0 || minutos > VENTANA_MINUTOS) return false;
 
-    return !yaPublicada(pieza, captionsRecientes);
+    return !yaPublicada(pieza.caption, captionsRecientes);
   });
 }
+
+/**
+ * Piezas pendientes para publicar en Facebook.
+ */
+export function pendientesFacebook(
+  piezas: Pieza[],
+  ahora: Date,
+  mensajesRecientes: string[],
+): Pieza[] {
+  return piezas.filter((pieza) => {
+    const fecha = fechaPublicacionFacebook(pieza);
+    if (!fecha) return false;
+
+    const cuando = aUTC(fecha);
+    if (Number.isNaN(cuando.getTime())) return false;
+
+    const minutos = (ahora.getTime() - cuando.getTime()) / 60_000;
+    if (minutos < 0 || minutos > VENTANA_MINUTOS) return false;
+
+    const texto = captionFacebook(pieza);
+    return !yaPublicada(texto, mensajesRecientes);
+  });
+}
+
+/** Alias de compatibilidad hacia atrás para Instagram. */
+export const pendientes = pendientesInstagram;

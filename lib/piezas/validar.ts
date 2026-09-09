@@ -74,19 +74,90 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       );
     }
 
+    // Una fecha con formato malo no da error en ninguna parte: `aUTC()` devuelve
+    // NaN y `pendientes*` la descarta con un `return false` mudo. La pieza no
+    // sale, y no hay nada en los logs que lo explique. Se caza aquí o no se caza.
+    const fechaValida = (valor: string) =>
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(valor) &&
+      !Number.isNaN(new Date(`${valor}:00.000Z`).getTime()) &&
+      // `new Date('2026-09-31')` no falla: rueda al 1 de octubre. Comparar el
+      // día de vuelta es lo único que caza un día que no existe.
+      new Date(`${valor}:00.000Z`).toISOString().slice(8, 10) === valor.slice(8, 10);
+
+    if (pieza.publicarEl && !fechaValida(pieza.publicarEl)) {
+      en('publicarEl', `«${pieza.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
+    }
+
+    // Validación del bloque facebook
+    if (pieza.facebook) {
+      // ⚠️ El caption se comprueba exista o no `facebook.publicarEl`: sin él la
+      // fecha cae a la franja siguiente, así que la pieza se publica igual. Y un
+      // caption vacío no cae al compositor —`'' ?? componer(p)` devuelve `''`,
+      // porque `??` solo mira null y undefined—, así que saldría un post en
+      // blanco. En cada corrida, además: `yaPublicada('')` es false y nunca lo
+      // reconoce como ya publicado.
+      if (pieza.facebook.publicarEl && pieza.facebook.caption === undefined) {
+        en('facebook.caption', 'la pieza declara facebook.publicarEl pero no tiene facebook.caption');
+      } else if (
+        pieza.facebook.caption !== undefined &&
+        pieza.facebook.caption.trim() === ''
+      ) {
+        en('facebook.caption', 'el caption de Facebook está vacío: quítalo para que lo componga desde las slides, o escríbelo');
+      }
+      if (pieza.facebook.publicarEl && !fechaValida(pieza.facebook.publicarEl)) {
+        en('facebook.publicarEl', `«${pieza.facebook.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
+      }
+    }
+
     // Un precio o una oferta sin producto declarado no se puede verificar.
+    // Aplica a slides y a ambos captions.
     if (!producto) {
-      const vende = pieza.slides.some((slide) =>
+      const vendeEnSlides = pieza.slides.some((slide) =>
         textos(slide).some(([, t]) => preciosEn(t).length > 0 || ofertasEn(t).length > 0),
       );
-      if (vende) {
+      const vendeEnCaption =
+        (pieza.caption && (preciosEn(pieza.caption).length > 0 || ofertasEn(pieza.caption).length > 0)) ||
+        (pieza.facebook?.caption &&
+          (preciosEn(pieza.facebook.caption).length > 0 || ofertasEn(pieza.facebook.caption).length > 0));
+
+      if (vendeEnSlides || vendeEnCaption) {
         en('producto', 'la pieza anuncia un precio o una oferta sin declarar que producto es');
       }
     }
 
-    if (pieza.producto === 'pukahealth' && pieza.caption) {
-      for (const p of afirmacionesProhibidas(pieza.caption)) {
-        en('caption', `${p.motivo}. En cambio: ${p.enCambio}`);
+    // Validar afirmaciones prohibidas, precios y ofertas en captions
+    const captionsAValidar: Array<[string, string | undefined]> = [
+      ['caption', pieza.caption],
+      ['facebook.caption', pieza.facebook?.caption],
+    ];
+
+    for (const [campo, texto] of captionsAValidar) {
+      if (!texto || texto.trim() === '') continue;
+
+      if (pieza.producto === 'pukahealth') {
+        for (const p of afirmacionesProhibidas(texto)) {
+          en(campo, `${p.motivo}. En cambio: ${p.enCambio}`);
+        }
+      }
+
+      if (producto) {
+        const ajenos = pieza.preciosAjenos ?? [];
+        for (const precio of preciosEn(texto)) {
+          if (!producto.precios.includes(precio) && !ajenos.includes(precio)) {
+            const permitidos = producto.precios.length > 0
+              ? `los de ${producto.nombre} son ${producto.precios.map((p) => `$${p}`).join(', ')}`
+              : `${producto.nombre} no lleva precio visible: se cotiza por WhatsApp`;
+            en(campo, `$${precio} no es un precio de ${producto.nombre}: ${permitidos}`);
+          }
+        }
+        for (const oferta of ofertasEn(texto)) {
+          if (!producto.ofertas.includes(oferta)) {
+            const permitidas = producto.ofertas.length > 0
+              ? `la de ${producto.nombre} es '${producto.ofertas.join("', '")}'`
+              : `${producto.nombre} no tiene oferta de gratuidad`;
+            en(campo, `'${oferta}' no es la oferta de ${producto.nombre}: ${permitidas}`);
+          }
+        }
       }
     }
 

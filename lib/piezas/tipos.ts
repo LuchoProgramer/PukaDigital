@@ -52,6 +52,15 @@ export type Pieza = {
    * Sin este campo, la pieza no entra en el cron y solo se publica a mano.
    */
   publicarEl?: string;
+  /**
+   * Facebook. Si falta el bloque entero, la pieza igual se publica: el caption
+   * se compone desde las slides y la fecha cae a la franja siguiente a la de
+   * Instagram — 09:00 → 18:00 del mismo día; 18:00 → 09:00 del día siguiente.
+   */
+  facebook?: {
+    caption?: string;
+    publicarEl?: string;
+  };
   slides: Slide[];
 };
 

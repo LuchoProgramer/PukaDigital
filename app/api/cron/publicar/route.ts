@@ -23,7 +23,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Faltan IG_USER_ID o IG_ACCESS_TOKEN' }, { status: 500 });
   }
 
-  const resultado = await publicarLoQueToca({ igUserId, token, ahora: new Date() });
+  const resultado = await publicarLoQueToca({
+    igUserId,
+    token,
+    fbPageId: process.env.FB_PAGE_ID,
+    fbToken: process.env.FB_PAGE_ACCESS_TOKEN,
+    ahora: new Date(),
+  });
   return NextResponse.json(resultado, {
     status: resultado.fallidas.length > 0 ? 500 : 200,
   });

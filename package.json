@@ -11,6 +11,7 @@
     "test": "node --import tsx --test lib/*/*.test.ts",
     "piezas": "tsx lib/piezas/cli.ts",
     "piezas:muestra": "tsx lib/piezas/muestra.ts",
+    "captions": "node --import tsx --env-file-if-exists=.env.local lib/captions/cli.ts",
     "publicar": "node --import tsx --env-file-if-exists=.env.local lib/publicar/cli.ts",
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview:cloudflare": "opennextjs-cloudflare build && wrangler dev",
