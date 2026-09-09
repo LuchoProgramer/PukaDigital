@@ -60,6 +60,22 @@ export type Pieza = {
   facebook?: {
     caption?: string;
     publicarEl?: string;
+    /**
+     * La imagen que sale en Facebook. **No es la slide 1 del carrusel**: una
+     * slide 1 es un gancho incompleto a propósito —existe para que deslices— y
+     * sola en un feed no dice nada. Esta lleva la conclusión.
+     *
+     * Sin `bajada`, `badge` ni `cta`: cada uno es una franja de texto más
+     * compitiendo por la atención en una imagen que se ve de paso. Lo que no
+     * cabe en el titular va al caption.
+     */
+    imagen?: {
+      /** Admite `\n` para cortar de línea a mano. Ver `plantillaFacebook.tsx`. */
+      titular: string;
+      dato?: { valor: string; etiqueta: string };
+      /** Archivo de `assets/capturas/`. Recorte de la región de interés. */
+      captura?: string;
+    };
   };
   slides: Slide[];
 };
