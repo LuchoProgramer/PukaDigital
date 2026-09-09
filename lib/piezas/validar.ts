@@ -74,19 +74,65 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       );
     }
 
+    // Validación del bloque facebook
+    if (pieza.facebook) {
+      if (
+        pieza.facebook.publicarEl &&
+        (!pieza.facebook.caption || pieza.facebook.caption.trim() === '')
+      ) {
+        en('facebook.caption', 'la pieza declara facebook.publicarEl pero no tiene facebook.caption');
+      }
+    }
+
     // Un precio o una oferta sin producto declarado no se puede verificar.
+    // Aplica a slides y a ambos captions.
     if (!producto) {
-      const vende = pieza.slides.some((slide) =>
+      const vendeEnSlides = pieza.slides.some((slide) =>
         textos(slide).some(([, t]) => preciosEn(t).length > 0 || ofertasEn(t).length > 0),
       );
-      if (vende) {
+      const vendeEnCaption =
+        (pieza.caption && (preciosEn(pieza.caption).length > 0 || ofertasEn(pieza.caption).length > 0)) ||
+        (pieza.facebook?.caption &&
+          (preciosEn(pieza.facebook.caption).length > 0 || ofertasEn(pieza.facebook.caption).length > 0));
+
+      if (vendeEnSlides || vendeEnCaption) {
         en('producto', 'la pieza anuncia un precio o una oferta sin declarar que producto es');
       }
     }
 
-    if (pieza.producto === 'pukahealth' && pieza.caption) {
-      for (const p of afirmacionesProhibidas(pieza.caption)) {
-        en('caption', `${p.motivo}. En cambio: ${p.enCambio}`);
+    // Validar afirmaciones prohibidas, precios y ofertas en captions
+    const captionsAValidar: Array<[string, string | undefined]> = [
+      ['caption', pieza.caption],
+      ['facebook.caption', pieza.facebook?.caption],
+    ];
+
+    for (const [campo, texto] of captionsAValidar) {
+      if (!texto || texto.trim() === '') continue;
+
+      if (pieza.producto === 'pukahealth') {
+        for (const p of afirmacionesProhibidas(texto)) {
+          en(campo, `${p.motivo}. En cambio: ${p.enCambio}`);
+        }
+      }
+
+      if (producto) {
+        const ajenos = pieza.preciosAjenos ?? [];
+        for (const precio of preciosEn(texto)) {
+          if (!producto.precios.includes(precio) && !ajenos.includes(precio)) {
+            const permitidos = producto.precios.length > 0
+              ? `los de ${producto.nombre} son ${producto.precios.map((p) => `$${p}`).join(', ')}`
+              : `${producto.nombre} no lleva precio visible: se cotiza por WhatsApp`;
+            en(campo, `$${precio} no es un precio de ${producto.nombre}: ${permitidos}`);
+          }
+        }
+        for (const oferta of ofertasEn(texto)) {
+          if (!producto.ofertas.includes(oferta)) {
+            const permitidas = producto.ofertas.length > 0
+              ? `la de ${producto.nombre} es '${producto.ofertas.join("', '")}'`
+              : `${producto.nombre} no tiene oferta de gratuidad`;
+            en(campo, `'${oferta}' no es la oferta de ${producto.nombre}: ${permitidas}`);
+          }
+        }
       }
     }
 

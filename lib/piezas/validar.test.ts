@@ -147,3 +147,37 @@ test('el error identifica la pieza y el numero de slide', () => {
   assert.equal(errores[0].slide, 2);
   assert.equal(errores[0].campo, 'titular');
 });
+
+test('falla si declara facebook.publicarEl pero no tiene facebook.caption', () => {
+  const descuidada: Pieza = {
+    ...ok,
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+    },
+  };
+  assert.deepEqual(campos([descuidada]), ['facebook.caption']);
+
+  const vacia: Pieza = {
+    ...ok,
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: '   ',
+    },
+  };
+  assert.deepEqual(campos([vacia]), ['facebook.caption']);
+});
+
+test('acepta una pieza sin bloque facebook o con bloque facebook completo', () => {
+  const sinBloque: Pieza = { ...ok };
+  assert.deepEqual(validar([sinBloque]), []);
+
+  const completa: Pieza = {
+    ...ok,
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: 'Caption de Facebook válido',
+    },
+  };
+  assert.deepEqual(validar([completa]), []);
+});
+

@@ -168,3 +168,80 @@ test('declarar un precio ajeno no habilita otro distinto', () => {
   };
   assert.equal(validar([mala]).length, 1);
 });
+
+test('precios no permitidos en caption de Instagram o Facebook rompen la validacion', () => {
+  const malaIG: Pieza = {
+    ...base,
+    producto: 'ledgerxpertz',
+    caption: 'Consigue tu ERP por solo $99 al mes.',
+  };
+  assert.deepEqual(campos([malaIG]), ['caption']);
+
+  const malaFB: Pieza = {
+    ...base,
+    producto: 'ledgerxpertz',
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: 'Consigue tu ERP por solo $99 al mes en Facebook.',
+    },
+  };
+  assert.deepEqual(campos([malaFB]), ['facebook.caption']);
+});
+
+test('ofertas no permitidas en facebook.caption rompen la validacion', () => {
+  const malaOferta: Pieza = {
+    ...base,
+    producto: 'ledgerxpertz',
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: 'Prueba 30 dias gratis con LedgerXpertz.',
+    },
+  };
+  assert.deepEqual(campos([malaOferta]), ['facebook.caption']);
+});
+
+test('una pieza sin producto con precio en caption falla con error en producto', () => {
+  const huerfanaEnCaption: Pieza = {
+    ...base,
+    caption: 'Software por solo $15 al mes.',
+  };
+  assert.deepEqual(campos([huerfanaEnCaption]), ['producto']);
+
+  const huerfanaEnFBCaption: Pieza = {
+    ...base,
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: 'Software por solo $15 al mes.',
+    },
+  };
+  assert.deepEqual(campos([huerfanaEnFBCaption]), ['producto']);
+});
+
+test('afirmaciones prohibidas de PukaHealth en facebook.caption rompen la validacion', () => {
+  const malaSaludFB: Pieza = {
+    ...base,
+    sistema: 'health',
+    producto: 'pukahealth',
+    facebook: {
+      publicarEl: '2026-09-08T18:00',
+      caption: 'Recordatorios por WhatsApp automáticos para tus pacientes.',
+    },
+  };
+  const [e] = validar([malaSaludFB]);
+  assert.equal(e.campo, 'facebook.caption');
+  assert.match(e.mensaje, /WhatsApp/i);
+});
+
+test('las afirmaciones prohibidas en facebook.caption no aplican a otros productos', () => {
+  const otraFB: Pieza = {
+    ...base,
+    sistema: 'puka',
+    producto: 'ledgerxpertz',
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption: 'Sincronización bidireccional con tu tienda online.',
+    },
+  };
+  assert.deepEqual(validar([otraFB]), []);
+});
+
