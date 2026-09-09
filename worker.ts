@@ -48,12 +48,24 @@ export default {
     }
 
     ctx.waitUntil(
-      publicarLoQueToca({ igUserId, token, ahora: new Date() })
+      publicarLoQueToca({
+        igUserId,
+        token,
+        // Opcionales a proposito: sin ellos Facebook se omite y la tanda sigue
+        // publicando en Instagram. Ver `canalesDe` en tanda.ts.
+        fbPageId: env.FB_PAGE_ID,
+        fbToken: env.FB_PAGE_ACCESS_TOKEN,
+        ahora: new Date(),
+      })
         .then((r) => {
           // Sin el token ni el caption: esto acaba en los logs.
-          console.log(`cron ${r.mes}: revisadas ${r.revisadas}, publicadas ` +
-            `${r.publicadas.map((p) => p.id).join(',') || 'ninguna'}, ` +
-            `fallidas ${r.fallidas.map((f) => `${f.id} (${f.error})`).join(',') || 'ninguna'}`);
+          const omitidos = r.omitidos.length > 0 ? `, omitidos ${r.omitidos.join(',')}` : '';
+          console.log(
+            `cron ${r.mes}: revisadas ${r.revisadas}, publicadas ` +
+              `${r.publicadas.map((p) => `${p.canal}:${p.id}`).join(',') || 'ninguna'}, ` +
+              `fallidas ${r.fallidas.map((f) => `${f.canal}:${f.id} (${f.error})`).join(',') || 'ninguna'}` +
+              omitidos,
+          );
         })
         .catch((e) => console.error(`cron: ${e instanceof Error ? e.message : e}`)),
     );
