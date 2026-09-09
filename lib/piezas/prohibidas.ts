@@ -19,7 +19,10 @@ export const PROHIBIDAS: Prohibida[] = [
   {
     nombre: 'especialidades',
     patron: /(cualquier|toda|todas las|cada)\s+(especialidad|rubro|sector|[aá]rea|profesi[oó]n)/,
-    motivo: 'Solo hay una especialidad implementada: podología. Las demás caen a un formulario genérico',
+    motivo:
+      'Hay dos verticales clínicas: podología y hemodiálisis. Las demás usan el ' +
+      'sistema completo (historia clínica, SOAP, CIE-10, recetas, certificados, ' +
+      'facturación SRI) pero sin bloque clínico propio de su rubro',
     enCambio: '«la arquitectura permite sumar especialidades sin reescribir el sistema»',
   },
   {
