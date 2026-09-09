@@ -17,6 +17,20 @@ async function render(imagen: Parameters<typeof PlantillaFacebook>[0]['imagen'])
   });
 }
 
+/**
+ * Cuanto espacio vertical ocupa el titular dibujado.
+ *
+ * Satori vectoriza el texto, asi que no hay `<text>` que medir ni una altura de
+ * caja fiable — el `<rect>` de mascara es el del lienzo entero. Lo que si vale
+ * es el recorrido vertical de los glifos del primer `<path>`, que es el
+ * titular: mas lineas lo agrandan, una fuente mas pequena lo encoge.
+ */
+function altoDelTitular(svg: string): number {
+  const d = svg.match(/<path fill="[^"]*" d="([^"]*)"/)?.[1] ?? '';
+  const ys = [...d.matchAll(/[ML]([\d.]+) ([\d.]+)/g)].map((m) => Number(m[2]));
+  return ys.length === 0 ? 0 : Math.max(...ys) - Math.min(...ys);
+}
+
 test('la imagen de Facebook no lleva contador de carrusel', async () => {
   // El post del 2026-09-09 salio con «01 / 05» impreso, prometiendo cuatro
   // imagenes que no existen. Este test es el que impide que vuelva.
@@ -35,15 +49,11 @@ test('la imagen de Facebook no lleva contador de carrusel', async () => {
 test('el salto de linea del titular sale de verdad, no se traga', async () => {
   // Sin `whiteSpace: pre-line` Satori normaliza el \n como espacio y el titular
   // sale en una sola linea. Comprobado el 2026-09-09: 48px contra 96px.
-  const unaLinea = await render({ titular: 'AAAA BBBB' });
-  const dosLineas = await render({ titular: 'AAAA\nBBBB' });
-  const alto = (svg: string) => {
-    const m = svg.match(/<rect x="88" y="88" width="\d+" height="(\d+)"/);
-    return m ? Number(m[1]) : 0;
-  };
+  const unaLinea = altoDelTitular(await render({ titular: 'AAAA BBBB' }));
+  const dosLineas = altoDelTitular(await render({ titular: 'AAAA\nBBBB' }));
   assert.ok(
-    alto(dosLineas) > alto(unaLinea),
-    `el \\n debe ocupar mas alto: una linea ${alto(unaLinea)}px, dos ${alto(dosLineas)}px`,
+    dosLineas > unaLinea * 1.5,
+    `el \\n debe ocupar mas alto: una linea ${unaLinea}, dos ${dosLineas}`,
   );
 });
 
@@ -51,4 +61,25 @@ test('el dato aparece cuando se declara y no cuando no', async () => {
   const con = await render({ titular: 'Titular', dato: { valor: '166', etiqueta: 'sesiones' } });
   const sin = await render({ titular: 'Titular' });
   assert.ok(con.length > sin.length, 'con dato debe dibujar mas');
+});
+
+/**
+ * Cubre lo que se vio mirando los PNG del 2026-09-09, no leyendo el codigo: un
+ * titular de 9 palabras a tamano fijo desbordaba el ancho util y Satori lo
+ * partia por su cuenta, justo donde el `\n` intentaba evitarlo. El titular se
+ * encoge hasta que su linea mas larga quepa.
+ */
+test('un titular de lineas largas se encoge para caber; uno corto no', async () => {
+  // Tres lineas cortas caben grandes; tres largas obligan a encoger, asi que el
+  // titular ocupa menos alto pese a tener las mismas tres lineas.
+  const corto = altoDelTitular(await render({ titular: 'Uno\nDos\nTres' }));
+  const largo = altoDelTitular(
+    await render({
+      titular: 'Facturar al SRI: cuatro requisitos y ninguno\nes el software que uses\nni el que te vendan',
+    }),
+  );
+  assert.ok(
+    corto > largo,
+    `el titular de lineas largas deberia encogerse: corto ${corto}, largo ${largo}`,
+  );
 });

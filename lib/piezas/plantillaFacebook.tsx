@@ -31,6 +31,20 @@ export function PlantillaFacebook({ imagen, tokens }: Props) {
   const anchoUtil = medidas.ancho - MARGEN * 2;
   const aviso = medidasAviso(medidas.alto, anchoUtil);
 
+  /**
+   * El titular se encoge hasta que su linea mas larga quepa.
+   *
+   * Sin esto, un titular de 9 palabras a 76px desborda el ancho util y Satori lo
+   * parte por su cuenta — justo donde el `\n` intentaba evitarlo. Se vio
+   * mirando los PNG generados el 2026-09-09: «Facturar al SRI: cuatro
+   * requisitos,» salia partido en dos lineas pese al salto manual.
+   *
+   * El 0.55 es el ancho medio de glifo de Bricolage Grotesque ExtraBold
+   * relativo al cuerpo. El suelo de 44px es el limite de legibilidad en un feed.
+   */
+  const lineaMasLarga = Math.max(...imagen.titular.split('\n').map((l) => l.length));
+  const titularSize = Math.max(44, Math.min(82, Math.floor(anchoUtil / (lineaMasLarga * 0.55))));
+
   return (
     <div
       style={{
@@ -47,9 +61,18 @@ export function PlantillaFacebook({ imagen, tokens }: Props) {
       <div
         style={{
           display: 'flex',
+          // ⚠️ El centrado se hace con DOS margin auto —este y el del pie—, no
+          // con `justifyContent`: con un margin auto en un hijo, el
+          // justifyContent del contenedor no surte efecto. Es el mismo
+          // mecanismo que usa `plantilla.tsx`, y esta comprobado.
+          //
+          // Solo sin captura: con ella manda el orden de lectura —titular
+          // arriba, prueba debajo—. Sin ella, el titular arriba dejaba dos
+          // tercios de la pieza en negro; se vio en los PNG del 2026-09-09.
+          ...(imagen.captura ? {} : { marginTop: 'auto' }),
           fontFamily: 'Bricolage Grotesque',
           fontWeight: tokens.pegaso ? 800 : 700,
-          fontSize: 76,
+          fontSize: titularSize,
           lineHeight: 1.1,
           letterSpacing: '-0.02em',
           // ⚠️ NO QUITAR. Sin esto Satori normaliza el \n como espacio y el
@@ -109,7 +132,7 @@ export function PlantillaFacebook({ imagen, tokens }: Props) {
         </div>
       )}
 
-      <div style={{ display: 'flex', marginTop: 'auto', fontSize: 26, color: tokens.apoyo }}>
+      <div style={{ display: 'flex', marginTop: 'auto', paddingTop: 48, fontSize: 26, color: tokens.apoyo }}>
         pukadigital.com
       </div>
     </div>
