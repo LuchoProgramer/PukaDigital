@@ -17,8 +17,23 @@
 
 ## Línea base medida
 
-Línea base al 2026-09-07: **71 pasando, 0 fallando** en `npm test` (`lib/*/*.test.ts`).
-Cada tarea especifica cuántos tests añade y el total acumulado en verde.
+⚠️ **La línea base cambió y los totales acumulados de abajo son de otra época.**
+
+| Cuándo | `npm test` |
+|---|---|
+| 2026-09-07, cuando se escribió este plan | 71 pasando |
+| **2026-09-09, medido** | **80 pasando, 0 fallando** |
+
+La diferencia son los tests que entraron con `tanda.ts` (fase A) y con la ventana
+de 60 minutos. Cada tarea dice **cuántos tests añade**; ese delta sigue valiendo.
+Los **totales absolutos** que aparecen en las tareas 1 a 5 se calcularon sobre 71
+y **no se han recalculado**, porque el número real de cada tramo solo se sabe
+midiendo: sumar 9 a mano produciría otra cifra inventada, que es exactamente el
+problema.
+
+🔑 **Medir con `npm test` antes de empezar cada tarea y comparar contra lo
+medido, no contra el número impreso aquí.** Un total escrito en un plan es una
+verificación falsa en cuanto el código se mueve debajo.
 
 ---
 
@@ -979,7 +994,7 @@ test('captionFacebook devuelve facebook.caption si existe o recurre al composito
   assert.equal(captionFacebook(sinCaption), 'Solo titular\nUna bajada.\n\npukadigital.com');
 });
 
-test('solo entra lo que ya toca, con margen de hora y media', () => {
+test('solo entra lo que ya toca, dentro de la ventana', () => {
   const piezas: Pieza[] = [
     { ...base, id: 'ayer', caption: 'ayer', publicarEl: '2026-09-08T09:00' },
     { ...base, id: 'ahora', caption: 'ahora', publicarEl: '2026-09-09T09:00' },
@@ -990,13 +1005,21 @@ test('solo entra lo que ya toca, con margen de hora y media', () => {
   assert.deepEqual(pendientes(piezas, ahora, []).map((p) => p.id), ['ahora']);
 });
 
-test('la ventana absorbe el desfase de una hora del plan Hobby', () => {
+// 🔴 Este test viene tal cual de `main` (commit 55c399d). **Copiarlo literal, no
+// reescribirlo.** Hasta el 2026-09-09 este plan traia en su lugar uno llamado
+// «la ventana absorbe el desfase de una hora del plan Hobby», que comparaba
+// 23:59:30 contra 00:31:00 y pasaba igual con VENTANA_MINUTOS en 60 que en 90:
+// no anclaba la constante. Se sustituyo por estos dos limites, que la rodean y
+// estan verificados por mutacion. Reintroducir el viejo deshace el despliegue
+// del 2026-09-08.
+test('la ventana son 60 minutos: 59 entra y 61 no', () => {
   const pieza: Pieza = { ...base, id: 'tarde', publicarEl: '2026-09-02T18:00' };
+  // 18:00 de Ecuador = 23:00 UTC.
   assert.deepEqual(
-    pendientes([pieza], new Date('2026-09-02T23:59:30Z'), []).map((p) => p.id),
+    pendientes([pieza], new Date('2026-09-02T23:59:00Z'), []).map((p) => p.id),
     ['tarde'],
   );
-  assert.deepEqual(pendientes([pieza], new Date('2026-09-03T00:31:00Z'), []), []);
+  assert.deepEqual(pendientes([pieza], new Date('2026-09-03T00:01:00Z'), []), []);
 });
 
 test('lo viejo no se publica con retraso: la ventana se cierra', () => {
@@ -1520,245 +1543,405 @@ Resultado esperado: **100 tests pasando** (+4 tests de `prompt.test.ts`).
 
 ---
 
-## Tarea 6: Publicación multicanal y cruce de mes en cron (`route.ts`) y CLI (`lib/publicar/cli.ts`)
+## Tarea 6: Publicación multicanal y cruce de mes en `tanda.ts`, sus puertas y el CLI
 
-Actualizar el cron de publicación `app/api/cron/publicar/route.ts` para:
-1. Leer el mes actual **y el mes anterior** (`mesAnterior`) para no perder publicaciones de fin de mes que caen el día 1 en Facebook.
-2. Comprobar e iterar ambas redes en cada corrida:
-   - Instagram: consulta `captionsRecientes` (`/{ig-user-id}/media?fields=caption`), calcula `pendientesInstagram` y publica vía `publicarPieza`.
-   - Facebook: consulta `mensajesRecientes` (`/{page-id}/posts?fields=message`), calcula `pendientesFacebook` y publica vía `publicarPiezaFacebook`.
-3. Actualizar `lib/publicar/cli.ts` para admitir la opción `--facebook` en publicaciones individuales de prueba.
+> **Reescrita el 2026-09-09.** La versión anterior ponía toda la orquestación
+> dentro de `app/api/cron/publicar/route.ts`. Se escribió el 2026-09-07, antes de
+> que la fase A extrajera la lógica a `lib/publicar/tanda.ts`, y dejaba el cron
+> automático —`worker.ts:scheduled()`, el que publica de verdad— sin Facebook.
+> El contraste está en `docs/superpowers/specs/2026-09-09-facebook-contraste-agy-3.md`.
+
+Llevar la publicación a dos canales tocando **un solo sitio**: `tanda.ts`. Las dos
+puertas (`worker.ts` y la ruta HTTP) solo reenvían entorno, y por eso no pueden
+divergir. El CLI gana `--facebook` para ensayos.
 
 **Files:**
+- Modify: `lib/publicar/tanda.ts`
+- Modify: `lib/publicar/tanda.test.ts`
+- Modify: `worker.ts`
 - Modify: `app/api/cron/publicar/route.ts`
 - Modify: `lib/publicar/cli.ts`
 
-- [ ] **Paso 1: Modificar `app/api/cron/publicar/route.ts`**
+### Decisiones que fija esta tarea
 
-Actualizar `app/api/cron/publicar/route.ts`:
+1. **Un canal sin secretos no es un fallo.** Si faltan `FB_PAGE_ID` o
+   `FB_PAGE_ACCESS_TOKEN`, Facebook se omite y la tanda **sigue publicando en
+   Instagram**. Entra en `Resultado.omitidos`, no en `fallidas`: si entrara en
+   `fallidas`, la ruta devolvería 500 en cada corrida hasta que alguien suba los
+   secretos, y el 500 dejaría de significar algo.
+   ⚠️ Hoy esos dos secretos **no están** en el Worker (los seis que hay son
+   `API_KEY`, `CRON_SECRET`, `GA_API_SECRET`, `IG_ACCESS_TOKEN`, `IG_USER_ID`,
+   `RESEND_API_KEY`). Desplegar esta tarea sin ellos debe dejar Instagram intacto.
+2. **Aislamiento por canal.** Un `try/catch` por canal (si falla leer `/posts`,
+   Facebook se acaba ahí y Instagram no se entera) y otro por pieza (la regla que
+   ya existe: una pieza que falla no impide las demás del mismo día).
+3. **El cruce de mes se carga, no se evita.** `franjaSiguiente` manda la pieza del
+   día 30 a las 18:00 al día 1 del mes siguiente, así que la tanda carga el mes
+   actual **y el anterior**.
+
+- [ ] **Paso 1: Tests de la orquestación multicanal (RED)**
+
+Modificar `lib/publicar/tanda.test.ts`. El `falsoFetch` existente solo simula
+Instagram; hay que enseñarle `/posts` y `/photos` de Facebook.
+
+⚠️ **Los tests actuales pasan `buscarMes: () => [...]`, que ahora devolvería las
+mismas piezas para los dos meses y las publicaría dos veces.** Hay que volver el
+doble sensible al mes: `buscarMes: (m) => (m === '2026-09' ? [...] : null)`. No es
+cosmético: es el test que demuestra que el cruce de mes no duplica.
 
 ```typescript
-import { NextResponse } from 'next/server';
-import { publicarPieza } from '@/lib/publicar/meta';
-import { publicarPiezaFacebook } from '@/lib/publicar/facebook';
-import { pendientesFacebook, pendientesInstagram } from '@/lib/publicar/programado';
-import type { Pieza } from '@/lib/piezas/tipos';
+const AHORA = new Date('2026-09-09T14:05:00Z'); // 09:05 de Ecuador
+const soloEsteMes = (piezas: Pieza[]) => (m: string) => (m === '2026-09' ? piezas : null);
+const CON_FB = { fbPageId: 'pagina-1', fbToken: 'tfb' };
 
-export const dynamic = 'force-dynamic';
-export const maxDuration = 300;
+test('sin secretos de Facebook publica en Instagram y lo anota en omitidos', async () => {
+  const { impl } = falsoFetch();
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([pieza('toca', '2026-09-09T09:00')]),
+  });
+  assert.deepEqual(r.publicadas, [{ canal: 'instagram', id: 'toca', mediaId: 'media-99' }]);
+  assert.deepEqual(r.omitidos, ['facebook']);
+  assert.deepEqual(r.fallidas, []);
+});
 
+test('un canal caido no impide el otro', async () => {
+  // La lectura de /posts falla; Instagram tiene que publicar igual.
+  const { impl } = falsoFetch({ fallaLecturaFacebook: true });
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB, ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([pieza('toca', '2026-09-09T09:00')]),
+  });
+  assert.deepEqual(r.publicadas.map((p) => p.canal), ['instagram']);
+  assert.deepEqual(r.fallidas, [
+    { canal: 'facebook', id: 'lectura-perfil', error: 'No se pudo leer el perfil: caida' },
+  ]);
+});
+
+test('publica en los dos canales en una sola corrida', async () => {
+  const { impl } = falsoFetch();
+  // La pieza de las 09:00 toca en Instagram; su franja de Facebook es a las 18:00,
+  // asi que aqui solo debe salir Instagram. La de ayer a las 18:00 toca hoy en
+  // Facebook a las 09:00 y ya salio en Instagram.
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB, ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([
+      pieza('de-hoy', '2026-09-09T09:00'),
+      pieza('de-ayer', '2026-09-08T18:00'),
+    ]),
+  });
+  assert.deepEqual(r.publicadas, [
+    { canal: 'instagram', id: 'de-hoy', mediaId: 'media-99' },
+    { canal: 'facebook', id: 'de-ayer', mediaId: 'post-77' },
+  ]);
+});
+
+test('una pieza del mes anterior se publica con SU mes, no con el de la corrida', async () => {
+  // 1 de octubre, 09:05 de Ecuador. La pieza vive en 2026-09 y su imagen tambien:
+  // publicarla con mes '2026-10' pedirla al CDN da 404.
+  const { impl, llamadas } = falsoFetch();
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB,
+    ahora: new Date('2026-10-01T14:05:00Z'), fetchImpl: impl,
+    buscarMes: (m) => (m === '2026-09' ? [pieza('del-30', '2026-09-30T18:00')] : null),
+  });
+  assert.equal(r.mes, '2026-10');
+  assert.deepEqual(r.publicadas.map((p) => p.canal), ['facebook']);
+  assert.ok(
+    llamadas.some((l) => l.includes('2026-09')),
+    'la URL de la imagen debe llevar 2026-09, no 2026-10',
+  );
+});
+```
+
+Los tests existentes se adaptan al `canal` y a `omitidos`: `publicadas` pasa de
+`{ id, mediaId }` a `{ canal, id, mediaId }`, y el `deepEqual` del mes vacío gana
+`omitidos: ['facebook']`.
+
+⚠️ **No escribir aquí un número de tests esperado.** La versión anterior de esta
+tarea decía «100 tests pasando» cuando la línea base real era 80. Un número
+inventado en un plan es una verificación falsa: quien lo ejecute creerá que rompió
+algo. Medir la línea base con `npm test` **antes** de empezar y comparar contra
+ella.
+
+- [ ] **Paso 2: Reescribir `lib/publicar/tanda.ts` (GREEN)**
+
+```typescript
+import { piezasDe } from '../../content/piezas/index.ts';
+import { publicarPieza } from './meta.ts';
+import { publicarPiezaFacebook } from './facebook.ts';
+import { pendientesFacebook, pendientesInstagram } from './programado.ts';
+import type { Pieza } from '../piezas/tipos.ts';
+
+const GRAPH = 'https://graph.facebook.com/v21.0';
+
+/** Cuántas publicaciones recientes se miran para no repetir una pieza. */
 const RECIENTES = 25;
 
-function mesDe(fecha: Date): string {
+export type NombreCanal = 'instagram' | 'facebook';
+
+export type Resultado = {
+  /** El mes de la corrida. Pueden entrar piezas del anterior: ver `mesAnterior`. */
+  mes: string;
+  revisadas: number;
+  publicadas: Array<{ canal: NombreCanal; id: string; mediaId: string }>;
+  fallidas: Array<{ canal: NombreCanal; id: string; error: string }>;
+  /** Canales que no se intentaron por no tener secretos. No es un fallo. */
+  omitidos: NombreCanal[];
+};
+
+export type Opciones = {
+  igUserId: string;
+  token: string;
+  /**
+   * Facebook es opcional a propósito: sin estos dos el canal se omite y la tanda
+   * sigue publicando en Instagram. Un despliegue sin los secretos de Facebook no
+   * puede apagar lo que ya funcionaba.
+   */
+  fbPageId?: string;
+  fbToken?: string;
+  /** El instante que se considera «ahora». Inyectable para poder probar. */
+  ahora: Date;
+  /** Inyectable para poder probar sin red. */
+  fetchImpl?: typeof fetch;
+  /**
+   * De dónde salen las piezas de un mes. Inyectable porque si no, los tests
+   * dependerían del calendario real y se romperían solos al cambiar de mes.
+   */
+  buscarMes?: (mes: string) => Pieza[] | null;
+};
+
+/**
+ * Lo que hay que saber hacer para ser un canal. Existe para que sumar el tercero
+ * no obligue a tocar el orquestador.
+ */
+type Canal = {
+  nombre: NombreCanal;
+  recientes(o: Opciones): Promise<string[]>;
+  pendientes(piezas: Pieza[], ahora: Date, recientes: string[]): Pieza[];
+  publicar(pieza: Pieza, mes: string, o: Opciones): Promise<{ id: string }>;
+};
+
+/** `2026-09`, en UTC. El cron de Cloudflare dispara en UTC. */
+export function mesDe(fecha: Date): string {
   return `${fecha.getUTCFullYear()}-${String(fecha.getUTCMonth() + 1).padStart(2, '0')}`;
 }
 
+/** `2026-10` → `2026-09`. */
 export function mesAnterior(mes: string): string {
-  const [y, m] = mes.split('-').map(Number);
-  const dt = new Date(Date.UTC(y, m - 2, 1));
-  return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}`;
+  const [anio, numero] = mes.split('-').map(Number);
+  return mesDe(new Date(Date.UTC(anio, numero - 2, 1)));
 }
 
-async function captionsRecientesIG(igUserId: string, token: string): Promise<string[]> {
-  const url = `https://graph.facebook.com/v21.0/${igUserId}/media?fields=caption&limit=${RECIENTES}&access_token=${token}`;
-  const res = await fetch(url);
-  const json = (await res.json()) as { data?: Array<{ caption?: string }>; error?: { message: string } };
-  if (json.error) throw new Error(`No se pudo leer el perfil de Instagram: ${json.error.message}`);
-  return (json.data ?? []).map((m) => m.caption ?? '').filter(Boolean);
+function mensaje(e: unknown): string {
+  return e instanceof Error ? e.message : String(e);
 }
 
-async function mensajesRecientesFB(pageId: string, token: string): Promise<string[]> {
-  const url = `https://graph.facebook.com/v21.0/${pageId}/posts?fields=message&limit=${RECIENTES}&access_token=${token}`;
-  const res = await fetch(url);
-  const json = (await res.json()) as { data?: Array<{ message?: string }>; error?: { message: string } };
-  if (json.error) throw new Error(`No se pudo leer la página de Facebook: ${json.error.message}`);
-  return (json.data ?? []).map((m) => m.message ?? '').filter(Boolean);
+/**
+ * Las publicaciones recientes de un perfil. Instagram las llama `caption` en
+ * `/media`; Facebook, `message` en `/posts`. Lo demás es idéntico.
+ */
+async function textosRecientes(
+  o: Opciones,
+  ruta: string,
+  campo: 'caption' | 'message',
+  token: string,
+): Promise<string[]> {
+  const hacer = o.fetchImpl ?? fetch;
+  const params = new URLSearchParams({
+    fields: campo,
+    limit: String(RECIENTES),
+    access_token: token,
+  });
+  const res = await hacer(`${GRAPH}/${ruta}?${params}`);
+  const cuerpo = (await res.json()) as {
+    data?: Array<Record<string, string | undefined>>;
+    error?: { message: string };
+  };
+  if (cuerpo.error) throw new Error(`No se pudo leer el perfil: ${cuerpo.error.message}`);
+  return (cuerpo.data ?? []).map((m) => m[campo] ?? '').filter(Boolean);
 }
 
-async function cargarMes(mes: string): Promise<Pieza[]> {
-  try {
-    return (await import(`@/content/piezas/${mes}`)).default;
-  } catch {
-    return [];
-  }
-}
-
-export async function GET(request: Request) {
-  const secreto = process.env.CRON_SECRET;
-  if (!secreto || request.headers.get('authorization') !== `Bearer ${secreto}`) {
-    return new NextResponse('No autorizado', { status: 401 });
-  }
-
-  // Sin fallbacks: este proyecto falla ruidosamente cuando falta una variable.
-  // Un `?? '<page-id>'` publicaria en una pagina concreta con el entorno mal
-  // configurado, y sin decir nada. Ver route.ts:36 y cli.ts:47 en el original.
-  const igUserId = process.env.IG_USER_ID;
-  const igToken = process.env.IG_ACCESS_TOKEN;
-  const fbPageId = process.env.FB_PAGE_ID;
-  const fbToken = process.env.FB_PAGE_ACCESS_TOKEN;
-  if (!igUserId || !igToken) {
-    return NextResponse.json({ error: 'Faltan IG_USER_ID o IG_ACCESS_TOKEN' }, { status: 500 });
-  }
-  if (!fbPageId || !fbToken) {
-    return NextResponse.json(
-      { error: 'Faltan FB_PAGE_ID o FB_PAGE_ACCESS_TOKEN' },
-      { status: 500 },
-    );
-  }
-
-  const ahora = new Date();
-  const mesActual = mesDe(ahora);
-  const mesPrev = mesAnterior(mesActual);
-
-  // Cargar mes actual y mes anterior para resolver cruces de fin de mes
-  const [piezasMesActual, piezasMesPrev] = await Promise.all([
-    cargarMes(mesActual),
-    cargarMes(mesPrev),
-  ]);
-
-  // Asociar cada pieza a su mes para construir la URL pública correcta del CDN
-  const items: Array<{ pieza: Pieza; mes: string }> = [
-    ...piezasMesPrev.map((pieza) => ({ pieza, mes: mesPrev })),
-    ...piezasMesActual.map((pieza) => ({ pieza, mes: mesActual })),
-  ];
-
-  if (items.length === 0) {
-    return NextResponse.json({ mes: mesActual, publicadas: [], nota: 'No hay piezas para procesar.' });
-  }
-
-  const todasPiezas = items.map((it) => it.pieza);
-  const mapaMes = new Map<string, string>(items.map((it) => [it.pieza.id, it.mes]));
-
-  const publicadas: Array<{ canal: 'instagram' | 'facebook'; id: string; mediaId: string }> = [];
-  const fallidas: Array<{ canal: 'instagram' | 'facebook'; id: string; error: string }> = [];
-
-  // 1. Canal Instagram
-  if (igUserId && igToken) {
-    try {
-      const captionsIG = await captionsRecientesIG(igUserId, igToken);
-      const pendientesIG = pendientesInstagram(todasPiezas, ahora, captionsIG);
-
-      for (const pieza of pendientesIG) {
-        const mesPieza = mapaMes.get(pieza.id) ?? mesActual;
-        try {
-          const { id } = await publicarPieza(pieza, mesPieza, { igUserId, token: igToken });
-          publicadas.push({ canal: 'instagram', id: pieza.id, mediaId: id });
-        } catch (e) {
-          fallidas.push({
-            canal: 'instagram',
-            id: pieza.id,
-            error: e instanceof Error ? e.message : String(e),
-          });
-        }
-      }
-    } catch (e) {
-      fallidas.push({
-        canal: 'instagram',
-        id: 'lectura-perfil',
-        error: e instanceof Error ? e.message : String(e),
-      });
-    }
-  }
-
-  // 2. Canal Facebook
-  if (fbPageId && fbToken) {
-    try {
-      const mensajesFB = await mensajesRecientesFB(fbPageId, fbToken);
-      const pendientesFB = pendientesFacebook(todasPiezas, ahora, mensajesFB);
-
-      for (const pieza of pendientesFB) {
-        const mesPieza = mapaMes.get(pieza.id) ?? mesActual;
-        try {
-          const { id } = await publicarPiezaFacebook(pieza, mesPieza, {
-            pageId: fbPageId,
-            token: fbToken,
-          });
-          publicadas.push({ canal: 'facebook', id: pieza.id, mediaId: id });
-        } catch (e) {
-          fallidas.push({
-            canal: 'facebook',
-            id: pieza.id,
-            error: e instanceof Error ? e.message : String(e),
-          });
-        }
-      }
-    } catch (e) {
-      fallidas.push({
-        canal: 'facebook',
-        id: 'lectura-perfil',
-        error: e instanceof Error ? e.message : String(e),
-      });
-    }
-  }
-
-  return NextResponse.json(
+function canalesDe(o: Opciones): { canales: Canal[]; omitidos: NombreCanal[] } {
+  const canales: Canal[] = [
     {
-      mes: mesActual,
-      revisadas: items.length,
-      publicadas,
-      fallidas,
+      nombre: 'instagram',
+      recientes: (op) => textosRecientes(op, `${op.igUserId}/media`, 'caption', op.token),
+      pendientes: pendientesInstagram,
+      publicar: (pieza, mes, op) =>
+        publicarPieza(pieza, mes, {
+          igUserId: op.igUserId,
+          token: op.token,
+          fetchImpl: op.fetchImpl,
+        }),
     },
-    { status: fallidas.length > 0 ? 500 : 200 },
-  );
+  ];
+  const omitidos: NombreCanal[] = [];
+
+  // Capturados en constantes: dentro de los closures el estrechamiento de tipo
+  // de `o.fbPageId` no sobrevive.
+  const pageId = o.fbPageId;
+  const fbToken = o.fbToken;
+  if (pageId && fbToken) {
+    canales.push({
+      nombre: 'facebook',
+      recientes: (op) => textosRecientes(op, `${pageId}/posts`, 'message', fbToken),
+      pendientes: pendientesFacebook,
+      publicar: (pieza, mes, op) =>
+        publicarPiezaFacebook(pieza, mes, { pageId, token: fbToken, fetchImpl: op.fetchImpl }),
+    });
+  } else {
+    omitidos.push('facebook');
+  }
+
+  return { canales, omitidos };
+}
+
+/**
+ * Publica las piezas que toquen ahora mismo, en todos los canales configurados.
+ *
+ * La llaman dos puertas —el `scheduled()` del Worker y la ruta HTTP— y no puede
+ * saber cuál de las dos fue: todo lo que depende del entorno entra por
+ * parámetro.
+ */
+export async function publicarLoQueToca(opciones: Opciones): Promise<Resultado> {
+  const mes = mesDe(opciones.ahora);
+  const previo = mesAnterior(mes);
+  const buscar = opciones.buscarMes ?? piezasDe;
+  const { canales, omitidos } = canalesDe(opciones);
+
+  // El mes anterior entra porque la franja de Facebook de una pieza del ultimo
+  // dia a las 18:00 cae el dia 1 del siguiente. Un mes sin calendario escrito no
+  // es un error: es un mes sin escribir.
+  const delPrevio = buscar(previo) ?? [];
+  const deEsteMes = buscar(mes) ?? [];
+  const piezas = [...delPrevio, ...deEsteMes];
+
+  // Se sale antes de consultar los perfiles para no gastar llamadas de balde.
+  if (piezas.length === 0) {
+    return { mes, revisadas: 0, publicadas: [], fallidas: [], omitidos };
+  }
+
+  // ⚠️ El mapa va indexado por el OBJETO, no por `pieza.id`: nada garantiza que
+  // un id sea unico entre meses, y una colision publicaria la imagen del mes
+  // equivocado, que en el CDN es un 404.
+  const mesDePieza = new Map<Pieza, string>();
+  for (const p of delPrevio) mesDePieza.set(p, previo);
+  for (const p of deEsteMes) mesDePieza.set(p, mes);
+
+  const publicadas: Resultado['publicadas'] = [];
+  const fallidas: Resultado['fallidas'] = [];
+
+  for (const canal of canales) {
+    try {
+      const recientes = await canal.recientes(opciones);
+      for (const pieza of canal.pendientes(piezas, opciones.ahora, recientes)) {
+        try {
+          const { id } = await canal.publicar(pieza, mesDePieza.get(pieza) ?? mes, opciones);
+          publicadas.push({ canal: canal.nombre, id: pieza.id, mediaId: id });
+        } catch (e) {
+          // Una pieza que falla no debe impedir las demas del mismo dia.
+          fallidas.push({ canal: canal.nombre, id: pieza.id, error: mensaje(e) });
+        }
+      }
+    } catch (e) {
+      // Un canal caido no debe impedir el otro.
+      fallidas.push({ canal: canal.nombre, id: 'lectura-perfil', error: mensaje(e) });
+    }
+  }
+
+  return { mes, revisadas: piezas.length, publicadas, fallidas, omitidos };
 }
 ```
 
-- [ ] **Paso 2: Modificar `lib/publicar/cli.ts` para soportar `--facebook`**
+- [ ] **Paso 3: Pasar los secretos de Facebook en `worker.ts`**
 
-Actualizar `lib/publicar/cli.ts`:
+`worker.ts` no aprende nada de Facebook: solo reenvía dos variables más y añade el
+canal a su línea de log.
 
 ```typescript
-import { join } from 'node:path';
-import { pathToFileURL } from 'node:url';
+    ctx.waitUntil(
+      publicarLoQueToca({
+        igUserId,
+        token,
+        // Opcionales a proposito: sin ellos Facebook se omite y la tanda sigue
+        // publicando en Instagram. Ver `canalesDe` en tanda.ts.
+        fbPageId: env.FB_PAGE_ID,
+        fbToken: env.FB_PAGE_ACCESS_TOKEN,
+        ahora: new Date(),
+      })
+        .then((r) => {
+          // Sin el token ni el caption: esto acaba en los logs.
+          const omitidos = r.omitidos.length > 0 ? `, omitidos ${r.omitidos.join(',')}` : '';
+          console.log(
+            `cron ${r.mes}: revisadas ${r.revisadas}, publicadas ` +
+              `${r.publicadas.map((p) => `${p.canal}:${p.id}`).join(',') || 'ninguna'}, ` +
+              `fallidas ${r.fallidas.map((f) => `${f.canal}:${f.id} (${f.error})`).join(',') || 'ninguna'}` +
+              omitidos,
+          );
+        })
+        .catch((e) => console.error(`cron: ${e instanceof Error ? e.message : e}`)),
+    );
+```
+
+⚠️ La guarda de arriba (`if (!igUserId || !token)`) **no se toca**: Instagram sigue
+siendo obligatorio. Facebook no.
+
+- [ ] **Paso 4: Pasar los secretos de Facebook en la ruta HTTP**
+
+`app/api/cron/publicar/route.ts` sigue siendo una puerta fina. Solo cambia la
+llamada:
+
+```typescript
+  const resultado = await publicarLoQueToca({
+    igUserId,
+    token,
+    fbPageId: process.env.FB_PAGE_ID,
+    fbToken: process.env.FB_PAGE_ACCESS_TOKEN,
+    ahora: new Date(),
+  });
+  return NextResponse.json(resultado, {
+    status: resultado.fallidas.length > 0 ? 500 : 200,
+  });
+```
+
+⚠️ **No añadir `export const maxDuration = 300`.** Es una directiva del runtime
+serverless de Vercel y en Cloudflare Workers no hace nada; el ciclo de vida del
+cron lo controla `ctx.waitUntil()` en `worker.ts`. El único `export const` que va
+aquí es el `dynamic = 'force-dynamic'` que ya está.
+
+⚠️ `omitidos` **no** cuenta para el status: un canal sin configurar devuelve 200.
+
+- [ ] **Paso 5: `--facebook` en `lib/publicar/cli.ts`**
+
+Tres cambios:
+
+1. Añadir la opción `--facebook`, que cambia lo que se muestra en el ensayo (una
+   sola imagen 4x5 y el caption de Facebook) y a dónde se publica.
+2. Sustituir `await import(pathToFileURL(...))` por `piezasDe(mes)` de
+   `content/piezas/index.ts`. Hoy el ensayo puede funcionar para un mes que el
+   cron no ve —porque no está en `MESES`—, que es la peor forma posible de
+   confirmar que algo va a salir.
+3. **No copiar la guarda duplicada de la versión anterior de este plan:** tras
+   `if (!pageId || !token)` traía un `if (!token)` inalcanzable que además
+   nombraba `IG_ACCESS_TOKEN` dentro de la rama de Facebook.
+
+```typescript
+import { piezasDe } from '../../content/piezas/index.ts';
 import { archivosDe, publicarPieza, urlPublica } from './meta.ts';
 import { publicarPiezaFacebook } from './facebook.ts';
 import { captionFacebook } from './programado.ts';
-import type { Pieza } from '../piezas/tipos.ts';
 
-function argumento(nombre: string): string | undefined {
-  const i = process.argv.indexOf(`--${nombre}`);
-  return i === -1 ? undefined : process.argv[i + 1];
-}
+// ...
 
-function mesActual(): string {
-  const hoy = new Date();
-  return `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`;
-}
-
-async function main() {
-  const mes = argumento('mes') ?? mesActual();
-  const id = argumento('id');
-  const esFacebook = process.argv.includes('--facebook');
-  const enSerio = process.argv.includes('--publicar');
-
-  if (!id) {
-    console.error('Falta --id <pieza>. Ejemplo: npm run publicar -- --id sri-rechazo-01 [--facebook]');
+  const piezas = piezasDe(mes);
+  if (!piezas) {
+    console.error(`El mes ${mes} no esta en MESES (content/piezas/index.ts). El cron tampoco lo veria.`);
     process.exit(1);
   }
-
-  const ruta = pathToFileURL(join(process.cwd(), 'content', 'piezas', `${mes}.ts`)).href;
-  const piezas: Pieza[] = (await import(ruta)).default;
   const pieza = piezas.find((p) => p.id === id);
 
-  if (!pieza) {
-    console.error(`No hay ninguna pieza con id ${id} en ${mes}.`);
-    process.exit(1);
-  }
-
-  console.log(`${pieza.id} · ${pieza.producto ?? 'sin producto'} · Canal: ${esFacebook ? 'Facebook' : 'Instagram'}`);
-
-  if (esFacebook) {
-    console.log(`  Imagen: ${urlPublica(mes, `${pieza.id}-1-4x5.png`)}`);
-    console.log(`  Caption:\n${captionFacebook(pieza)}\n`);
-  } else {
-    for (const archivo of archivosDe(pieza)) console.log(`  ${urlPublica(mes, archivo)}`);
-    console.log(`  Caption:\n${pieza.caption ?? '(vacio)'}\n`);
-  }
-
-  if (!enSerio) {
-    console.log('Ensayo. Nada se publicó. Añade --publicar para hacerlo de verdad.');
-    return;
-  }
+// ...
 
   if (esFacebook) {
     const pageId = process.env.FB_PAGE_ID;
@@ -1767,38 +1950,33 @@ async function main() {
       console.error('\nFaltan FB_PAGE_ID o FB_PAGE_ACCESS_TOKEN en el entorno.');
       process.exit(1);
     }
-    if (!token) {
-      console.error('Falta FB_PAGE_ACCESS_TOKEN o IG_ACCESS_TOKEN en el entorno.');
-      process.exit(1);
-    }
-    console.log('Publicando en Facebook...');
     const { id: publicado } = await publicarPiezaFacebook(pieza, mes, { pageId, token });
-    console.log(`Publicado en Facebook con id: ${publicado}`);
-    console.log(`https://facebook.com/${publicado}`);
+    console.log(`Publicado en Facebook: https://facebook.com/${publicado}`);
   } else {
-    const igUserId = process.env.IG_USER_ID;
-    const token = process.env.IG_ACCESS_TOKEN;
-    if (!igUserId || !token) {
-      console.error('Faltan IG_USER_ID o IG_ACCESS_TOKEN en el entorno.');
-      process.exit(1);
-    }
-    console.log('Publicando en Instagram...');
-    const { id: publicado } = await publicarPieza(pieza, mes, { igUserId, token });
-    console.log(`Publicado en Instagram: ${publicado}`);
-    console.log(`https://www.instagram.com/p/`);
+    // ...la rama de Instagram que ya existe, sin cambios
   }
-}
-
-main().catch((e) => {
-  console.error(e instanceof Error ? e.message : e);
-  process.exit(1);
-});
 ```
 
-- [ ] **Paso 3: Verificar tests**
+- [ ] **Paso 6: Verificar**
 
-Ejecutar: `npm test`
-Resultado esperado: **100 tests pasando**.
+```bash
+npm test          # los tests de la fabrica
+npx tsc --noEmit  # los tipos
+```
+
+Los dos, y **no son redundantes**: uno solo deja pasar clases enteras de error.
+Comparar contra la línea base medida en el Paso 1, no contra un número escrito
+aquí.
+
+Comprobación adicional, porque el bug que más caro sale en esta tarea es mudo:
+
+```bash
+grep -rn "await import(\`" lib/ app/ content/ --include='*.ts'
+```
+
+Debe no devolver nada. Un import dinámico con plantilla compila, despliega y luego
+responde «no hay piezas» todos los meses **sin dar error** — está documentado en
+`content/piezas/index.ts:6-16`.
 
 ---
 
@@ -2292,14 +2470,14 @@ export default piezas;
 
 Ejecutar:
 1. `npm run piezas -- --check` → `7 pieza(s) validas en 2026-09.`
-2. `npm test` → **100 tests pasando, 0 fallando**.
+2. `npm test` → todo en verde, 0 fallando (contra la línea base medida, no contra un número escrito aquí).
 3. `npx tsc --noEmit` → compilación TypeScript estricta sin errores.
 
 ---
 
 ## Criterio de aceptación global
 
-1. `npm test` pasa con **100 tests en verde** (29 tests nuevos sobre la línea base de 71).
+1. `npm test` pasa con **0 fallando**, y con más tests que la línea base medida al empezar (los deltas de las siete tareas suman unos 29 nuevos).
 2. `npm run piezas -- --check` valida correctamente `content/piezas/2026-09.ts` con sus bloques `facebook`.
 3. `npm run captions -- --mes 2026-09` imprime los bloques `facebook: { ... }` listos para copiar.
 4. `yaPublicada()` protege de forma independiente contra publicaciones dobles en Instagram y Facebook.
