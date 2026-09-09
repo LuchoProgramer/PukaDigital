@@ -1,6 +1,14 @@
 # Community management — @pukadigital
 
-Cómo se trabaja el orgánico de Facebook e Instagram. Actualizado: **2026-09-01**.
+Cómo se trabaja el orgánico de Facebook e Instagram. Actualizado: **2026-09-09**.
+
+⚠️ **Desde el 2026-09-09 la fábrica publica sola en los dos canales.** Los
+carruseles que salen de `content/piezas/` van a Instagram y a Facebook sin que
+nadie los suba a mano, cada uno con su formato: el carrusel completo en
+Instagram, **una sola imagen con caption largo** en Facebook. Lo que se sigue
+subiendo a mano son los videos y lo que no pase por la fábrica.
+
+Cómo funciona y qué hay que escribir por pieza: `PUBLICACION_EN_REDES.md`.
 
 Para pauta, píxeles y atribución, ver `ECOSISTEMA_ADS.md`.
 
