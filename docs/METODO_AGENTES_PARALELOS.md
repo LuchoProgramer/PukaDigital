@@ -50,7 +50,16 @@ tarea, mismo worktree, mismo momento:
 
 | | 3.7 Flash | 3.8 Flash |
 |---|---|---|
-| Contraste largo | ✅ 291 s, 5 hallazgos correctos | ❌ timeout a 304 s, **2 de 2 intentos** |
+| SistemaSalud, 2026-09-05 | ✅ 291 s, 5 hallazgos correctos | ❌ timeout a 304 s, **2 de 2 intentos** |
+| PukaDigital, **2026-09-09** | ✅ 142 s, 7 hallazgos | ✅ **242 s, 12 hallazgos** |
+
+⚠️ **La segunda medición contradice a la primera, y por eso está aquí.** El
+2026-09-09, con el mismo prompt y lanzados a la vez, 3.8 **no** hizo timeout:
+tardó un 70% más y encontró un 70% más. Y los dos hallazgos que solo vio él eran
+de los importantes —un `\n` que no cortaba línea y un argumento técnico falso—.
+
+No se sustituye la fila vieja: las dos son ciertas, en tareas y días distintos.
+Lo que cambia es la conclusión práctica: **3.8 ya no se descarta de entrada.**
 
 `agy` tiene un timeout interno de ~5 minutos. El 3.8 tarda 13,3 s al primer token
 —contra 2,99 s de mediana— y produce 70% más tokens: arranca más lento, es más
