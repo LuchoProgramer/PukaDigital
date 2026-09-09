@@ -3,6 +3,7 @@ import { Resvg } from '@resvg/resvg-js';
 import { FORMATOS, formatosDe } from './formatos.ts';
 import { cargarFuentes, type Fuente } from './fuentes.ts';
 import { Plantilla } from './plantilla.tsx';
+import { PlantillaFacebook } from './plantillaFacebook.tsx';
 import { sistemas } from './sistemas.ts';
 import { formatear, validar } from './validar.ts';
 import type { Formato, Pieza, Slide } from './tipos.ts';
@@ -58,6 +59,22 @@ export async function renderPieza(pieza: Pieza): Promise<Salida[]> {
         png: await renderSlide(slide, pieza, formato, indice, total),
       });
     }
+  }
+
+  // La imagen de Facebook, si la pieza la declara. Va en 4x5 —el formato que
+  // Facebook recomienda para el feed— y con su propia plantilla: no es una
+  // slide del carrusel.
+  const imagenFb = pieza.facebook?.imagen;
+  if (imagenFb) {
+    const { ancho, alto } = FORMATOS['4x5'];
+    const svg = await satori(
+      PlantillaFacebook({ imagen: imagenFb, tokens: sistemas[pieza.sistema] }),
+      { width: ancho, height: alto, fonts: fuentes() },
+    );
+    salida.push({
+      nombre: `${pieza.id}-fb.png`,
+      png: Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: ancho } }).render().asPng()),
+    });
   }
 
   return salida;
