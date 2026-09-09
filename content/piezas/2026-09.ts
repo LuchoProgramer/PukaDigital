@@ -35,6 +35,21 @@ const piezas: Pieza[] = [
       'registro profesional, no el del sistema.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#podologia #recetamedica #Ecuador #normativasalud',
+    facebook: {
+      publicarEl: '2026-09-03T09:00',
+      caption:
+        'Un podólogo no puede recetar\n' +
+        'Y muchos sistemas dejan imprimir «receta médica» igual. Ahí empieza el problema.\n\n' +
+        'Lo dice el Art. 168\n' +
+        'Solo médicos, odontólogos y obstetrices están facultados para prescribir medicamentos. La podología no está en esa lista.\n\n' +
+        'No es un tecnicismo\n' +
+        'Un documento mal titulado te expone a ti, no al software. El papel lleva tu nombre y tu registro profesional.\n\n' +
+        'Lo correcto: indicaciones\n' +
+        'El documento se llama «indicaciones de tratamiento podológico» y lo dice en su propio pie.\n\n' +
+        'Y el paciente lo verifica\n' +
+        'Cada documento sale con un enlace propio. Quien lo reciba comprueba que es auténtico sin llamar a la consulta.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
     slides: [
       {
         badge: 'LEY ORGÁNICA DE SALUD',
@@ -88,6 +103,21 @@ const piezas: Pieza[] = [
       'tarde.\n\n' +
       'pukadigital.com/agentes-ia\n\n' +
       '#CRM #WhatsAppBusiness #Ecuador #pymes',
+    facebook: {
+      publicarEl: '2026-09-03T18:00',
+      caption:
+        'Lo que cuesta un CRM aquí\n' +
+        'Precios reales de los que se venden en Ecuador. Sin descuentos de lanzamiento.\n\n' +
+        'Entre $49 y $499 al mes\n' +
+        'Ese es el rango de los que se posicionan como CRM con WhatsApp para pymes en el mercado ecuatoriano.\n\n' +
+        '¿Por qué tan caro?\n' +
+        'Casi todos cobran por conversación o por agente. Creces, y la factura crece contigo aunque el trabajo sea el mismo.\n\n' +
+        'Lo que cobramos nosotros — $14.99 al mes\n' +
+        'Ese es el Básico. Pro $25 y Business $60. Un mes gratis para probarlo.\n\n' +
+        'Compara antes de firmar\n' +
+        'No te pedimos que nos creas: pide la tabla completa y decide con los números delante.\n\n' +
+        'pukadigital.com/agentes-ia',
+    },
     slides: [
       {
         badge: 'SIN MAQUILLAJE',
@@ -138,6 +168,21 @@ const piezas: Pieza[] = [
       'No somos abogados: esto existe y les aplica, confírmenlo con su asesor.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#proteccciondedatos #clinicas #Ecuador #normativasalud',
+    facebook: {
+      publicarEl: '2026-09-08T18:00',
+      caption:
+        'Tu clínica ya está en falta\n' +
+        'Y el plazo para corregirlo venció hace meses. Casi nadie se enteró.\n\n' +
+        'Datos de salud: gran escala\n' +
+        'Por calificación directa. No hay que puntuar nada ni contar pacientes: una clínica califica por lo que hace.\n\n' +
+        'Qué te obliga\n' +
+        'Delegado de Protección de Datos registrado, Registro de Actividades de Tratamiento, y auditoría cada 12 meses con informe archivado 5 años.\n\n' +
+        'Tengas o no software\n' +
+        'Esto no va de sistemas. Aplica a la clínica que lleva fichas en papel exactamente igual que a la que las lleva digitales.\n\n' +
+        'Confírmalo con tu asesor\n' +
+        'No somos abogados y esto no es asesoría legal. Es un aviso: la norma existe y te aplica.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
     slides: [
       {
         badge: 'RESOLUCIÓN 2026-0005-R',
@@ -187,6 +232,21 @@ const piezas: Pieza[] = [
       'Desde $14.99 al mes, con un mes gratis.\n\n' +
       'pukadigital.com/agentes-ia\n\n' +
       '#CRM #WhatsAppBusiness #ventas #Ecuador',
+    facebook: {
+      publicarEl: '2026-09-11T09:00',
+      caption:
+        'No es un chatbot\n' +
+        'Y la diferencia se nota el día que tienes 40 conversaciones abiertas.\n\n' +
+        'Un bot contesta y ya\n' +
+        'Resuelve la pregunta del momento. Mañana no recuerda quién era esa persona ni qué quería.\n\n' +
+        'Un CRM recuerda\n' +
+        'Cada conversación es un cliente con historial, etapa y siguiente paso. Sabes a quién llamar sin buscar en el chat.\n\n' +
+        'Qué incluye\n' +
+        'Inbox centralizado, pipeline en Kanban, ficha de cliente, reportes e integraciones. El bot es una parte.\n\n' +
+        'Pruébalo un mes — $14.99 al mes\n' +
+        'Sin tarjeta para empezar.\n\n' +
+        'pukadigital.com/agentes-ia',
+    },
     slides: [
       {
         badge: 'CRM PARA WHATSAPP',
@@ -236,6 +296,21 @@ const piezas: Pieza[] = [
       'No es tu computadora ni tu internet. Es un carácter invisible.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#SRI #facturacionelectronica #Ecuador #consultoriomedico',
+    facebook: {
+      publicarEl: '2026-09-15T18:00',
+      caption:
+        'Pulsaste Enter y se cayó\n' +
+        '«Archivo no cumple estructura XML». El motivo es más tonto de lo que parece.\n\n' +
+        'El XSD no admite saltos\n' +
+        'El esquema del SRI define los campos de texto sin permitir saltos de línea. Uno solo invalida el comprobante entero.\n\n' +
+        'Dónde pasa siempre\n' +
+        'En el motivo de una nota de crédito. Es texto largo, uno separa en párrafos, y ahí se rompe.\n\n' +
+        'No es tu internet\n' +
+        'Es un carácter que no se ve. Por eso el error desconcierta: el texto se ve perfecto en pantalla.\n\n' +
+        'Un sistema debería avisarte\n' +
+        'Antes de enviarlo, no después del rechazo. Eso es lo que separa un sistema que factura de uno que lo intenta.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
     slides: [
       {
         badge: 'ERROR 35',
@@ -285,6 +360,21 @@ const piezas: Pieza[] = [
       'Reserva un punto de emisión alto y descartable para tus pruebas.\n\n' +
       'pukadigital.com\n\n' +
       '#SRI #facturacionelectronica #Ecuador #emprendimiento',
+    facebook: {
+      publicarEl: '2026-09-18T09:00',
+      caption:
+        'Cuatro cosas, y ninguna es el software\n' +
+        'Lo que de verdad te pide el SRI para emitir tu primera factura electrónica.\n\n' +
+        'RUC activo y firma vigente\n' +
+        'La firma electrónica caduca. Si la tuya venció, no hay sistema que emita nada por ti.\n\n' +
+        'El RUC debe coincidir\n' +
+        'El de la empresa y el del certificado firmante. Si eres persona natural, tu RUC es tu cédula más 001.\n\n' +
+        'Ojo con las pruebas\n' +
+        'El secuencial se comparte entre pruebas y producción. Probar en tu punto real te quema números que no recuperas.\n\n' +
+        'Reserva un punto descartable\n' +
+        'Uno alto, solo para pruebas. Es el consejo que nadie te da y que evita un lío difícil de deshacer.\n\n' +
+        'pukadigital.com',
+    },
     slides: [
       {
         badge: 'ANTES DE EMPEZAR',
@@ -335,6 +425,21 @@ const piezas: Pieza[] = [
       'Un garabato no es una firma.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#recetamedica #ACESS #Ecuador #normativasalud',
+    facebook: {
+      publicarEl: '2026-09-22T18:00',
+      caption:
+        'Siete cosas que faltan en tu receta\n' +
+        'Y una de ellas la confunde casi todo el mundo.\n\n' +
+        'La edad, en años y meses\n' +
+        'Si el paciente es menor de cinco años, la edad va en años y meses. Solo el año no cumple.\n\n' +
+        'La cantidad, dos veces\n' +
+        'En números y en letras. Como en un cheque, y por el mismo motivo: que no se pueda alterar.\n\n' +
+        'El registro ACESS\n' +
+        'No es el registro SENESCYT de tu título. Son dos números distintos y la receta pide el de ACESS.\n\n' +
+        'Un garabato no es firma\n' +
+        'Textual del Art. 5: «no se aceptarán rúbricas o trazos por firma». Y las recetas se archivan cinco años.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
     slides: [
       {
         badge: 'ACESS-2023-0030',
