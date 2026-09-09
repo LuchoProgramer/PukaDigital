@@ -74,13 +74,38 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       );
     }
 
+    // Una fecha con formato malo no da error en ninguna parte: `aUTC()` devuelve
+    // NaN y `pendientes*` la descarta con un `return false` mudo. La pieza no
+    // sale, y no hay nada en los logs que lo explique. Se caza aquí o no se caza.
+    const fechaValida = (valor: string) =>
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(valor) &&
+      !Number.isNaN(new Date(`${valor}:00.000Z`).getTime()) &&
+      // `new Date('2026-09-31')` no falla: rueda al 1 de octubre. Comparar el
+      // día de vuelta es lo único que caza un día que no existe.
+      new Date(`${valor}:00.000Z`).toISOString().slice(8, 10) === valor.slice(8, 10);
+
+    if (pieza.publicarEl && !fechaValida(pieza.publicarEl)) {
+      en('publicarEl', `«${pieza.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
+    }
+
     // Validación del bloque facebook
     if (pieza.facebook) {
-      if (
-        pieza.facebook.publicarEl &&
-        (!pieza.facebook.caption || pieza.facebook.caption.trim() === '')
-      ) {
+      // ⚠️ El caption se comprueba exista o no `facebook.publicarEl`: sin él la
+      // fecha cae a la franja siguiente, así que la pieza se publica igual. Y un
+      // caption vacío no cae al compositor —`'' ?? componer(p)` devuelve `''`,
+      // porque `??` solo mira null y undefined—, así que saldría un post en
+      // blanco. En cada corrida, además: `yaPublicada('')` es false y nunca lo
+      // reconoce como ya publicado.
+      if (pieza.facebook.publicarEl && pieza.facebook.caption === undefined) {
         en('facebook.caption', 'la pieza declara facebook.publicarEl pero no tiene facebook.caption');
+      } else if (
+        pieza.facebook.caption !== undefined &&
+        pieza.facebook.caption.trim() === ''
+      ) {
+        en('facebook.caption', 'el caption de Facebook está vacío: quítalo para que lo componga desde las slides, o escríbelo');
+      }
+      if (pieza.facebook.publicarEl && !fechaValida(pieza.facebook.publicarEl)) {
+        en('facebook.publicarEl', `«${pieza.facebook.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
       }
     }
 

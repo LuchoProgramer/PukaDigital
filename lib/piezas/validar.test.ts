@@ -181,3 +181,49 @@ test('acepta una pieza sin bloque facebook o con bloque facebook completo', () =
   assert.deepEqual(validar([completa]), []);
 });
 
+
+/**
+ * Los dos que siguen cierran huecos que encontró el contraste contra el código
+ * ya implementado. Los dos fallaban **en silencio**, que es la forma cara de
+ * fallar en este proyecto: `piezas --check` daba el visto bueno y el problema
+ * aparecía —o no aparecía— en producción.
+ */
+test('un facebook.caption en blanco no pasa, aunque no declare facebook.publicarEl', () => {
+  // `??` solo cae al compositor con null o undefined: con '' devuelve ''. La
+  // pieza publicaria un post vacio, y en cada corrida dentro de la ventana,
+  // porque `yaPublicada('')` es false y nunca lo reconoce como ya publicado.
+  const pieza: Pieza = {
+    id: 'cap-vacio',
+    sistema: 'puka',
+    caption: 'El caption de Instagram',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: '   ' },
+    slides: [{ titular: 'Un titular' }],
+  };
+  const errores = validar([pieza]);
+  assert.equal(errores.length, 1);
+  assert.match(errores[0].campo, /facebook\.caption/);
+});
+
+test('una fecha mal formada no pasa la validacion: si no, el cron la descarta sin decir nada', () => {
+  // `aUTC()` da NaN y `pendientes*` la descarta con un `return false` mudo: la
+  // pieza no sale y no hay error en ningun log que lo explique.
+  const conEspacio: Pieza = {
+    id: 'fecha-con-espacio',
+    sistema: 'puka',
+    caption: 'c',
+    publicarEl: '2026-09-09 09:00',
+    slides: [{ titular: 'T' }],
+  };
+  assert.equal(validar([conEspacio]).length, 1, 'publicarEl con espacio en vez de T');
+
+  const diaImposible: Pieza = {
+    id: 'dia-imposible',
+    sistema: 'puka',
+    caption: 'c',
+    publicarEl: '2026-09-09T09:00',
+    facebook: { caption: 'fb', publicarEl: '2026-09-31T09:00' },
+    slides: [{ titular: 'T' }],
+  };
+  assert.equal(validar([diaImposible]).length, 1, '31 de septiembre no existe');
+});

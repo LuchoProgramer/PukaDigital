@@ -89,7 +89,15 @@ async function textosRecientes(
     data?: Array<Record<string, string | undefined>>;
     error?: { message: string };
   };
-  if (cuerpo.error) throw new Error(`No se pudo leer el perfil: ${cuerpo.error.message}`);
+  // ⚠️ Se mira `res.ok` **ademas** de `cuerpo.error`. Un gateway que devuelve 502
+  // con un cuerpo sin ese campo —lo normal en un proxy, no en Graph API— haria
+  // que esto devolviera `[]`, y `[]` significa «este perfil no ha publicado
+  // nada»: desarma la unica defensa contra publicar dos veces. Mas vale una
+  // tanda fallida que una pieza duplicada en el feed.
+  if (!res.ok || cuerpo.error) {
+    const detalle = cuerpo.error?.message ?? `HTTP ${res.status}`;
+    throw new Error(`No se pudo leer el perfil: ${detalle}`);
+  }
   return (cuerpo.data ?? []).map((m) => m[campo] ?? '').filter(Boolean);
 }
 

@@ -210,3 +210,34 @@ test('dos piezas con el mismo id en meses distintos no se pisan el mes de la ima
     'la imagen debe pedirse a su propio mes, no al de la corrida',
   );
 });
+
+/**
+ * Cubre un hueco que dejó la reescritura de la Tarea 6: `textosRecientes` solo
+ * miraba `cuerpo.error`, no `res.ok`. Un gateway que devuelve 502 con un cuerpo
+ * sin ese campo —lo normal en un proxy, no en Graph API— hacía que la lectura
+ * del perfil devolviera `[]` **en silencio**. Y `[]` significa «este perfil no
+ * ha publicado nada», que es justo lo que desarma la unica defensa contra
+ * publicar dos veces: la pieza se republicaba y la tanda lo reportaba como
+ * exito. Comprobado ejecutandolo el 2026-09-09.
+ */
+test('si la lectura del perfil falla, el canal no publica: no se asume perfil vacio', async () => {
+  let publicaciones = 0;
+  const impl = (async (url: string | URL | Request) => {
+    const u = String(url);
+    if (u.includes('/media?')) return new Response('{}', { status: 502 });
+    if (u.endsWith('/media_publish')) {
+      publicaciones += 1;
+      return json({ id: 'media-99' });
+    }
+    return json({ id: 'contenedor-1' });
+  }) as unknown as typeof fetch;
+
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([pieza('ya-salio', '2026-09-09T09:00')]),
+  });
+
+  assert.deepEqual(r.publicadas, [], 'no debe publicar con el perfil ilegible');
+  assert.equal(publicaciones, 0, 'no debe llegar a la Graph API de publicacion');
+  assert.deepEqual(r.fallidas.map((f) => f.id), ['lectura-perfil']);
+});
