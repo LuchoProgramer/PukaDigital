@@ -14,10 +14,15 @@ que `agy -p` no carga `AGENTS.md` por su cuenta— vive en
 > sobre Django y una suite grande. Lo medido aquí se marca como de aquí —hoy, la
 > comparación de modelos del 2026-09-09—, y las dos cosas no se mezclan.
 >
-> **Última sincronización con el documento de SistemaSalud: 2026-09-13.** De esa
-> pasada entraron cuatro cosas: correr el código del plan antes de dárselo al
+> **Última sincronización con SistemaSalud: 2026-09-13**, pedida y contestada por
+> su propia sesión. Entraron: correr el código del plan antes de dárselo al
 > agente, mutar la plantilla y no solo la lógica, medir el propio arnés antes de
-> acusar al código, y pedirle al agente los caminos de entrada.
+> acusar al código, pedirle al agente los caminos de entrada, las dos plantillas
+> de prompt, y **la corrección del `--print-timeout`**, que desmiente lo que este
+> documento decía sobre los modelos.
+>
+> **Solo `agy` está medido.** Cursor y Gemini CLI están instalados en la máquina
+> pero no forman parte del método, ni allá ni aquí. Codex no se usa.
 
 ---
 
@@ -36,21 +41,48 @@ necesita a su vez un TTY de *entrada* y falla con
 **Vive en `~/.local/bin`, que es global: ya funciona en este repositorio**, no hay
 nada que instalar.
 
+La invocación vigente, la que usa SistemaSalud al 2026-09-13:
+
 ```bash
-agy-headless "el prompt" --effort high --timeout 3600 > salida.md
-agy-headless --prompt-file /ruta/prompt.txt --model gemini-3.7-flash-high --timeout 2400
+agy-headless --prompt-file prompt.txt --model gemini-3.8-flash-high \
+  --timeout 1560 --print-timeout=25m > salida.md 2> salida.err
 ```
 
 Limpia las secuencias ANSI —sin eso el archivo queda ilegible—, respeta un
 timeout propio y propaga el exit code (124 si venció).
 
+🔴 **`--print-timeout` vale 5 minutos por defecto, y el `--timeout` del wrapper
+no lo cambia.** Pasado ese límite `agy` devuelve salida parcial o vacía **con
+exit code 0**: parece que terminó bien. Casi todo lo que se creyó «timeout del
+modelo» era esto.
+
+⚠️ **Y se escribe con `=` y sin `--` delante.** Las dos formas equivocadas fallan
+sin decirlo:
+
+| Cómo se escribe | Qué pasa |
+|---|---|
+| `--print-timeout=25m` | ✅ correcto |
+| `-- --print-timeout 25m` | el wrapper toma la opción como prompt y `agy` recibe `25m` suelto: `unexpected argument` |
+| `-- --print-timeout=25m` | se la traga como prompt y corre con los 5 minutos de siempre, **sin ningún error** |
+
+Confirmar con `pgrep -fl "^agy -p"` que la opción quedó al final del comando.
+
 ⚠️ **`--model` y `--effort` chocan.** El id del modelo ya trae su nivel
-(`gemini-3.7-flash-high`), así que pasar `--effort low` da
+(`gemini-3.8-flash-high`), así que pasar `--effort low` da
 `invalid model selection`. Usar `--effort high` o ninguno de los dos.
 
 ### Qué modelo
 
-**Para análisis largo, 3.7 Flash. No 3.8.** Medido en SistemaSalud con misma
+🔴 **Corrección del 2026-09-13, que invalida la explicación de abajo.** Lo que se
+leyó como «3.8 hace timeout» era el `--print-timeout` de 5 minutos por defecto:
+un límite de la CLI, no del modelo. **Hoy SistemaSalud usa 3.8 Flash High para
+todo**, con `--print-timeout=25m`, y aquí se hace igual.
+
+La historia se conserva porque explica cómo se llegó a una conclusión falsa
+midiendo de verdad: el experimento estaba bien hecho y la interpretación era
+mala. Se atribuyó al modelo lo que era de la herramienta.
+
+**La medición original, para el registro.** Misma
 tarea, mismo worktree, mismo momento:
 
 | | 3.7 Flash | 3.8 Flash |
@@ -66,16 +98,13 @@ de los importantes —un `\n` que no cortaba línea y un argumento técnico fals
 No se sustituye la fila vieja: las dos son ciertas, en tareas y días distintos.
 Lo que cambia es la conclusión práctica: **3.8 ya no se descarta de entrada.**
 
-🔑 **Y la regla no es «3.7 para lo largo».** SistemaSalud llegó a la misma
-conclusión por su cuenta y la dejó mejor formulada: **acotar la tarea y usar el
-que encuentra más.** La medición que hacía quedar mal al 3.8 era un contraste
-abierto sobre un spec entero; con la tarea apuntada a una franja concreta y a
-unos archivos nombrados, termina y encuentra más. El tamaño de la tarea pesaba
-más que el modelo.
+🔑 **La regla vigente: subir el `--print-timeout`, acotar la tarea, y usar el que
+encuentra más** — hoy, 3.8 High.
 
-`agy` tiene un timeout interno de ~5 minutos. El 3.8 tarda 13,3 s al primer token
-—contra 2,99 s de mediana— y produce 70% más tokens: arranca más lento, es más
-verboso y choca antes contra el límite.
+Por qué el 3.8 chocaba primero contra un límite que era de la herramienta: tarda
+13,3 s al primer token —contra 2,99 s de mediana— y produce un 70% más de tokens.
+Arranca más lento y es más verboso, así que llegaba antes a los cinco minutos. Con
+el límite en 25 minutos deja de importar.
 
 🔑 La lección general vale más que el número concreto: **medir contra la tarea
 propia**, no confiar en benchmarks de nadie. Los ids de modelo cambian rápido.
@@ -450,6 +479,107 @@ recuerde.
 8. **Cuarta pasada contra el código ya implementado.**
 9. Arreglar lo que aparezca, con test en rojo primero.
 10. `superpowers:verification-before-completion` antes de decir que está listo.
+
+---
+
+## 12. Las dos plantillas de prompt
+
+Vienen de SistemaSalud, probadas en las corridas que están medidas arriba.
+Adaptadas aquí: cambian los comandos y las rutas, no la estructura.
+
+### Contrastar (solo lectura)
+
+```
+Sos un revisor técnico senior. Contraste de <spec|plan> contra el código real.
+
+## Reglas — SOLO LECTURA, sin excepciones
+- NO modifiques ningún archivo. NO uses git para escribir nada.
+- NO despliegues, no publiques en redes, no llames a la Graph API de Meta.
+- SÍ podés leer cualquier archivo del repositorio.
+- "No encontré nada en esta área" es un resultado VÁLIDO y preferible a inventar
+  uno. Cada hallazgo cita archivo:línea o URL — sin cita no es hallazgo.
+- Tenés ~20 minutos. Priorizá las áreas en orden y decí cuáles no cubriste.
+
+## Qué leer
+AGENTS.md (no se carga solo en headless) y <ruta del spec o del plan>.
+
+## YA CUBIERTO — no lo repitas
+- <lista>
+
+## Áreas NUEVAS, en orden de prioridad
+1. <área concreta, con archivos y preguntas>
+
+## Formato de salida (obligatorio)
+### H1 — <título corto>
+- Severidad: BLOQUEANTE | GRAVE | MENOR
+- Evidencia: <archivo:línea o URL>
+- Qué dice el documento / Qué pasa en realidad / Qué cambiar
+## Áreas sin hallazgos — qué revisaste y por qué no encontraste nada
+## Áreas no cubiertas por tiempo
+```
+
+La primera pasada es igual, sin «YA CUBIERTO», y listando lo que uno ya verificó.
+
+### Ejecutar UNA task
+
+```
+Sos el ejecutor de UNA sola task. La rama <rama> ya está creada y activa.
+
+## Qué leer
+El plan: <ruta>. Leé SOLO la sección "Task N", hasta donde empieza "Task N+1".
+
+## Qué hacer (solo esto)
+Crear o editar estos archivos con el contenido EXACTO de los bloques del plan:
+- <ruta>
+Copialo tal cual: sin mejorarlo, sin reformatear, sin añadir comentarios ni
+type hints ni líneas en blanco extra.
+
+## Qué NO es tuyo
+- Correr tests, mutaciones y commitear: los hace otra persona.
+- NO uses git. NO ejecutes nada. NO toques archivos fuera de la lista.
+
+## Si algo no coincide
+PARÁ esa parte y anotalo en el reporte. No improvises un arreglo distinto.
+
+## Avisos: lo que va a parecer un error y no lo es
+- <por task: un import que consume la task siguiente, un tipo que ya existe…>
+
+## Reporte (formato fijo)
+1. Archivos tocados y líneas de cada uno.
+2. Desviaciones respecto del plan: "ninguna", o cuáles y por qué.
+3. Verificación estática: que los símbolos y rutas que usa el código existan.
+4. Los caminos de entrada de lo que escribiste, y cuáles tienen test.
+5. Lo que no pudiste verificar.
+```
+
+### «¿Copió literal?» se diffea, no se lee
+
+SistemaSalud escribió un comparador de 55 líneas que extrae del plan el bloque de
+cada archivo y lo diffea contra lo que quedó en el repositorio. Para que funcione,
+**cada bloque de código del plan empieza con un comentario con su ruta**
+(`// lib/piezas/plantilla.tsx`). Conviene adoptar esa convención al escribir
+planes aquí, aunque el comparador se escriba después.
+
+⚠️ Si se escribe, **no en `scripts/`**: está en `.gitignore` y no se commitearía
+nunca. Ya pasó una vez.
+
+---
+
+## 13. Repartir un trabajo de video
+
+No hay experiencia medida —ni aquí ni en SistemaSalud— con agentes y video. Esto
+es aplicar el método, y conviene decirlo antes de confiarse:
+
+- **Lo determinista se reparte igual que cualquier código**: composición, tiempos
+  y scripts de render, por task y con código literal. Antes de dárselo, correr el
+  código del plan y **renderizar una muestra**.
+- **El juicio visual y de marca no se delega.** El agente reporta lo que ve
+  —duración, resolución, texto en pantalla, literal— y decide una persona o un
+  criterio escrito antes. «Se ve bien» no es evidencia.
+- **La evidencia que no se pierde** es el archivo renderizado con su duración y su
+  resolución, y un fotograma por escena. El equivalente al status HTTP del QA.
+- **Copy, precios y nombres de clientes quedan fuera del agente.** Salen de
+  `catalogo.ts` y se nombran en el prompt; no se le piden de memoria.
 
 ---
 

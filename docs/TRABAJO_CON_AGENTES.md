@@ -46,6 +46,26 @@ Las tres partes son necesarias y ninguna es opcional:
 el 2026-09-02: es la única barrera que sobrevive al flag, y por eso es donde tiene
 que estar la protección de verdad.
 
+🔴 **Y falta un flag que no se ve venir: `--print-timeout`.** Vale 5 minutos por
+defecto, y pasado ese límite `agy` devuelve salida parcial o vacía **con exit code
+0**. Se escribe `--print-timeout=25m`, con `=` y sin `--` delante; las otras dos
+formas fallan, una con error y la otra en silencio. El detalle, en
+`METODO_AGENTES_PARALELOS.md` §1.
+
+### Dos cosas de seguridad que aprendió SistemaSalud
+
+- **El prompt nunca lleva secretos ni rutas a `.env`.** Aquí eso incluye los
+  tokens de Meta y el `CRON_SECRET`.
+- **Las pruebas de permisos se hacen con `curl`, fuera del agente.** Un encargo que
+  pedía una petición con credenciales ajenas lo **bloqueó el filtro de seguridad
+  del modelo**, que lo leyó como un intento de explotación: volvió en 18 segundos
+  sin hacer nada.
+
+⚠️ Y una que aquí tiene otra forma: en SistemaSalud vigilan que un agente leyendo
+capturas de producción no vea datos de pacientes. Aquí las capturas ya vienen de
+un sistema de demostración, pero **el encuadre sigue siendo criterio humano**: a
+este proyecto ya se le colaron el dock de macOS y rutas con nombres reales.
+
 ### Los permisos, en `~/.gemini/antigravity-cli/settings.json`
 
 Siete tipos de acción —`read_file`, `write_file`, `read_url`, `execute_url`,
