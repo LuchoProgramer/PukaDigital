@@ -140,5 +140,69 @@ export function pendientesFacebook(
   });
 }
 
+/**
+ * La franja del Reel de Instagram: la tercera del tema. Encadena desde la de
+ * Facebook, o desde la del carrusel si la pieza no sale en Facebook. **Sin esa
+ * caída**, una pieza sin imagen de Facebook dejaría al Reel sin fecha, y no
+ * saldría nunca sin que nada lo avisara.
+ *
+ * Sin video renderizado no hay fecha: el Reel todavía no existe.
+ */
+export function fechaReelInstagram(pieza: Pieza): string | undefined {
+  if (!pieza.reel?.video) return undefined;
+  if (pieza.reel.publicarEl) return pieza.reel.publicarEl;
+  const previa = fechaPublicacionFacebook(pieza) ?? pieza.publicarEl;
+  return previa ? franjaSiguiente(previa) : undefined;
+}
+
+/** La cuarta franja del tema: siempre la siguiente a la del Reel de Instagram. */
+export function fechaReelFacebook(pieza: Pieza): string | undefined {
+  const deInstagram = fechaReelInstagram(pieza);
+  return deInstagram ? franjaSiguiente(deInstagram) : undefined;
+}
+
+/**
+ * Si un instante cae dentro de la ventana de publicación. Una fecha imposible no
+ * entra nunca: `NaN < 0` y `NaN > 60` son las dos falsas, y sin la guarda la
+ * pieza se colaría a deshora.
+ */
+function enVentana(fechaLocal: string, ahora: Date): boolean {
+  const cuando = aUTC(fechaLocal);
+  if (Number.isNaN(cuando.getTime())) return false;
+  const minutos = (ahora.getTime() - cuando.getTime()) / 60_000;
+  return minutos >= 0 && minutos <= VENTANA_MINUTOS;
+}
+
+/** Reels pendientes para Instagram. Se compara el caption del Reel contra `/media`. */
+export function pendientesReelInstagram(
+  piezas: Pieza[],
+  ahora: Date,
+  captionsRecientes: string[],
+): Pieza[] {
+  return piezas.filter((pieza) => {
+    const fecha = fechaReelInstagram(pieza);
+    if (!fecha || !pieza.reel?.caption?.trim()) return false;
+    if (!enVentana(fecha, ahora)) return false;
+    return !yaPublicada(pieza.reel.caption, captionsRecientes);
+  });
+}
+
+/**
+ * Reels pendientes para Facebook. Se compara contra las `description` de
+ * `/video_reels`: los Reels no salen en `/posts`.
+ */
+export function pendientesReelFacebook(
+  piezas: Pieza[],
+  ahora: Date,
+  descripcionesRecientes: string[],
+): Pieza[] {
+  return piezas.filter((pieza) => {
+    const fecha = fechaReelFacebook(pieza);
+    if (!fecha || !pieza.reel?.caption?.trim()) return false;
+    if (!enVentana(fecha, ahora)) return false;
+    return !yaPublicada(pieza.reel.caption, descripcionesRecientes);
+  });
+}
+
 /** Alias de compatibilidad hacia atrás para Instagram. */
 export const pendientes = pendientesInstagram;
