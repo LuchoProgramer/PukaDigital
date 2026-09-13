@@ -549,6 +549,9 @@ Expected: `ℹ pass 8` · `ℹ fail 0`
 | `actual.length >= max` → `actual.length > max` | «los grupos cortan a las 4 palabras» |
 | `peso = (palabra) => palabra.length + 1` → `() => 1` | «una palabra larga recibe más tiempo» |
 | borrar el `if (parrafos.length !== duracionesVoz.length)` | «los párrafos y los audios tienen que coincidir» |
+| `/[.?!]$/.test(palabra)` → `/[.,;:?!]$/.test(palabra)` | «una enumeración no deja palabras sueltas» |
+| borrar el bucle que recoge la cola de una palabra | «una enumeración no deja palabras sueltas» |
+| quitarle al bucle la guarda `!/[.?!]$/.test(...)` | «pero una frase de una sola palabra sí es un subtítulo» |
 
 - [ ] **Step 6: commit**
 
@@ -1041,8 +1044,11 @@ test('lee el JSON aunque venga dentro de un bloque de código', () => {
   assert.deepEqual(leerRespuesta(respuesta), { guion: 'Uno.\n\nDos.', caption: 'C' });
 });
 
-test('una respuesta sin guion, o que no es JSON, falla: no hay respaldo', () => {
+test('una respuesta sin guion, sin caption, o que no es JSON, falla: no hay respaldo', () => {
   assert.throws(() => leerRespuesta('{"caption": "C"}'), /sin guion o sin caption/);
+  // Las dos mitades, no una: sin esta, borrar la comprobación del caption no
+  // rompe ningún test. Lo destapó la mutación de la Task 6.
+  assert.throws(() => leerRespuesta('{"guion": "Uno.\\n\\nDos."}'), /sin guion o sin caption/);
   assert.throws(() => leerRespuesta('Aquí tienes tu guion: ...'), /JSON válido/);
 });
 
@@ -1202,7 +1208,7 @@ Expected: `ℹ pass 6` · `ℹ fail 0`
 |---|---|
 | `Exactamente ${pieza.slides.length} párrafos` → `Varios párrafos` | «el prompt pide un párrafo por slide» |
 | `pieza.producto === 'pukahealth'` → `false` | «a PukaHealth le llegan las afirmaciones prohibidas» |
-| en `leerRespuesta`, borrar la comprobación de `caption` | «una respuesta sin guion, o que no es JSON, falla» |
+| en `leerRespuesta`, borrar la comprobación de `caption` | «una respuesta sin guion, sin caption, o que no es JSON, falla» |
 
 - [ ] **Step 6: commit**
 
@@ -1570,8 +1576,12 @@ test('si el comando falla, el error trae sus últimas líneas de stderr', async 
 test('y si el comando solo escribió en stdout, el error trae eso', async () => {
   // HyperFrames escribe ahí sus errores de lint. Sin esto, un render abortado
   // deja «Command failed» y nada más: pasó en el ensayo del paso 0.
+  //
+  // ⚠️ El texto se arma en tiempo de ejecución a propósito. Si se escribe literal,
+  // `error.message` de Node —que es `Command failed: <comando>`— ya lo contiene, y
+  // el test pasa aunque se borre la lectura de stdout. Lo destapó la mutación.
   await assert.rejects(
-    () => ejecutar(process.execPath, ['-e', 'console.log("non_deterministic_code"); process.exit(3)']),
+    () => ejecutar(process.execPath, ['-e', "process.stdout.write(['non','deterministic','code'].join('_')); process.exit(3)"]),
     /non_deterministic_code/,
   );
 });
@@ -1695,7 +1705,8 @@ Expected: `ℹ pass 5` · `ℹ fail 0`
 
 | Mutación | Test que tiene que caer |
 |---|---|
-| `stderr.trim().split('\n').slice(-3)` → `[]` | «si el comando falla, el error trae sus últimas líneas» |
+| `salida.split('\n').slice(-6)` → `[]` | «si el comando falla, el error trae sus últimas líneas» |
+| `stderr.trim() \|\| stdout.trim()` → `stderr.trim()` | «y si el comando solo escribió en stdout, el error trae eso» |
 | en `bloqueReel`, `JSON.stringify(reel.caption)` → `` `'${reel.caption}'` `` | «el bloque se pega… y vuelve a dar el mismo reel» (el caption lleva comillas) |
 | `i < parrafos.length - 1 ? `${parrafo}\n\n` : parrafo` → `parrafo` | «el bloque se pega…» y «el guion va un párrafo por línea» |
 

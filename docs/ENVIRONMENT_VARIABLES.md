@@ -193,6 +193,31 @@ token actual dice el tipo, la caducidad y los permisos. Así se descubrió el
 
 ---
 
+## Reels — `npm run reels`
+
+> Añadidas el **2026-09-13** con la producción de Reels. Todas son del comando
+> local: el Worker no necesita ninguna.
+
+| Variable | Para qué |
+|---|---|
+| `API_KEY` | El guion, con Gemini. ⚠️ Es la de Gemini aunque el nombre no lo diga. Solo hace falta si la pieza no trae `reel.guion` |
+| `MODELO_REEL` | Opcional. Por defecto `gemini-3.8-flash` |
+| `HYPERFRAMES_PYTHON` | Ruta **absoluta** al Python con `kokoro-onnx` y `soundfile`. El `~` no se expande en `.env.local` |
+| `ESPEAK_DATA_PATH` · `PHONEMIZER_ESPEAK_LIBRARY` | Los datos y la librería de `espeak-ng` de Homebrew. Sin ellas Kokoro usa su copia de CI, cuya ruta de datos no existe aquí |
+| `R2_BUCKET` | El bucket de los MP4. La subida usa la sesión de `wrangler`: sin claves |
+| `R2_PUBLIC_BASE_URL` | La URL pública del bucket, sin barra final |
+| `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID` | Opcionales: sin ellas el video no llega al teléfono y el comando lo avisa |
+
+**Lo que hay que instalar una vez**, porque no son dependencias de npm:
+`brew install espeak-ng ffmpeg` —sin `espeak-ng` no hay voz en español—, un
+entorno de Python con `kokoro-onnx` y `soundfile`, y `npx -y hyperframes@0.8.36 doctor`
+para el Chrome del render.
+
+⚠️ **`--ensayo` no necesita ninguna de las de R2**: renderiza, verifica y deja el
+MP4 en una carpeta temporal.
+
+---
+
 ## Seguridad
 
 ### ❌ NO hacer:

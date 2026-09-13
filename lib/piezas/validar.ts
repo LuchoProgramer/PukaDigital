@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { CATALOGO, ofertasEn, preciosEn } from './catalogo.ts';
 import { afirmacionesProhibidas } from './prohibidas.ts';
 import { formatosDe } from './formatos.ts';
+import { parrafosDelGuion } from './guion.ts';
 import type { ErrorValidacion, Pieza, Slide } from './tipos.ts';
 
 export type { ErrorValidacion } from './tipos.ts';
@@ -173,6 +174,16 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
           en(
             'reel.guion',
             `${cuantas} palabras, entre ${MIN_PALABRAS_GUION} y ${MAX_PALABRAS_GUION}: son los 3 a 90 segundos que admite Facebook, a ${PALABRAS_POR_SEGUNDO} palabras por segundo`,
+          );
+        }
+
+        // Un párrafo por slide: es lo que hace que el corte de escena sea exacto
+        // sin transcribir el audio.
+        const parrafos = parrafosDelGuion(guion).length;
+        if (parrafos !== pieza.slides.length) {
+          en(
+            'reel.guion',
+            `${parrafos} párrafos y ${pieza.slides.length} slides: el guion lleva un párrafo por slide, separados por una línea en blanco`,
           );
         }
       }

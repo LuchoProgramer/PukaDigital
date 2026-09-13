@@ -13,6 +13,7 @@
     "piezas:muestra": "tsx lib/piezas/muestra.ts",
     "captions": "node --import tsx --env-file-if-exists=.env.local lib/captions/cli.ts",
     "publicar": "node --import tsx --env-file-if-exists=.env.local lib/publicar/cli.ts",
+    "reels": "node --import tsx --env-file-if-exists=.env.local lib/reels/cli.ts",
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview:cloudflare": "opennextjs-cloudflare build && wrangler dev",
     "deploy:cloudflare": "opennextjs-cloudflare build && wrangler deploy"
@@ -37,6 +38,7 @@
     "autoprefixer": "^10.4.22",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "gsap": "3.14.2",
     "postcss": "^8.5.6",
     "satori": "^0.33.4",
     "tailwindcss": "^3.4.18",

@@ -117,6 +117,24 @@ ejecución dentro de su ventana.
 el video. Si disparas la ruta a mano, **deja terminar el `curl`**. Cortarlo mata el
 Worker a media publicación.
 
+### Cómo se produce
+
+`npm run reels -- --mes 2026-10 --id crm-no-chatbot --ensayo` renderiza y
+verifica sin subir nada; sin `--ensayo`, además sube a R2 y manda el video por
+Telegram. Produce **un Reel por corrida**: renderizar tarda minutos.
+
+El comando **imprime el bloque `reel` para pegar** en la pieza; no reescribe el
+archivo del mes. Ese pegado es el momento en que una persona lee lo que escribió
+el modelo.
+
+- **El guion lleva un párrafo por slide**, separados por una línea en blanco.
+  Cada párrafo es una escena, y lo que dura su voz marca cuándo empieza la
+  siguiente. `piezas --check` lo exige.
+- **Si la pieza ya trae `reel.guion`, no se vuelve a pedir a Gemini.** Para
+  rehacerlo: `--regenerar-guion`.
+- **Míralo en el teléfono, con sonido, antes de mergear.** Los tests impiden
+  publicar algo falso, no algo malo.
+
 ---
 
 ## Cómo se publica

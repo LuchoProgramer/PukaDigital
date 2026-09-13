@@ -175,7 +175,9 @@ test('sube el -fb.png, no la slide 1 del carrusel', async () => {
   assert.doesNotMatch(subida, /-1-4x5\.png/);
 });
 
-const GUION = 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.';
+const GUION =
+  'Un chatbot responde. Un CRM te dice a quién llamar mañana.\n\n' +
+  'Desde catorce noventa y nueve al mes.';
 const VIDEO = 'https://reels.pukadigital.com/reels/2026-10/sri-rechazo-01-1a2b3c4d.mp4';
 
 const reelBase: Pieza = {
