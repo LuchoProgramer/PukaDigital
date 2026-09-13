@@ -2,8 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle, Smartphone, ArrowRight } from 'lucide-react';
-import * as ga from '@/lib/analytics';
+import { CheckCircle, Smartphone, ArrowRight } from 'lucide-react';
 
 const GraciasPage = () => {
     useEffect(() => {

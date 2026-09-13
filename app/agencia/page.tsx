@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { ArrowRight, CheckCircle, Globe, BarChart3, CloudLightning, ShieldCheck, XCircle } from 'lucide-react';
 import SEO from '@/components/SEO';
 

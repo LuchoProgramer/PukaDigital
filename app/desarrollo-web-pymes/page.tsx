@@ -3,18 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  Globe,
   Zap,
-  TrendingUp,
   Smartphone,
   Code,
-  CheckCircle,
   ArrowRight,
   Search,
-  Palette,
-  ShieldCheck,
   AlertCircle,
-  BarChart4
 } from 'lucide-react';
 import SEO from '@/components/SEO';
 
@@ -27,7 +21,6 @@ export default function DesarrolloWebPage() {
   const ventasEstimadas = Math.round(leadsMensuales * 0.25);
   const ticketPromedio = 50;
   const ingresoMensual = ventasEstimadas * ticketPromedio;
-  const roi = ((ingresoMensual - 20) / 20) * 100;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -116,7 +109,7 @@ export default function DesarrolloWebPage() {
                 </div>
                 <div className="flex items-start gap-4 text-lg font-bold text-red-400">
                   <AlertCircle size={24} className="shrink-0 mt-1" />
-                  Pagar mensualidades eternas por "mantenimiento" es explotación.
+                  Pagar mensualidades eternas por &quot;mantenimiento&quot; es explotación.
                 </div>
               </div>
             </div>

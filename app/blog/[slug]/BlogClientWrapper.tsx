@@ -47,24 +47,6 @@ export default function BlogClientWrapper({ post, children }: BlogClientWrapperP
         return () => window.removeEventListener('scroll', handleScroll);
     }, [post]);
 
-    const handleShare = async () => {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: post.title,
-                    text: post.excerpt,
-                    url: window.location.href,
-                });
-            } catch (err) {
-                console.log('Error sharing:', err);
-            }
-        } else {
-            // Fallback: copy to clipboard
-            navigator.clipboard.writeText(window.location.href);
-            alert('¡Enlace copiado al portapapeles!');
-        }
-    };
-
     // We expose the share button through a portal or just by finding it in the DOM?
     // Actually, better to just let the page pass the share button as a separate prop or use a context.
     // For simplicity, I'll just make the share button a component that this wrapper can provide.

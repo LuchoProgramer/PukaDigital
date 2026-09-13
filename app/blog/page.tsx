@@ -3,8 +3,6 @@ import { HybridCMSService } from '@/lib/cms';
 import BlogListClient from './BlogListClient';
 import { Metadata } from 'next';
 
-interface BlogPageProps {}
-
 export const metadata: Metadata = {
   title: "Blog & Academia | Educación para la Libertad Digital",
   description: "Recursos gratuitos, guías y estrategias para dueños de negocios que quieren independencia digital. Marketing, Tecnología y Gestión Real.",

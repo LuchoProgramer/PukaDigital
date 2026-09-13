@@ -51,7 +51,7 @@ const GarantiaPage = () => {
 
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <CheckCircle size={20} className="text-puka-red" /> 2. Qué es un "Resultado Verificable"
+                                <CheckCircle size={20} className="text-puka-red" /> 2. Qué es un &quot;Resultado Verificable&quot;
                             </h2>
                             <p className="mt-4">
                                 Entendemos el éxito como:

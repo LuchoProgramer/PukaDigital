@@ -273,7 +273,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               components={{
-                a: ({ node, href, children, ...props }) => {
+                a: ({ node, href, children, ...props }) => { // eslint-disable-line @typescript-eslint/no-unused-vars -- `node` se saca para que no llegue al <a> dentro de ...props
                   if (href && (href.includes('youtube.com/watch?v=bSge9e1Se4w') || href.includes('youtu.be/bSge9e1Se4w'))) {
                     return (
                       <div className="my-8">
@@ -290,8 +290,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </a>
                   );
                 },
-                //@ts-ignore
-                p: ({ node, children, ...props }) => {
+                p: ({ node, children, ...props }) => { // eslint-disable-line @typescript-eslint/no-unused-vars -- `node` no debe llegar al <div>
                   return <div className="mb-6" {...props}>{children}</div>;
                 }
               }}
