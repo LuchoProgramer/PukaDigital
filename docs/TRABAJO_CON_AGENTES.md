@@ -164,6 +164,33 @@ agente los recuerde. Ver `lib/piezas/catalogo.ts`.
 
 ---
 
+## Qué puede tocar un agente externo, y qué no
+
+Traído de `SistemaSalud`, que lo tiene escrito por agente (`qwen.md`, `GEMINI.md`),
+y adaptado a los riesgos de **este** repositorio, que son otros: aquí no hay datos
+clínicos, pero sí tokens que publican en redes a nombre de la empresa.
+
+| ✅ Sí | ❌ No |
+|---|---|
+| Leer y contrastar specs, planes y código | Decidir arquitectura, precios o posicionamiento |
+| Escribir el código de **una** task, en su rama | Cambiar de rama, mergear o pushear |
+| Correr `npm test`, `npx tsc --noEmit`, `npm run piezas -- --check` | `npm run deploy:cloudflare` — el despliegue es a mano y de una persona |
+| Generar PNG en local para revisarlos | Publicar en redes: `npm run publicar`, el cron, o cualquier llamada a la Graph API |
+| Proponer texto de una pieza | Editar `catalogo.ts` o `prohibidas.ts` — son los hechos comerciales, y son la fuente de verdad del validador |
+| Leer `.env.local` **jamás**, ni siquiera para depurar | Tocar secretos, tokens o `wrangler secret` |
+| Proponer cambios a `AGENTS.md` en el diff | Darlos por buenos: el tope de 12.000 caracteres lo revisa una persona |
+
+🔴 **Por qué la publicación no se delega.** El token de Página no caduca y publica a
+nombre de la empresa. Un error de código se revierte con un commit; una publicación
+equivocada la vio ya quien la vio, y borrarla tiene su propia trampa —la pieza
+vuelve a salir cuando su franja entre en ventana—.
+
+🔴 **Y por qué `catalogo.ts` está fuera.** Es lo que el validador usa para decidir si
+un precio es cierto. Un agente que pueda editar la fuente de verdad y el texto que
+se valida contra ella puede hacer pasar cualquier cosa: sería juez y parte.
+
+---
+
 ## Cómo se le encarga trabajo a otro agente
 
 Protocolo que funcionó, y los dos errores que costaron un experimento cada uno.
