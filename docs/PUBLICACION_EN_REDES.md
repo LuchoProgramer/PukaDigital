@@ -169,7 +169,7 @@ post, hay que **devolver su fecha** o no volverá a salir nunca.
 | `lib/piezas/plantillaFacebook.tsx` | la imagen suelta de Facebook, sin contador |
 | `lib/piezas/validar.ts` | lo que hace publicable una pieza |
 | `lib/piezas/catalogo.ts` · `prohibidas.ts` | los hechos comerciales |
-| `lib/publicar/tanda.ts` | el orquestador de los dos canales |
+| `lib/publicar/tanda.ts` | el orquestador de los canales: carrusel, imagen y los dos Reels |
 | `lib/publicar/meta.ts` · `facebook.ts` | los clientes de cada red: carrusel, imagen y Reel |
 | `lib/publicar/frontera.test.ts` | que lo que carga el Worker no alcance `lib/reels/` |
 | `lib/publicar/programado.ts` | qué toca publicar y cuándo |
