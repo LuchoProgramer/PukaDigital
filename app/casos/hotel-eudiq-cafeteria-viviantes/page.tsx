@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, ArrowLeft, CheckCircle, Clock, Rocket, ExternalLink, Calendar, Building, Coffee } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle, Clock, Rocket, ExternalLink, Building, Coffee } from 'lucide-react';
 
 const CasoHotelEudiq = () => {
   // Colores de marca Hotel Eudiq
@@ -133,7 +133,7 @@ const CasoHotelEudiq = () => {
                   Update Más Reciente — 7 Ene 2026
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  ¡Hito desbloqueado! Hoy <b>7 de Enero</b> hemos lanzado oficialmente las campañas de búsqueda para "Hotel en Loja". Tras la temporada alta de fiestas, entramos en la fase de adquisición pagada con una estructura web validada. Actualmente estamos en la fase de "Aprendizaje" del algoritmo de Google (primeros 7 días) recolectando datos de intención.
+                  ¡Hito desbloqueado! Hoy <b>7 de Enero</b> hemos lanzado oficialmente las campañas de búsqueda para &quot;Hotel en Loja&quot;. Tras la temporada alta de fiestas, entramos en la fase de adquisición pagada con una estructura web validada. Actualmente estamos en la fase de &quot;Aprendizaje&quot; del algoritmo de Google (primeros 7 días) recolectando datos de intención.
                 </p>
                 <p style={{ color: brandColors.primary }} className="text-sm dark:text-teal-400 mt-3 font-medium">
                   📊 Próximo reporte: Primeras conversiones y CTR (Click Through Rate).
@@ -360,7 +360,7 @@ const CasoHotelEudiq = () => {
             </h2>
             <div className="bg-white dark:bg-gray-900 p-8 rounded-sm shadow-lg max-w-2xl mx-auto">
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-4">
-                <strong style={{ color: brandColors.primary }}>"¿Por qué una web es una máquina de conversiones?"</strong>
+                <strong style={{ color: brandColors.primary }}>&quot;¿Por qué una web es una máquina de conversiones?&quot;</strong>
               </p>
               <p className="text-gray-600 dark:text-gray-400">
                 No es un catálogo digital. Es un vendedor 24/7 que trabaja mientras duermes.

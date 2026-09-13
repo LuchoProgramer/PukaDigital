@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Check, Database, Bot, BarChart3, Globe, Zap, Server, Shield, ArrowRight, Calendar, TrendingUp, CheckCircle, XCircle } from 'lucide-react';
+import { Check, Database, Bot, BarChart3, Globe, Zap, Server, ArrowRight, Calendar, TrendingUp } from 'lucide-react';
 import { PricingPlan } from '@/types';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';

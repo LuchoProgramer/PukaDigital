@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, FileText, CheckCircle, Shield } from 'lucide-react';
+import { ArrowLeft, FileText, CheckCircle } from 'lucide-react';
 
 const TerminosPage = () => {
     return (

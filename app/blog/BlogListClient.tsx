@@ -15,7 +15,7 @@ interface BlogListClientProps {
 
 export default function BlogListClient({ initialPosts, initialStatus }: BlogListClientProps) {
     const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
-    const [status, setStatus] = useState<CMSStatus>(initialStatus);
+    const [status] = useState<CMSStatus>(initialStatus);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 

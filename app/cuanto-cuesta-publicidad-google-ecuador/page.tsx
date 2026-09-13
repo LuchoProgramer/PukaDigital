@@ -1,12 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import {
-    TrendingUp,
-    CheckCircle,
     ArrowRight,
-    ShieldCheck,
     Zap,
     AlertCircle,
     BarChart3,
@@ -67,7 +63,7 @@ export default function CostoPublicidadGooglePage() {
                         </h1>
 
                         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-2xl font-sans">
-                            No dejes que una agencia se quede con el 20% de tu dinero por "gestionar" tus anuncios. El 100% de tu inversión debe ir a conseguir clientes, no a pagar comisiones eternas.
+                            No dejes que una agencia se quede con el 20% de tu dinero por &quot;gestionar&quot; tus anuncios. El 100% de tu inversión debe ir a conseguir clientes, no a pagar comisiones eternas.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 items-start">
@@ -102,10 +98,10 @@ export default function CostoPublicidadGooglePage() {
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div>
                             <h2 className="font-display font-bold text-5xl md:text-6xl mb-8 leading-tight">
-                                El "Impuesto" Oculto <br /><span className="text-puka-red">de las Agencias.</span>
+                                El &quot;Impuesto&quot; Oculto <br /><span className="text-puka-red">de las Agencias.</span>
                             </h2>
                             <p className="text-xl text-gray-400 mb-8 leading-relaxed max-w-lg">
-                                La mayoría de agencias en Ecuador te cobran una comisión mensual por "apuntar tus anuncios". Si inviertes $1,000, ellas se quedan con $200.
+                                La mayoría de agencias en Ecuador te cobran una comisión mensual por &quot;apuntar tus anuncios&quot;. Si inviertes $1,000, ellas se quedan con $200.
                             </p>
 
                             <div className="space-y-6">
@@ -141,7 +137,7 @@ export default function CostoPublicidadGooglePage() {
                                 </div>
                                 <div className="mt-8 p-4 bg-puka-red/20 rounded-sm border border-puka-red/50">
                                     <p className="text-sm font-bold italic">
-                                        "En PukaDigital te enseñamos a configurar tu cuenta para que pagues DIRECTO a Google. Sin intermediarios, sin retenciones innecesarias."
+                                        &quot;En PukaDigital te enseñamos a configurar tu cuenta para que pagues DIRECTO a Google. Sin intermediarios, sin retenciones innecesarias.&quot;
                                     </p>
                                 </div>
                             </div>
@@ -221,7 +217,7 @@ export default function CostoPublicidadGooglePage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="p-8 border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5 rounded-sm hover:border-puka-red transition-all group">
                             <div className="text-puka-red mb-6 group-hover:scale-110 transition-transform"><Search size={48} /></div>
-                            <h3 className="font-display font-bold text-2xl mb-4 italic uppercase">1. SEO de "Guerrilla"</h3>
+                            <h3 className="font-display font-bold text-2xl mb-4 italic uppercase">1. SEO de &quot;Guerrilla&quot;</h3>
                             <p className="text-gray-600 dark:text-gray-400 font-medium">
                                 No pagues por clics de $4 dólares. Posicionamos tu negocio orgánicamente para que el tráfico sea gratuito para siempre.
                             </p>

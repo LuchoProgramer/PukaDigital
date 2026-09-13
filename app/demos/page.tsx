@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Send, MoreVertical, Search, Phone, ArrowLeft, Check, CheckCheck, Paperclip, Smile, Loader2 } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { Send, MoreVertical, Phone, ArrowLeft, CheckCheck, Paperclip, Smile } from 'lucide-react';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';
 
@@ -92,7 +92,7 @@ const Demos: React.FC = () => {
         text: botResponse, 
         time: getCurrentTime()
       }]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, { 
         role: 'bot', 
         text: 'Lo siento, hubo un error. Por favor intenta de nuevo.', 

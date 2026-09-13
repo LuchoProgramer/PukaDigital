@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowLeft, CheckCircle, TrendingUp, Users, Star, Globe, Shield, ShoppingCart, BarChart3, ArrowRight } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Shield, ShoppingCart, BarChart3, ArrowRight } from 'lucide-react';
 
 const CasoYanett = () => {
     // Timeline del proceso
@@ -104,7 +103,7 @@ const CasoYanett = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold text-center mb-12 text-puka-black dark:text-white">
-                            El Desafío: El "Caos" de los Inventarios
+                            El Desafío: El &quot;Caos&quot; de los Inventarios
                         </h2>
 
                         <div className="grid md:grid-cols-2 gap-8">

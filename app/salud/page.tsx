@@ -147,7 +147,7 @@ const OptimizedSaludPage = () => {
                     <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
                         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-6">
                             <p className="text-blue-900 font-semibold text-lg mb-2">
-                                "Pasé de 3 a 53 pacientes mensuales sin contratar más personal."
+                                &quot;Pasé de 3 a 53 pacientes mensuales sin contratar más personal.&quot;
                             </p>
                             <p className="text-blue-700 text-sm">— Dra. Cristina Muñoz, Podoclinic</p>
                         </div>
@@ -229,7 +229,7 @@ const OptimizedSaludPage = () => {
                     <div className="max-w-4xl mx-auto mb-12">
                         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-t-2xl">
                             <p className="text-2xl font-semibold mb-4">
-                                "Antes dependíamos del boca a boca. Ahora los pacientes nos encuentran solos mientras dormimos."
+                                &quot;Antes dependíamos del boca a boca. Ahora los pacientes nos encuentran solos mientras dormimos.&quot;
                             </p>
                             <p className="text-blue-200">— Dra. Cristina Muñoz, Especialista en Podología</p>
                         </div>
