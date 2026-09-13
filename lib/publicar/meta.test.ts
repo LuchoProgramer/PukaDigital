@@ -1,6 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { archivosDe, publicarPieza, urlPublica, type Opciones } from './meta.ts';
+import {
+  ESPERA_REEL,
+  archivosDe,
+  publicarPieza,
+  publicarReelInstagram,
+  urlPublica,
+  type Opciones,
+} from './meta.ts';
 import type { Pieza } from '../piezas/tipos.ts';
 
 const TOKEN = 'TOKEN-SECRETO-QUE-NUNCA-DEBE-APARECER';
@@ -161,5 +168,68 @@ test('una pieza que no pasa la validacion no llega a la API', async () => {
   const { impl, llamadas } = fetchFalso([{ id: 'C' }]);
   const mala: Pieza = { ...suelta, producto: 'pukahealth' }; // sistema puka, producto health
   await assert.rejects(() => publicarPieza(mala, '2026-09', opciones(impl)), /sistema/);
+  assert.equal(llamadas.length, 0);
+});
+
+const reelDeSuelta: Pieza = {
+  ...suelta,
+  reel: {
+    guion: 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.',
+    caption: 'Caption del Reel',
+    video: 'https://reels.pukadigital.com/reels/2026-10/sri-rechazo-01-1a2b3c4d.mp4',
+  },
+};
+
+test('un Reel crea el contenedor REELS con la URL de R2, espera y publica', async () => {
+  const { impl, llamadas } = fetchFalso([{ id: 'REEL-C' }, { status_code: 'FINISHED' }, { id: 'REEL-P' }]);
+  const res = await publicarReelInstagram(reelDeSuelta, opciones(impl));
+
+  assert.equal(res.id, 'REEL-P');
+  assert.equal(llamadas.length, 3);
+  assert.equal(llamadas[0].metodo, 'POST');
+  assert.match(llamadas[0].url, /17841476784325626\/media$/);
+  assert.match(llamadas[0].body, /media_type=REELS/);
+  assert.match(
+    llamadas[0].body,
+    /video_url=https%3A%2F%2Freels\.pukadigital\.com%2Freels%2F2026-10%2Fsri-rechazo-01-1a2b3c4d\.mp4/,
+  );
+  assert.match(llamadas[0].body, /caption=Caption\+del\+Reel/);
+  assert.ok(!llamadas[0].body.includes('Tu+factura'), 'lleva el caption del Reel, no el del carrusel');
+  assert.equal(llamadas[1].metodo, 'GET');
+  assert.match(llamadas[2].url, /media_publish$/);
+  assert.match(llamadas[2].body, /creation_id=REEL-C/);
+});
+
+test('los intentos de espera son inyectables: agotados, aborta sin publicar', async () => {
+  const { impl, llamadas } = fetchFalso([{ id: 'C' }, { status_code: 'IN_PROGRESS' }]);
+  await assert.rejects(
+    () => publicarReelInstagram(reelDeSuelta, { ...opciones(impl), intentos: 2 }),
+    /despues de 2 intentos/,
+  );
+  assert.equal(llamadas.length, 3, 'crear y dos consultas; nunca media_publish');
+});
+
+test('sin intentos explícitos, un Reel usa su propia espera y no la de una imagen', async () => {
+  const { impl, llamadas } = fetchFalso([{ id: 'C' }, { status_code: 'IN_PROGRESS' }]);
+  await assert.rejects(() => publicarReelInstagram(reelDeSuelta, opciones(impl)), /despues de 15 intentos/);
+  assert.equal(llamadas.length, 16);
+});
+
+test('una imagen conserva su espera de 30 intentos', async () => {
+  const { impl } = fetchFalso([{ id: 'C' }, { status_code: 'IN_PROGRESS' }]);
+  await assert.rejects(() => publicarPieza(suelta, '2026-09', opciones(impl)), /despues de 30 intentos/);
+});
+
+test('un Reel espera 5 minutos: la mitad de llamadas que cada 10 s, y cabe en el cron', () => {
+  assert.equal(ESPERA_REEL.esperarMs * ESPERA_REEL.intentos, 300_000);
+});
+
+test('una pieza sin el video del Reel no llega a la API', async () => {
+  const { impl, llamadas } = fetchFalso([{ id: 'C' }]);
+  const sinVideo: Pieza = {
+    ...suelta,
+    reel: { guion: 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.', caption: 'Caption del Reel' },
+  };
+  await assert.rejects(() => publicarReelInstagram(sinVideo, opciones(impl)), /no tiene el video/);
   assert.equal(llamadas.length, 0);
 });

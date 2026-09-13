@@ -4,10 +4,14 @@ import {
   aUTC,
   captionFacebook,
   fechaPublicacionFacebook,
+  fechaReelFacebook,
+  fechaReelInstagram,
   franjaSiguiente,
   pendientes,
   pendientesFacebook,
   pendientesInstagram,
+  pendientesReelFacebook,
+  pendientesReelInstagram,
   yaPublicada,
 } from './programado.ts';
 import type { Pieza } from '../piezas/tipos.ts';
@@ -231,3 +235,74 @@ test('una pieza con facebook.imagen si se programa, por la franja siguiente', ()
   assert.equal(fechaPublicacionFacebook(pieza), '2026-09-09T18:00');
 });
 
+const VIDEO = 'https://reels.pukadigital.com/reels/2026-10/tema-1a2b3c4d.mp4';
+
+const conReel = (extra: Partial<Pieza> = {}): Pieza => ({
+  ...base,
+  id: 'tema',
+  publicarEl: '2026-10-06T09:00',
+  facebook: { imagen: { titular: 'Titular' } },
+  reel: { guion: 'guion', caption: 'Caption del Reel', video: VIDEO },
+  ...extra,
+});
+
+test('las cuatro franjas de un tema son consecutivas', () => {
+  const pieza = conReel();
+  assert.equal(pieza.publicarEl, '2026-10-06T09:00'); // 1 · carrusel
+  assert.equal(fechaPublicacionFacebook(pieza), '2026-10-06T18:00'); // 2 · imagen de Facebook
+  assert.equal(fechaReelInstagram(pieza), '2026-10-07T09:00'); // 3 · Reel de Instagram
+  assert.equal(fechaReelFacebook(pieza), '2026-10-07T18:00'); // 4 · Reel de Facebook
+});
+
+test('sin imagen de Facebook, el Reel encadena desde el carrusel y no se queda sin fecha', () => {
+  const pieza = conReel({ facebook: undefined });
+  assert.equal(fechaPublicacionFacebook(pieza), undefined);
+  assert.equal(fechaReelInstagram(pieza), '2026-10-06T18:00');
+  assert.equal(fechaReelFacebook(pieza), '2026-10-07T09:00');
+});
+
+test('reel.publicarEl fija la franja del Reel de Instagram, y la de Facebook la sigue', () => {
+  const pieza = conReel({
+    reel: { guion: 'guion', caption: 'Caption del Reel', video: VIDEO, publicarEl: '2026-10-09T18:00' },
+  });
+  assert.equal(fechaReelInstagram(pieza), '2026-10-09T18:00');
+  assert.equal(fechaReelFacebook(pieza), '2026-10-10T09:00');
+});
+
+test('un Reel sin video renderizado no se programa en ningún canal', () => {
+  const pieza = conReel({ reel: { guion: 'guion', caption: 'Caption del Reel' } });
+  assert.equal(fechaReelInstagram(pieza), undefined);
+  assert.equal(fechaReelFacebook(pieza), undefined);
+  // 09:05 del 7 = 14:05 UTC: sería su franja de Instagram si tuviera video.
+  assert.deepEqual(pendientesReelInstagram([pieza], new Date('2026-10-07T14:05:00Z'), []), []);
+});
+
+test('pendientesReelInstagram entra en su ventana y no repite lo publicado', () => {
+  const pieza = conReel();
+  const ahora = new Date('2026-10-07T14:05:00Z'); // 09:05 de Ecuador del 7
+  assert.deepEqual(pendientesReelInstagram([pieza], ahora, []).map((p) => p.id), ['tema']);
+  assert.deepEqual(pendientesReelInstagram([pieza], ahora, ['Caption  del Reel']), []);
+  assert.deepEqual(
+    pendientesReelInstagram([pieza], new Date('2026-10-07T15:01:00Z'), []),
+    [],
+    '61 minutos después ya no entra',
+  );
+});
+
+test('pendientesReelFacebook usa la cuarta franja y compara contra las descripciones', () => {
+  const pieza = conReel();
+  const ahora = new Date('2026-10-07T23:05:00Z'); // 18:05 de Ecuador del 7
+  assert.deepEqual(pendientesReelFacebook([pieza], ahora, []).map((p) => p.id), ['tema']);
+  assert.deepEqual(pendientesReelFacebook([pieza], ahora, ['Caption del Reel']), []);
+  assert.deepEqual(
+    pendientesReelFacebook([pieza], new Date('2026-10-07T14:05:00Z'), []),
+    [],
+    'a las 09:05 toca el de Instagram, no este',
+  );
+});
+
+test('un Reel sin caption no se publica solo: no se podría comprobar si ya salió', () => {
+  const pieza = conReel({ reel: { guion: 'guion', caption: '', video: VIDEO } });
+  assert.deepEqual(pendientesReelInstagram([pieza], new Date('2026-10-07T14:05:00Z'), []), []);
+  assert.deepEqual(pendientesReelFacebook([pieza], new Date('2026-10-07T23:05:00Z'), []), []);
+});

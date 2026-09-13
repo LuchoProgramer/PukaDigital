@@ -132,7 +132,8 @@ WhatsApp: número `593964065880`, patrón `https://wa.me/{numero}?text={encodeUR
 
 Una pieza de `content/piezas/` sale en **dos canales**: el carrusel completo en
 Instagram, y en Facebook **una sola imagen** con su caption largo, en la franja
-siguiente (09:00 → 18:00; 18:00 → 09:00 del día siguiente).
+siguiente (09:00 → 18:00; 18:00 → 09:00 del día siguiente). Con bloque `reel`,
+sale además como Reel en los dos, en las dos franjas que siguen.
 
 ⚠️ **La imagen de Facebook no es la slide 1 del carrusel.** Cada pieza declara su
 `facebook.imagen` con un titular que dice la **conclusión**, no el gancho: una

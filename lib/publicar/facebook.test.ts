@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { publicarPiezaFacebook, type OpcionesFacebook } from './facebook.ts';
+import { publicarPiezaFacebook, publicarReelFacebook, type OpcionesFacebook } from './facebook.ts';
 import type { Pieza } from '../piezas/tipos.ts';
 
 const TOKEN = 'TOKEN-SECRETO-DE-PAGINA-FB';
@@ -175,3 +175,120 @@ test('sube el -fb.png, no la slide 1 del carrusel', async () => {
   assert.doesNotMatch(subida, /-1-4x5\.png/);
 });
 
+const GUION = 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.';
+const VIDEO = 'https://reels.pukadigital.com/reels/2026-10/sri-rechazo-01-1a2b3c4d.mp4';
+
+const reelBase: Pieza = {
+  ...piezaBase,
+  reel: { guion: GUION, caption: 'Caption del Reel de Facebook', video: VIDEO },
+};
+
+/** Como `fetchFalso`, pero guarda las cabeceras: la subida de un Reel viaja en ellas. */
+function fetchConCabeceras(respuestas: unknown[]) {
+  const llamadas: Array<{ url: string; body: string; metodo: string; cabeceras: Record<string, string> }> = [];
+  let i = 0;
+  const impl = async (url: string | URL, init?: RequestInit) => {
+    llamadas.push({
+      url: String(url),
+      body: String(init?.body ?? ''),
+      metodo: String(init?.method ?? 'GET'),
+      cabeceras: (init?.headers ?? {}) as Record<string, string>,
+    });
+    return {
+      ok: true,
+      json: async () => respuestas[Math.min(i++, respuestas.length - 1)],
+    } as Response;
+  };
+  return { impl: impl as unknown as typeof fetch, llamadas };
+}
+
+const INICIO = (id: string) => ({ video_id: id, upload_url: `https://rupload.facebook.com/video-upload/v21.0/${id}` });
+const PUBLICADO = {
+  status: {
+    video_status: 'ready',
+    processing_phase: { status: 'completed' },
+    publishing_phase: { status: 'completed', publish_status: 'published' },
+  },
+};
+const PROCESANDO = {
+  status: {
+    video_status: 'processing',
+    processing_phase: { status: 'in_progress' },
+    publishing_phase: { status: 'not_started' },
+  },
+};
+
+test('un Reel de Facebook abre la subida, pasa la URL de R2 en la cabecera y publica', async () => {
+  const { impl, llamadas } = fetchConCabeceras([INICIO('VID-1'), { success: true }, { success: true }, PUBLICADO]);
+  const res = await publicarReelFacebook(reelBase, { ...opciones(impl), esperarMs: 0 });
+
+  assert.equal(res.id, 'VID-1');
+  assert.equal(llamadas.length, 4);
+
+  assert.match(llamadas[0].url, /PAGE_DE_PRUEBA\/video_reels$/);
+  assert.match(llamadas[0].body, /upload_phase=start/);
+
+  assert.equal(llamadas[1].url, 'https://rupload.facebook.com/video-upload/v21.0/VID-1');
+  assert.equal(llamadas[1].metodo, 'POST');
+  assert.equal(llamadas[1].cabeceras.file_url, VIDEO);
+  assert.equal(llamadas[1].cabeceras.Authorization, `OAuth ${TOKEN}`);
+  assert.equal(llamadas[1].body, '', 'la subida por URL no manda bytes');
+
+  assert.match(llamadas[2].body, /upload_phase=finish/);
+  assert.match(llamadas[2].body, /video_id=VID-1/);
+  assert.match(llamadas[2].body, /video_state=PUBLISHED/);
+  assert.match(llamadas[2].body, /description=Caption\+del\+Reel\+de\+Facebook/);
+
+  assert.equal(llamadas[3].metodo, 'GET');
+  assert.match(llamadas[3].url, /VID-1\?fields=status/);
+});
+
+test('un success del finish no basta: espera a que la fase de publicación termine', async () => {
+  const { impl, llamadas } = fetchConCabeceras([
+    INICIO('VID-2'), { success: true }, { success: true }, PROCESANDO, PROCESANDO, PUBLICADO,
+  ]);
+  await publicarReelFacebook(reelBase, { ...opciones(impl), esperarMs: 0 });
+  assert.equal(llamadas.length, 6, 'debe seguir consultando mientras Meta procesa');
+});
+
+test('si Meta rechaza el Reel en la revisión, falla aunque el finish dijera success', async () => {
+  const { impl } = fetchConCabeceras([
+    INICIO('VID-3'), { success: true }, { success: true },
+    { status: { video_status: 'error', processing_phase: { status: 'error' }, publishing_phase: { status: 'not_started' } } },
+  ]);
+  await assert.rejects(
+    () => publicarReelFacebook(reelBase, { ...opciones(impl), esperarMs: 0 }),
+    /rechazo el Reel VID-3/,
+  );
+});
+
+test('si la espera se agota, falla con el número de intentos', async () => {
+  const { impl } = fetchConCabeceras([INICIO('VID-4'), { success: true }, { success: true }, PROCESANDO]);
+  await assert.rejects(
+    () => publicarReelFacebook(reelBase, { ...opciones(impl), esperarMs: 0, intentos: 3 }),
+    /despues de 3 intentos/,
+  );
+});
+
+test('si Facebook no puede descargar el video, no llega al finish y no filtra el token', async () => {
+  const { impl, llamadas } = fetchConCabeceras([
+    INICIO('VID-5'),
+    { debug_info: { message: 'Failed to download the file' } },
+  ]);
+  await assert.rejects(
+    () => publicarReelFacebook(reelBase, { ...opciones(impl), esperarMs: 0 }),
+    (e: Error) => {
+      assert.match(e.message, /Failed to download the file/);
+      assert.ok(!e.message.includes(TOKEN), 'el token se filtro en el error');
+      return true;
+    },
+  );
+  assert.equal(llamadas.length, 2, 'nunca llega al finish');
+});
+
+test('una pieza sin el video del Reel no llega a la API de Facebook', async () => {
+  const { impl, llamadas } = fetchConCabeceras([INICIO('VID-6')]);
+  const sinVideo: Pieza = { ...piezaBase, reel: { guion: GUION, caption: 'Caption del Reel de Facebook' } };
+  await assert.rejects(() => publicarReelFacebook(sinVideo, opciones(impl)), /no tiene el video/);
+  assert.equal(llamadas.length, 0);
+});

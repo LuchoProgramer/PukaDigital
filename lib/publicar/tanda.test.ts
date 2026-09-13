@@ -28,6 +28,7 @@ function json(cuerpo: unknown, status = 200): Response {
 function falsoFetch(
   opciones: {
     captions?: string[];
+    descripciones?: string[];
     falla?: string;
     fallaLecturaFacebook?: boolean;
   } = {},
@@ -47,6 +48,27 @@ function falsoFetch(
         return json({ error: { message: 'caida' } }, 400);
       }
       return json({ data: [] });
+    }
+    if (u.includes('/video_reels?') && metodo === 'GET') {
+      return json({ data: (opciones.descripciones ?? []).map((description) => ({ description })) });
+    }
+    if (u.endsWith('/video_reels') && metodo === 'POST') {
+      if (String(init?.body ?? '').includes('upload_phase=start')) {
+        return json({ video_id: 'VID-1', upload_url: 'https://rupload.facebook.com/video-upload/v21.0/VID-1' });
+      }
+      return json({ success: true });
+    }
+    if (u.startsWith('https://rupload.facebook.com/') && metodo === 'POST') {
+      return json({ success: true });
+    }
+    if (u.includes('fields=status&') && metodo === 'GET') {
+      return json({
+        status: {
+          video_status: 'ready',
+          processing_phase: { status: 'completed' },
+          publishing_phase: { status: 'completed', publish_status: 'published' },
+        },
+      });
     }
     if (u.endsWith('/media') && metodo === 'POST') {
       const cuerpo = String(init?.body ?? '');
@@ -78,7 +100,9 @@ test('un mes sin calendario no falla y no toca la red', async () => {
     igUserId: '1', token: 't', ahora: AHORA, fetchImpl: impl,
     buscarMes: () => null,
   });
-  assert.deepEqual(r, { mes: '2026-09', revisadas: 0, publicadas: [], fallidas: [], omitidos: ['facebook'] });
+  assert.deepEqual(r, {
+    mes: '2026-09', revisadas: 0, publicadas: [], fallidas: [], omitidos: ['facebook', 'reel-facebook'],
+  });
   assert.deepEqual(llamadas, [], 'no debe consultar el perfil si no hay calendario');
 });
 
@@ -89,7 +113,7 @@ test('sin secretos de Facebook publica en Instagram y lo anota en omitidos', asy
     buscarMes: soloEsteMes([pieza('toca', '2026-09-09T09:00')]),
   });
   assert.deepEqual(r.publicadas, [{ canal: 'instagram', id: 'toca', mediaId: 'media-99' }]);
-  assert.deepEqual(r.omitidos, ['facebook']);
+  assert.deepEqual(r.omitidos, ['facebook', 'reel-facebook']);
   assert.deepEqual(r.fallidas, []);
 });
 
@@ -241,4 +265,72 @@ test('si la lectura del perfil falla, el canal no publica: no se asume perfil va
   assert.deepEqual(r.publicadas, [], 'no debe publicar con el perfil ilegible');
   assert.equal(publicaciones, 0, 'no debe llegar a la Graph API de publicacion');
   assert.deepEqual(r.fallidas.map((f) => f.id), ['lectura-perfil']);
+});
+
+const GUION = 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.';
+
+const conReel = (id: string, publicarEl: string): Pieza => ({
+  ...pieza(id, publicarEl),
+  reel: {
+    guion: GUION,
+    caption: `reel de ${id}`,
+    video: `https://reels.pukadigital.com/reels/2026-09/${id}-1a2b3c4d.mp4`,
+  },
+});
+
+test('el Reel de Instagram sale en su franja, la tercera del tema', async () => {
+  // Carrusel el 8 a las 09:00, imagen de Facebook el 8 a las 18:00: el Reel de
+  // Instagram toca el 9 a las 09:00, que es AHORA.
+  const { impl, llamadas } = falsoFetch();
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB, ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([conReel('tema', '2026-09-08T09:00')]),
+  });
+  assert.deepEqual(r.publicadas, [{ canal: 'reel-instagram', id: 'tema', mediaId: 'media-99' }]);
+  assert.deepEqual(r.fallidas, []);
+  assert.ok(llamadas.some((l) => l.includes('media_type=REELS')), 'debe crear un contenedor REELS');
+});
+
+test('el Reel de Facebook sale en la cuarta franja y espera a que Meta lo publique', async () => {
+  const { impl, llamadas } = falsoFetch();
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB,
+    ahora: new Date('2026-09-09T23:05:00Z'), // 18:05 de Ecuador del 9
+    fetchImpl: impl,
+    buscarMes: soloEsteMes([conReel('tema', '2026-09-08T09:00')]),
+  });
+  assert.deepEqual(r.publicadas, [{ canal: 'reel-facebook', id: 'tema', mediaId: 'VID-1' }]);
+  assert.ok(llamadas.some((l) => l.includes('upload_phase=finish')), 'debe cerrar la subida');
+  assert.ok(llamadas.some((l) => l.startsWith('GET VID-1')), 'debe consultar el estado del Reel');
+});
+
+test('no republica un Reel de Facebook que ya está en la Página', async () => {
+  const { impl } = falsoFetch({ descripciones: ['reel de tema'] });
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB,
+    ahora: new Date('2026-09-09T23:05:00Z'), fetchImpl: impl,
+    buscarMes: soloEsteMes([conReel('tema', '2026-09-08T09:00')]),
+  });
+  assert.deepEqual(r.publicadas, []);
+  assert.deepEqual(r.fallidas, []);
+});
+
+test('el carrusel y el Reel de Instagram comparten una sola lectura del perfil', async () => {
+  // A las 09:05 del 9 tocan a la vez el carrusel de una pieza y el Reel de otra.
+  const { impl, llamadas } = falsoFetch();
+  const r = await publicarLoQueToca({
+    igUserId: '1', token: 't', ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([pieza('carrusel', '2026-09-09T09:00'), conReel('tema', '2026-09-08T09:00')]),
+  });
+  assert.deepEqual(r.publicadas.map((p) => p.canal), ['instagram', 'reel-instagram']);
+  assert.equal(llamadas.filter((l) => l === 'GET 1/media').length, 1, 'una sola lectura de /media');
+});
+
+test('sin Reels en la tanda, los canales de Reel no leen nada', async () => {
+  const { impl, llamadas } = falsoFetch();
+  await publicarLoQueToca({
+    igUserId: '1', token: 't', ...CON_FB, ahora: AHORA, fetchImpl: impl,
+    buscarMes: soloEsteMes([pieza('toca', '2026-09-09T09:00')]),
+  });
+  assert.ok(!llamadas.some((l) => l.includes('video_reels')), 'no debe leer /video_reels');
 });

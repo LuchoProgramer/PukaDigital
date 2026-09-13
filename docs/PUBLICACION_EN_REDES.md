@@ -87,6 +87,38 @@ el dock de macOS y una ruta con nombres de archivo reales.
 
 ---
 
+## Los Reels
+
+Una pieza puede traer un bloque `reel` con el guion, su caption y la URL del MP4
+en R2. Sale entonces en dos canales más, y el tema ocupa cuatro franjas seguidas:
+
+| Franja | Qué sale | Fecha |
+|---|---|---|
+| 1 | Carrusel en Instagram | `publicarEl` |
+| 2 | Imagen en Facebook | `facebook.publicarEl`, o la siguiente |
+| 3 | Reel en Instagram | `reel.publicarEl`, o la siguiente |
+| 4 | Reel en Facebook | siempre la siguiente a la 3 |
+
+Sin imagen de Facebook la franja 2 no existe, y el Reel encadena desde el carrusel.
+
+⚠️ **El caption del Reel tiene que ser distinto** del carrusel y del de Facebook.
+Con el mismo texto, la defensa contra repetidos lo daría por publicado y no saldría
+nunca. `piezas --check` lo rechaza.
+
+⚠️ **Un Reel sin `reel.video` no se publica**: todavía no está renderizado.
+
+🔴 **No dispares a mano un Reel de Facebook dentro de su hora** sin mirar antes la
+Página. Meta tarda de uno a tres minutos en procesarlo, y puede que en ese tiempo
+no aparezca en el listado que se usa para no repetir: un segundo disparo lo
+publicaría dos veces. El cron solo no puede, porque cada franja tiene una única
+ejecución dentro de su ventana.
+
+**La publicación de un Reel tarda minutos**: el Worker espera a que Meta procese
+el video. Si disparas la ruta a mano, **deja terminar el `curl`**. Cortarlo mata el
+Worker a media publicación.
+
+---
+
 ## Cómo se publica
 
 ```bash
@@ -137,8 +169,9 @@ post, hay que **devolver su fecha** o no volverá a salir nunca.
 | `lib/piezas/plantillaFacebook.tsx` | la imagen suelta de Facebook, sin contador |
 | `lib/piezas/validar.ts` | lo que hace publicable una pieza |
 | `lib/piezas/catalogo.ts` · `prohibidas.ts` | los hechos comerciales |
-| `lib/publicar/tanda.ts` | el orquestador de los dos canales |
-| `lib/publicar/meta.ts` · `facebook.ts` | los clientes de cada red |
+| `lib/publicar/tanda.ts` | el orquestador de los canales: carrusel, imagen y los dos Reels |
+| `lib/publicar/meta.ts` · `facebook.ts` | los clientes de cada red: carrusel, imagen y Reel |
+| `lib/publicar/frontera.test.ts` | que lo que carga el Worker no alcance `lib/reels/` |
 | `lib/publicar/programado.ts` | qué toca publicar y cuándo |
 
 ---
