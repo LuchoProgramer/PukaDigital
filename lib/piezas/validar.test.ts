@@ -400,3 +400,10 @@ test('un precio en el guion o en el caption del Reel exige declarar el producto'
   const enElCaption: Pieza = { ...ok, reel: { guion: GUION, caption: 'Desde $14.99 al mes' } };
   assert.deepEqual(campos([enElCaption]), ['producto']);
 });
+
+test('el guion lleva un párrafo por slide, separados por una línea en blanco', () => {
+  const dos: Pieza = { ...ok, slides: [{ titular: 'Uno' }, { titular: 'Dos' }] };
+  assert.deepEqual(validar([{ ...dos, reel: { guion: `${GUION}\n\n${GUION}`, caption: 'c' } }]), []);
+  assert.deepEqual(campos([{ ...dos, reel: { guion: GUION, caption: 'c' } }]), ['reel.guion']);
+});
+
