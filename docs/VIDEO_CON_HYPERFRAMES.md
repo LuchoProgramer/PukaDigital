@@ -243,11 +243,38 @@ automatización completa. Hay que probarlo.
 subtítulos. La medición de resultados y la etiqueta de IA se resuelven después,
 no bloquean.
 
-## El siguiente paso
+**La voz es `ef_dora`, la femenina de Kokoro**, elegida escuchando las cuatro
+candidatas con la misma frase de `crm-no-chatbot`. No fue solo gusto: es también
+la opción más ligera, la más rápida y **la única sin marca de agua**.
 
-Una **prueba de voces**, fuera del repositorio: la misma frase de una pieza real
-con `ef_dora`, Chatterbox latam y Qwen3-TTS, para escucharlas. Decide lo que más
-pesa sin escribir código.
+| | Kokoro (`ef_dora`) | Chatterbox latam |
+|---|---|---|
+| Generar 6 s de audio | ~2 s | 11,5 s, más 10 s de carga |
+| Peso en disco | 27 MB | ~10 GB de caché + 1,7 GB de entorno |
+| Marca de agua | no | **sí, imborrable** |
+
+Medido en el M4 de 16 GB. Kokoro va ~3x más rápido que el tiempo real;
+Chatterbox, ~2x más lento. Para 30 segundos da igual; el peso no.
+
+Qwen3-TTS quedó sin probar: con Dora elegida, no hacía falta.
+
+## Cuatro trampas de la prueba de voces
+
+Cada una costó un intento y ninguna está documentada río arriba:
+
+1. **`hyperframes tts` no funciona recién instalado.** Necesita `kokoro-onnx` y
+   `soundfile` en un Python propio, señalado con `HYPERFRAMES_PYTHON`, y
+   `espeak-ng` en el sistema: sin él no hay español.
+2. **El finetune de español latino de Chatterbox está incompleto a propósito**:
+   solo publica el T3. El codificador de voz, el vocoder y el tokenizador salen
+   del modelo base, y el archivo hay que renombrarlo a
+   `t3_mtl23ls_v2.safetensors`. No está escrito: sale de leer el cargador.
+3. **La marca de agua de Resemble pide `pkg_resources`**, que ya no viene en
+   `setuptools` moderno. Hay que fijar `setuptools<81`.
+4. **`torchaudio` 2.14 no guarda audio sin `torchcodec`.** Se escribe con
+   `soundfile`.
+
+Las pruebas viven en `~/Downloads/pruebas-voz/`, fuera del repositorio.
 
 ---
 
