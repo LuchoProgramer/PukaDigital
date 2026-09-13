@@ -309,3 +309,52 @@ test('una afirmacion prohibida en la imagen de PukaHealth rompe la validacion', 
   assert.ok(errores.some((e) => e.campo.includes('facebook.imagen')));
 });
 
+// 18 palabras: la frase de la prueba de voces, 5,95 s con ef_dora.
+const GUION = 'Un chatbot responde. Un CRM te dice a quién llamar mañana. Desde catorce noventa y nueve al mes.';
+
+const conReel = (reel: NonNullable<Pieza['reel']>): Pieza => ({ ...ok, reel });
+
+const palabras = (n: number) => Array.from({ length: n }, () => 'palabra').join(' ');
+
+test('un reel correcto no produce errores', () => {
+  assert.deepEqual(validar([conReel({ guion: GUION, caption: 'Caption propio del Reel' })]), []);
+});
+
+test('un reel sin guion o sin caption se rechaza', () => {
+  assert.deepEqual(campos([conReel({ guion: '', caption: 'Caption del Reel' })]), ['reel.guion']);
+  assert.deepEqual(campos([conReel({ guion: GUION, caption: '   ' })]), ['reel.caption']);
+});
+
+test('el guion admite de 9 a 270 palabras: los 3 a 90 segundos de Facebook', () => {
+  assert.deepEqual(validar([conReel({ guion: palabras(9), caption: 'c' })]), []);
+  assert.deepEqual(validar([conReel({ guion: palabras(270), caption: 'c' })]), []);
+  assert.deepEqual(campos([conReel({ guion: palabras(8), caption: 'c' })]), ['reel.guion']);
+  assert.deepEqual(campos([conReel({ guion: palabras(271), caption: 'c' })]), ['reel.guion']);
+});
+
+test('una fecha de reel imposible se rechaza: si no, desaparece del cron en silencio', () => {
+  assert.deepEqual(validar([conReel({ guion: GUION, caption: 'c', publicarEl: '2026-09-30T09:00' })]), []);
+  assert.deepEqual(
+    campos([conReel({ guion: GUION, caption: 'c', publicarEl: '2026-09-31T09:00' })]),
+    ['reel.publicarEl'],
+  );
+});
+
+test('la duración del render va de 3 a 90 segundos', () => {
+  const reel = { guion: GUION, caption: 'c' };
+  assert.deepEqual(validar([conReel({ ...reel, duracion: 3 })]), []);
+  assert.deepEqual(validar([conReel({ ...reel, duracion: 90 })]), []);
+  assert.deepEqual(campos([conReel({ ...reel, duracion: 2.9 })]), ['reel.duracion']);
+  assert.deepEqual(campos([conReel({ ...reel, duracion: 90.1 })]), ['reel.duracion']);
+});
+
+test('el video es la URL https de un MP4', () => {
+  const reel = { guion: GUION, caption: 'c' };
+  assert.deepEqual(
+    validar([conReel({ ...reel, video: 'https://reels.pukadigital.com/reels/2026-10/tema-1a2b3c4d.mp4' })]),
+    [],
+  );
+  assert.deepEqual(campos([conReel({ ...reel, video: 'http://reels.pukadigital.com/tema.mp4' })]), ['reel.video']);
+  assert.deepEqual(campos([conReel({ ...reel, video: 'https://reels.pukadigital.com/tema.mov' })]), ['reel.video']);
+});
+

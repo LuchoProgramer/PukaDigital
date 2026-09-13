@@ -21,6 +21,17 @@ const MAX_PALABRAS_TITULAR = 9;
 const MAX_SLIDES = 10;
 const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
+/**
+ * Velocidad de `ef_dora` medida el 2026-09-13: 18 palabras en 5,95 s. Sirve para
+ * rechazar un guion imposible antes de renderizar; la duración de verdad la mide
+ * `ffprobe` después, y queda en `reel.duracion`.
+ */
+const PALABRAS_POR_SEGUNDO = 3;
+/** 3 segundos: el mínimo de un Reel en Facebook. */
+const MIN_PALABRAS_GUION = 3 * PALABRAS_POR_SEGUNDO;
+/** 90 segundos: el máximo de un Reel en Facebook. */
+const MAX_PALABRAS_GUION = 90 * PALABRAS_POR_SEGUNDO;
+
 /** Los textos de una slide, en el orden en que se reportan los errores. */
 function textos(slide: Slide): Array<[string, string]> {
   const pares: Array<[string, string]> = [
@@ -137,6 +148,40 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
         if (img.captura && !existsSync(join(process.cwd(), 'assets', 'capturas', img.captura))) {
           en('facebook.imagen.captura', `la captura ${img.captura} no existe en assets/capturas/`);
         }
+      }
+    }
+
+    // Validación del bloque reel
+    if (pieza.reel) {
+      const reel = pieza.reel;
+      const guion = reel.guion?.trim() ?? '';
+
+      if (guion === '') {
+        en('reel.guion', 'el Reel no tiene guion: sin guion no hay voz');
+      } else {
+        const cuantas = guion.split(/\s+/).length;
+        if (cuantas < MIN_PALABRAS_GUION || cuantas > MAX_PALABRAS_GUION) {
+          en(
+            'reel.guion',
+            `${cuantas} palabras, entre ${MIN_PALABRAS_GUION} y ${MAX_PALABRAS_GUION}: son los 3 a 90 segundos que admite Facebook, a ${PALABRAS_POR_SEGUNDO} palabras por segundo`,
+          );
+        }
+      }
+
+      if ((reel.caption?.trim() ?? '') === '') {
+        en('reel.caption', 'el Reel no tiene caption: sin él no hay forma de saber si ya salió');
+      }
+
+      if (reel.publicarEl && !fechaValida(reel.publicarEl)) {
+        en('reel.publicarEl', `«${reel.publicarEl}» no es una fecha válida: se escribe YYYY-MM-DDTHH:mm`);
+      }
+
+      if (reel.duracion !== undefined && (reel.duracion < 3 || reel.duracion > 90)) {
+        en('reel.duracion', `${reel.duracion} segundos: Facebook admite entre 3 y 90`);
+      }
+
+      if (reel.video !== undefined && !/^https:\/\/\S+\.mp4$/.test(reel.video)) {
+        en('reel.video', `«${reel.video}» no es la URL https de un MP4`);
       }
     }
 
