@@ -176,7 +176,74 @@ Apple M4 con 16 GB, medido el 2026-09-13:
 - Si la Graph API permite poner la etiqueta de IA.
 - Que retener al 60% a los 3 s multiplique el alcance: viene de blogs, no de Meta.
 
-## El siguiente paso propuesto
+---
+
+## 6. Publicar video en Meta de forma automática
+
+Verificado el 2026-09-13 contra la documentación oficial. **Sí se puede en los
+dos canales**, y los tokens que ya tenemos sirven: los dos son de Página, no
+caducan y traen `instagram_content_publish`, `pages_manage_posts` y
+`pages_read_engagement`.
+
+### Instagram Reels
+
+El mismo patrón de los carruseles, con una espera en medio:
+
+1. Contenedor con `media_type=REELS` y `video_url` a un MP4 público.
+2. **Esperar**: consultar `status_code` hasta `FINISHED` — de 30 s a 2 min. Meta
+   recomienda una vez por minuto y no más de 5.
+3. `media_publish`.
+
+- **No hay publicación programada**: la hora la dispara nuestro cron, como ahora.
+- 100 publicaciones por API cada 24 h, sumando todos los formatos.
+- Un contenedor sin publicar caduca a las 24 h.
+
+### Facebook Reels
+
+Endpoint distinto del que usamos hoy: `/{page-id}/video_reels`, en tres fases.
+
+1. `upload_phase=start`.
+2. Subir el video. **Se puede pasar una URL en la cabecera `file_url`** en vez de
+   mandar los bytes — lo que importa para un Worker.
+3. `upload_phase=finish` con `video_state=PUBLISHED`.
+
+- Facebook **sí** programa nativamente: `video_state=SCHEDULED` con
+  `scheduled_publish_time`, entre 10 minutos y 29 días.
+- 30 reels por API cada 24 h.
+- Especificaciones: 9:16, 1080×1920, 24-60 fps, **3 a 90 s**, H.264, AAC 48 kHz.
+
+⚠️ **Un `200` en la fase final no es una publicación.** La transcodificación y la
+revisión de integridad son posteriores y pueden rechazar el video minutos
+después. Hay que consultar el estado hasta que la fase de publicación termine.
+
+⚠️ **Meta rechaza archivos alojados en sitios que bloquean por `robots.txt`.** El
+nuestro permite todo; no romperlo.
+
+### Lo que hay que decidir en la spec
+
+1. **Dónde viven los MP4.** Misma trampa que los PNG —sin desplegar, el CDN no
+   los sirve—, pero el peso cambia: hoy `public/piezas` son 3,3 MB y el
+   repositorio entero 13 MB. Cloudflare aguanta (25 MiB por archivo, 20.000
+   archivos), así que la duda no es técnica: es si se versiona video o va a R2.
+2. **Cómo se evita publicar dos veces.** Hoy se leen las publicaciones recientes
+   y se compara el texto. Para Facebook habría que mirar `/video_reels`: **sin
+   verificar si los reels salen en `/posts`**, que es lo que se consulta ahora.
+3. **90 segundos es el techo de Facebook**, y fija el formato.
+
+⚠️ **La etiqueta de IA no tiene parámetro en la API.** En la documentación solo
+aparece como un interruptor en la pantalla de publicación. Con voz sintética,
+puede que haya que ponerla a mano después de publicar, y eso rompe la
+automatización completa. Hay que probarlo.
+
+---
+
+## Decidido el 2026-09-13
+
+**Los Reels llevan voz.** Se descarta empezar por el formato mudo con
+subtítulos. La medición de resultados y la etiqueta de IA se resuelven después,
+no bloquean.
+
+## El siguiente paso
 
 Una **prueba de voces**, fuera del repositorio: la misma frase de una pieza real
 con `ef_dora`, Chatterbox latam y Qwen3-TTS, para escucharlas. Decide lo que más
