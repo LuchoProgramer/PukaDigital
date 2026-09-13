@@ -101,6 +101,37 @@ Lo que cambia es la conclusión práctica: **3.8 ya no se descarta de entrada.**
 🔑 **La regla vigente: subir el `--print-timeout`, acotar la tarea, y usar el que
 encuentra más** — hoy, 3.8 High.
 
+### Si 3.8 se queda sin cupo: la cadena de reserva
+
+Cuando el modelo elegido agota su cuota o choca contra el límite de la cuenta,
+**se baja al siguiente de la lista y se sigue**. No se espera, y no se cancela la
+pasada.
+
+```bash
+agy models   # la lista real, que cambia sola
+```
+
+Verificada el 2026-09-13, en orden de preferencia para contrastar:
+
+1. `gemini-3.8-flash-high` — el de hoy
+2. `gemini-3.7-flash-high` — el anterior, con 9 hallazgos medidos contra 15
+3. `gemini-3.6-flash-high`
+4. `gemini-3.1-pro-high` — otra familia, más lento
+
+⚠️ **`agy` también ofrece `claude-sonnet-4-6` y `claude-opus-4-6-thinking`, y para
+contrastar son el último recurso.** El revisor de esta casa ya es Claude: pedirle
+a otro Claude que contraste lo mismo da un segundo par de ojos mucho menos
+independiente. Para *ejecutar* un plan da igual, porque ahí solo se copia código.
+
+**Anotar siempre con qué modelo salió cada pasada.** Sin eso, comparar hallazgos
+entre sesiones no significa nada — es la mitad de lo que hizo falsa la conclusión
+del `--print-timeout`.
+
+⚠️ **Y no confundir quedarse sin cupo con el `--print-timeout`.** Los dos terminan
+en salida vacía. El límite de cuota lo dice en `salida.err`; el del print-timeout
+no dice nada y devuelve exit code 0. Por eso se redirige el error a un archivo
+aparte y se mira antes de cambiar de modelo.
+
 Por qué el 3.8 chocaba primero contra un límite que era de la herramienta: tarda
 13,3 s al primer token —contra 2,99 s de mediana— y produce un 70% más de tokens.
 Arranca más lento y es más verboso, así que llegaba antes a los cinco minutos. Con
