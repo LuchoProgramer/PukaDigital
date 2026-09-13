@@ -99,6 +99,36 @@ Lo que falle ahí se corrige **en el plan**, no en el código que copiará `agy`
 | `--id`: un Reel por comando | Renderizar tarda minutos; un mes entero de golpe no es útil y complica el manejo de errores |
 | `--ensayo`: renderiza y verifica sin subir | El bucket de R2 todavía no existe, y probar el render no debería obligar a publicar |
 
+### El contraste del plan, 2026-09-13
+
+Claude y `agy` (`gemini-3.8-flash-high`) contrastaron este plan contra el código
+real, por separado. **Contrastar un plan encuentra otra cosa que contrastar un
+spec**: aquí lo que importa es el código literal que alguien va a copiar.
+
+| Hallazgo | Quién | Veredicto |
+|---|---|---|
+| La Task 1 esperaba 4 fallos en su fase roja, y son 2 | agy | ✅ **corregido**: un archivo que no carga cuenta como un test y un fallo |
+| El tipo `env` de `Ejecutar` no compilaría con `Record<string, string>` | agy | ❌ **descartado**, midiendo |
+
+🔴 **Por qué `env?: Record<string, string>` se queda como está.** El argumento era
+que `...(d.python ? { HYPERFRAMES_PYTHON: d.python } : {})` produce una propiedad
+opcional, y `string | undefined` no entra en una firma de índice que pide
+`string`. Suena bien y es falso: TypeScript infiere ahí **la unión de dos
+objetos**, no una propiedad opcional, y las dos ramas encajan. Comprobado
+compilando las dos versiones con la configuración del proyecto: las dos pasan.
+
+Lo que verificó Claude, sin hallazgos: las firmas de `Fuente`, `cargarFuentes`,
+`medidasAviso`, `AVISO`, `FONDO_AVISO`, `cargarCaptura`, `FORMATOS`, `MARGEN`,
+`sistemas`, `CATALOGO`, `PROHIBIDAS`, `validar`, `formatear` y `piezasDe`; **las
+seis cuentas de los tests**, ejecutando la lógica que el plan propone; y que la
+regla nueva del validador solo rompe los tests de Facebook, que la Task 1 arregla.
+
+⚠️ Lo que ningún contraste puede decidir, y por eso el paso 0 incluye un render de
+verdad: si `render --strict` acepta esta composición, si las animaciones caen
+donde deben y si el audio sale como Meta lo exige.
+
+---
+
 ### Mapa de archivos
 
 | Archivo | Cambio | Responsabilidad |
@@ -161,7 +191,7 @@ test('el guion lleva un párrafo por slide, separados por una línea en blanco',
 - [ ] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/piezas/guion.test.ts lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
-Expected: `ℹ fail 4` — los 3 de `guion.test.ts`, que no carga porque el módulo no existe todavía, y el nuevo de `validar.test.ts`.
+Expected: `ℹ fail 2` — uno de `guion.test.ts`, que **no carga** porque el módulo no existe todavía, y el nuevo de `validar.test.ts`. ⚠️ Un archivo que falla al importar cuenta como **un** test y un fallo, no como los que contiene: medido el 2026-09-13.
 
 - [ ] **Step 3: los párrafos**
 
