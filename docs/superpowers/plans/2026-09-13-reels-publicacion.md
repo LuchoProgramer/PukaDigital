@@ -65,6 +65,22 @@ cd - && git worktree remove --force ../PukaDigital-ensayo-reels
 
 Con eso, verificar cada task de `agy` pasa a ser confirmar, no depurar.
 
+### Resultado del paso 0 — 2026-09-13
+
+Hecho con un script que aplica el plan **literalmente** (no a mano, que es justo el error que se busca), task por task, midiendo la fase roja y la verde de cada una:
+
+| Comprobación | Resultado |
+|---|---|
+| Instrucciones del plan aplicadas | **26 de 26**, cada texto a reemplazar encontrado exactamente una vez |
+| Suite al final | **174 tests**, 0 fallos · `tsc` exit 0 · 7 piezas válidas |
+| Mutaciones que deben caer | **22 de 22** caen, con el test que dice cada tabla |
+| Mutaciones marcadas «no cae» | **3 de 3** no caen, como está escrito |
+| `npm run build:cloudflare` | exit 0: el Worker se genera |
+
+**Lo que corrigió:** cuatro «Expected» de fases rojas. Las Tasks 4, 5 y 6 decían «error de import, todo el archivo cae», y en realidad `tsx` deja en `undefined` lo que no existe y los tests caen uno a uno. La Task 7 decía que caerían 6 y caen 5. **Ningún bloque de código cambió.**
+
+⚠️ El worktree del ensayo se conserva mientras dura la ejecución: tiene el estado final exacto, y sirve para comprobar cada task de `agy` con un `diff` en vez de leyendo. Se borra al terminar.
+
 ### Desviaciones de la spec, ya corregidas en ella
 
 | Qué | Por qué |
@@ -628,7 +644,7 @@ test('un Reel sin caption no se publica solo: no se podría comprobar si ya sali
 - [ ] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/programado.test.ts 2>&1 | tail -5`
-Expected: error de import — `fechaReelInstagram` no existe todavía. Todo el archivo cae.
+Expected: `ℹ fail 7` — los siete nuevos. ⚠️ **No es un error de import**: `tsx` no rechaza importar algo que todavía no existe, lo deja en `undefined`, y cada test cae por separado con un `TypeError`. Medido en el ensayo del paso 0.
 
 - [ ] **Step 3: implementar**
 
@@ -838,7 +854,7 @@ test('una pieza sin el video del Reel no llega a la API', async () => {
 - [ ] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/meta.test.ts 2>&1 | tail -5`
-Expected: error de import — `ESPERA_REEL` y `publicarReelInstagram` no existen.
+Expected: `ℹ fail 5`. Los imports que faltan quedan en `undefined` y cada test cae por separado. «una imagen conserva su espera de 30 intentos» **pasa ya**, y tiene que pasar: prueba que el cambio no rompe lo que había.
 
 - [ ] **Step 3: los intentos inyectables**
 
@@ -1121,7 +1137,7 @@ test('una pieza sin el video del Reel no llega a la API de Facebook', async () =
 - [ ] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/facebook.test.ts 2>&1 | tail -5`
-Expected: error de import — `publicarReelFacebook` no existe.
+Expected: `ℹ fail 6` — los seis nuevos, cada uno con un `TypeError`: `tsx` deja en `undefined` el import que falta en vez de rechazar el archivo.
 
 - [ ] **Step 3: el import y las opciones**
 
@@ -1475,7 +1491,12 @@ test('sin Reels en la tanda, los canales de Reel no leen nada', async () => {
 - [ ] **Step 4: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/tanda.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
-Expected: `ℹ fail 6` — los dos de `omitidos` y cuatro de los nuevos. «sin Reels en la tanda, los canales de Reel no leen nada» **pasa ya**: hoy nadie lee `/video_reels`. Su valor está en la mutación del Step 11.
+Expected: `ℹ fail 5` — los dos de `omitidos` y tres de los nuevos. Dos **pasan ya**, y no es un fallo del test:
+
+- «sin Reels en la tanda, los canales de Reel no leen nada», porque hoy nadie lee `/video_reels`;
+- «no republica un Reel de Facebook que ya está en la Página», porque hoy no hay canal que lo publique.
+
+Su valor está en las mutaciones del Step 11. Medido en el ensayo del paso 0.
 
 - [ ] **Step 5: los imports**
 
