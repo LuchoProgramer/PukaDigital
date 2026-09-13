@@ -1044,8 +1044,11 @@ test('lee el JSON aunque venga dentro de un bloque de código', () => {
   assert.deepEqual(leerRespuesta(respuesta), { guion: 'Uno.\n\nDos.', caption: 'C' });
 });
 
-test('una respuesta sin guion, o que no es JSON, falla: no hay respaldo', () => {
+test('una respuesta sin guion, sin caption, o que no es JSON, falla: no hay respaldo', () => {
   assert.throws(() => leerRespuesta('{"caption": "C"}'), /sin guion o sin caption/);
+  // Las dos mitades, no una: sin esta, borrar la comprobación del caption no
+  // rompe ningún test. Lo destapó la mutación de la Task 6.
+  assert.throws(() => leerRespuesta('{"guion": "Uno.\\n\\nDos."}'), /sin guion o sin caption/);
   assert.throws(() => leerRespuesta('Aquí tienes tu guion: ...'), /JSON válido/);
 });
 
@@ -1205,7 +1208,7 @@ Expected: `ℹ pass 6` · `ℹ fail 0`
 |---|---|
 | `Exactamente ${pieza.slides.length} párrafos` → `Varios párrafos` | «el prompt pide un párrafo por slide» |
 | `pieza.producto === 'pukahealth'` → `false` | «a PukaHealth le llegan las afirmaciones prohibidas» |
-| en `leerRespuesta`, borrar la comprobación de `caption` | «una respuesta sin guion, o que no es JSON, falla» |
+| en `leerRespuesta`, borrar la comprobación de `caption` | «una respuesta sin guion, sin caption, o que no es JSON, falla» |
 
 - [ ] **Step 6: commit**
 
