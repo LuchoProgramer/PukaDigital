@@ -1,7 +1,12 @@
 import { piezasDe } from '../../content/piezas/index.ts';
-import { publicarPieza } from './meta.ts';
-import { publicarPiezaFacebook } from './facebook.ts';
-import { pendientesFacebook, pendientesInstagram } from './programado.ts';
+import { publicarPieza, publicarReelInstagram } from './meta.ts';
+import { publicarPiezaFacebook, publicarReelFacebook } from './facebook.ts';
+import {
+  pendientesFacebook,
+  pendientesInstagram,
+  pendientesReelFacebook,
+  pendientesReelInstagram,
+} from './programado.ts';
 import type { Pieza } from '../piezas/tipos.ts';
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
@@ -9,7 +14,7 @@ const GRAPH = 'https://graph.facebook.com/v21.0';
 /** Cuántas publicaciones recientes se miran para no repetir una pieza. */
 const RECIENTES = 25;
 
-export type NombreCanal = 'instagram' | 'facebook';
+export type NombreCanal = 'instagram' | 'facebook' | 'reel-instagram' | 'reel-facebook';
 
 export type Resultado = {
   /** El mes de la corrida. Pueden entrar piezas del anterior: ver `mesAnterior`. */
@@ -48,6 +53,12 @@ export type Opciones = {
  */
 type Canal = {
   nombre: NombreCanal;
+  /**
+   * Si el canal tiene algo que mirar en esta tanda. Los de Reel se saltan enteros
+   * cuando ninguna pieza trae video: sin esto leerían el perfil de balde, y un
+   * fallo de esa lectura saldría como fallo de un canal que no tenía nada que hacer.
+   */
+  aplica?(piezas: Pieza[]): boolean;
   recientes(o: Opciones): Promise<string[]>;
   pendientes(piezas: Pieza[], ahora: Date, recientes: string[]): Pieza[];
   publicar(pieza: Pieza, mes: string, o: Opciones): Promise<{ id: string }>;
@@ -68,14 +79,17 @@ function mensaje(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
 }
 
+type CampoTexto = 'caption' | 'message' | 'description';
+
 /**
  * Las publicaciones recientes de un perfil. Instagram las llama `caption` en
- * `/media`; Facebook, `message` en `/posts`. Lo demás es idéntico.
+ * `/media`; Facebook, `message` en `/posts`, y `description` en `/video_reels`
+ * para los Reels, que no salen en `/posts`. Lo demás es idéntico.
  */
 async function textosRecientes(
   o: Opciones,
   ruta: string,
-  campo: 'caption' | 'message',
+  campo: CampoTexto,
   token: string,
 ): Promise<string[]> {
   const hacer = o.fetchImpl ?? fetch;
@@ -102,10 +116,25 @@ async function textosRecientes(
 }
 
 function canalesDe(o: Opciones): { canales: Canal[]; omitidos: NombreCanal[] } {
+  // Una lectura por perfil y por tanda: el carrusel y el Reel de Instagram miran
+  // los dos `/media`. Si esa lectura falla, falla para los dos, que es lo que
+  // tiene que pasar: ninguno puede saber qué ya salió.
+  const lecturas = new Map<string, Promise<string[]>>();
+  const leer = (op: Opciones, ruta: string, campo: CampoTexto, token: string) => {
+    const clave = `${ruta}#${campo}`;
+    let lectura = lecturas.get(clave);
+    if (!lectura) {
+      lectura = textosRecientes(op, ruta, campo, token);
+      lecturas.set(clave, lectura);
+    }
+    return lectura;
+  };
+  const traeReel = (piezas: Pieza[]) => piezas.some((p) => Boolean(p.reel?.video));
+
   const canales: Canal[] = [
     {
       nombre: 'instagram',
-      recientes: (op) => textosRecientes(op, `${op.igUserId}/media`, 'caption', op.token),
+      recientes: (op) => leer(op, `${op.igUserId}/media`, 'caption', op.token),
       pendientes: pendientesInstagram,
       publicar: (pieza, mes, op) =>
         publicarPieza(pieza, mes, {
@@ -124,13 +153,37 @@ function canalesDe(o: Opciones): { canales: Canal[]; omitidos: NombreCanal[] } {
   if (pageId && fbToken) {
     canales.push({
       nombre: 'facebook',
-      recientes: (op) => textosRecientes(op, `${pageId}/posts`, 'message', fbToken),
+      recientes: (op) => leer(op, `${pageId}/posts`, 'message', fbToken),
       pendientes: pendientesFacebook,
       publicar: (pieza, mes, op) =>
         publicarPiezaFacebook(pieza, mes, { pageId, token: fbToken, fetchImpl: op.fetchImpl }),
     });
   } else {
     omitidos.push('facebook');
+  }
+
+  // Los Reels van después de los canales de imagen: el orden del resultado es el
+  // de las franjas de un tema.
+  canales.push({
+    nombre: 'reel-instagram',
+    aplica: traeReel,
+    recientes: (op) => leer(op, `${op.igUserId}/media`, 'caption', op.token),
+    pendientes: pendientesReelInstagram,
+    publicar: (pieza, _mes, op) =>
+      publicarReelInstagram(pieza, { igUserId: op.igUserId, token: op.token, fetchImpl: op.fetchImpl }),
+  });
+
+  if (pageId && fbToken) {
+    canales.push({
+      nombre: 'reel-facebook',
+      aplica: traeReel,
+      recientes: (op) => leer(op, `${pageId}/video_reels`, 'description', fbToken),
+      pendientes: pendientesReelFacebook,
+      publicar: (pieza, _mes, op) =>
+        publicarReelFacebook(pieza, { pageId, token: fbToken, fetchImpl: op.fetchImpl }),
+    });
+  } else {
+    omitidos.push('reel-facebook');
   }
 
   return { canales, omitidos };
@@ -172,6 +225,7 @@ export async function publicarLoQueToca(opciones: Opciones): Promise<Resultado> 
   const fallidas: Resultado['fallidas'] = [];
 
   for (const canal of canales) {
+    if (canal.aplica && !canal.aplica(piezas)) continue;
     try {
       const recientes = await canal.recientes(opciones);
       for (const pieza of canal.pendientes(piezas, opciones.ahora, recientes)) {
