@@ -178,7 +178,7 @@ test('un guion vacío no tiene párrafos', () => {
 });
 ```
 
-Y añadir al final de `lib/piezas/validar.test.ts`:
+Añadir al final de `lib/piezas/validar.test.ts`:
 
 ```typescript
 test('el guion lleva un párrafo por slide, separados por una línea en blanco', () => {
@@ -1494,7 +1494,7 @@ test('si el comando falla, el error trae sus últimas líneas de stderr', async 
 });
 ```
 
-Y crear `lib/reels/bloque.test.ts`:
+Crear `lib/reels/bloque.test.ts`:
 
 ```typescript
 // lib/reels/bloque.test.ts
@@ -1567,7 +1567,7 @@ export const ejecutar: Ejecutar = (comando, argumentos, opciones = {}) =>
   });
 ```
 
-Y crear `lib/reels/bloque.ts`:
+Crear `lib/reels/bloque.ts`:
 
 ```typescript
 // lib/reels/bloque.ts
