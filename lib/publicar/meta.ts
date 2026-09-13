@@ -14,6 +14,8 @@ export type Opciones = {
   fetchImpl?: typeof fetch;
   /** Espera entre comprobaciones del contenedor. */
   esperarMs?: number;
+  /** Cuántas veces se comprueba antes de rendirse. Por defecto, `INTENTOS`. */
+  intentos?: number;
 };
 
 export type Publicacion = { id: string };
@@ -74,8 +76,9 @@ function dormir(ms: number): Promise<void> {
  */
 async function esperarContenedor(id: string, opciones: Opciones): Promise<void> {
   const espera = opciones.esperarMs ?? 2000;
+  const intentos = opciones.intentos ?? INTENTOS;
 
-  for (let i = 0; i < INTENTOS; i++) {
+  for (let i = 0; i < intentos; i++) {
     const estado = await llamar(id, { fields: 'status_code,status' }, opciones, 'GET');
     const codigo = String(estado.status_code ?? '');
 
@@ -85,7 +88,7 @@ async function esperarContenedor(id: string, opciones: Opciones): Promise<void> 
     }
     await dormir(espera);
   }
-  throw new Error(`El contenedor ${id} sigue sin estar listo despues de ${INTENTOS} intentos.`);
+  throw new Error(`El contenedor ${id} sigue sin estar listo despues de ${intentos} intentos.`);
 }
 
 /**
@@ -138,6 +141,55 @@ export async function publicarPieza(
   }
 
   await esperarContenedor(contenedor, opciones);
+
+  const publicado = await llamar(`${usuario}/media_publish`, { creation_id: contenedor }, opciones);
+  return { id: String(publicado.id) };
+}
+
+/**
+ * Un video tarda de 1 a 3 minutos en procesarse. Con la espera de una imagen
+ * —30 intentos cada 2 s— un Reel que iba bien se daría por fallido al minuto.
+ *
+ * Cinco minutos caben de sobra en los 15 de reloj del cron, y esperar en un
+ * `fetch` no gasta CPU. Cada 20 s son la mitad de llamadas que cada 10, y los 15
+ * intentos, distintos de los 30 de una imagen, dejan a un test saber cuál se usó.
+ */
+export const ESPERA_REEL = { esperarMs: 20_000, intentos: 15 } as const;
+
+/**
+ * Publica el Reel de una pieza en Instagram. El MP4 ya está en R2: la Graph API
+ * lo descarga de `reel.video`, y el Worker nunca toca los bytes.
+ *
+ * Un contenedor abandonado a mitad de espera no duplica nada: `media_publish`
+ * nunca se llamó, y Meta lo caduca solo a las 24 h.
+ */
+export async function publicarReelInstagram(
+  pieza: Pieza,
+  opciones: Opciones,
+): Promise<Publicacion> {
+  const errores = validar([pieza]);
+  if (errores.length > 0) {
+    throw new Error(`La pieza no pasa la validacion:\n${formatear(errores)}`);
+  }
+
+  const reel = pieza.reel;
+  if (!reel?.video) {
+    throw new Error(`La pieza ${pieza.id} no tiene el video del Reel renderizado`);
+  }
+
+  const usuario = opciones.igUserId;
+  const creado = await llamar(
+    `${usuario}/media`,
+    { media_type: 'REELS', video_url: reel.video, caption: reel.caption, share_to_feed: 'true' },
+    opciones,
+  );
+  const contenedor = String(creado.id);
+
+  await esperarContenedor(contenedor, {
+    ...opciones,
+    esperarMs: opciones.esperarMs ?? ESPERA_REEL.esperarMs,
+    intentos: opciones.intentos ?? ESPERA_REEL.intentos,
+  });
 
   const publicado = await llamar(`${usuario}/media_publish`, { creation_id: contenedor }, opciones);
   return { id: String(publicado.id) };
