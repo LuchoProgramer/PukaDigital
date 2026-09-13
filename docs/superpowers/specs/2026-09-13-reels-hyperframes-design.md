@@ -66,10 +66,10 @@ Dos tuberías, como ya hace la fábrica.
 y ffmpeg, que no existen en un Worker.
 
 ```
-npm run reels -- --mes 2026-10
-  └─ Gemini escribe el guion desde las slides ya revisadas
-     └─ Kokoro (ef_dora) lo convierte en voz
-        └─ Parakeet o whisper.cpp devuelve el tiempo de cada palabra
+npm run reels -- --mes 2026-10 --id <pieza>
+  └─ Gemini escribe el guion desde las slides ya revisadas: un párrafo por slide
+     └─ Kokoro (ef_dora) convierte cada párrafo en voz, por separado
+        └─ ffprobe mide cada voz: ahí empieza la escena siguiente
            └─ se genera la composición HTML desde los tokens del sistema
               └─ HyperFrames renderiza el MP4 en 1080×1920
                  └─ ffprobe verifica que cumple lo que Meta exige
@@ -213,9 +213,21 @@ claro** y sigue con las demás.
 Determinista: mismo texto, mismo audio. Requiere `espeak-ng` en el sistema y un
 Python con `kokoro-onnx` y `soundfile`, señalado con `HYPERFRAMES_PYTHON`.
 
-**3. Los tiempos.** `hyperframes transcribe --language es` devuelve el inicio y
-el fin de cada palabra. De ahí salen los subtítulos y los cortes entre escenas:
-la imagen cambia cuando la voz cambia de idea, no cada N segundos.
+**3. Los tiempos, sin transcribir.** Decidido el 2026-09-13, al escribir el plan
+2: en esta máquina no hay ninguna herramienta de transcripción, y
+`hyperframes transcribe` compila whisper.cpp la primera vez y baja un modelo
+multilingüe de cientos de MB. En su lugar:
+
+- **El guion lleva un párrafo por slide**, y el validador lo exige.
+- **Cada párrafo se sintetiza por separado**, y `ffprobe` mide cuánto dura: esa
+  duración es el corte de escena. La imagen cambia cuando la voz cambia de idea,
+  no cada N segundos.
+- **Los subtítulos van en grupos de hasta 4 palabras**, cortando también donde
+  cierra una idea; dentro del párrafo, cada palabra recibe tiempo según su largo.
+  El desfase de una palabra suelta es de décimas y en grupos no se nota.
+
+Si al ver los primeros Reels los subtítulos se notan desfasados, whisper entra en
+un plan aparte sin rehacer nada: solo cambia de dónde salen los tiempos.
 
 **4. La composición.** Una escena por slide. Subtítulos dentro de la zona segura
 y aviso de datos ficticios en toda escena que muestre pantalla.
@@ -227,16 +239,19 @@ documentación y contra su propio test vertical
 - **El tamaño va en la raíz**: `data-width="1080" data-height="1920"` y
   `data-duration`, y el mismo tamaño en el CSS de `html` y `body`. Sin eso
   renderiza en su defecto, 1920×1080.
-- **Las fuentes se copian** a `assets/fonts/` junto al `index.html` y se cargan
-  con `@font-face` y ruta relativa, `format("truetype")` y **`font-display:
-  block`**. Sin `block`, Chrome captura los primeros fotogramas antes de que la
+- **Las fuentes van embebidas** en el `index.html`, con `@font-face` en base64,
+  `format("truetype")` y **`font-display: block`**. Salen de `cargarFuentes()`, las
+  mismas que usan las imágenes. Sin `block`, Chrome captura los primeros fotogramas antes de que la
   fuente cargue y el texto sale invisible o cambia de tipografía a mitad.
 - **El audio es un `<audio>`** con `data-start` y el archivo relativo. HyperFrames
   controla la reproducción: nada de `play()` ni `currentTime`.
 - **Las animaciones se registran síncronas** en `window.__timelines`. Nada de
   `async`, `fetch` ni `Math.random()` al construirlas: rompe el determinismo.
-- **GSAP se copia al proyecto**, no se carga de un CDN. Su test vertical lo toma
-  de jsdelivr, y un render que depende de la red no es reproducible.
+- **GSAP va embebido**, leído de `node_modules` (`gsap` 3.14.2, la versión de la
+  documentación de HyperFrames, como dependencia de desarrollo), no cargado de un
+  CDN. Su test vertical lo toma de jsdelivr, y un render que depende de la red no
+  es reproducible. La captura también va embebida, con `cargarCaptura()`: la
+  composición es **un solo HTML** más un audio por escena.
 
 ⚠️ `data-resolution="portrait"` **no existe**: lo propuso un revisor y no aparece
 en ninguna parte de su documentación. No añadirlo.
@@ -274,9 +289,8 @@ Al repositorio solo entra texto: guion, caption y una URL.
 
 Una escena por slide, en el orden del carrusel: el guion recorre las mismas
 ideas y en el mismo orden, así que un carrusel de cinco slides da unas cinco
-escenas de unos cinco segundos. **Los cortes los fijan los tiempos de las
-palabras, no un reloj**: la escena cambia en la palabra donde empieza la idea
-siguiente.
+escenas de unos cinco segundos. **Los cortes los fija lo que dura la voz de cada
+párrafo, no un reloj**: la escena cambia cuando empieza el párrafo siguiente.
 
 ### Credenciales, y dónde viven
 
@@ -287,6 +301,12 @@ documentan en `docs/ENVIRONMENT_VARIABLES.md`:
 |---|---|
 | `API_KEY` | El guion. ⚠️ **Es la de Gemini**, aunque el nombre no lo diga: es la que lee `lib/captions/gemini.ts:21`. `GEMINI_API_KEY` aparece en la documentación pero **el código no la usa** |
 | `R2_BUCKET` | El nombre del bucket. Sin claves: la subida usa la sesión de `wrangler` |
+| `HYPERFRAMES_PYTHON` | El Python con `kokoro-onnx` y `soundfile` que usa `hyperframes tts` |
+| `MODELO_REEL` | Opcional: por defecto `gemini-3.8-flash` |
+
+**`--ensayo` renderiza y verifica sin subir nada**, y no necesita `R2_*`. Existe
+porque el bucket no existe todavía, y porque probar el render no debería obligar
+a publicar un archivo.
 | `R2_PUBLIC_BASE_URL` | La base de la URL pública del bucket, para componer `reel.video`. Los buckets de R2 son privados por defecto: hay que exponerlo con dominio propio o `r2.dev` |
 | `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID` | Mandarte el video al terminar |
 
@@ -491,9 +511,12 @@ Siguiendo la separación que ya usa la fábrica: `lib/piezas/` produce,
 |---|---|
 | `lib/reels/cli.ts` | El comando `npm run reels` |
 | `lib/reels/guion.ts` | Gemini escribe el guion desde las slides |
-| `lib/reels/voz.ts` | Kokoro y los tiempos por palabra |
+| `lib/piezas/guion.ts` | Los párrafos de un guion: los usan el validador y la producción |
+| `lib/reels/tiempos.ts` | Escenas y subtítulos a partir de lo que dura cada voz |
 | `lib/reels/composicion.ts` | Genera el HTML desde los tokens del sistema |
-| `lib/reels/render.ts` | HyperFrames y la verificación con `ffprobe` |
+| `lib/reels/verificacion.ts` | Lo que exige Meta, contra la salida de `ffprobe` |
+| `lib/reels/producir.ts` | La tubería entera, con las herramientas inyectadas |
+| `lib/reels/herramientas.ts` · `bloque.ts` | Ejecutar comandos, e imprimir el bloque para pegar |
 | `lib/reels/r2.ts` · `telegram.ts` | Subida y aviso |
 | `lib/publicar/meta.ts` · `facebook.ts` | Los dos canales nuevos, junto al cliente de cada red: reutilizan `llamar()` y `llamarFB()`, que son privados. Un archivo aparte obligaría a exportarlos |
 | `lib/publicar/frontera.test.ts` | Que lo que carga el Worker no alcance `lib/reels/` |
