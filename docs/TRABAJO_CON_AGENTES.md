@@ -46,6 +46,26 @@ Las tres partes son necesarias y ninguna es opcional:
 el 2026-09-02: es la única barrera que sobrevive al flag, y por eso es donde tiene
 que estar la protección de verdad.
 
+🔴 **Y falta un flag que no se ve venir: `--print-timeout`.** Vale 5 minutos por
+defecto, y pasado ese límite `agy` devuelve salida parcial o vacía **con exit code
+0**. Se escribe `--print-timeout=25m`, con `=` y sin `--` delante; las otras dos
+formas fallan, una con error y la otra en silencio. El detalle, en
+`METODO_AGENTES_PARALELOS.md` §1.
+
+### Dos cosas de seguridad que aprendió SistemaSalud
+
+- **El prompt nunca lleva secretos ni rutas a `.env`.** Aquí eso incluye los
+  tokens de Meta y el `CRON_SECRET`.
+- **Las pruebas de permisos se hacen con `curl`, fuera del agente.** Un encargo que
+  pedía una petición con credenciales ajenas lo **bloqueó el filtro de seguridad
+  del modelo**, que lo leyó como un intento de explotación: volvió en 18 segundos
+  sin hacer nada.
+
+⚠️ Y una que aquí tiene otra forma: en SistemaSalud vigilan que un agente leyendo
+capturas de producción no vea datos de pacientes. Aquí las capturas ya vienen de
+un sistema de demostración, pero **el encuadre sigue siendo criterio humano**: a
+este proyecto ya se le colaron el dock de macOS y rutas con nombres reales.
+
 ### Los permisos, en `~/.gemini/antigravity-cli/settings.json`
 
 Siete tipos de acción —`read_file`, `write_file`, `read_url`, `execute_url`,
@@ -161,6 +181,33 @@ Para la fase 2 de la fábrica de piezas —un agente redactando el contenido del
 mes— esto no es un detalle: si las reglas no entran, el agente inventa precios.
 Por eso el validador comprueba los hechos comerciales y no se confía en que el
 agente los recuerde. Ver `lib/piezas/catalogo.ts`.
+
+---
+
+## Qué puede tocar un agente externo, y qué no
+
+Traído de `SistemaSalud`, que lo tiene escrito por agente (`qwen.md`, `GEMINI.md`),
+y adaptado a los riesgos de **este** repositorio, que son otros: aquí no hay datos
+clínicos, pero sí tokens que publican en redes a nombre de la empresa.
+
+| ✅ Sí | ❌ No |
+|---|---|
+| Leer y contrastar specs, planes y código | Decidir arquitectura, precios o posicionamiento |
+| Escribir el código de **una** task, en su rama | Cambiar de rama, mergear o pushear |
+| Correr `npm test`, `npx tsc --noEmit`, `npm run piezas -- --check` | `npm run deploy:cloudflare` — el despliegue es a mano y de una persona |
+| Generar PNG en local para revisarlos | Publicar en redes: `npm run publicar`, el cron, o cualquier llamada a la Graph API |
+| Proponer texto de una pieza | Editar `catalogo.ts` o `prohibidas.ts` — son los hechos comerciales, y son la fuente de verdad del validador |
+| Leer `.env.local` **jamás**, ni siquiera para depurar | Tocar secretos, tokens o `wrangler secret` |
+| Proponer cambios a `AGENTS.md` en el diff | Darlos por buenos: el tope de 12.000 caracteres lo revisa una persona |
+
+🔴 **Por qué la publicación no se delega.** El token de Página no caduca y publica a
+nombre de la empresa. Un error de código se revierte con un commit; una publicación
+equivocada la vio ya quien la vio, y borrarla tiene su propia trampa —la pieza
+vuelve a salir cuando su franja entre en ventana—.
+
+🔴 **Y por qué `catalogo.ts` está fuera.** Es lo que el validador usa para decidir si
+un precio es cierto. Un agente que pueda editar la fuente de verdad y el texto que
+se valida contra ella puede hacer pasar cualquier cosa: sería juez y parte.
 
 ---
 
