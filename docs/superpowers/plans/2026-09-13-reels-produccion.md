@@ -10,7 +10,7 @@
 
 **Architecture:** una tubería de funciones puras —párrafos, tiempos, composición HTML, verificación— y una capa fina que habla con las herramientas externas (`hyperframes`, `ffmpeg`, `ffprobe`, `wrangler`, Telegram, Gemini) a través de una función `ejecutar` inyectable. Todo corre en la máquina, nunca en el Worker.
 
-**Tech Stack:** TypeScript estricto, `node --test` con `tsx`, HyperFrames 0.8.36 (Kokoro `ef_dora` y render con Chrome), GSAP 3.14.2 embebido, ffmpeg, wrangler y la Bot API de Telegram.
+**Tech Stack:** TypeScript estricto, `node --test` con `tsx`, HyperFrames 0.8.36 (Kokoro `ef_dora` y render con Chrome), GSAP 3.14.2 en local, ffmpeg, wrangler y la Bot API de Telegram.
 
 **Spec:** `docs/superpowers/specs/2026-09-13-reels-hyperframes-design.md`.
 
@@ -38,8 +38,19 @@ python3 -m venv ~/.venvs/kokoro && ~/.venvs/kokoro/bin/pip install kokoro-onnx s
 npx -y hyperframes@0.8.36 doctor
 ```
 
-Y en `.env.local`, con la ruta absoluta —el `~` no se expande ahí—:
-`HYPERFRAMES_PYTHON=/Users/luisviteri/.venvs/kokoro/bin/python`
+Y en `.env.local`, con rutas absolutas —el `~` no se expande ahí—:
+
+```
+HYPERFRAMES_PYTHON=/Users/luisviteri/.venvs/kokoro/bin/python
+ESPEAK_DATA_PATH=/opt/homebrew/share/espeak-ng-data
+PHONEMIZER_ESPEAK_LIBRARY=/opt/homebrew/lib/libespeak-ng.dylib
+```
+
+⚠️ **Las dos de `espeak` no son opcionales, y su fallo no se parece a lo que es.**
+`kokoro-onnx` trae su propio `espeak-ng` compilado en CI, con la ruta de los datos
+grabada dentro apuntando a `/Users/runner/work/...`. En esta máquina eso no existe,
+así que la voz falla con `Error processing file '.../phontab': No such file or
+directory` — un error que no menciona ni Kokoro ni el español. Medido el 2026-09-13.
 
 - **Para subir de verdad** hacen falta además el bucket de R2 con dominio público, el bot de Telegram y `API_KEY` de Gemini. **No hacen falta para empezar**: `--ensayo` renderiza y verifica sin subir nada.
 
@@ -51,7 +62,7 @@ npx tsc --noEmit; echo "exit=$?"                   # exit=0
 npm run piezas -- --check                          # 7 pieza(s) validas en 2026-09.
 ```
 
-Al terminar: **222 tests** (174 + 48), `tsc` limpio y las 7 piezas válidas.
+Al terminar: **225 tests** (174 + 51), `tsc` limpio y las 7 piezas válidas.
 
 | Task | Tests nuevos | Acumulado |
 |---|---|---|
@@ -63,7 +74,7 @@ Al terminar: **222 tests** (174 + 48), `tsc` limpio y las 7 piezas válidas.
 | 6 | 6 | 202 |
 | 7 | 8 | 210 |
 | 8 | 4 | 214 |
-| 9 | 8 | 222 |
+| 9 | 8 | 225 |
 
 ### 🔑 Paso 0: correr el código del plan antes de dárselo a `agy`
 
@@ -77,7 +88,7 @@ cd ../PukaDigital-ensayo-produccion && npm ci
 
 Y **el paso 0 incluye un render de verdad**, que es lo único que puede desmentir tres suposiciones que el plan no pudo verificar leyendo:
 
-1. que `hyperframes render --strict` acepta la composición generada, con GSAP embebido;
+1. que `hyperframes render --strict` acepta la composición generada;
 2. que las animaciones y los subtítulos caen donde deben;
 3. que el audio del MP4 sale como Meta lo exige después de la pasada de `ffmpeg`.
 
@@ -95,7 +106,7 @@ Lo que falle ahí se corrige **en el plan**, no en el código que copiará `agy`
 |---|---|
 | Sin transcripción: los cortes salen de lo que dura la voz de cada párrafo | No hay whisper ni parakeet en la máquina, y transcribir baja un modelo multilingüe pesado. Decidido con Luis el 2026-09-13 |
 | El guion lleva **un párrafo por slide**, y el validador lo exige | Es lo que hace que el corte de escena sea exacto sin transcribir |
-| GSAP, fuentes y captura **embebidos** en un solo HTML | Un render que descarga algo de la red no es reproducible, y así no hay archivos que copiar |
+| Fuentes y captura **embebidas** en el HTML; GSAP, como archivo hermano | Nada se descarga de la red, que es lo que hace el render reproducible. GSAP no va en línea porque el lint de `--strict` lee su `Math.random()` como código nuestro y aborta — medido en el render del paso 0 |
 | `--id`: un Reel por comando | Renderizar tarda minutos; un mes entero de golpe no es útil y complica el manejo de errores |
 | `--ensayo`: renderiza y verifica sin subir | El bucket de R2 todavía no existe, y probar el render no debería obligar a publicar |
 
@@ -126,6 +137,24 @@ regla nueva del validador solo rompe los tests de Facebook, que la Task 1 arregl
 ⚠️ Lo que ningún contraste puede decidir, y por eso el paso 0 incluye un render de
 verdad: si `render --strict` acepta esta composición, si las animaciones caen
 donde deben y si el audio sale como Meta lo exige.
+
+### Lo que contestó ese render, 2026-09-13
+
+Se aplicó el plan entero en un worktree descartable, se le puso a mano un bloque
+`reel` a `crm-no-chatbot` y se renderizó de verdad. **Ninguno de los cuatro
+hallazgos lo habría encontrado un test**: tres hicieron falta mirar el error, y
+uno, mirar el video.
+
+| Qué pasó | Corregido en |
+|---|---|
+| `render --strict` abortó con `non_deterministic_code: Math.random()` y `Date.now()`. **No era código nuestro: era GSAP en línea.** El lint analiza los `<script>` inline | Task 7 y Task 10: GSAP se escribe como `gsap.min.js` al lado del `index.html` y se referencia con `src` |
+| El fallo solo decía «Command failed». HyperFrames escribe sus errores en **stdout**, y `ejecutar` solo miraba stderr | Task 8: `ejecutar` mira los dos, y hay un test que lo fija |
+| El fotograma 2 mostraba un subtítulo entero que decía **«reportes.»**. Cortar en las comas parte las enumeraciones y deja palabras sueltas | Task 2: solo cortan `.?!`, y una cola de una palabra vuelve a su grupo |
+| Aviso `timeline_track_too_dense`: las 5 escenas iban en la pista 0 | Task 7: `data-track-index="${i}"`, una pista por escena |
+
+Con eso el render terminó: **827 fotogramas, 27,6 s de video, en 13 s**. Y tras la
+pasada de `ffmpeg`, `ffprobe` dio h264 · 1080×1920 · yuv420p · 30 fps · aac 48000 ·
+2 canales · 27,57 s · 1,37 MB — todo lo que exige Meta, sin un solo error.
 
 ---
 
@@ -348,6 +377,29 @@ test('los grupos cortan a las 4 palabras o donde cierra una idea', () => {
   ]);
 });
 
+test('una enumeración no deja palabras sueltas en pantalla', () => {
+  // El fotograma 2 del ensayo del paso 0 mostraba un subtítulo que decía
+  // «reportes.» y nada más. Ni las comas cortan, ni una cola queda sola.
+  const subs = subtitulosDe(
+    'Inbox centralizado, pipeline en Kanban, ficha de cliente y reportes. El bot es una parte.',
+    0,
+    8,
+  );
+  assert.deepEqual(subs.map((s) => s.texto), [
+    'Inbox centralizado, pipeline en',
+    'Kanban, ficha de cliente',
+    'y reportes.',
+    'El bot es una parte.',
+  ]);
+});
+
+test('pero una frase de una sola palabra sí es un subtítulo', () => {
+  assert.deepEqual(subtitulosDe('Sí. Extraordinariamente.', 0, 10).map((s) => s.texto), [
+    'Sí.',
+    'Extraordinariamente.',
+  ]);
+});
+
 test('una palabra larga recibe más tiempo que una corta', () => {
   const [corto, largo] = subtitulosDe('Sí. Extraordinariamente.', 0, 10);
   assert.ok(largo.fin - largo.inicio > corto.fin - corto.inicio);
@@ -416,12 +468,27 @@ export function subtitulosDe(
   let actual: string[] = [];
   for (const palabra of palabras) {
     actual.push(palabra);
-    if (actual.length >= max || /[.,;:?!]$/.test(palabra)) {
+    // Se corta al llegar al tope, o donde termina una frase. **No en las comas**:
+    // con ellas una enumeración deja palabras sueltas, y en pantalla se lee un
+    // subtítulo que dice «reportes.» y nada más. Visto en el render del paso 0.
+    if (actual.length >= max || /[.?!]$/.test(palabra)) {
       grupos.push(actual);
       actual = [];
     }
   }
   if (actual.length > 0) grupos.push(actual);
+
+  // Una palabra sola en pantalla se lee mal, pero «Sí.» sí es un subtítulo: lo que
+  // sobra es la **cola de una frase que el tope partió**. Se distinguen por lo que
+  // hay antes: si el grupo anterior no cerró frase, esta palabra es su cola y vuelve
+  // con ella, aunque el grupo quede en cinco.
+  for (let i = grupos.length - 1; i > 0; i--) {
+    const anterior = grupos[i - 1];
+    if (grupos[i].length === 1 && !/[.?!]$/.test(anterior[anterior.length - 1])) {
+      anterior.push(...grupos[i]);
+      grupos.splice(i, 1);
+    }
+  }
 
   const subtitulos: Subtitulo[] = [];
   let acumulado = 0;
@@ -472,7 +539,7 @@ export function escenasDesde(
 - [ ] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/tiempos.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
-Expected: `ℹ pass 6` · `ℹ fail 0`
+Expected: `ℹ pass 8` · `ℹ fail 0`
 
 - [ ] **Step 5: mutaciones**
 
@@ -1184,7 +1251,7 @@ function entrada(extra: Partial<EntradaComposicion> = {}): EntradaComposicion {
     escenas,
     total,
     audios: ['voz-0.wav', 'voz-1.wav'],
-    gsap: '/* gsap */',
+    gsapArchivo: 'gsap.min.js',
     fuentes: [],
     cargarCaptura: (archivo) => `data:image/png;base64,CAPTURA-${archivo}`,
     ...extra,
@@ -1247,14 +1314,16 @@ test('el texto de las slides se escapa', () => {
   assert.ok(conEtiqueta.includes('Uno &lt;script&gt;'));
 });
 
-test('nada se carga de la red: GSAP y las fuentes van embebidos', () => {
+test('nada se carga de la red: las fuentes van embebidas y GSAP es un archivo de al lado', () => {
   const html = composicion(entrada({
-    gsap: 'window.gsap = {};',
     fuentes: [{ name: 'Instrument Sans', weight: 400, style: 'normal', data: Buffer.from('fuente') }],
   }));
   assert.ok(!/\b(?:src|href)="https?:/.test(html), 'ningún recurso remoto');
   assert.ok(!/url\(https?:/.test(html), 'ninguna fuente remota');
-  assert.ok(html.includes('<script>window.gsap = {};</script>'));
+  // GSAP va referenciado, no en línea: en línea el lint de HyperFrames lee su
+  // `Math.random()` como código nuestro y aborta el render.
+  assert.ok(html.includes('<script src="gsap.min.js"></script>'));
+  assert.ok(!html.includes('<script>window.gsap'), 'GSAP nunca en línea');
   assert.match(html, /font-display: block/);
 });
 
@@ -1304,8 +1373,13 @@ export type EntradaComposicion = {
   total: number;
   /** El archivo de voz de cada escena, relativo al `index.html`. */
   audios: string[];
-  /** GSAP, embebido: un render que descarga algo de la red no es reproducible. */
-  gsap: string;
+  /**
+   * El archivo de GSAP, relativo al `index.html`. **Va como archivo, no en
+   * línea**: el lint de HyperFrames analiza los scripts en línea, y GSAP usa
+   * `Math.random()` y `Date.now()` por dentro, así que `render --strict` aborta
+   * con `non_deterministic_code`. Medido en el render del paso 0, el 2026-09-13.
+   */
+  gsapArchivo: string;
   fuentes: Fuente[];
   /** La captura como data URI. Inyectable para no leer disco en los tests. */
   cargarCaptura: (archivo: string) => string;
@@ -1384,7 +1458,7 @@ html, body { margin: 0; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; 
         .map((sub, j) => `<div class="subtitulo" id="s${i}-${j}"><span>${escapar(sub.texto)}</span></div>`)
         .join('\n      ');
 
-      return `    <section id="escena-${i}" class="clip" data-start="${escena.inicio}" data-duration="${escena.duracion}" data-track-index="0">
+      return `    <section id="escena-${i}" class="clip" data-start="${escena.inicio}" data-duration="${escena.duracion}" data-track-index="${i}">
       <div class="contenido" id="c${i}">
         ${partes}
       </div>
@@ -1417,7 +1491,7 @@ html, body { margin: 0; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=${ANCHO}, height=${ALTO}" />
-    <script>${entrada.gsap}</script>
+    <script src="${escapar(entrada.gsapArchivo)}"></script>
     <style>
 ${css}
     </style>
@@ -1492,6 +1566,15 @@ test('si el comando falla, el error trae sus últimas líneas de stderr', async 
     /dos \| tres \| cuatro/,
   );
 });
+
+test('y si el comando solo escribió en stdout, el error trae eso', async () => {
+  // HyperFrames escribe ahí sus errores de lint. Sin esto, un render abortado
+  // deja «Command failed» y nada más: pasó en el ensayo del paso 0.
+  await assert.rejects(
+    () => ejecutar(process.execPath, ['-e', 'console.log("non_deterministic_code"); process.exit(3)']),
+    /non_deterministic_code/,
+  );
+});
 ```
 
 Crear `lib/reels/bloque.test.ts`:
@@ -1557,7 +1640,10 @@ export const ejecutar: Ejecutar = (comando, argumentos, opciones = {}) =>
       { cwd: opciones.cwd, env: { ...process.env, ...opciones.env }, maxBuffer: 64 * 1024 * 1024 },
       (error, stdout, stderr) => {
         if (error) {
-          const detalle = stderr.trim().split('\n').slice(-3).join(' | ') || error.message;
+          // HyperFrames escribe sus errores en stdout, no en stderr: sin mirar los
+          // dos, un render abortado por el lint deja un «Command failed» sin motivo.
+          const salida = stderr.trim() || stdout.trim();
+          const detalle = salida.split('\n').slice(-6).join(' | ') || error.message;
           rechazar(new Error(`${comando} ${argumentos.slice(0, 3).join(' ')} falló: ${detalle}`));
         } else {
           resolver({ stdout, stderr });
@@ -1603,7 +1689,7 @@ ${guion},
 - [ ] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/herramientas.test.ts lib/reels/bloque.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
-Expected: `ℹ pass 4` · `ℹ fail 0`
+Expected: `ℹ pass 5` · `ℹ fail 0`
 
 - [ ] **Step 5: mutaciones**
 
@@ -1769,11 +1855,14 @@ test('si Telegram falla, el reel se entrega igual y queda el aviso', async () =>
   assert.ok(avisos.some((a) => a.includes('chat not found')));
 });
 
-test('la composición se escribe en la carpeta del render, con la voz de cada párrafo', async () => {
+test('la composición se escribe en la carpeta del render, con la voz de cada párrafo y GSAP al lado', async () => {
   const { d, archivos } = dependencias();
   await producirReel(CON_GUION, '2026-10', d);
   const html = archivos.get('/tmp/reel-prueba/index.html') ?? '';
   assert.match(html, /<audio id="voz-1" src="voz-1.wav"/);
+  // GSAP como archivo hermano, no en línea: si no, `render --strict` aborta.
+  assert.equal(archivos.get('/tmp/reel-prueba/gsap.min.js'), '/* gsap */');
+  assert.match(html, /<script src="gsap\.min\.js"><\/script>/);
 });
 ```
 
@@ -1883,6 +1972,10 @@ export async function producirReel(
 
   // 4. La composición y el render.
   const { escenas, total } = escenasDesde(parrafos, duraciones);
+  // GSAP se escribe como archivo, no en línea: en línea el lint lo lee como
+  // código propio y aborta el render por el `Math.random()` que es suyo.
+  const GSAP_ARCHIVO = 'gsap.min.js';
+  d.escribirArchivo(join(carpeta, GSAP_ARCHIVO), d.gsap);
   d.escribirArchivo(
     join(carpeta, 'index.html'),
     composicion({
@@ -1890,7 +1983,7 @@ export async function producirReel(
       escenas,
       total,
       audios,
-      gsap: d.gsap,
+      gsapArchivo: GSAP_ARCHIVO,
       fuentes: d.fuentes,
       cargarCaptura: d.cargarCaptura,
     }),
@@ -1944,7 +2037,7 @@ Run: `node --import tsx --test lib/reels/producir.test.ts 2>&1 | grep -E "^ℹ (
 Expected: `ℹ pass 8` · `ℹ fail 0`
 
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"` y `npx tsc --noEmit; echo "exit=$?"`
-Expected: `ℹ tests 222` · `ℹ fail 0` · `exit=0`
+Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0`
 
 - [ ] **Step 5: mutaciones**
 
@@ -2081,7 +2174,7 @@ Expected: el primero imprime el uso; el segundo, `No hay una pieza «no-existe»
 - [ ] **Step 5: la suite y los tipos**
 
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"` y `npx tsc --noEmit; echo "exit=$?"`
-Expected: `ℹ tests 222` · `ℹ fail 0` · `exit=0`
+Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0`
 
 - [ ] **Step 6: commit**
 
@@ -2118,6 +2211,7 @@ por:
 | `API_KEY` | El guion, con Gemini. ⚠️ Es la de Gemini aunque el nombre no lo diga. Solo hace falta si la pieza no trae `reel.guion` |
 | `MODELO_REEL` | Opcional. Por defecto `gemini-3.8-flash` |
 | `HYPERFRAMES_PYTHON` | Ruta **absoluta** al Python con `kokoro-onnx` y `soundfile`. El `~` no se expande en `.env.local` |
+| `ESPEAK_DATA_PATH` · `PHONEMIZER_ESPEAK_LIBRARY` | Los datos y la librería de `espeak-ng` de Homebrew. Sin ellas Kokoro usa su copia de CI, cuya ruta de datos no existe aquí |
 | `R2_BUCKET` | El bucket de los MP4. La subida usa la sesión de `wrangler`: sin claves |
 | `R2_PUBLIC_BASE_URL` | La URL pública del bucket, sin barra final |
 | `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID` | Opcionales: sin ellas el video no llega al teléfono y el comando lo avisa |
@@ -2213,7 +2307,7 @@ npm run piezas -- --check
 npx eslint app/ 2>&1 | tail -2
 ```
 
-Expected: `ℹ tests 222` · `ℹ fail 0` · `exit=0` · `7 pieza(s) validas en 2026-09.` · los mismos 8 problemas de `app/` que ya estaban.
+Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0` · `7 pieza(s) validas en 2026-09.` · los mismos 8 problemas de `app/` que ya estaban.
 
 - [ ] **Step 2: la frontera del Worker sigue en pie**
 
