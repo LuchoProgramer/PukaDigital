@@ -103,6 +103,35 @@ Un color escrito a mano en el HTML hace fallar un test. Y el test tiene que
 conocer las dos fuentes: buscar solo en `sistemas.ts` daría por bueno un
 `#0D1717` escrito a mano.
 
+### ⚠️ El vidrio no sobrevive al video
+
+**Los colores y las fuentes se copian estrictos; el vidrio no.** HyperFrames lo
+advierte en su guía de sistemas de diseño: un borde de 1 px o una sombra de 0,06
+de opacidad **desaparecen tras la compresión H.264**. Dark Glass Rojo usa vidrio
+a `0.04` y bordes a `0.08`: copiados tal cual dan tarjetas invisibles.
+
+| Qué | En video |
+|---|---|
+| Fondo, tinta, acento y tipografías | idénticos a `sistemas.ts` y `assets/fonts/` |
+| Opacidad del vidrio, grosor de borde, tamaños de texto | **escalados** para el medio, en constantes propias de `composicion.ts` y con su porqué |
+
+Así el test de colores sigue teniendo sentido: vigila la identidad de marca, no
+un valor de web que el códec se come.
+
+### 🔴 La frontera: `lib/reels/` no entra al Worker
+
+`worker.ts` y la ruta del cron importan `lib/publicar/tanda.ts`. Todo lo que ese
+archivo alcance acaba en el bundle del Worker, igual que pasó con Satori en la
+spec de la migración a Cloudflare.
+
+**Regla: `lib/publicar/` y `lib/piezas/` no importan nada de `lib/reels/`.** Los
+canales de Reel solo leen `reel.video` como texto y hablan HTTP con Meta. Un test
+de fronteras lo vigila: recorre los imports de `lib/publicar/` y falla si alguno
+alcanza `lib/reels/`.
+
+Y a la inversa, `lib/reels/` **sí** puede importar de `lib/piezas/` —tokens,
+`AVISO`, `validar`—: es exactamente lo que evita la duplicación.
+
 ---
 
 ## Modelo de datos
@@ -165,9 +194,20 @@ Facebook.
 palabras a la velocidad de Dora—. La rúbrica exige que los primeros 3 segundos
 planteen el problema: ahí se decide la retención.
 
-⚠️ Verificar el identificador exacto del modelo al implementar. Esa familia se
-mueve rápido, y la regla de usar el Flash 3.x más reciente ya está escrita en la
-spec del 2026-09-07.
+**El modelo:** `gemini-3.8-flash`, el mismo que usa hoy `lib/captions/gemini.ts:14`,
+sobreescribible con la variable `MODELO_REEL`. La regla de usar el Flash 3.x más
+reciente ya está escrita en la spec del 2026-09-07.
+
+🔴 **Si la pieza ya tiene `reel.guion`, no se vuelve a llamar a Gemini.** El guion
+se revisa y se retoca a mano en el PR; re-renderizar para corregir una pausa no
+puede borrar esa edición. Rehacerlo desde cero pide una bandera explícita,
+`--regenerar-guion`.
+
+🔴 **Y no hay respaldo si Gemini falla.** `captions` cae a un compositor que pega
+las slides (`lib/captions/cli.ts:38-48`); para un guion hablado eso es peor que
+no tener Reel, porque un texto telegráfico leído en voz alta suena a robot. Sin
+`API_KEY` o con Gemini caído, el comando **falla para esa pieza con un mensaje
+claro** y sigue con las demás.
 
 **2. La voz.** `hyperframes tts --voice ef_dora`, local y sin cuentas, a 24 kHz.
 Determinista: mismo texto, mismo audio. Requiere `espeak-ng` en el sistema y un
@@ -180,14 +220,47 @@ la imagen cambia cuando la voz cambia de idea, no cada N segundos.
 **4. La composición.** Una escena por slide. Subtítulos dentro de la zona segura
 y aviso de datos ficticios en toda escena que muestre pantalla.
 
+El HTML generado cumple el contrato de HyperFrames, verificado contra su
+documentación y contra su propio test vertical
+(`packages/producer/tests/portrait-edge-bleed`):
+
+- **El tamaño va en la raíz**: `data-width="1080" data-height="1920"` y
+  `data-duration`, y el mismo tamaño en el CSS de `html` y `body`. Sin eso
+  renderiza en su defecto, 1920×1080.
+- **Las fuentes se copian** a `assets/fonts/` junto al `index.html` y se cargan
+  con `@font-face` y ruta relativa, `format("truetype")` y **`font-display:
+  block`**. Sin `block`, Chrome captura los primeros fotogramas antes de que la
+  fuente cargue y el texto sale invisible o cambia de tipografía a mitad.
+- **El audio es un `<audio>`** con `data-start` y el archivo relativo. HyperFrames
+  controla la reproducción: nada de `play()` ni `currentTime`.
+- **Las animaciones se registran síncronas** en `window.__timelines`. Nada de
+  `async`, `fetch` ni `Math.random()` al construirlas: rompe el determinismo.
+- **GSAP se copia al proyecto**, no se carga de un CDN. Su test vertical lo toma
+  de jsdelivr, y un render que depende de la red no es reproducible.
+
+⚠️ `data-resolution="portrait"` **no existe**: lo propuso un revisor y no aparece
+en ninguna parte de su documentación. No añadirlo.
+
 **5. El render.** MP4 a 1080×1920 y 30 fps. Después `ffprobe` comprueba
 resolución, códecs (H.264 y AAC a 48 kHz), fps y duración contra lo que Meta
 exige. Si algo no cumple, el comando falla y no sube nada.
 
-**6. R2 y Telegram.** El MP4 va a `reels/<mes>/<id>.mp4`, el comando **imprime el
-bloque `reel` listo para pegar** en `content/piezas/<mes>.ts` —con el guion, la
-URL y la duración—, y manda el archivo al chat de Telegram para revisarlo en el
-teléfono, con sonido, que es como lo verá la gente.
+**6. R2 y Telegram.** El MP4 va a `reels/<mes>/<id>-<hash8>.mp4`, el comando
+**imprime el bloque `reel` listo para pegar** en `content/piezas/<mes>.ts` —con el
+guion, la URL y la duración—, y manda el archivo al chat de Telegram para
+revisarlo en el teléfono, con sonido, que es como lo verá la gente.
+
+- **El hash va en la clave** —los primeros 8 caracteres del SHA-256 del MP4—. Con
+  una clave fija, re-renderizar tras corregir el guion deja la misma URL, y la
+  caché de Cloudflare o la de Meta pueden servir el video viejo. Con el hash, cada
+  render es una URL nueva que hay que pegar, y lo ya publicado no se toca nunca.
+- **La subida es `wrangler r2 object put <bucket>/<clave> --remote --file`.**
+  `wrangler` ya está en el proyecto y con sesión iniciada: no hace falta SDK de S3
+  ni claves nuevas.
+- **Telegram con `sendVideo` subiendo el archivo**, no pasando la URL. La Bot API
+  admite 50 MB subiendo y solo 20 MB por URL; y `sendDocument` no se reproduce en
+  el chat. **Y es un paso no fatal**: si Telegram falla, avisa y el comando
+  termina igual imprimiendo el bloque. El render y la subida ya costaron minutos.
 
 ⚠️ **Imprime, no reescribe el archivo.** Es lo que ya hace `npm run captions`
 (`lib/captions/cli.ts:63`), y por una razón: los calendarios del mes son
@@ -207,13 +280,13 @@ siguiente.
 
 ### Credenciales, y dónde viven
 
-Las tres son del comando local, no del Worker, así que van en `.env.local` y se
+Todas son del comando local, no del Worker, así que van en `.env.local` y se
 documentan en `docs/ENVIRONMENT_VARIABLES.md`:
 
 | Variable | Para qué |
 |---|---|
 | `API_KEY` | El guion. ⚠️ **Es la de Gemini**, aunque el nombre no lo diga: es la que lee `lib/captions/gemini.ts:21`. `GEMINI_API_KEY` aparece en la documentación pero **el código no la usa** |
-| `R2_*` (cuenta, bucket, clave S3) | Subir el MP4 |
+| `R2_BUCKET` | El nombre del bucket. Sin claves: la subida usa la sesión de `wrangler` |
 | `R2_PUBLIC_BASE_URL` | La base de la URL pública del bucket, para componer `reel.video`. Los buckets de R2 son privados por defecto: hay que exponerlo con dominio propio o `r2.dev` |
 | `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID` | Mandarte el video al terminar |
 
@@ -243,9 +316,17 @@ franjas, la ventana de 60 minutos y el reenvío del entorno no se tocan.
 `status_code = FINISHED` y publicar con `media_publish`. El Worker espera sin
 gastar CPU.
 
-🔑 **La espera ya está escrita:** `esperarContenedor()`, en `lib/publicar/meta.ts`,
-hace exactamente eso para los carruseles —consulta `status_code`, aborta si dice
-`ERROR`— y se reutiliza tal cual.
+🔑 **La espera ya está escrita, pero no sirve tal cual.** `esperarContenedor()`, en
+`lib/publicar/meta.ts:75`, consulta `status_code` y aborta si dice `ERROR` o
+`EXPIRED`. **Corta a los 60 segundos**: `INTENTOS = 30` es una constante del módulo
+(`meta.ts:9`) y solo `esperarMs` es inyectable, a 2 s por defecto. Basta para una
+imagen; un video tarda de 1 a 3 minutos en procesarse, y cortar a los 60 s marca
+como fallido un Reel que iba bien.
+
+Se reutiliza **haciendo inyectables también los intentos**, y el canal de Reel la
+llama con 5 minutos: cada 10 s, 30 intentos. El carrusel conserva sus valores. Un
+contenedor abandonado no duplica nada —`media_publish` nunca se llamó— y caduca
+solo a las 24 h.
 
 **Facebook.** `upload_phase=start`, subir pasando la URL en la cabecera
 `file_url` —el Worker nunca toca los bytes—, y `upload_phase=finish` con
@@ -265,6 +346,38 @@ canal mira donde debe:
 
 ⚠️ El `/posts` que se consulta hoy **no sirve para reels**. Verificado el
 2026-09-13: `/video_reels` responde con el token actual y devuelve `description`.
+
+### 🔴 El hueco de Facebook mientras Meta procesa
+
+Dos hechos que juntos abren una ventana de doble publicación:
+
+1. **La referencia oficial de Meta dice que `GET /{page-id}/video_reels` no se
+   admite**, y sin embargo respondió con datos el 2026-09-13. La defensa se apoya
+   en un comportamiento no documentado.
+2. Un revisor afirma que ese listado **solo muestra reels ya publicados**, no los
+   que están en proceso. **No se pudo verificar** sin publicar uno.
+
+Si ambas cosas son ciertas, un Reel recién enviado es invisible durante uno a
+tres minutos, y un segundo intento en ese hueco lo publicaría dos veces.
+
+**Por qué el cron no lo provoca solo:** cada franja tiene **exactamente una
+ejecución dentro de su ventana**. El cron dispara a las 14:00 y 23:00 UTC —09:00
+y 18:00 de Ecuador, justo las franjas— y la ventana es de 60 minutos
+(`programado.ts:26`). La siguiente ejecución cae nueve horas después, fuera.
+
+**Lo que sí lo provoca:** un disparo manual de `/api/cron/publicar` dentro de la
+misma hora de una franja con Reel de Facebook, o un `curl` cortado a mitad y
+repetido. Por eso:
+
+- El canal **sondea hasta que la fase de publicación termine** antes de dar el
+  Reel por publicado, como ya dice arriba.
+- Si la lectura de `/video_reels` falla, el canal **falla ruidosamente**, igual
+  que hoy `textosRecientes()` (`tanda.ts:97`): nunca se trata como «no hay nada».
+- `PUBLICACION_EN_REDES.md` gana el aviso: **no disparar a mano un Reel de
+  Facebook dentro de su hora** sin comprobar antes en la Página que no salió.
+- **Con el primer Reel real, verificarlo**: publicar, y listar `/video_reels`
+  durante el procesamiento. Si el Reel aparece mientras se procesa, el hueco no
+  existe y el aviso se puede quitar.
 
 **Permisos:** los tokens actuales ya bastan. Verificado el 2026-09-13:
 `instagram_content_publish`, `pages_manage_posts` y `pages_read_engagement`, los
@@ -329,7 +442,21 @@ falsos negativos.
    que admite Facebook. El objetivo sigue siendo 55-75 palabras.
 6. `reel.duracion`, cuando el render ya lo escribió, entre 3 y 90.
 
+🔴 **Los tests de `lib/reels/` son herméticos, sin excepción.** `npm test` es
+`node --test lib/*/*.test.ts`: el glob los recoge solo, y corre en CI
+(`piezas.yml`, un `ubuntu-latest` sin `ffmpeg`, Chrome, Kokoro ni `espeak-ng`) y en
+`prebuild`, antes de cada `build` y cada despliegue. Un test que necesite un
+binario rompe el despliegue del sitio entero.
+
+Por eso las herramientas externas —HyperFrames, `ffprobe`, `wrangler`, Telegram,
+Gemini— se llaman desde una capa fina que **recibe la función de ejecutar por
+parámetro**, igual que `fetchImpl` en `tanda.ts`. Los tests inyectan una falsa. Lo
+que necesita la herramienta de verdad se prueba renderizando a mano, no en la
+suite.
+
 **Pruebas automáticas**, con `node --test` como el resto:
+
+- Ningún archivo de `lib/publicar/` ni `lib/piezas/` alcanza `lib/reels/`.
 
 - El HTML generado no contiene ningún color escrito a mano.
 - El aviso de datos ficticios aparece literal, con raya larga, en cada escena que
@@ -407,6 +534,51 @@ de Cloudflare dice lo contrario —un Worker disparado por HTTP no tiene límite
 de duración mientras el cliente siga conectado—, así que no hay que desacoplar la
 ruta. Lo que sí es cierto es el fondo: **si se corta el `curl`, el Worker muere a
 media publicación.**
+
+---
+
+### Segunda pasada, compartida
+
+Mismo día. `agy` recibió la lista de lo ya cubierto y seis áreas nuevas; terminó
+en **396 s**, pasado el límite de 5 minutos, lo que confirma que
+`--print-timeout=25m` funciona. 8 hallazgos suyos y 8 de Claude, **3 en común**.
+
+| Corrección | Quién | Cómo se verificó |
+|---|---|---|
+| `esperarContenedor()` corta a los 60 s: hay que inyectar los intentos | agy | `meta.ts:9` y `meta.ts:76` |
+| Tests de `lib/reels/` herméticos, o rompen CI y `prebuild` | los dos | `package.json`, `piezas.yml` |
+| Frontera: `lib/publicar/` no importa `lib/reels/` | los dos | `worker.ts:2`, `route.ts:2` |
+| Sin respaldo si Gemini falla, y no reescribir un guion ya editado | los dos | `lib/captions/cli.ts:38-48` |
+| El hueco de doble publicación en Facebook mientras Meta procesa | agy, con el análisis del cron de Claude | referencia de Meta; `wrangler.jsonc:41`, `programado.ts:26` |
+| La referencia de Meta dice que `GET /video_reels` no se admite | Claude | referencia oficial contra la llamada real |
+| El vidrio de Dark Glass desaparece tras H.264 | Claude | guía de sistemas de diseño de HyperFrames; `sistemas.ts` |
+| Contrato del HTML: tamaño en la raíz, fuentes copiadas con `font-display: block` | los dos | `html-schema.mdx`; `master-skeleton.html:11-14` |
+| Hash en la clave de R2 | los dos | — decisión de diseño |
+| Subir con `wrangler`, sin SDK ni claves | Claude | `wrangler r2 object put --help` |
+| Telegram: `sendVideo` por subida, y no fatal | los dos | Bot API |
+
+**Un hallazgo de `agy` resultó inventado a medias:** propuso
+`data-resolution="portrait"`. No aparece en ninguna parte de la documentación de
+HyperFrames; salió de una propiedad del componente de video de su propia web. Lo
+cierto de su fondo —que sin declarar el tamaño renderiza en 1920×1080— sí entró.
+
+**Criterio de parada:** la primera pasada dio 16 hallazgos entre los dos y la
+segunda 13, con un inventado. El rendimiento baja pero no se desploma, y lo que
+queda por descubrir ya **no sale de leer**: sale de ejecutar —renderizar una
+muestra, publicar un primer Reel—. Eso va al plan, no a una tercera pasada.
+
+---
+
+## Pasos manuales, antes de implementar
+
+Son de infraestructura y los hace una persona, no el plan:
+
+1. **Crear el bucket** de R2 —hoy no existe ninguno de PukaDigital; hay de
+   LedgerXpertz y PukaHealth— y **exponerlo con dominio público** para que Meta
+   pueda descargar.
+2. **Crear el bot de Telegram** con @BotFather y anotar el `chat_id`.
+3. Poner `R2_BUCKET`, `R2_PUBLIC_BASE_URL`, `TELEGRAM_BOT_TOKEN` y
+   `TELEGRAM_CHAT_ID` en `.env.local`.
 
 ---
 
