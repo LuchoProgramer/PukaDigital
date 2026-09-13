@@ -11,8 +11,9 @@ que `agy -p` no carga `AGENTS.md` por su cuenta— vive en
 > **El origen y qué está medido.** El método viene de `SistemaSalud`
 > (`docs/claude/metodo-agentes-paralelos.md`), destilado de sesiones del 3 al 13 de
 > septiembre de 2026. **Salvo donde diga lo contrario, los números son de allá**,
-> sobre Django y una suite grande. Lo medido aquí se marca como de aquí —hoy, la
-> comparación de modelos del 2026-09-09—, y las dos cosas no se mezclan.
+> sobre Django y una suite grande. Lo medido aquí se marca como de aquí —la
+> comparación de modelos del 2026-09-09 y **la primera ejecución de un plan con
+> `agy`, el 2026-09-13 (§14)**—, y las dos cosas no se mezclan.
 >
 > **Última sincronización con SistemaSalud: 2026-09-13**, pedida y contestada por
 > su propia sesión. Entraron: correr el código del plan antes de dárselo al
@@ -611,6 +612,76 @@ es aplicar el método, y conviene decirlo antes de confiarse:
   resolución, y un fotograma por escena. El equivalente al status HTTP del QA.
 - **Copy, precios y nombres de clientes quedan fuera del agente.** Salen de
   `catalogo.ts` y se nombran en el prompt; no se le piden de memoria.
+
+---
+
+## 14. Primera ejecución medida aquí — 2026-09-13
+
+**Todo lo de esta sección es de PukaDigital.** Plan:
+`docs/superpowers/plans/2026-09-13-reels-publicacion.md`, 9 tasks con código,
+`gemini-3.8-flash-high` con `--print-timeout=25m`.
+
+| Task | Qué | `agy` tardó | Desviaciones | Tests al cerrar |
+|---|---|---|---|---|
+| 1 | tipo `reel` | 33 s | 0 | 138 |
+| 2 | estructura del Reel | 87 s | 0 | 144 |
+| 3 | hechos del Reel | 81 s | 0 | 148 |
+| 4 | franjas 3 y 4 | 76 s | 0 | 155 |
+| 5 | Reel de Instagram | 106 s | 0 | 161 |
+| 6 | Reel de Facebook | 77 s | 0 | 167 |
+| 7 | canales en la tanda | 141 s | 0 | 172 |
+| 8 | frontera del Worker | 59 s | 0 | 174 |
+| 9 | documentación | 77 s | 0 | 174 |
+
+**Cero desviaciones en 9 tasks**, comprobadas con `diff` y no leyendo. 26
+mutaciones, todas como decían las tablas del plan. `build:cloudflare` en verde.
+
+### 🔑 Dónde estuvieron los errores: en el plan, y antes de ejecutar
+
+Confirma lo que SistemaSalud midió tres veces —el agente es fiel, el plan
+miente—, con una diferencia: aquí **ningún error llegó a `agy`**.
+
+| Cuándo apareció | Qué |
+|---|---|
+| Escribiendo el plan | la spec contaba 16 palabras donde hay 18: todos los rangos del validador estaban mal |
+| Autorrevisión del plan | 7 fallos: recuentos de tests, un `git worktree add` que no funciona sobre una rama abierta, dos descripciones de mutación falsas |
+| **Paso 0** | 4 «Expected» de fases rojas equivocados |
+| Al cerrar | una línea de la documentación que el plan no actualizó |
+
+### Tres cosas nuevas, medidas aquí
+
+**1. `tsx` no rechaza un import que no existe: lo deja en `undefined`.** Un
+«Expected: error de import, todo el archivo cae» es falso: caen los tests uno a
+uno con un `TypeError`. La fase roja se escribe con el número de fallos, no con
+el tipo de error. Lo cazó el paso 0 en tres tasks.
+
+**2. `agy` no tiene criterio fijo con la línea en blanco del final.** La
+conservó en una task y la quitó en la siguiente. Se compara ignorando **solo**
+las líneas en blanco finales; cualquier otra diferencia sigue parando la task.
+
+**3. El plan se aplica con un script, no a mano.** El mismo script —que aplica
+«reemplazar exactamente» literalmente y para si el texto no aparece una sola
+vez— sirvió tres veces:
+
+- el **paso 0**, aplicando el plan entero;
+- la **verificación de cada task**, aplicando solo esa task sobre el commit
+  anterior y diffeando contra lo que dejó `agy`;
+- generar el **prompt de cada task**, leyendo del plan qué Steps son de código.
+
+Y la fase roja se comprueba aunque `agy` escriba tests e implementación de una
+vez: `git stash push -- <implementación>`, correr el test, `git stash pop`.
+
+### ⚠️ El arnés, en zsh
+
+Dos veces midió mal el arnés, no el código:
+
+- **`PIPESTATUS` es de bash**: en zsh sale vacío, y un `exit` de `tsc` pareció
+  ausente.
+- **Un glob sin coincidencias aborta el comando**: `.eslintrc*` no existía, y el
+  «vacío» que devolvió significaba «no corrió», no «no hay cambios».
+
+Es la regla de §8 con dos casos nuevos: antes de creer un resultado vacío,
+comprobar que el comando llegó a correr.
 
 ---
 
