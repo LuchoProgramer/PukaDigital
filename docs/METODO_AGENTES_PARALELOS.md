@@ -9,10 +9,15 @@ que `agy -p` no carga `AGENTS.md` por su cuenta— vive en
 `docs/TRABAJO_CON_AGENTES.md` y no se repite aquí.
 
 > **El origen y qué está medido.** El método viene de `SistemaSalud`
-> (`docs/claude/metodo-agentes-paralelos.md`), destilado de sesiones del 3 al 7 de
-> septiembre de 2026. **Los números que se citan son de allá**, sobre Django y una
-> suite grande. En PukaDigital todavía no hay ninguna medición propia: cuando la
-> haya, se anota aquí y se dice que es de aquí. No mezclar las dos cosas.
+> (`docs/claude/metodo-agentes-paralelos.md`), destilado de sesiones del 3 al 13 de
+> septiembre de 2026. **Salvo donde diga lo contrario, los números son de allá**,
+> sobre Django y una suite grande. Lo medido aquí se marca como de aquí —hoy, la
+> comparación de modelos del 2026-09-09—, y las dos cosas no se mezclan.
+>
+> **Última sincronización con el documento de SistemaSalud: 2026-09-13.** De esa
+> pasada entraron cuatro cosas: correr el código del plan antes de dárselo al
+> agente, mutar la plantilla y no solo la lógica, medir el propio arnés antes de
+> acusar al código, y pedirle al agente los caminos de entrada.
 
 ---
 
@@ -60,6 +65,13 @@ de los importantes —un `\n` que no cortaba línea y un argumento técnico fals
 
 No se sustituye la fila vieja: las dos son ciertas, en tareas y días distintos.
 Lo que cambia es la conclusión práctica: **3.8 ya no se descarta de entrada.**
+
+🔑 **Y la regla no es «3.7 para lo largo».** SistemaSalud llegó a la misma
+conclusión por su cuenta y la dejó mejor formulada: **acotar la tarea y usar el
+que encuentra más.** La medición que hacía quedar mal al 3.8 era un contraste
+abierto sobre un spec entero; con la tarea apuntada a una franja concreta y a
+unos archivos nombrados, termina y encuentra más. El tamaño de la tarea pesaba
+más que el modelo.
 
 `agy` tiene un timeout interno de ~5 minutos. El 3.8 tarda 13,3 s al primer token
 —contra 2,99 s de mediana— y produce 70% más tokens: arranca más lento, es más
@@ -263,6 +275,31 @@ que miente.
 **Y el modo de fallo importa tanto como el fallo.** Si cae por un motivo distinto
 del predicho, eso es un hallazgo.
 
+### 🔑 Mutar la plantilla, no solo la lógica
+
+Traído de SistemaSalud el 2026-09-13, donde un documento con todos sus tests en
+verde salía **vacío en producción**: los tests ejercitaban la función que arma los
+datos, nunca la plantilla que los imprime.
+
+Aquí el equivalente es directo. `validar.ts` y `catalogo.ts` tienen tests de
+sobra; **quien imprime es `plantilla.tsx`**. Las mutaciones que sirven son suyas:
+borrar el bloque del dato, imprimir el valor crudo en vez del formateado, quitar
+la captura, saltarse el aviso de datos ficticios.
+
+⚠️ Y recordar la trampa propia de este repositorio: **un test que busca texto en
+un SVG de Satori pasa siempre**, porque Satori vectoriza a `<path>`. Se cuentan
+bloques, no cadenas. Una mutación de plantilla verificada con una búsqueda de
+texto no prueba nada.
+
+### ⚠️ Medir el propio arnés antes de acusar al código
+
+En SistemaSalud una tanda entera de mutaciones dio rojo, línea base incluida.
+Parecía una regresión y era **zsh, que no hace word splitting**: dos nombres de
+test en una variable viajaban como un solo argumento.
+
+Aquí se corre en zsh igual. Antes de concluir que algo se rompió: correr un caso
+suelto a mano y confirmar que el arnés hace lo que uno cree.
+
 ### Lo que la medición invierte
 
 Plan de 18 tasks (2026-09-05) y plan de 8 tasks (2026-09-07), en SistemaSalud:
@@ -280,6 +317,31 @@ miente.** Un plan contrastado por tres revisores llegó igual con catorce errore
 que solo la ejecución muestra.
 
 **Y ninguno apareció leyendo.** Contrastar es necesario y no alcanza.
+
+### 🔑 Correr el código del plan antes de dárselo al agente
+
+Tercera medición de SistemaSalud, **2026-09-13**, y es lo que cambia el orden de
+trabajo: 9 tasks, **0 desviaciones de agy** y **3 errores del plan, los tres
+encontrados antes de mandarle nada**.
+
+El procedimiento es simple: sacar todos los bloques de código del plan a una
+carpeta aparte y **ejecutarlos**. Lo que apareció fue una espera mal puesta, una
+expresión regular inválida y una mutación que «tenía que caer» y no caía, porque
+había dos protecciones y cada una alcanzaba sola.
+
+Con eso corregido, agy copia un plan que ya funciona, y verificar cada task pasa
+a ser **confirmar en vez de depurar**. Es el mismo hallazgo de la tabla de arriba
+—el plan es el que miente— pero atacado antes, que sale mucho más barato.
+
+**Y «copió literal» deja de leerse: se diffea.** Ellos escribieron un comparador
+que extrae del plan el bloque de cada archivo y lo compara con lo que escribió el
+agente. Aquí vale lo mismo, y es más fácil todavía, porque los planes de este
+repositorio traen el archivo completo en la mayoría de las tasks.
+
+**Lo que no depende del destino se ensaya igual en otro lado.** Ellos probaron
+contra una producción simulada antes de tocar la real. El equivalente aquí:
+renderizar y validar en local antes de desplegar, y `curl` al HTML servido
+después — nunca estrenar un script contra producción.
 
 ---
 
@@ -314,6 +376,11 @@ escribió.
 > **¿Qué camino recorre esto en producción, y hay un test que lo recorra entero?**
 
 No «¿está testeada la función?» sino «¿está testeado **cómo se la llama**».
+
+**Corolario para el prompt de la task:** pedirle al agente que, al final, **liste
+los caminos de entrada** de lo que escribió —quién lo llama en producción, por
+dónde entra— y diga cuáles tienen test. No hace falta que los escriba: basta con
+nombrarlos, porque la lista deja el hueco a la vista.
 
 ### 🔑 Este proyecto ya sufrió el tipo 4 dos veces
 
