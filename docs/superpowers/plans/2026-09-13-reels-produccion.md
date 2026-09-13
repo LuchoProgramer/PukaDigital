@@ -549,6 +549,9 @@ Expected: `ℹ pass 8` · `ℹ fail 0`
 | `actual.length >= max` → `actual.length > max` | «los grupos cortan a las 4 palabras» |
 | `peso = (palabra) => palabra.length + 1` → `() => 1` | «una palabra larga recibe más tiempo» |
 | borrar el `if (parrafos.length !== duracionesVoz.length)` | «los párrafos y los audios tienen que coincidir» |
+| `/[.?!]$/.test(palabra)` → `/[.,;:?!]$/.test(palabra)` | «una enumeración no deja palabras sueltas» |
+| borrar el bucle que recoge la cola de una palabra | «una enumeración no deja palabras sueltas» |
+| quitarle al bucle la guarda `!/[.?!]$/.test(...)` | «pero una frase de una sola palabra sí es un subtítulo» |
 
 - [ ] **Step 6: commit**
 
