@@ -1698,7 +1698,8 @@ Expected: `ℹ pass 5` · `ℹ fail 0`
 
 | Mutación | Test que tiene que caer |
 |---|---|
-| `stderr.trim().split('\n').slice(-3)` → `[]` | «si el comando falla, el error trae sus últimas líneas» |
+| `salida.split('\n').slice(-6)` → `[]` | «si el comando falla, el error trae sus últimas líneas» |
+| `stderr.trim() \|\| stdout.trim()` → `stderr.trim()` | «y si el comando solo escribió en stdout, el error trae eso» |
 | en `bloqueReel`, `JSON.stringify(reel.caption)` → `` `'${reel.caption}'` `` | «el bloque se pega… y vuelve a dar el mismo reel» (el caption lleva comillas) |
 | `i < parrafos.length - 1 ? `${parrafo}\n\n` : parrafo` → `parrafo` | «el bloque se pega…» y «el guion va un párrafo por línea» |
 
