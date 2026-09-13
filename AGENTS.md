@@ -220,3 +220,4 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
 - `docs/PUBLICAR_EN_FACEBOOK.md` — investigación previa; la decisión está en la spec del 2026-09-07
 - `docs/CALENDARIO_CONTENIDO.md` — los temas de sep-nov 2026
+- `docs/VIDEO_CON_HYPERFRAMES.md` — investigación previa de video; sin spec ni nada construido
