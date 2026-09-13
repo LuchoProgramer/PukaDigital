@@ -190,7 +190,7 @@ Facebook.
 ## La tubería, paso a paso
 
 **1. El guion.** Gemini Flash 3.x lee las slides, `catalogo.ts` y
-`prohibidas.ts`, y escribe un texto hablado de 20 a 30 segundos —55 a 75
+`prohibidas.ts`, y escribe un texto hablado de 20 a 30 segundos —60 a 90
 palabras a la velocidad de Dora—. La rúbrica exige que los primeros 3 segundos
 planteen el problema: ahí se decide la retención.
 
@@ -324,7 +324,10 @@ imagen; un video tarda de 1 a 3 minutos en procesarse, y cortar a los 60 s marca
 como fallido un Reel que iba bien.
 
 Se reutiliza **haciendo inyectables también los intentos**, y el canal de Reel la
-llama con 5 minutos: cada 10 s, 30 intentos. El carrusel conserva sus valores. Un
+llama con 5 minutos: **cada 20 s, 15 intentos**. El carrusel conserva sus valores.
+Dos razones para esos números y no otros: son la mitad de llamadas que cada
+10 s, y 15 es distinto de los 30 de una imagen, así que un test puede
+distinguir cuál de las dos esperas se usó. Un
 contenedor abandonado no duplica nada —`media_publish` nunca se llamó— y caduca
 solo a las 24 h.
 
@@ -436,11 +439,17 @@ falsos negativos.
 4. `reel.publicarEl`, si está, tiene que ser una fecha válida. Una fecha mal
    escrita **no da error en ninguna parte**: `aUTC()` devuelve `NaN` y la pieza
    desaparece del cron en silencio. Ya está documentado en `validar.ts:79`.
-5. **La duración estimada: 2,6 palabras por segundo**, que es la velocidad medida
-   de `ef_dora` —6,0 segundos para las 16 palabras de la frase de prueba—. El
-   guion tiene que caer entre **8 y 230 palabras**, que son los 3 a 90 segundos
-   que admite Facebook. El objetivo sigue siendo 55-75 palabras.
+5. **La duración estimada: 3 palabras por segundo**, que es la velocidad medida
+   de `ef_dora` —**18 palabras en 5,95 s**, contadas con `wc -w` y medidas con
+   `ffprobe` el 2026-09-13—. El guion tiene que caer entre **9 y 270 palabras**,
+   que son los 3 a 90 segundos que admite Facebook. El objetivo, 20-30 segundos,
+   son **60-90 palabras**.
+
+   ⚠️ Una versión anterior de esta spec decía 2,6 palabras por segundo, contando
+   16 palabras a mano. Salió al escribir el plan, al volver a contarlas.
 6. `reel.duracion`, cuando el render ya lo escribió, entre 3 y 90.
+7. `reel.video`, si está, es la URL `https` de un `.mp4`. Un dedazo al pegar el
+   bloque se caza aquí y no en la Graph API, a la hora de publicar.
 
 🔴 **Los tests de `lib/reels/` son herméticos, sin excepción.** `npm test` es
 `node --test lib/*/*.test.ts`: el glob los recoge solo, y corre en CI
@@ -486,7 +495,8 @@ Siguiendo la separación que ya usa la fábrica: `lib/piezas/` produce,
 | `lib/reels/composicion.ts` | Genera el HTML desde los tokens del sistema |
 | `lib/reels/render.ts` | HyperFrames y la verificación con `ffprobe` |
 | `lib/reels/r2.ts` · `telegram.ts` | Subida y aviso |
-| `lib/publicar/reels.ts` | Los dos canales nuevos, detrás de `Canal` |
+| `lib/publicar/meta.ts` · `facebook.ts` | Los dos canales nuevos, junto al cliente de cada red: reutilizan `llamar()` y `llamarFB()`, que son privados. Un archivo aparte obligaría a exportarlos |
+| `lib/publicar/frontera.test.ts` | Que lo que carga el Worker no alcance `lib/reels/` |
 | `lib/piezas/validar.ts` | Las cuatro reglas nuevas, junto a las que ya hay |
 | `lib/piezas/tipos.ts` | El bloque `reel` |
 
@@ -519,7 +529,7 @@ corrida; Claude, 7. **Cada uno se verificó contra el código antes de aceptarlo
 | `NombreCanal` y `textosRecientes` hay que ampliarlos | Claude | `tanda.ts:12` y `tanda.ts:75-102` |
 | La variable de Gemini es `API_KEY`, no `GEMINI_API_KEY` | agy | `lib/captions/gemini.ts:21` |
 | El comando imprime el bloque, no reescribe el `.ts` | agy | `lib/captions/cli.ts:63` |
-| Falta la tasa de palabras por segundo del validador | agy | medido: 16 palabras en 6,0 s con `ef_dora` |
+| Falta la tasa de palabras por segundo del validador | agy | medido: 18 palabras en 5,95 s con `ef_dora` (corregido al escribir el plan) |
 | Comparar captions normalizando espacios | los dos | `programado.ts:35-37` |
 | Faltaba validar `reel.publicarEl` y `reel.duracion` | agy | `validar.ts:79-91` |
 | `FONDO_AVISO` vive en `capturas.ts`, no en `sistemas.ts` | agy | `capturas.ts:18` |
