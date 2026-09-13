@@ -77,6 +77,30 @@ export type Pieza = {
       captura?: string;
     };
   };
+  /**
+   * El Reel de la pieza. **Sin este bloque no hay Reel**: ningún degradado
+   * silencioso, igual que `facebook.imagen`. `video` y `duracion` los escribe
+   * `npm run reels`; a mano no se tocan.
+   *
+   * Un tema ocupa cuatro franjas seguidas: carrusel, imagen de Facebook, Reel de
+   * Instagram y Reel de Facebook. Ver la spec del 2026-09-13.
+   */
+  reel?: {
+    /** El guion hablado. Lo escribe Gemini y lo revisa una persona en el PR. */
+    guion: string;
+    /**
+     * El texto del post. **Distinto** del carrusel y del de Facebook: la defensa
+     * contra repetidos compara texto, y con el mismo el Reel se daría por
+     * publicado sin haber salido nunca.
+     */
+    caption: string;
+    /** Hora de Ecuador del Reel de Instagram. El de Facebook va en la franja siguiente. */
+    publicarEl?: string;
+    /** URL pública del MP4 en R2. */
+    video?: string;
+    /** Segundos del MP4 renderizado, entre 3 y 90: el techo de Facebook. */
+    duracion?: number;
+  };
   slides: Slide[];
 };
 
