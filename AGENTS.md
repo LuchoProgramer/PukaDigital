@@ -31,6 +31,7 @@ npx tsc --noEmit     # type check (limpiar .next/ primero si hay errores de ruta
 npm run piezas       # genera las piezas de redes del mes en public/piezas/
 npm run piezas -- --check   # solo valida, sin escribir nada. Es lo que corre en CI
 npm test             # tests de la fabrica de piezas
+npm run reels -- --mes 2026-10 --id <pieza>   # produce el Reel de una pieza. --ensayo no sube nada
 
 npm run deploy:cloudflare   # build de OpenNext + wrangler deploy. Es como se despliega
 npm run build:cloudflare    # solo construye, sin desplegar
