@@ -32,6 +32,15 @@ const MIN_PALABRAS_GUION = 3 * PALABRAS_POR_SEGUNDO;
 /** 90 segundos: el máximo de un Reel en Facebook. */
 const MAX_PALABRAS_GUION = 90 * PALABRAS_POR_SEGUNDO;
 
+/**
+ * Como `normalizar()` de `lib/publicar/programado.ts`, que es con lo que la red
+ * compara. Se repite en vez de importarse: `lib/piezas/` no depende de
+ * `lib/publicar/`, y la dependencia al revés ya existe.
+ */
+function normalizarEspacios(texto: string): string {
+  return texto.replace(/\s+/g, ' ').trim();
+}
+
 /** Los textos de una slide, en el orden en que se reportan los errores. */
 function textos(slide: Slide): Array<[string, string]> {
   const pares: Array<[string, string]> = [
@@ -168,8 +177,20 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
         }
       }
 
-      if ((reel.caption?.trim() ?? '') === '') {
+      const captionReel = reel.caption?.trim() ?? '';
+      if (captionReel === '') {
         en('reel.caption', 'el Reel no tiene caption: sin él no hay forma de saber si ya salió');
+      } else {
+        // La red compara con los espacios normalizados: dos textos que solo
+        // difieren en saltos de línea son el mismo post, y el Reel se daría por
+        // publicado sin haber salido nunca.
+        const mio = normalizarEspacios(captionReel);
+        const otros = [pieza.caption, pieza.facebook?.caption]
+          .filter((t): t is string => Boolean(t))
+          .map(normalizarEspacios);
+        if (otros.includes(mio)) {
+          en('reel.caption', 'el caption del Reel repite el del carrusel o el de Facebook: se daría por publicado y no saldría nunca');
+        }
       }
 
       if (reel.publicarEl && !fechaValida(reel.publicarEl)) {
@@ -194,7 +215,11 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       const vendeEnCaption =
         (pieza.caption && (preciosEn(pieza.caption).length > 0 || ofertasEn(pieza.caption).length > 0)) ||
         (pieza.facebook?.caption &&
-          (preciosEn(pieza.facebook.caption).length > 0 || ofertasEn(pieza.facebook.caption).length > 0));
+          (preciosEn(pieza.facebook.caption).length > 0 || ofertasEn(pieza.facebook.caption).length > 0)) ||
+        // Un precio dicho en voz es igual de verificable, y de falso, que uno escrito.
+        [pieza.reel?.guion, pieza.reel?.caption].some(
+          (t) => Boolean(t) && (preciosEn(t ?? '').length > 0 || ofertasEn(t ?? '').length > 0),
+        );
 
       if (vendeEnSlides || vendeEnCaption) {
         en('producto', 'la pieza anuncia un precio o una oferta sin declarar que producto es');
@@ -211,6 +236,10 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
       ['facebook.imagen.dato', pieza.facebook?.imagen?.dato
         ? `${pieza.facebook.imagen.dato.valor} ${pieza.facebook.imagen.dato.etiqueta}`
         : undefined],
+      // El guion pasa por las mismas puertas: un precio falso dicho en voz no se
+      // puede copiar y verificar, y encima suena a promesa.
+      ['reel.guion', pieza.reel?.guion],
+      ['reel.caption', pieza.reel?.caption],
     ];
 
     for (const [campo, texto] of captionsAValidar) {

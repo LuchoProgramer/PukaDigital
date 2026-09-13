@@ -358,3 +358,45 @@ test('el video es la URL https de un MP4', () => {
   assert.deepEqual(campos([conReel({ ...reel, video: 'https://reels.pukadigital.com/tema.mov' })]), ['reel.video']);
 });
 
+test('el caption del Reel no puede repetir el del carrusel ni el de Facebook, aunque cambien los espacios', () => {
+  const comoElCarrusel: Pieza = {
+    ...ok,
+    caption: 'Tu factura no pasó.\n\nEscríbenos.',
+    reel: { guion: GUION, caption: 'Tu factura  no pasó. Escríbenos.' },
+  };
+  assert.deepEqual(campos([comoElCarrusel]), ['reel.caption']);
+
+  const comoFacebook: Pieza = {
+    ...ok,
+    facebook: { caption: 'Texto de Facebook' },
+    reel: { guion: GUION, caption: 'Texto de  Facebook' },
+  };
+  assert.deepEqual(campos([comoFacebook]), ['reel.caption']);
+});
+
+test('un precio falso dicho en el guion se rechaza como en un caption', () => {
+  const pieza: Pieza = {
+    ...ok,
+    producto: 'ledgerxpertz',
+    reel: { guion: `${GUION} El plan Starter cuesta $99 al mes.`, caption: 'Caption del Reel' },
+  };
+  assert.deepEqual(campos([pieza]), ['reel.guion']);
+});
+
+test('una afirmación prohibida de PukaHealth en el guion se rechaza', () => {
+  const pieza: Pieza = {
+    ...ok,
+    sistema: 'health',
+    producto: 'pukahealth',
+    reel: { guion: `${GUION} Recordatorios por WhatsApp automáticos para tus pacientes.`, caption: 'Caption del Reel' },
+  };
+  assert.deepEqual(campos([pieza]), ['reel.guion']);
+});
+
+test('un precio en el guion o en el caption del Reel exige declarar el producto', () => {
+  const enElGuion: Pieza = { ...ok, reel: { guion: `${GUION} Pruébalo desde $14.99 al mes.`, caption: 'c' } };
+  assert.deepEqual(campos([enElGuion]), ['producto']);
+
+  const enElCaption: Pieza = { ...ok, reel: { guion: GUION, caption: 'Desde $14.99 al mes' } };
+  assert.deepEqual(campos([enElCaption]), ['producto']);
+});
