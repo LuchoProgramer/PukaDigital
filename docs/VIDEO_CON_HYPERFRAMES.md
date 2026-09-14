@@ -242,6 +242,10 @@ aparece como un interruptor en la pantalla de publicación. Con voz sintética,
 puede que haya que ponerla a mano después de publicar, y eso rompe la
 automatización completa. Hay que probarlo.
 
+**Probado el 2026-09-14:** el primer Reel, publicado por API con la voz de Dora,
+salió **sin** la etiqueta en Instagram y en Facebook, visto en la app. Meta no la
+pone sola. Si se decide declararla, es a mano.
+
 ---
 
 ## Decidido el 2026-09-13
@@ -288,6 +292,50 @@ un error que no menciona ni Kokoro ni el español. Se arregla apuntando
 `ESPEAK_DATA_PATH` y `PHONEMIZER_ESPEAK_LIBRARY` al `espeak-ng` de Homebrew.
 
 Las pruebas viven en `~/Downloads/pruebas-voz/`, fuera del repositorio.
+
+---
+
+## Música — ideas del 2026-09-14, sin empezar
+
+Guardado a pedido de Luis para retomarlo otro día. **Nada decidido y ninguna
+licencia verificada todavía.**
+
+**Lo que no se puede:** las cuentas de empresa no tienen la biblioteca musical de
+Instagram, y un Reel publicado por API tampoco puede adjuntarla. La música tiene
+que venir dentro del MP4, con licencia propia.
+
+### De dónde sacarla
+
+| Fuente | Coste | A verificar antes de elegir |
+|---|---|---|
+| Pixabay Music | gratis | Su licencia dice uso comercial sin atribución. La más cómoda para empezar |
+| YouTube Audio Library | gratis | Algunas pistas piden atribución. Confirmar que se pueden usar fuera de YouTube |
+| Kevin MacLeod / Incompetech | gratis | Creative Commons con atribución: habría que citarlo en cada caption |
+| Epidemic Sound o Artlist | suscripción | La licencia más clara para redes, y catálogo enorme |
+| Música generada con IA (Suno, ElevenLabs Music) | plan de pago | Los planes de pago suelen dar uso comercial. Pistas únicas de la marca |
+
+**La idea de partida:** 2 o 3 pistas de Pixabay, guardando la página de su licencia
+como prueba. Si la cuenta crece, Epidemic Sound o Artlist.
+
+### Cómo encajaría en la fábrica
+
+- **Versionadas en `assets/musica/`**, como las capturas, cada una con su ficha: de
+  dónde salió, qué licencia tiene y cuándo se descargó. Si Meta reclama, la prueba
+  está ahí.
+- **Una por sistema visual**: con energía para la casa, tranquila para PukaHealth.
+- **La voz de Dora manda.** Música 14 a 20 dB por debajo, que baja sola mientras
+  habla (§3 de este documento), en la misma pasada de `ffmpeg` que ya normaliza el
+  audio.
+- **La validación solo aceptaría pistas con ficha de licencia**, igual que hoy un
+  precio que no está en `catalogo.ts` no se publica.
+
+### Además de la música
+
+- Un **sonido de marca** de un segundo al final de cada Reel, siempre el mismo.
+- Un **efecto suave en cada cambio de escena**, sin tapar la voz.
+- **Probar con y sin música**: dos versiones del mismo Reel dicen si suma o distrae.
+
+Al retomarlo, lo primero es **escuchar las candidatas**, como se eligió la voz.
 
 ---
 
