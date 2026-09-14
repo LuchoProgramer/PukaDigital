@@ -4,7 +4,7 @@ Cómo una pieza escrita en `content/piezas/` acaba publicada en Instagram y en
 Facebook. Referenciado desde `AGENTS.md`, que se queda con lo de uso diario.
 
 Para el trabajo manual de la community manager, ver `COMMUNITY_MANAGEMENT.md`.
-Para el estado de hoy y lo que falta, `ESTADO_2026-09-09.md`.
+Para el estado de hoy y lo que falta, `ESTADO_2026-09-13.md`.
 
 ---
 
@@ -134,6 +134,14 @@ el modelo.
   rehacerlo: `--regenerar-guion`.
 - **Míralo en el teléfono, con sonido, antes de mergear.** Los tests impiden
   publicar algo falso, no algo malo.
+
+🔴 **Y después hay que desplegar.** Las piezas van dentro del Worker: sin
+`npm run deploy:cloudflare`, el cron no ve el `reel` que acabas de pegar y no lo
+publica. El primer despliegue con Reels todavía no se ha hecho: ver
+`ESTADO_2026-09-13.md`.
+
+Los MP4 viven en el bucket R2 `pukadigital-reels` y se sirven desde
+`https://reels.pukadigital.com`. El video llega al teléfono por `@Pukareelbot`.
 
 ---
 

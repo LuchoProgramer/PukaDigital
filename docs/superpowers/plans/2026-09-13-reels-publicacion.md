@@ -1,5 +1,8 @@
 # Reels — modelo, validación y publicación: plan de implementación
 
+> ✅ **Ejecutado el 2026-09-13** y mergeado en el PR #29: 9 tasks por `agy`, 0
+> desviaciones, 174 tests. Cómo fue: `docs/METODO_AGENTES_PARALELOS.md` §14.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 >
 > **En este proyecto se ejecuta con `agy`, de a una task**, según
@@ -112,7 +115,7 @@ Hecho con un script que aplica el plan **literalmente** (no a mano, que es justo
 
 Sin test propio: es un tipo, y lo verifica `tsc`. Las Tasks 2 a 7 lo usan.
 
-- [ ] **Step 1: añadir el bloque**
+- [x] **Step 1: añadir el bloque**
 
 En `lib/piezas/tipos.ts`, reemplazar exactamente:
 
@@ -156,12 +159,12 @@ por:
 
 ⚠️ El `};` de la primera línea es el cierre del bloque `facebook`. El reemplazo tiene que dejarlo en su sitio.
 
-- [ ] **Step 2: comprobar los tipos**
+- [x] **Step 2: comprobar los tipos**
 
 Run: `npx tsc --noEmit; echo "exit=$?"`
 Expected: `exit=0`
 
-- [ ] **Step 3: commit**
+- [x] **Step 3: commit**
 
 ```bash
 git add lib/piezas/tipos.ts
@@ -176,7 +179,7 @@ git commit -m "feat(reels): el bloque reel en el tipo Pieza"
 - Modify: `lib/piezas/validar.ts` (constantes tras la línea 22; bloque antes de la línea 143)
 - Test: `lib/piezas/validar.test.ts` (añadir al final)
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Añadir al final de `lib/piezas/validar.test.ts`:
 
@@ -231,12 +234,12 @@ test('el video es la URL https de un MP4', () => {
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 5` — los cinco que esperan un error no lo reciben. «un reel correcto» pasa ya, porque hoy el bloque se ignora.
 
-- [ ] **Step 3: las constantes**
+- [x] **Step 3: las constantes**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -261,7 +264,7 @@ const MIN_PALABRAS_GUION = 3 * PALABRAS_POR_SEGUNDO;
 const MAX_PALABRAS_GUION = 90 * PALABRAS_POR_SEGUNDO;
 ```
 
-- [ ] **Step 4: el bloque de validación**
+- [x] **Step 4: el bloque de validación**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -316,12 +319,12 @@ por:
 - `reel.guion?.trim()` sobre un campo no opcional es el estilo del archivo: ver `img.titular?.trim()` en la validación de Facebook. No «corregirlo».
 - La variable se llama `cuantas` y no `palabras` a propósito: `palabras` ya existe en otros bloques del mismo `for`.
 
-- [ ] **Step 5: comprobar que pasan**
+- [x] **Step 5: comprobar que pasan**
 
 Run: `node --import tsx --test lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
 
-- [ ] **Step 6: mutaciones — cada guarda tiene que tener un test que caiga**
+- [x] **Step 6: mutaciones — cada guarda tiene que tener un test que caiga**
 
 Una por vez, restaurando después de cada una:
 
@@ -335,7 +338,7 @@ Una por vez, restaurando después de cada una:
 Run tras cada una: `node --import tsx --test lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ fail"`
 Expected: `ℹ fail 1` con la mutación puesta; `ℹ fail 0` al restaurar.
 
-- [ ] **Step 7: commit**
+- [x] **Step 7: commit**
 
 ```bash
 git add lib/piezas/validar.ts lib/piezas/validar.test.ts
@@ -352,7 +355,7 @@ git commit -m "feat(reels): validar la estructura del bloque reel"
 - Modify: `lib/piezas/validar.ts`
 - Test: `lib/piezas/validar.test.ts` (añadir al final)
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Añadir al final de `lib/piezas/validar.test.ts`:
 
@@ -401,12 +404,12 @@ test('un precio en el guion o en el caption del Reel exige declarar el producto'
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 4`
 
-- [ ] **Step 3: el normalizador**
+- [x] **Step 3: el normalizador**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -429,7 +432,7 @@ function normalizarEspacios(texto: string): string {
 }
 ```
 
-- [ ] **Step 4: el caption propio**
+- [x] **Step 4: el caption propio**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -459,7 +462,7 @@ por:
       }
 ```
 
-- [ ] **Step 5: el producto obligatorio**
+- [x] **Step 5: el producto obligatorio**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -479,7 +482,7 @@ por:
         );
 ```
 
-- [ ] **Step 6: el guion por las puertas de un caption**
+- [x] **Step 6: el guion por las puertas de un caption**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -501,12 +504,12 @@ por:
     ];
 ```
 
-- [ ] **Step 7: comprobar que pasan, y que nada de antes se rompió**
+- [x] **Step 7: comprobar que pasan, y que nada de antes se rompió**
 
 Run: `node --import tsx --test lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
 
-- [ ] **Step 8: mutaciones**
+- [x] **Step 8: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -514,7 +517,7 @@ Expected: `ℹ fail 0`
 | borrar `['reel.guion', pieza.reel?.guion],` | «un precio falso dicho en el guion» y «una afirmación prohibida» |
 | borrar el `|| [pieza.reel?.guion, …].some(…)` añadido en el Step 5 | «un precio en el guion o en el caption del Reel exige declarar el producto» |
 
-- [ ] **Step 9: commit**
+- [x] **Step 9: commit**
 
 ```bash
 git add lib/piezas/validar.ts lib/piezas/validar.test.ts
@@ -529,7 +532,7 @@ git commit -m "feat(reels): el guion y el caption del reel pasan por los hechos 
 - Modify: `lib/publicar/programado.ts:143-144`
 - Test: `lib/publicar/programado.test.ts` (añadir al final)
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Primero, en `lib/publicar/programado.test.ts`, reemplazar exactamente el import:
 
@@ -641,12 +644,12 @@ test('un Reel sin caption no se publica solo: no se podría comprobar si ya sali
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/programado.test.ts 2>&1 | tail -5`
 Expected: `ℹ fail 7` — los siete nuevos. ⚠️ **No es un error de import**: `tsx` no rechaza importar algo que todavía no existe, lo deja en `undefined`, y cada test cae por separado con un `TypeError`. Medido en el ensayo del paso 0.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 En `lib/publicar/programado.ts`, reemplazar exactamente:
 
@@ -730,12 +733,12 @@ export const pendientes = pendientesInstagram;
 - `pendientesInstagram` y `pendientesFacebook` repiten la lógica de la ventana en vez de usar `enVentana()`. **No refactorizarlas**: tienen tests por mutación propios y esta task no las toca.
 - `VENTANA_MINUTOS`, `aUTC`, `franjaSiguiente`, `fechaPublicacionFacebook` y `yaPublicada` ya existen en el mismo archivo.
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/publicar/programado.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -744,7 +747,7 @@ Expected: `ℹ fail 0`
 | `if (!fecha \|\| !pieza.reel?.caption?.trim()) return false;` → `if (!fecha) return false;` (en los dos) | «un Reel sin caption no se publica solo». ⚠️ Cambiar solo `?.trim()` por nada **no cae**: `''` ya es falsy |
 | `minutos <= VENTANA_MINUTOS` → `minutos <= VENTANA_MINUTOS + 5` | «pendientesReelInstagram entra en su ventana…» (los 61 minutos) |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/publicar/programado.ts lib/publicar/programado.test.ts
@@ -761,7 +764,7 @@ git commit -m "feat(reels): las franjas 3 y 4 del tema y los reels pendientes"
 - Modify: `lib/publicar/meta.ts`
 - Test: `lib/publicar/meta.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 En `lib/publicar/meta.test.ts`, reemplazar exactamente:
 
@@ -851,12 +854,12 @@ test('una pieza sin el video del Reel no llega a la API', async () => {
 
 ⚠️ `opciones(impl)` ya fija `esperarMs: 0`: los tests de espera no duermen de verdad.
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/meta.test.ts 2>&1 | tail -5`
 Expected: `ℹ fail 5`. Los imports que faltan quedan en `undefined` y cada test cae por separado. «una imagen conserva su espera de 30 intentos» **pasa ya**, y tiene que pasar: prueba que el cambio no rompe lo que había.
 
-- [ ] **Step 3: los intentos inyectables**
+- [x] **Step 3: los intentos inyectables**
 
 En `lib/publicar/meta.ts`, reemplazar exactamente:
 
@@ -907,7 +910,7 @@ por:
   throw new Error(`El contenedor ${id} sigue sin estar listo despues de ${intentos} intentos.`);
 ```
 
-- [ ] **Step 4: la espera y la función del Reel**
+- [x] **Step 4: la espera y la función del Reel**
 
 Añadir al final de `lib/publicar/meta.ts`:
 
@@ -967,12 +970,12 @@ export async function publicarReelInstagram(
 - `llamar`, `esperarContenedor`, `validar`, `formatear`, `Pieza` y `Publicacion` ya existen en `meta.ts` o en sus imports. No crear nada más.
 - `share_to_feed: 'true'` va como texto: el cuerpo es `application/x-www-form-urlencoded`.
 
-- [ ] **Step 5: comprobar que pasan**
+- [x] **Step 5: comprobar que pasan**
 
 Run: `node --import tsx --test lib/publicar/meta.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
 
-- [ ] **Step 6: mutaciones**
+- [x] **Step 6: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -981,7 +984,7 @@ Expected: `ℹ fail 0`
 | `caption: reel.caption` → `caption: pieza.caption ?? ''` | «un Reel crea el contenedor REELS…» |
 | borrar el `if (!reel?.video) { … }` y dejar `video_url: reel?.video ?? ''` | «una pieza sin el video del Reel no llega a la API». Cae por la guarda y solo por ella: `validar()` **no** exige `reel.video`, porque un Reel sin renderizar es válido |
 
-- [ ] **Step 7: commit**
+- [x] **Step 7: commit**
 
 ```bash
 git add lib/publicar/meta.ts lib/publicar/meta.test.ts
@@ -998,7 +1001,7 @@ git commit -m "feat(reels): publicar el reel en Instagram con su propia espera"
 
 Detalles de la API verificados el 2026-09-13 contra la guía de Meta (*Publish a Reel*): `start` devuelve `video_id` y `upload_url`; la subida por URL es un POST a esa `upload_url` con las cabeceras `Authorization: OAuth <token>` y `file_url`; `finish` lleva `video_id`, `video_state=PUBLISHED` y `description`; el estado final es **`completed`**, no `complete`.
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 En `lib/publicar/facebook.test.ts`, reemplazar exactamente:
 
@@ -1134,12 +1137,12 @@ test('una pieza sin el video del Reel no llega a la API de Facebook', async () =
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/facebook.test.ts 2>&1 | tail -5`
 Expected: `ℹ fail 6` — los seis nuevos, cada uno con un `TypeError`: `tsx` deja en `undefined` el import que falta en vez de rechazar el archivo.
 
-- [ ] **Step 3: el import y las opciones**
+- [x] **Step 3: el import y las opciones**
 
 En `lib/publicar/facebook.ts`, reemplazar exactamente:
 
@@ -1173,7 +1176,7 @@ por:
 };
 ```
 
-- [ ] **Step 4: la espera y la función del Reel**
+- [x] **Step 4: la espera y la función del Reel**
 
 Añadir al final de `lib/publicar/facebook.ts`:
 
@@ -1284,12 +1287,12 @@ export async function publicarReelFacebook(
 - `meta.ts` no importa `facebook.ts`: importar `ESPERA_REEL` desde allí no crea un ciclo.
 - El `GET` del estado lleva el token en la URL, igual que `llamar()` de `meta.ts` con `GET`. Es el patrón que ya funciona en producción; no cambiarlo en esta task.
 
-- [ ] **Step 5: comprobar que pasan**
+- [x] **Step 5: comprobar que pasan**
 
 Run: `node --import tsx --test lib/publicar/facebook.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
 
-- [ ] **Step 6: mutaciones**
+- [x] **Step 6: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -1298,7 +1301,7 @@ Expected: `ℹ fail 0`
 | borrar `estado?.processing_phase?.status === 'error' \|\|` y `estado?.publishing_phase?.status === 'error'`, dejando solo `video_status` | **no cae**: el fixture de rechazo trae `video_status: 'error'`. Anotarlo: el test cubre el caso que Meta documenta, no las fases por separado |
 | `cuerpoSubida.success !== true` → `false` | «si Facebook no puede descargar el video» |
 
-- [ ] **Step 7: commit**
+- [x] **Step 7: commit**
 
 ```bash
 git add lib/publicar/facebook.ts lib/publicar/facebook.test.ts
@@ -1313,7 +1316,7 @@ git commit -m "feat(reels): publicar el reel en Facebook y esperar a que Meta lo
 - Modify: `lib/publicar/tanda.ts`
 - Test: `lib/publicar/tanda.test.ts`
 
-- [ ] **Step 1: ajustar los dos tests que cambian de expectativa**
+- [x] **Step 1: ajustar los dos tests que cambian de expectativa**
 
 Sin secretos de Facebook, ahora se omiten dos canales, no uno. En `lib/publicar/tanda.test.ts`, reemplazar exactamente:
 
@@ -1341,7 +1344,7 @@ por:
   assert.deepEqual(r.omitidos, ['facebook', 'reel-facebook']);
 ```
 
-- [ ] **Step 2: el fetch falso aprende las rutas de los Reels**
+- [x] **Step 2: el fetch falso aprende las rutas de los Reels**
 
 En `lib/publicar/tanda.test.ts`, reemplazar la función `falsoFetch` entera —desde `function falsoFetch(` hasta su `return { impl, llamadas };` y la `}` que la cierra— por:
 
@@ -1414,7 +1417,7 @@ function falsoFetch(
 
 ⚠️ El orden de los `if` importa: el estado de un Reel de Facebook (`fields=status&`) tiene que ir **antes** del `GET` genérico del final, que responde como un contenedor de Instagram. El de Instagram se consulta con `fields=status_code%2Cstatus`, que no casa con `fields=status&`.
 
-- [ ] **Step 3: los tests nuevos**
+- [x] **Step 3: los tests nuevos**
 
 Añadir al final de `lib/publicar/tanda.test.ts`:
 
@@ -1488,7 +1491,7 @@ test('sin Reels en la tanda, los canales de Reel no leen nada', async () => {
 });
 ```
 
-- [ ] **Step 4: comprobar que fallan**
+- [x] **Step 4: comprobar que fallan**
 
 Run: `node --import tsx --test lib/publicar/tanda.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 5` — los dos de `omitidos` y tres de los nuevos. Dos **pasan ya**, y no es un fallo del test:
@@ -1498,7 +1501,7 @@ Expected: `ℹ fail 5` — los dos de `omitidos` y tres de los nuevos. Dos **pas
 
 Su valor está en las mutaciones del Step 11. Medido en el ensayo del paso 0.
 
-- [ ] **Step 5: los imports**
+- [x] **Step 5: los imports**
 
 En `lib/publicar/tanda.ts`, reemplazar exactamente:
 
@@ -1521,7 +1524,7 @@ import {
 } from './programado.ts';
 ```
 
-- [ ] **Step 6: los nombres de canal y el descriptor**
+- [x] **Step 6: los nombres de canal y el descriptor**
 
 En `lib/publicar/tanda.ts`, reemplazar exactamente:
 
@@ -1557,7 +1560,7 @@ type Canal = {
   recientes(o: Opciones): Promise<string[]>;
 ```
 
-- [ ] **Step 7: la lectura con `description`**
+- [x] **Step 7: la lectura con `description`**
 
 En `lib/publicar/tanda.ts`, reemplazar exactamente:
 
@@ -1592,7 +1595,7 @@ async function textosRecientes(
 ): Promise<string[]> {
 ```
 
-- [ ] **Step 8: los canales**
+- [x] **Step 8: los canales**
 
 En `lib/publicar/tanda.ts`, reemplazar la función `canalesDe` entera —desde `function canalesDe(o: Opciones)` hasta el `return { canales, omitidos };` y la `}` que la cierra— por:
 
@@ -1672,7 +1675,7 @@ function canalesDe(o: Opciones): { canales: Canal[]; omitidos: NombreCanal[] } {
 }
 ```
 
-- [ ] **Step 9: el orquestador respeta `aplica`**
+- [x] **Step 9: el orquestador respeta `aplica`**
 
 En `lib/publicar/tanda.ts`, reemplazar exactamente:
 
@@ -1694,7 +1697,7 @@ por:
 - Los canales de Reel **no** pasan `esperarMs` ni `intentos`: usan `ESPERA_REEL` por defecto, que es lo que tiene que pasar en producción. En los tests el estado responde publicado a la primera, así que no se duerme.
 - `worker.ts` imprime `r.omitidos.join(',')` y `p.canal`: los nombres nuevos se imprimen solos, **no hay que tocarlo**.
 
-- [ ] **Step 10: comprobar que pasan, y la suite entera**
+- [x] **Step 10: comprobar que pasan, y la suite entera**
 
 Run: `node --import tsx --test lib/publicar/tanda.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 0`
@@ -1702,7 +1705,7 @@ Expected: `ℹ fail 0`
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"` y `npx tsc --noEmit; echo "exit=$?"`
 Expected: `ℹ tests 172` · `ℹ fail 0` · `exit=0`
 
-- [ ] **Step 11: mutaciones**
+- [x] **Step 11: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -1710,7 +1713,7 @@ Expected: `ℹ tests 172` · `ℹ fail 0` · `exit=0`
 | en `leer`, quitar la caché: `return textosRecientes(op, ruta, campo, token);` | «el carrusel y el Reel de Instagram comparten una sola lectura» |
 | `'description'` → `'message'` en el canal `reel-facebook` | «no republica un Reel de Facebook que ya está en la Página» |
 
-- [ ] **Step 12: commit**
+- [x] **Step 12: commit**
 
 ```bash
 git add lib/publicar/tanda.ts lib/publicar/tanda.test.ts
@@ -1728,7 +1731,7 @@ git commit -m "feat(reels): los reels como dos canales mas de la tanda"
 
 `lib/reels/` todavía no existe; lo crea el plan 2. Este test se escribe **antes**, para que la frontera esté vigilada desde el primer archivo de ese plan.
 
-- [ ] **Step 1: escribir el test**
+- [x] **Step 1: escribir el test**
 
 Crear `lib/publicar/frontera.test.ts`:
 
@@ -1782,14 +1785,14 @@ test('el detector sigue imports de verdad: si no, el test de arriba pasaría sie
 });
 ```
 
-- [ ] **Step 2: comprobar que pasa**
+- [x] **Step 2: comprobar que pasa**
 
 Run: `node --import tsx --test lib/publicar/frontera.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 2` · `ℹ fail 0`
 
 Aquí no hay fase roja posible: la frontera ya se cumple. **La mutación del Step 3 es la que prueba que el test sirve.**
 
-- [ ] **Step 3: mutación — la única prueba de que el test vigila algo**
+- [x] **Step 3: mutación — la única prueba de que el test vigila algo**
 
 Añadir temporalmente, como primera línea de `lib/publicar/tanda.ts`:
 
@@ -1804,7 +1807,7 @@ Borrar la línea. Run otra vez. Expected: `ℹ fail 0`.
 
 ⚠️ Correr **solo** `frontera.test.ts` durante la mutación: el resto de la suite importa `tanda.ts` de verdad y fallaría por otro motivo —el archivo no existe—, lo que no prueba nada sobre la frontera.
 
-- [ ] **Step 4: commit**
+- [x] **Step 4: commit**
 
 ```bash
 git add lib/publicar/frontera.test.ts
@@ -1819,7 +1822,7 @@ git commit -m "test(reels): el worker no alcanza lib/reels/"
 - Modify: `docs/PUBLICACION_EN_REDES.md`
 - Modify: `AGENTS.md`
 
-- [ ] **Step 1: la sección de los Reels**
+- [x] **Step 1: la sección de los Reels**
 
 En `docs/PUBLICACION_EN_REDES.md`, reemplazar exactamente:
 
@@ -1869,7 +1872,7 @@ Worker a media publicación.
 ## Cómo se publica
 ```
 
-- [ ] **Step 2: la tabla de archivos**
+- [x] **Step 2: la tabla de archivos**
 
 En `docs/PUBLICACION_EN_REDES.md`, reemplazar exactamente:
 
@@ -1884,7 +1887,7 @@ por:
 | `lib/publicar/frontera.test.ts` | que lo que carga el Worker no alcance `lib/reels/` |
 ```
 
-- [ ] **Step 3: una línea en `AGENTS.md`**
+- [x] **Step 3: una línea en `AGENTS.md`**
 
 En `AGENTS.md`, reemplazar exactamente:
 
@@ -1903,12 +1906,12 @@ siguiente (09:00 → 18:00; 18:00 → 09:00 del día siguiente). Con bloque `ree
 sale además como Reel en los dos, en las dos franjas que siguen.
 ```
 
-- [ ] **Step 4: el tope de `AGENTS.md`**
+- [x] **Step 4: el tope de `AGENTS.md`**
 
 Run: `wc -m AGENTS.md`
 Expected: por debajo de `12000`.
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add docs/PUBLICACION_EN_REDES.md AGENTS.md
@@ -1921,7 +1924,7 @@ git commit -m "docs(reels): como salen los reels y el aviso del disparo manual"
 
 Sin código. `superpowers:verification-before-completion`: evidencia antes que afirmación.
 
-- [ ] **Step 1: la suite, los tipos y el contenido**
+- [x] **Step 1: la suite, los tipos y el contenido**
 
 ```bash
 npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"
@@ -1931,7 +1934,7 @@ npm run piezas -- --check
 
 Expected: `ℹ tests 174` · `ℹ fail 0` · `exit=0` · `7 pieza(s) validas en 2026-09.`
 
-- [ ] **Step 2: el camino de producción, no solo que compile**
+- [x] **Step 2: el camino de producción, no solo que compile**
 
 El Worker se construye con OpenNext. Que `tsc` pase no prueba que el bundle salga:
 
@@ -1941,7 +1944,7 @@ npm run build:cloudflare
 
 Expected: termina sin error. `build:cloudflare` corre `npm run build`, que a su vez corre `prebuild`: piezas, tests y tipos otra vez.
 
-- [ ] **Step 3: el repositorio está donde tiene que estar**
+- [x] **Step 3: el repositorio está donde tiene que estar**
 
 ```bash
 git branch --show-current                          # feat/reels-publicacion
@@ -1951,7 +1954,7 @@ git ls-remote origin feat/reels-publicacion | wc -l  # 0 si no se pusheó todav�
 git status --short                                 # vacío
 ```
 
-- [ ] **Step 4: alcance — lo tocado contra lo que nombra el plan**
+- [x] **Step 4: alcance — lo tocado contra lo que nombra el plan**
 
 ```bash
 for f in $(git diff --name-only main..HEAD); do
@@ -1961,7 +1964,7 @@ done
 
 Expected: sin salida. Si aparece algo, mirar su diff antes de rechazarlo: no todo lo que sale es scope creep.
 
-- [ ] **Step 5: `app/` sigue limpio**
+- [x] **Step 5: `app/` sigue limpio**
 
 ```bash
 npx eslint app/ 2>&1 | tail -3
