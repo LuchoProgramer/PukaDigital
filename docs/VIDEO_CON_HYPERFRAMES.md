@@ -1,8 +1,10 @@
 # Video con HyperFrames — investigación previa
 
-Investigado el **2026-09-13**. **Nada decidido y nada construido**: esto es el
-material para la spec de video, que todavía no existe. No empezar a implementar
-sin instrucciones.
+Investigado el **2026-09-13**, y **construido ese mismo día**. Esto es la
+investigación que alimentó la spec
+(`superpowers/specs/2026-09-13-reels-hyperframes-design.md`) y sus dos planes: lo
+decidido vive allí, y cómo se usa, en `PUBLICACION_EN_REDES.md` → «Los Reels».
+Lo de abajo se conserva como fuente.
 
 Para la cadencia acordada, ver la spec del 2026-09-07
 (`superpowers/specs/2026-09-07-facebook-canal-propio-design.md`, líneas 25-35).
@@ -34,9 +36,9 @@ guion son otra spec.»* Lo acordado entonces, rescatado de esa conversación:
 - **XTTS v2 queda descartado:** licencia no comercial, y Coqui cerró en enero de
   2024, así que no hay a quién comprarle una licencia.
 
-⚠️ `CALENDARIO_CONTENIDO.md` y `COMMUNITY_MANAGEMENT.md` siguen con la cadencia
-vieja («8 estáticos + 2 videos al mes», Reels hechos en Flow). Hay que decidir
-cuál vale antes de escribir la spec.
+✅ **Resuelto el 2026-09-13.** La spec fijó dos Reels por semana, hechos por la
+fábrica a partir de un carrusel, y `CALENDARIO_CONTENIDO.md` y
+`COMMUNITY_MANAGEMENT.md` ya lo dicen.
 
 ---
 
@@ -163,8 +165,8 @@ Apple M4 con 16 GB, medido el 2026-09-13:
 - **Chatterbox** debería funcionar.
 - **Qwen3-TTS 1.7B** va justo: el repo comunitario pide 16 GB mínimo y recomienda
   32.
-- Ya están `ffmpeg` y Node. Faltan `espeak-ng` (sin él no hay español con
-  Kokoro) y `uv`.
+- Ya están `ffmpeg`, Node y `espeak-ng`, y el entorno de Kokoro vive en
+  `~/.venvs/kokoro`. Actualizado el 2026-09-13.
 
 ---
 
@@ -221,6 +223,11 @@ nuestro permite todo; no romperlo.
 
 ### Lo que hay que decidir en la spec
 
+> ✅ **Resuelto en la spec del 2026-09-13.** Los MP4 van a R2
+> (`pukadigital-reels`, servido en `reels.pukadigital.com`); en Facebook se
+> compara contra `/video_reels`, no contra `/posts`; y el Reel dura de 3 a 90 s,
+> con 20 a 30 como objetivo.
+
 1. **Dónde viven los MP4.** Misma trampa que los PNG —sin desplegar, el CDN no
    los sirve—, pero el peso cambia: hoy `public/piezas` son 3,3 MB y el
    repositorio entero 13 MB. Cloudflare aguanta (25 MiB por archivo, 20.000
@@ -273,6 +280,12 @@ Cada una costó un intento y ninguna está documentada río arriba:
    `setuptools` moderno. Hay que fijar `setuptools<81`.
 4. **`torchaudio` 2.14 no guarda audio sin `torchcodec`.** Se escribe con
    `soundfile`.
+
+Y una quinta, que apareció al renderizar el primer Reel, el mismo día: **Kokoro
+trae su propio `espeak-ng`**, compilado en la CI de sus autores y con la ruta de
+los datos apuntando allí. Aquí falla con `phontab: No such file or directory`,
+un error que no menciona ni Kokoro ni el español. Se arregla apuntando
+`ESPEAK_DATA_PATH` y `PHONEMIZER_ESPEAK_LIBRARY` al `espeak-ng` de Homebrew.
 
 Las pruebas viven en `~/Downloads/pruebas-voz/`, fuera del repositorio.
 

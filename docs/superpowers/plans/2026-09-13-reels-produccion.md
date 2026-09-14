@@ -1,5 +1,8 @@
 # Reels — producción: plan de implementación
 
+> ✅ **Ejecutado el 2026-09-13** y mergeado en el PR #32: 11 tasks por `agy`, 0
+> desviaciones, 225 tests. Cómo fue: `docs/METODO_AGENTES_PARALELOS.md` §15.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 >
 > **En este proyecto se ejecuta con `agy`, de a una task**, según
@@ -184,7 +187,7 @@ pasada de `ffmpeg`, `ffprobe` dio h264 · 1080×1920 · yuv420p · 30 fps · aac
 - Create: `lib/piezas/guion.ts`, `lib/piezas/guion.test.ts`
 - Modify: `lib/piezas/validar.ts`, `lib/piezas/validar.test.ts`, `lib/publicar/facebook.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/piezas/guion.test.ts`:
 
@@ -217,12 +220,12 @@ test('el guion lleva un párrafo por slide, separados por una línea en blanco',
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/piezas/guion.test.ts lib/piezas/validar.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 2` — uno de `guion.test.ts`, que **no carga** porque el módulo no existe todavía, y el nuevo de `validar.test.ts`. ⚠️ Un archivo que falla al importar cuenta como **un** test y un fallo, no como los que contiene: medido el 2026-09-13.
 
-- [ ] **Step 3: los párrafos**
+- [x] **Step 3: los párrafos**
 
 Crear `lib/piezas/guion.ts`:
 
@@ -246,7 +249,7 @@ export function parrafosDelGuion(guion: string): string[] {
 }
 ```
 
-- [ ] **Step 4: la regla en el validador**
+- [x] **Step 4: la regla en el validador**
 
 En `lib/piezas/validar.ts`, reemplazar exactamente:
 
@@ -289,7 +292,7 @@ por:
       }
 ```
 
-- [ ] **Step 5: el guion de los tests de Facebook pasa a tener dos párrafos**
+- [x] **Step 5: el guion de los tests de Facebook pasa a tener dos párrafos**
 
 `piezaBase` tiene dos slides, así que su guion de un párrafo deja de ser válido. En `lib/publicar/facebook.test.ts`, reemplazar exactamente:
 
@@ -305,12 +308,12 @@ const GUION =
   'Desde catorce noventa y nueve al mes.';
 ```
 
-- [ ] **Step 6: comprobar que pasan**
+- [x] **Step 6: comprobar que pasan**
 
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"`
 Expected: `ℹ tests 178` · `ℹ fail 0`
 
-- [ ] **Step 7: mutaciones**
+- [x] **Step 7: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -318,7 +321,7 @@ Expected: `ℹ tests 178` · `ℹ fail 0`
 | `parrafos !== pieza.slides.length` → `parrafos > pieza.slides.length` | «el guion lleva un párrafo por slide» |
 | deshacer el Step 5 (guion de un párrafo en `facebook.test.ts`) | los 6 tests del Reel de Facebook: la validación los rechaza |
 
-- [ ] **Step 8: commit**
+- [x] **Step 8: commit**
 
 ```bash
 git add lib/piezas/guion.ts lib/piezas/guion.test.ts lib/piezas/validar.ts lib/piezas/validar.test.ts lib/publicar/facebook.test.ts
@@ -334,7 +337,7 @@ git commit -m "feat(reels): el guion lleva un parrafo por slide"
 **Files:**
 - Create: `lib/reels/tiempos.ts`, `lib/reels/tiempos.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/tiempos.test.ts`:
 
@@ -411,12 +414,12 @@ test('sin palabras o sin duración no hay subtítulos', () => {
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/tiempos.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/tiempos.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/tiempos.ts`:
 
@@ -536,12 +539,12 @@ export function escenasDesde(
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/tiempos.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 8` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -553,7 +556,7 @@ Expected: `ℹ pass 8` · `ℹ fail 0`
 | borrar el bucle que recoge la cola de una palabra | «una enumeración no deja palabras sueltas» |
 | quitarle al bucle la guarda `!/[.?!]$/.test(...)` | «pero una frase de una sola palabra sí es un subtítulo» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/tiempos.ts lib/reels/tiempos.test.ts
@@ -567,7 +570,7 @@ git commit -m "feat(reels): escenas y subtitulos desde lo que dura cada voz"
 **Files:**
 - Create: `lib/reels/verificacion.ts`, `lib/reels/verificacion.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/verificacion.test.ts`:
 
@@ -631,12 +634,12 @@ test('la normalización no recodifica el video y deja el índice delante', () =>
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/verificacion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/verificacion.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/verificacion.ts`:
 
@@ -735,12 +738,12 @@ export function erroresDeVideo(probe: Ffprobe): string[] {
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/verificacion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 6` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -749,7 +752,7 @@ Expected: `ℹ pass 6` · `ℹ fail 0`
 | `denominador ? numerador / denominador : 0` → `numerador` | «el video va en h264…» (los 29,97 fps) |
 | `'-c:v', 'copy'` → `'-c:v', 'libx264'` | «la normalización no recodifica el video» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/verificacion.ts lib/reels/verificacion.test.ts
@@ -763,7 +766,7 @@ git commit -m "feat(reels): verificar el MP4 contra lo que exige Meta"
 **Files:**
 - Create: `lib/reels/r2.ts`, `lib/reels/r2.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/r2.test.ts`:
 
@@ -798,12 +801,12 @@ test('la URL une base y clave con una sola barra, y se sube con wrangler en remo
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/r2.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/r2.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/r2.ts`:
 
@@ -838,12 +841,12 @@ export function argumentosSubida(bucket: string, clave: string, archivo: string)
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/r2.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 3` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -851,7 +854,7 @@ Expected: `ℹ pass 3` · `ℹ fail 0`
 | `base.replace(/\/+$/, '')` → `base` | «la URL une base y clave con una sola barra» |
 | borrar `'--remote'` | «…y se sube con wrangler en remoto» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/r2.ts lib/reels/r2.test.ts
@@ -865,7 +868,7 @@ git commit -m "feat(reels): la clave en R2 lleva el hash del MP4"
 **Files:**
 - Create: `lib/reels/telegram.ts`, `lib/reels/telegram.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/telegram.test.ts`:
 
@@ -918,12 +921,12 @@ test('si Telegram lo rechaza, falla con su descripción y sin el token', async (
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/telegram.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/telegram.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/telegram.ts`:
 
@@ -975,12 +978,12 @@ export async function enviarVideo(
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/telegram.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 3` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -988,7 +991,7 @@ Expected: `ℹ pass 3` · `ℹ fail 0`
 | `sendVideo` → `sendDocument` en la URL | «sube el archivo con sendVideo» |
 | en el `throw`, `json.description` → `` `${res.url}` `` | «…y sin el token» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/telegram.ts lib/reels/telegram.test.ts
@@ -1002,7 +1005,7 @@ git commit -m "feat(reels): mandar el MP4 a Telegram para revisarlo en el telefo
 **Files:**
 - Create: `lib/reels/guion.ts`, `lib/reels/guion.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/guion.test.ts`:
 
@@ -1068,12 +1071,12 @@ test('sin API_KEY la llamada real falla al llamarla, no al construirla', async (
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/guion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/guion.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/guion.ts`:
 
@@ -1197,12 +1200,12 @@ export function llamarGemini(
 - `llamarGemini` **no** tiene valor por defecto para `apiKey`: si lo tuviera, pasarle `undefined` en el test usaría la variable de entorno y podría llamar a la API de verdad.
 - El `\\n\\n` del último bloque del prompt es intencional: el modelo tiene que ver los caracteres `\n\n` dentro de un JSON de ejemplo.
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/guion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 6` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -1210,7 +1213,7 @@ Expected: `ℹ pass 6` · `ℹ fail 0`
 | `pieza.producto === 'pukahealth'` → `false` | «a PukaHealth le llegan las afirmaciones prohibidas» |
 | en `leerRespuesta`, borrar la comprobación de `caption` | «una respuesta sin guion, sin caption, o que no es JSON, falla» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/guion.ts lib/reels/guion.test.ts
@@ -1224,7 +1227,7 @@ git commit -m "feat(reels): el guion lo escribe Gemini con las slides y los hech
 **Files:**
 - Create: `lib/reels/composicion.ts`, `lib/reels/composicion.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/composicion.test.ts`:
 
@@ -1338,12 +1341,12 @@ test('slides, escenas y audios tienen que coincidir', () => {
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/composicion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/composicion.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/composicion.ts`:
 
@@ -1523,12 +1526,12 @@ ${voces}
 - `AVISO`, `FONDO_AVISO` y `medidasAviso()` ya existen en `lib/piezas/capturas.ts`, y `MARGEN` y `FORMATOS` en `formatos.ts`. No recrear ninguno: que sean los mismos que usan las imágenes es justo el punto.
 - La zona segura deja `seguroAbajo + 200` libre abajo en `.contenido` porque ahí van los subtítulos.
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/composicion.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 8` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -1537,7 +1540,7 @@ Expected: `ℹ pass 8` · `ℹ fail 0`
 | `data-duration="${total}"` → `data-duration="10"` | «la raíz declara el vertical…» |
 | en `escapar`, borrar el reemplazo de `<` | «el texto de las slides se escapa» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/composicion.ts lib/reels/composicion.test.ts
@@ -1551,7 +1554,7 @@ git commit -m "feat(reels): la composicion HTML desde los tokens del sistema"
 **Files:**
 - Create: `lib/reels/herramientas.ts`, `lib/reels/herramientas.test.ts`, `lib/reels/bloque.ts`, `lib/reels/bloque.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/herramientas.test.ts`:
 
@@ -1612,12 +1615,12 @@ test('el guion va un párrafo por línea, para leerlo en el PR', () => {
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/herramientas.test.ts lib/reels/bloque.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 2` — ninguno de los dos módulos existe todavía.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/herramientas.ts`:
 
@@ -1696,12 +1699,12 @@ ${guion},
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan**
+- [x] **Step 4: comprobar que pasan**
 
 Run: `node --import tsx --test lib/reels/herramientas.test.ts lib/reels/bloque.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 5` · `ℹ fail 0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -1710,7 +1713,7 @@ Expected: `ℹ pass 5` · `ℹ fail 0`
 | en `bloqueReel`, `JSON.stringify(reel.caption)` → `` `'${reel.caption}'` `` | «el bloque se pega… y vuelve a dar el mismo reel» (el caption lleva comillas) |
 | `i < parrafos.length - 1 ? `${parrafo}\n\n` : parrafo` → `parrafo` | «el bloque se pega…» y «el guion va un párrafo por línea» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/herramientas.ts lib/reels/herramientas.test.ts lib/reels/bloque.ts lib/reels/bloque.test.ts
@@ -1724,7 +1727,7 @@ git commit -m "feat(reels): ejecutar comandos inyectable y el bloque para pegar"
 **Files:**
 - Create: `lib/reels/producir.ts`, `lib/reels/producir.test.ts`
 
-- [ ] **Step 1: escribir los tests que fallan**
+- [x] **Step 1: escribir los tests que fallan**
 
 Crear `lib/reels/producir.test.ts`:
 
@@ -1877,12 +1880,12 @@ test('la composición se escribe en la carpeta del render, con la voz de cada p�
 });
 ```
 
-- [ ] **Step 2: comprobar que fallan**
+- [x] **Step 2: comprobar que fallan**
 
 Run: `node --import tsx --test lib/reels/producir.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ fail 1` — el archivo no carga: `lib/reels/producir.ts` no existe.
 
-- [ ] **Step 3: implementar**
+- [x] **Step 3: implementar**
 
 Crear `lib/reels/producir.ts`:
 
@@ -2042,7 +2045,7 @@ export async function producirReel(
 }
 ```
 
-- [ ] **Step 4: comprobar que pasan, y la suite entera**
+- [x] **Step 4: comprobar que pasan, y la suite entera**
 
 Run: `node --import tsx --test lib/reels/producir.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"`
 Expected: `ℹ pass 8` · `ℹ fail 0`
@@ -2050,7 +2053,7 @@ Expected: `ℹ pass 8` · `ℹ fail 0`
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"` y `npx tsc --noEmit; echo "exit=$?"`
 Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0`
 
-- [ ] **Step 5: mutaciones**
+- [x] **Step 5: mutaciones**
 
 | Mutación | Test que tiene que caer |
 |---|---|
@@ -2059,7 +2062,7 @@ Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0`
 | `!d.regenerarGuion` → `true` | «--regenerar-guion ignora el guion escrito» |
 | quitar el `try/catch` de Telegram | «si Telegram falla, el reel se entrega igual» |
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add lib/reels/producir.ts lib/reels/producir.test.ts
@@ -2076,7 +2079,7 @@ git commit -m "feat(reels): la tuberia entera con las herramientas inyectadas"
 - Create: `lib/reels/cli.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: GSAP como dependencia de desarrollo** *(este Step lo hace Claude, no `agy`: instala paquetes)*
+- [x] **Step 1: GSAP como dependencia de desarrollo** *(este Step lo hace Claude, no `agy`: instala paquetes)*
 
 ```bash
 npm install --save-dev --save-exact gsap@3.14.2
@@ -2084,7 +2087,7 @@ npm install --save-dev --save-exact gsap@3.14.2
 
 Expected: `package.json` y `package-lock.json` cambian, y `node_modules/gsap/dist/gsap.min.js` existe.
 
-- [ ] **Step 2: el script**
+- [x] **Step 2: el script**
 
 En `package.json`, reemplazar exactamente:
 
@@ -2099,7 +2102,7 @@ por:
     "reels": "node --import tsx --env-file-if-exists=.env.local lib/reels/cli.ts",
 ```
 
-- [ ] **Step 3: el comando**
+- [x] **Step 3: el comando**
 
 Crear `lib/reels/cli.ts`:
 
@@ -2173,7 +2176,7 @@ main().catch((error) => {
 });
 ```
 
-- [ ] **Step 4: comprobar el comando sin tocar ninguna herramienta**
+- [x] **Step 4: comprobar el comando sin tocar ninguna herramienta**
 
 ```bash
 npm run reels 2>&1 | tail -2
@@ -2182,12 +2185,12 @@ npm run reels -- --mes 2026-09 --id no-existe 2>&1 | tail -2
 
 Expected: el primero imprime el uso; el segundo, `No hay una pieza «no-existe» en 2026-09`. Los dos salen con código 1 y **sin llamar a ninguna herramienta**.
 
-- [ ] **Step 5: la suite y los tipos**
+- [x] **Step 5: la suite y los tipos**
 
 Run: `npm test 2>&1 | grep -E "^ℹ (tests|fail)"` y `npx tsc --noEmit; echo "exit=$?"`
 Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0`
 
-- [ ] **Step 6: commit**
+- [x] **Step 6: commit**
 
 ```bash
 git add package.json package-lock.json lib/reels/cli.ts
@@ -2201,7 +2204,7 @@ git commit -m "feat(reels): el comando npm run reels, con --ensayo"
 **Files:**
 - Modify: `docs/ENVIRONMENT_VARIABLES.md`, `docs/PUBLICACION_EN_REDES.md`, `AGENTS.md`
 
-- [ ] **Step 1: las variables**
+- [x] **Step 1: las variables**
 
 En `docs/ENVIRONMENT_VARIABLES.md`, reemplazar exactamente:
 
@@ -2240,7 +2243,7 @@ MP4 en una carpeta temporal.
 ## Seguridad
 ```
 
-- [ ] **Step 2: cómo se produce un Reel**
+- [x] **Step 2: cómo se produce un Reel**
 
 En `docs/PUBLICACION_EN_REDES.md`, reemplazar exactamente:
 
@@ -2276,7 +2279,7 @@ el modelo.
   publicar algo falso, no algo malo.
 ```
 
-- [ ] **Step 3: el comando en `AGENTS.md`**
+- [x] **Step 3: el comando en `AGENTS.md`**
 
 En `AGENTS.md`, reemplazar exactamente:
 
@@ -2291,12 +2294,12 @@ npm test             # tests de la fabrica de piezas
 npm run reels -- --mes 2026-10 --id <pieza>   # produce el Reel de una pieza. --ensayo no sube nada
 ```
 
-- [ ] **Step 4: el tope de `AGENTS.md`**
+- [x] **Step 4: el tope de `AGENTS.md`**
 
 Run: `wc -m AGENTS.md`
 Expected: por debajo de `12000`.
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add docs/ENVIRONMENT_VARIABLES.md docs/PUBLICACION_EN_REDES.md AGENTS.md
@@ -2309,7 +2312,7 @@ git commit -m "docs(reels): como se produce un Reel y las variables que necesita
 
 Sin código. `superpowers:verification-before-completion`: evidencia antes que afirmación.
 
-- [ ] **Step 1: la suite, los tipos y el contenido**
+- [x] **Step 1: la suite, los tipos y el contenido**
 
 ```bash
 npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"
@@ -2320,7 +2323,7 @@ npx eslint app/ 2>&1 | tail -2
 
 Expected: `ℹ tests 225` · `ℹ fail 0` · `exit=0` · `7 pieza(s) validas en 2026-09.` · los mismos 8 problemas de `app/` que ya estaban.
 
-- [ ] **Step 2: la frontera del Worker sigue en pie**
+- [x] **Step 2: la frontera del Worker sigue en pie**
 
 ```bash
 node --import tsx --test lib/publicar/frontera.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"
@@ -2330,7 +2333,7 @@ grep -c "lib/reels" .open-next/worker.js
 
 Expected: `ℹ pass 2` · `build exit=0` · `0` — nada de `lib/reels/` entra al Worker.
 
-- [ ] **Step 3: un Reel de verdad, en ensayo**
+- [x] **Step 3: un Reel de verdad, en ensayo**
 
 Con una pieza a la que se le añada a mano un bloque `reel` con guion —sin commitearla—:
 
@@ -2341,7 +2344,7 @@ ffmpeg -y -ss 3 -i <carpeta>/reel.mp4 -frames:v 1 /tmp/fotograma.png
 
 Expected: termina sin error, y el fotograma muestra el titular, los subtítulos y —si la escena lleva captura— el aviso de datos ficticios. **Mirar el video entero, con sonido.**
 
-- [ ] **Step 4: el repositorio está donde tiene que estar**
+- [x] **Step 4: el repositorio está donde tiene que estar**
 
 ```bash
 git branch --show-current                            # feat/reels-produccion
@@ -2350,7 +2353,7 @@ git log --oneline main..HEAD                         # los 11 commits de las Tas
 git status --short                                   # vacío
 ```
 
-- [ ] **Step 5: alcance — lo tocado contra lo que nombra el plan**
+- [x] **Step 5: alcance — lo tocado contra lo que nombra el plan**
 
 ```bash
 for f in $(git diff --name-only main..HEAD); do

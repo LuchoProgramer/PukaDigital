@@ -1,6 +1,8 @@
 # Reels con HyperFrames — diseño
 
-Fecha: **2026-09-13**. Estado: **spec aprobada, sin implementar**.
+Fecha: **2026-09-13**. Estado: **implementada** el mismo día —plan 1 en el PR
+#29, plan 2 en el PR #32—. Producción no publica Reels hasta el próximo
+despliegue: ver `docs/ESTADO_2026-09-13.md`.
 
 Los Reels de la fábrica: un video vertical por pieza, narrado con voz local, que
 se publica solo en Instagram y en Facebook.
@@ -211,7 +213,10 @@ claro** y sigue con las demás.
 
 **2. La voz.** `hyperframes tts --voice ef_dora`, local y sin cuentas, a 24 kHz.
 Determinista: mismo texto, mismo audio. Requiere `espeak-ng` en el sistema y un
-Python con `kokoro-onnx` y `soundfile`, señalado con `HYPERFRAMES_PYTHON`.
+Python con `kokoro-onnx` y `soundfile`, señalado con `HYPERFRAMES_PYTHON`. Y
+además `ESPEAK_DATA_PATH` y `PHONEMIZER_ESPEAK_LIBRARY` apuntando al `espeak-ng`
+de Homebrew: Kokoro trae una copia propia cuya ruta de datos aquí no existe.
+Medido al renderizar el primer Reel.
 
 **3. Los tiempos, sin transcribir.** Decidido el 2026-09-13, al escribir el plan
 2: en esta máquina no hay ninguna herramienta de transcripción, y
@@ -223,8 +228,11 @@ multilingüe de cientos de MB. En su lugar:
   duración es el corte de escena. La imagen cambia cuando la voz cambia de idea,
   no cada N segundos.
 - **Los subtítulos van en grupos de hasta 4 palabras**, cortando también donde
-  cierra una idea; dentro del párrafo, cada palabra recibe tiempo según su largo.
-  El desfase de una palabra suelta es de décimas y en grupos no se nota.
+  termina una frase (`.`, `?`, `!`) **y nunca en una coma**: en una enumeración
+  eso dejaba palabras sueltas, y el render del paso 0 mostró un subtítulo que
+  decía «reportes.» y nada más. Una cola de una sola palabra vuelve a su grupo.
+  Dentro del párrafo, cada palabra recibe tiempo según su largo. El desfase de
+  una palabra suelta es de décimas y en grupos no se nota.
 
 Si al ver los primeros Reels los subtítulos se notan desfasados, whisper entra en
 un plan aparte sin rehacer nada: solo cambia de dónde salen los tiempos.
@@ -247,11 +255,17 @@ documentación y contra su propio test vertical
   controla la reproducción: nada de `play()` ni `currentTime`.
 - **Las animaciones se registran síncronas** en `window.__timelines`. Nada de
   `async`, `fetch` ni `Math.random()` al construirlas: rompe el determinismo.
-- **GSAP va embebido**, leído de `node_modules` (`gsap` 3.14.2, la versión de la
-  documentación de HyperFrames, como dependencia de desarrollo), no cargado de un
-  CDN. Su test vertical lo toma de jsdelivr, y un render que depende de la red no
-  es reproducible. La captura también va embebida, con `cargarCaptura()`: la
-  composición es **un solo HTML** más un audio por escena.
+- **GSAP va en local, como archivo al lado del HTML**, leído de `node_modules`
+  (`gsap` 3.14.2, la versión de la documentación de HyperFrames, como dependencia
+  de desarrollo), no cargado de un CDN. Su test vertical lo toma de jsdelivr, y un
+  render que depende de la red no es reproducible.
+  ⚠️ **Y no en línea.** El lint de `render --strict` analiza los `<script>`
+  inline, lee el `Math.random()` y el `Date.now()` de GSAP como código nuestro y
+  aborta. Corregido tras el render del paso 0: va como `gsap.min.js`. La captura
+  sí va embebida, con `cargarCaptura()`: la composición es **un HTML y
+  `gsap.min.js`**, más un audio por escena.
+- **Una pista por escena** (`data-track-index`). Con todas en la 0, HyperFrames
+  avisa `timeline_track_too_dense`.
 
 ⚠️ `data-resolution="portrait"` **no existe**: lo propuso un revisor y no aparece
 en ninguna parte de su documentación. No añadirlo.

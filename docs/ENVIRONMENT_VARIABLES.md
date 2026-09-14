@@ -208,6 +208,27 @@ token actual dice el tipo, la caducidad y los permisos. Así se descubrió el
 | `R2_PUBLIC_BASE_URL` | La URL pública del bucket, sin barra final |
 | `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID` | Opcionales: sin ellas el video no llega al teléfono y el comando lo avisa |
 
+### Cómo está montado hoy
+
+Verificado el **2026-09-13** subiendo un Reel y descargándolo desde la URL pública.
+
+| | |
+|---|---|
+| `R2_BUCKET` | `pukadigital-reels`, sin binding en `wrangler.jsonc` |
+| `R2_PUBLIC_BASE_URL` | `https://reels.pukadigital.com`: dominio propio del bucket, no `r2.dev`, que Cloudflare limita y no recomienda para producción |
+| `HYPERFRAMES_PYTHON` | `/Users/luisviteri/.venvs/kokoro/bin/python` |
+| `API_KEY` | La misma clave de Gemini que usa `Chatbot-IA/agentes-ia`, donde se llama `GEMINI_API_KEY`. ⚠️ Comparten cuota: si se revoca allí, aquí se caen los guiones y los captions |
+| Telegram | El bot `@Pukareelbot`, al chat privado de Luis |
+
+**Crear el bot de Telegram**, si hubiera que rehacerlo:
+
+1. En Telegram, **@BotFather** → `/newbot`, un nombre y un usuario que termine en
+   `bot`. Devuelve el token: es `TELEGRAM_BOT_TOKEN`.
+2. **Escribirle al bot desde tu cuenta.** Sin ese primer mensaje, el bot no puede
+   escribirte.
+3. El `chat_id` sale de `https://api.telegram.org/bot<token>/getUpdates`, en
+   `message.chat.id`.
+
 **Lo que hay que instalar una vez**, porque no son dependencias de npm:
 `brew install espeak-ng ffmpeg` —sin `espeak-ng` no hay voz en español—, un
 entorno de Python con `kokoro-onnx` y `soundfile`, y `npx -y hyperframes@0.8.36 doctor`

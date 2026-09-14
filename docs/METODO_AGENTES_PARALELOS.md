@@ -12,8 +12,8 @@ que `agy -p` no carga `AGENTS.md` por su cuenta— vive en
 > (`docs/claude/metodo-agentes-paralelos.md`), destilado de sesiones del 3 al 13 de
 > septiembre de 2026. **Salvo donde diga lo contrario, los números son de allá**,
 > sobre Django y una suite grande. Lo medido aquí se marca como de aquí —la
-> comparación de modelos del 2026-09-09 y **la primera ejecución de un plan con
-> `agy`, el 2026-09-13 (§14)**—, y las dos cosas no se mezclan.
+> comparación de modelos del 2026-09-09 y **las dos primeras ejecuciones de un plan
+> con `agy`, el 2026-09-13 (§14 y §15)**—, y las dos cosas no se mezclan.
 >
 > **Última sincronización con SistemaSalud: 2026-09-13**, pedida y contestada por
 > su propia sesión. Entraron: correr el código del plan antes de dárselo al
@@ -71,6 +71,10 @@ Confirmar con `pgrep -fl "^agy -p"` que la opción quedó al final del comando.
 ⚠️ **`--model` y `--effort` chocan.** El id del modelo ya trae su nivel
 (`gemini-3.8-flash-high`), así que pasar `--effort low` da
 `invalid model selection`. Usar `--effort high` o ninguno de los dos.
+
+⚠️ **Y es `--model`, no `-m`.** El wrapper reenvía lo que no reconoce y `agy` lo
+rechaza, pero imprime la ayuda en el archivo de salida y no en el de errores: ver
+§15.
 
 ### Qué modelo
 
@@ -318,8 +322,8 @@ por muerto un agy que estaba corriendo la línea base de tests. Chequear
 En SistemaSalud la razón era el timeout: la suite tarda ~46 s y se come el
 presupuesto de los 5 minutos.
 
-⚠️ **Ese argumento no aplica aquí.** `npm test` son 14 tests que corren en
-segundos. Técnicamente agy podría correrlos.
+⚠️ **Ese argumento no aplica aquí.** `npm test` son 225 tests —al 2026-09-13—
+que corren en segundos. Técnicamente agy podría correrlos.
 
 Sobrevive la razón mejor, que no es técnica: **quien escribe el código no es buen
 juez de si su test sirve.** Separar escritura de verificación es el punto entero.
@@ -682,6 +686,80 @@ Dos veces midió mal el arnés, no el código:
 
 Es la regla de §8 con dos casos nuevos: antes de creer un resultado vacío,
 comprobar que el comando llegó a correr.
+
+---
+
+## 15. Segunda ejecución medida aquí — 2026-09-13
+
+**Todo lo de esta sección es de PukaDigital.** Plan:
+`docs/superpowers/plans/2026-09-13-reels-produccion.md`, 11 tasks con código,
+el mismo modelo y las mismas opciones que §14. Esta vez no se cronometró a `agy`.
+
+| Task | Qué | Desviaciones | Mutaciones | Tests al cerrar |
+|---|---|---|---|---|
+| 1 | un párrafo por slide | 0 | 3 | 178 |
+| 2 | escenas y subtítulos | 0 | 7 | 186 |
+| 3 | lo que exige Meta | 0 | 4 | 192 |
+| 4 | la clave en R2 | 0 | 3 | 195 |
+| 5 | el aviso por Telegram | 0 | 3 | 198 |
+| 6 | el guion con Gemini | 0 | 3 | 204 |
+| 7 | la composición | 0 | 4 | 212 |
+| 8 | ejecutar y el bloque | 0 | 4 | 217 |
+| 9 | la tubería | 0 | 4 | 225 |
+| 10 | el comando | 0 | — | 225 |
+| 11 | documentación | 0 | — | 225 |
+
+**Otra vez cero desviaciones**, y los tests cayeron exactamente donde el plan los
+predijo, hasta el 225 final.
+
+### 🔑 El paso 0 incluyó un render de verdad
+
+§13 lo recomendaba sin haberlo medido. Medido: se aplicó el plan entero en un
+worktree descartable, se le puso a mano un bloque `reel` a una pieza y se
+renderizó. **Salieron cuatro fallos, y ninguno lo habría encontrado un test ni
+un contraste**:
+
+| Qué pasó | Cómo se vio |
+|---|---|
+| `render --strict` abortó con `non_deterministic_code`. No era código nuestro: era GSAP en línea, que el lint analiza como propio | leyendo el error |
+| El error solo decía «Command failed»: HyperFrames escribe en stdout y `ejecutar` miraba stderr | leyendo el error |
+| Un subtítulo entero decía «reportes.»: cortar en las comas parte las enumeraciones | **solo mirando el video** |
+| Las escenas compartían pista y HyperFrames avisaba `timeline_track_too_dense` | leyendo el aviso |
+
+El contraste con `agy` de ese mismo plan dio dos hallazgos: uno cierto, y otro
+falso, que se descartó compilando las dos versiones. Ninguno era de estos cuatro.
+
+🔑 **Para video, el paso 0 no termina en «los tests pasan»: termina mirando un
+fotograma por escena.** Es el tipo 4 de §9 —el test prueba una pieza, producción
+usa otro camino— en su forma más literal.
+
+### 🔑 Dos tests en verde que no probaban nada
+
+| Task | Tipo (§9) | Qué pasaba |
+|---|---|---|
+| 6 | 2 — mitad sin test | La respuesta de Gemini se rechazaba sin guion **o** sin caption, y el test solo probaba la primera mitad. Borrar la comprobación del caption no rompía nada |
+| 8 | 1 — verde por otra vía | El test buscaba `non_deterministic_code` en el error, y el texto ya estaba en el propio comando: `error.message` de Node es `Command failed: <comando>`. Pasaba aunque se borrara la lectura de stdout |
+
+**Los dos los escribió Claude al corregir el plan, no `agy`.** Es la conclusión
+de §8 una vez más —el agente es fiel, el plan miente— con un matiz: **un test
+añadido para arreglar el plan también es plan**, y necesita su mutación el mismo
+día. Los dos se corrigieron en el plan y en el código, y sus mutaciones ya caen.
+
+### El arnés, otra vez
+
+- **`git stash` no ve archivos sin rastrear.** En §14 la implementación modificaba
+  archivos existentes; aquí casi todas eran nuevas. La fase roja se consigue
+  apartando el archivo con `mv`, no con `stash`.
+- **Una tabla de mutaciones se queda vieja cuando el plan cambia después.** Pasó
+  dos veces: el paso 0 añadió tests y lógica, y las tablas de las Tasks 2 y 8
+  seguían describiendo el código de antes. Al corregir el plan, se corrige su
+  tabla en el mismo commit.
+- **`agy-headless -m` no hace lo que parece.** El wrapper reenvió `-m`, `agy` lo
+  rechazó con exit 2 e imprimió la ayuda **en el archivo de salida**. Un reporte
+  que no está vacío no es un reporte: hay que leerlo.
+- **`| tail` se queda con el exit code.** `npm run reels | tail` dio 0 con el
+  comando saliendo en 1. Es la regla de §14 con otro caso: el código de salida se
+  mide sin tubería.
 
 ---
 

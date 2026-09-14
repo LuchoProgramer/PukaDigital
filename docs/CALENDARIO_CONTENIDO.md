@@ -13,11 +13,12 @@ Para lo que PukaHealth **no** hace y no se puede prometer, ver `AGENTS.md`.
 |---|---|---|---|
 | 1 | Carrusel de PukaHealth | Claro y azul | La fábrica |
 | 1 | Carrusel de la casa | Dark Glass Rojo | La fábrica |
-| 2 | Reel de objeto parlante | Según el tema | Luis en Flow |
+| 2 | Reel narrado, sacado de un carrusel | El del carrusel | La fábrica, con `npm run reels` |
 | 1 | Video a cámara | — | Luis, grabado por lotes |
 
-**Los Reels no llevan tema propio.** Salen de un carrusel ya escrito: se toma
-una sola de sus ideas y se cuenta en 20 segundos. Así 24 temas alimentan 48
+**Los Reels no llevan tema propio.** Salen de un carrusel ya escrito: se cuenta
+el mismo tema en 20 a 30 segundos, una escena por slide, con la voz de Dora
+(spec de Reels del 2026-09-13). Así 24 temas alimentan 48
 piezas, y de paso el mensaje se repite sin sonar repetido — que es lo que hace
 que la gente lo recuerde.
 

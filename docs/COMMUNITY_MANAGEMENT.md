@@ -20,7 +20,7 @@ Para pauta, píxeles y atribución, ver `ECOSISTEMA_ADS.md`.
 |---|---|
 | Community manager | Brithany Erazo — acceso al portfolio `PukaDigital` |
 | Cuentas | Página `PukaDigital` + `@pukadigital` en Instagram |
-| Cadencia | 8 estáticos + 2 videos al mes |
+| Cadencia | 2 carruseles, 2 Reels y 1 video a cámara por semana — detalle en `CALENDARIO_CONTENIDO.md` |
 | Destino de todo CTA | WhatsApp `593964065880` |
 
 Los seis productos publican desde la misma cuenta. **No se abren cuentas por
