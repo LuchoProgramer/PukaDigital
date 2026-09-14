@@ -125,7 +125,10 @@ async function esperarPublicacion(videoId: string, opciones: OpcionesFacebook): 
     if (fallo) {
       throw new Error(`Facebook rechazo el Reel ${videoId}: ${estado?.video_status ?? 'error'}`);
     }
-    if (estado?.publishing_phase?.status === 'completed') return;
+    // `complete`, sin «d». La guía de Meta llevó a escribir `completed`, y con eso
+    // el primer Reel real (2026-09-14) salió publicado y se dio por fallido tras
+    // agotar la espera. Es el valor de una respuesta real, no de la documentación.
+    if (estado?.publishing_phase?.status === 'complete') return;
 
     await dormir(espera);
   }
