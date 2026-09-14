@@ -205,11 +205,19 @@ function fetchConCabeceras(respuestas: unknown[]) {
 }
 
 const INICIO = (id: string) => ({ video_id: id, upload_url: `https://rupload.facebook.com/video-upload/v21.0/${id}` });
+/**
+ * La respuesta literal de Meta para el primer Reel publicado, el 2026-09-14
+ * (`GET /{video-id}?fields=status`). **No se inventa.** El plan decía
+ * `completed`, «verificado contra la guía», y la API real dice `complete`: con el
+ * fixture inventado los tests pasaban y el Reel real se daba por fallido.
+ */
 const PUBLICADO = {
   status: {
     video_status: 'ready',
-    processing_phase: { status: 'completed' },
-    publishing_phase: { status: 'completed', publish_status: 'published' },
+    uploading_phase: { status: 'complete', bytes_transferred: 1434308 },
+    processing_phase: { status: 'complete' },
+    publishing_phase: { status: 'complete', publish_status: 'published', publish_time: '2026-09-14T01:19:47+0000' },
+    copyright_check_status: { status: 'complete', matches_found: false },
   },
 };
 const PROCESANDO = {
