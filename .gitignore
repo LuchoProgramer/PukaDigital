@@ -47,3 +47,6 @@ check-api.js
 # OpenNext / Cloudflare
 .open-next/
 .wrangler/
+
+# demos del brainstorming visual (superpowers): locales, no se versionan
+.superpowers/

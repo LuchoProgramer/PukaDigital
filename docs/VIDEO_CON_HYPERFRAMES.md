@@ -339,6 +339,60 @@ Al retomarlo, lo primero es **escuchar las candidatas**, como se eligió la voz.
 
 ---
 
+## Movimiento — investigado el 2026-09-13
+
+El primer Reel eran tarjetas con una sola animación por escena. Esto es lo que se
+buscó para darles más vida; lo decidido está en la spec
+`superpowers/specs/2026-09-14-reels-movimiento-design.md`.
+
+### Lo esencial
+
+1. **HyperFrames trae un catálogo oficial de 408 piezas**, Apache 2.0 como el
+   resto (`registry/registry.json`): 13 familias de transiciones, unos 20
+   estilos de subtítulos, contadores, entradas de texto, fondos. Se instalan con
+   `hyperframes add` **en un proyecto HyperFrames**; nuestra composición se
+   genera como texto, así que se reimplementan sus técnicas.
+2. **Las reglas oficiales de transiciones** (`transitions/overview.md`):
+   - toda composición usa transiciones; sin ellas, cada cambio es un corte seco;
+   - **una principal** en el 60-70% de los cambios y 1 o 2 de acento, *«never a
+     different transition for every scene»*;
+   - la duración va con la energía: tranquila 0,5-0,8 s con `sine`, SaaS 0,3-0,5
+     s con `power2/3`, promo 0,15-0,3 s con `power4/expo`;
+   - sin animaciones de salida salvo en la última escena: la transición hace de
+     salida.
+3. **Técnicas** (`techniques.md`): palabras escalonadas que se deslizan de 80 a
+   12 px en 0,35 s cada una; al menos **3 familias de easing** por video; y en el
+   corte, salida que acelera con desenfoque y entrada que frena desde él, para
+   que la velocidad máxima caiga justo en el corte.
+4. **El contador oficial (`count-up`) no usa callbacks**: calcula el valor de
+   cada fotograma y lo fija con `tl.set(el, { textContent })`. Así cada salto del
+   render muestra lo mismo.
+5. **«Subtle reads as static»**, del storyboard del video de lanzamiento: un
+   movimiento sutil se lee como imagen quieta.
+
+### Proyectos de la comunidad
+
+| Proyecto | Licencia | Qué aporta |
+|---|---|---|
+| [reelforge](https://github.com/gongnyang/reelforge) | Apache 2.0 | El más parecido a nuestra fábrica: Shorts narrados y subtitulados. Abandonó las tarjetas: diseña el movimiento antes que el texto, con 31 técnicas validadas |
+| [hyperframes-kit](https://github.com/aaronpie/hyperframes-kit) | MIT | 12 proyectos terminados, con Shorts verticales y subtítulos karaoke. Son de cara a cámara |
+| [hyperframes-student-kit](https://github.com/nateherkai/hyperframes-student-kit) | MIT | 406 tarjetas de motion graphics con un registro buscable |
+| [hyperframes-motion-director](https://github.com/geekjourneyx/hyperframes-motion-director) | **AGPL-3.0** | Contratos de escena y de movimiento. Para inspirarse: **no copiar código** |
+| [hyperframes-community-skills](https://github.com/heygen-com/hyperframes-community-skills) | — | Skills de la comunidad: explicadores tipo collage, pintura animada |
+
+### Lo que no se pudo verificar
+
+- Cuánto encarece el render un `filter: blur()` a 1080×1920 en cada fotograma.
+- Si un degradado suave hace bandas tras la compresión H.264.
+- Si `hyperframes add` se puede usar con una composición generada como texto.
+
+### Fuentes
+
+- [Catálogo (`registry.json`)](https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry/registry.json) · [Transiciones: overview](https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-animation/transitions/overview.md) · [Transiciones: catálogo](https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-animation/transitions/catalog.md) · [techniques.md](https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-animation/techniques.md) · [rules-index.md](https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-animation/rules-index.md) · [blueprints-index.md](https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-animation/blueprints-index.md) · [count-up](https://github.com/heygen-com/hyperframes/tree/main/registry/components/count-up)
+- [Storyboard del video de lanzamiento](https://github.com/heygen-com/hyperframes-launch-video/blob/main/STORYBOARD.md) · [Ejemplos oficiales](https://hyperframes.mintlify.app/examples) · [Topic `hyperframes` en GitHub](https://github.com/topics/hyperframes)
+
+---
+
 ## Fuentes
 
 - [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) · [Voz y audio](https://github.com/heygen-com/hyperframes/blob/main/docs/guides/voice-and-audio.mdx) · [Reglas y antipatrones](https://github.com/heygen-com/hyperframes/blob/main/docs/prompting/rules-and-anti-patterns.mdx) · [Storyboards](https://github.com/heygen-com/hyperframes/blob/main/docs/prompting/storyboards.mdx) · [Render y salida](https://github.com/heygen-com/hyperframes/blob/main/docs/prompting/rendering-and-output.mdx)

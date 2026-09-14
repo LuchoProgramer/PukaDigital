@@ -6,8 +6,8 @@ añade encima lo específico de ese agente. **Cada regla tiene un solo dueño: l
 del proyecto vive aquí y no se copia al otro archivo.**
 
 ⚠️ **Tope de 12.000 caracteres.** Antigravity trunca los archivos de reglas ahí,
-en silencio y por el final. Este archivo va por ~8.500 y llegó a rozar 11.500: lo
-que crece son los detalles de producto. **Al añadir algo, sacar el detalle a
+en silencio y por el final. Este archivo va por ~11.000 —medido el 2026-09-14—, a
+menos de 1.000 del tope: lo que crece son los detalles de producto. **Al añadir algo, sacar el detalle a
 `docs/` y referenciarlo con `@`.** Aquí solo lo que se usa a diario.
 
 Comprobar el tamaño: `wc -m AGENTS.md`
