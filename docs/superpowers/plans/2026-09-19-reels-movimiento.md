@@ -139,7 +139,7 @@ Centraliza la física y curvas de animación según el sistema visual (`puka` vs
 
 ### Pasos
 
-- [ ] **3.1 Escribir los tests en `lib/reels/movimiento.test.ts`:**
+- [x] **3.1 Escribir los tests en `lib/reels/movimiento.test.ts`:**
   - Regla fundamental: para cualquier sistema visual (`puka` y `health`), la duración de salida de escena es $\le \text{PAUSA\_ENTRE\_ESCENAS}$ (0.4 s).
   - Transición de escena: la transición entre escenas se encadena exactamente en el corte de tiempos.
   - Subtítulos: los subtítulos no reciben el desenfoque ni la escala de respiración de la escena (son independientes).
@@ -148,7 +148,7 @@ Centraliza la física y curvas de animación según el sistema visual (`puka` vs
   - Respiración mientras habla: el contenido escala sutilmente ($1.0$ a $1.05$ en `puka`, $1.0$ a $1.025$ en `health`).
   - Brillo de fondo: repeticiones finitas que cubren la duración total del reel sin usar `repeat: -1`.
 
-- [ ] **3.2 Implementar `lib/reels/movimiento.ts`:**
+- [x] **3.2 Implementar `lib/reels/movimiento.ts`:**
   - Definir interfaces `EnergiaSistema` (duraciones de entrada/salida, escalas, blurs, easings).
   - Constantes `ENERGIAS`:
     - `puka`: entrada 0.4s `power2.out`, salida 0.3s `power2.in` (1.4x, blur 30px), titular `back.out(1.4)`, badge `expo.out`, brillo opacidad 0.30.
@@ -162,17 +162,17 @@ Centraliza la física y curvas de animación según el sistema visual (`puka` vs
     - `animacionBrillo(selector, colorAcento, duracionTotal, sistema)`
   - Función integradora: `generarTimelineReel(pieza, escenas, total)`
 
-- [ ] **3.3 Verificar:**
+- [x] **3.3 Verificar:**
   ```bash
   npm test lib/reels/movimiento.test.ts
   npx tsc --noEmit
   ```
 
-- [ ] **3.4 Mutación:**
+- [x] **3.4 Mutación:**
   - Cambiar la duración de salida en `health` a 0.5s → el test `salida <= PAUSA_ENTRE_ESCENAS` debe fallar.
   - Quitar la regla de `esPrimeraEscena` en el titular → el test de fotograma 0 debe fallar.
 
-- [ ] **3.5 Commit:**
+- [x] **3.5 Commit:**
   `feat(reels): modulo de movimiento, energias visuales y coreografia`
 
 ---
