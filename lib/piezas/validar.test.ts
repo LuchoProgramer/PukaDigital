@@ -407,3 +407,70 @@ test('el guion lleva un párrafo por slide, separados por una línea en blanco',
   assert.deepEqual(campos([{ ...dos, reel: { guion: GUION, caption: 'c' } }]), ['reel.guion']);
 });
 
+test('un foco válido con captura y escala opcional es aceptado', () => {
+  const conFoco: Pieza = {
+    ...ok,
+    slides: [
+      {
+        titular: 'Validar receta',
+        captura: 'receta.png',
+        foco: { x: 0.3, y: 0.6, escala: 2.5 },
+      },
+      {
+        titular: 'Sin escala explícita',
+        captura: 'receta.png',
+        foco: { x: 0, y: 1 },
+      },
+    ],
+  };
+  assert.deepEqual(validar([conFoco]), []);
+});
+
+test('un foco sin captura en la slide produce error en foco', () => {
+  const sinCaptura: Pieza = {
+    ...ok,
+    slides: [{ titular: 'Sin imagen', foco: { x: 0.5, y: 0.5 } }],
+  };
+  assert.deepEqual(campos([sinCaptura]), ['foco']);
+});
+
+test('un foco con x o y fuera del rango 0 a 1 produce error', () => {
+  const xMenor: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: -0.1, y: 0.5 } }],
+  };
+  assert.deepEqual(campos([xMenor]), ['foco.x']);
+
+  const xMayor: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: 1.05, y: 0.5 } }],
+  };
+  assert.deepEqual(campos([xMayor]), ['foco.x']);
+
+  const yMenor: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: 0.5, y: -0.01 } }],
+  };
+  assert.deepEqual(campos([yMenor]), ['foco.y']);
+
+  const yMayor: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: 0.5, y: 1.1 } }],
+  };
+  assert.deepEqual(campos([yMayor]), ['foco.y']);
+});
+
+test('un foco con escala fuera del rango 1.2 a 3 produce error', () => {
+  const escalaBaja: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: 0.5, y: 0.5, escala: 1.1 } }],
+  };
+  assert.deepEqual(campos([escalaBaja]), ['foco.escala']);
+
+  const escalaAlta: Pieza = {
+    ...ok,
+    slides: [{ titular: 'T', captura: 'c.png', foco: { x: 0.5, y: 0.5, escala: 3.5 } }],
+  };
+  assert.deepEqual(campos([escalaAlta]), ['foco.escala']);
+});
+

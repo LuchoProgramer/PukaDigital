@@ -2,6 +2,15 @@ export type Formato = '4x5' | '1x1' | '9x16';
 export type Sistema = 'puka' | 'health';
 export type NombreSistema = Sistema;
 
+export interface FocoCaptura {
+  /** Fracción del ancho de la imagen (0 a 1) sobre la que centrar el zoom */
+  x: number;
+  /** Fracción del alto de la imagen (0 a 1) sobre la que centrar el zoom */
+  y: number;
+  /** Factor de aumento (1.2 a 3, por defecto 2) */
+  escala?: number;
+}
+
 export type Slide = {
   badge?: string;
   titular: string;
@@ -17,6 +26,10 @@ export type Slide = {
    * distinguir cuándo hace falta es criterio, y el criterio falla.
    */
   captura?: string;
+  /**
+   * Encuadre del zoom para video/Reels. Solo aplica si hay captura.
+   */
+  foco?: FocoCaptura;
 };
 
 /** Los seis productos del catalogo. Ver catalogo.ts. */

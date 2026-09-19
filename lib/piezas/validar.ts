@@ -328,6 +328,28 @@ export function validar(piezas: Pieza[]): ErrorValidacion[] {
         }
       }
 
+      if (slide.foco) {
+        if (!slide.captura) {
+          en('foco', 'el campo foco solo tiene sentido si la slide tiene captura', n);
+        }
+        if (typeof slide.foco.x !== 'number' || slide.foco.x < 0 || slide.foco.x > 1) {
+          en('foco.x', `${slide.foco.x} no es una fracción válida: debe estar entre 0 y 1`, n);
+        }
+        if (typeof slide.foco.y !== 'number' || slide.foco.y < 0 || slide.foco.y > 1) {
+          en('foco.y', `${slide.foco.y} no es una fracción válida: debe estar entre 0 y 1`, n);
+        }
+        if (
+          slide.foco.escala !== undefined &&
+          (typeof slide.foco.escala !== 'number' || slide.foco.escala < 1.2 || slide.foco.escala > 3)
+        ) {
+          en(
+            'foco.escala',
+            `${slide.foco.escala} fuera de rango: la escala debe estar entre 1.2 y 3`,
+            n
+          );
+        }
+      }
+
       if (!producto) return;
 
       for (const [campo, texto] of textos(slide)) {
