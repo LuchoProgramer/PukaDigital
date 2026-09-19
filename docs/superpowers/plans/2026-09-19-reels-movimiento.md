@@ -223,7 +223,7 @@ Actualiza el marcado HTML generado para que admita las máscaras de texto palabr
 
 ### Pasos
 
-- [ ] **5.1 Ejecutar render de ensayo en la máquina:**
+- [x] **5.1 Ejecutar render de ensayo en la máquina:**
   ```bash
   npm run reels -- --mes 2026-09 --id crm-no-chatbot --ensayo
   ```
@@ -233,18 +233,18 @@ Actualiza el marcado HTML generado para que admita las máscaras de texto palabr
   - El contador salta de frame en frame correctamente.
   - El video se normaliza y verifica exitosamente.
 
-- [ ] **5.2 Verificar fotograma 0 con `ffmpeg`:**
+- [x] **5.2 Verificar fotograma 0 con `ffmpeg`:**
   Extraer el primer fotograma ($t = 0.0\text{ s}$) del video generado:
   ```bash
   ffmpeg -ss 00:00:00.000 -i .reels-render/crm-no-chatbot/crm-no-chatbot.mp4 -vframes 1 -q:v 2 .reels-render/crm-no-chatbot/frame0.jpg
   ```
   Comprobar que `frame0.jpg` **no está negro** y que el titular del gancho es perfectamente legible.
 
-- [ ] **5.3 Verificación de la frontera con Cloudflare:**
+- [x] **5.3 Verificación de la frontera con Cloudflare:**
   ```bash
   npm run build:cloudflare
   ```
   Asegurar que `lib/reels/movimiento.ts` y `lib/reels/contador.ts` no se cuelen en el bundle del Worker de producción.
 
-- [ ] **5.4 Commit final:**
+- [x] **5.4 Commit final:**
   `test(reels): verificacion de render con movimiento y portada visible en frame 0`
