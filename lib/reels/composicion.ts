@@ -1,10 +1,10 @@
-// lib/reels/composicion.ts
 import { AVISO, FONDO_AVISO, medidasAviso } from '../piezas/capturas.ts';
 import { FORMATOS, MARGEN } from '../piezas/formatos.ts';
 import { sistemas } from '../piezas/sistemas.ts';
 import type { Fuente } from '../piezas/fuentes.ts';
 import type { Pieza } from '../piezas/tipos.ts';
 import type { Escena } from './tiempos.ts';
+import { coreografiaReel } from './movimiento.ts';
 
 export const ANCHO = 1080;
 export const ALTO = 1920;
@@ -49,6 +49,15 @@ export function escapar(texto: string): string {
     .replace(/"/g, '&quot;');
 }
 
+export function envolverPalabras(texto: string): string {
+  return texto
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((palabra) => `<span class="palabra-wrapper"><span class="palabra">${escapar(palabra)}</span></span>`)
+    .join(' ');
+}
+
 export function idComposicion(pieza: Pieza): string {
   return `reel-${pieza.id}`;
 }
@@ -79,10 +88,13 @@ export function composicion(entrada: EntradaComposicion): string {
   const css = `${caras}
 html, body { margin: 0; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; background: ${tokens.fondo}; }
 #root { position: relative; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; background: ${tokens.fondo}; color: ${tokens.tinta}; font-family: 'Instrument Sans', sans-serif; }
+#brillo-fondo { position: absolute; top: 15%; left: 5%; width: 800px; height: 800px; border-radius: 50%; background: ${tokens.acento}; filter: blur(120px); pointer-events: none; }
 .clip { position: absolute; inset: 0; }
 .contenido { position: absolute; left: ${MARGEN}px; right: ${MARGEN}px; top: ${seguro.seguroArriba}px; bottom: ${seguro.seguroAbajo + 200}px; display: flex; flex-direction: column; justify-content: center; gap: 36px; }
 .badge { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 34px; letter-spacing: 0.08em; color: ${tokens.acento}; }
 .titular { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 96px; line-height: 1.02; margin: 0; }
+.palabra-wrapper { display: inline-block; overflow: hidden; vertical-align: top; }
+.palabra { display: inline-block; }
 .bajada { font-size: 44px; line-height: 1.3; margin: 0; color: ${tokens.apoyo}; }
 .dato { display: flex; align-items: baseline; gap: 20px; }
 .dato-valor { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 120px; color: ${tokens.acento}; }
@@ -98,13 +110,13 @@ html, body { margin: 0; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; 
       const slide = pieza.slides[i];
       const partes = [
         slide.badge ? `<div class="badge">${escapar(slide.badge)}</div>` : '',
-        `<div class="titular">${escapar(slide.titular)}</div>`,
+        `<div class="titular">${envolverPalabras(slide.titular)}</div>`,
         slide.bajada ? `<p class="bajada">${escapar(slide.bajada)}</p>` : '',
         slide.dato
           ? `<div class="dato"><span class="dato-valor">${escapar(slide.dato.valor)}</span><span class="dato-etiqueta">${escapar(slide.dato.etiqueta)}</span></div>`
           : '',
         slide.captura
-          ? `<div class="tarjeta"><img class="captura" src="${entrada.cargarCaptura(slide.captura)}" alt="" /><div class="aviso">${escapar(AVISO)}</div></div>`
+          ? `<div class="tarjeta" id="cap-${i}"><img class="captura" src="${entrada.cargarCaptura(slide.captura)}" alt="" /><div class="aviso">${escapar(AVISO)}</div></div>`
           : '',
       ]
         .filter(Boolean)
@@ -130,17 +142,8 @@ html, body { margin: 0; width: ${ANCHO}px; height: ${ALTO}px; overflow: hidden; 
     )
     .join('\n');
 
-  // Todo se construye de forma síncrona y sin `Math.random()`: el render seekea
-  // la línea de tiempo fotograma a fotograma y tiene que dar siempre lo mismo.
-  const pasos = escenas
-    .flatMap((escena, i) => [
-      `tl.fromTo('#c${i}', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, ${escena.inicio});`,
-      ...escena.subtitulos.flatMap((sub, j) => [
-        `tl.set('#s${i}-${j}', { opacity: 1 }, ${sub.inicio});`,
-        `tl.set('#s${i}-${j}', { opacity: 0 }, ${sub.fin});`,
-      ]),
-    ])
-    .join('\n      ');
+  // La coreografía genera las transiciones, zoom en capturas, contador determinista y fotograma 0 visible
+  const pasos = coreografiaReel(pieza, escenas, total);
 
   return `<!doctype html>
 <html lang="es">
@@ -154,6 +157,7 @@ ${css}
   </head>
   <body>
     <div id="root" data-composition-id="${id}" data-start="0" data-duration="${total}" data-width="${ANCHO}" data-height="${ALTO}">
+      <div id="brillo-fondo"></div>
 ${secciones}
 ${voces}
     </div>

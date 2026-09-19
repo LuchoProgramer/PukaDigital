@@ -79,14 +79,26 @@ test('cada subtítulo aparece y desaparece en sus tiempos', () => {
   const datos = entrada();
   const html = composicion(datos);
   const primero = datos.escenas[0].subtitulos[0];
-  assert.ok(html.includes(`tl.set('#s0-0', { opacity: 1 }, ${primero.inicio});`));
+  assert.ok(html.includes(`tl.fromTo('#s0-0', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.22, ease: 'back.out(2.2)' }, ${primero.inicio});`));
   assert.ok(html.includes(`tl.set('#s0-0', { opacity: 0 }, ${primero.fin});`));
 });
 
 test('el texto de las slides se escapa', () => {
   assert.equal(escapar('<b>"A" & B</b>'), '&lt;b&gt;&quot;A&quot; &amp; B&lt;/b&gt;');
   const conEtiqueta = composicion(entrada({ pieza: { ...pieza, slides: [{ titular: 'Uno <script>' }, pieza.slides[1]] } }));
-  assert.ok(conEtiqueta.includes('Uno &lt;script&gt;'));
+  assert.ok(conEtiqueta.includes('&lt;script&gt;'));
+});
+
+test('el titular envuelve cada palabra con .palabra-wrapper y span.palabra', () => {
+  const html = composicion(entrada());
+  assert.match(html, /<span class="palabra-wrapper"><span class="palabra">No<\/span><\/span>/);
+  assert.match(html, /<span class="palabra-wrapper"><span class="palabra">chatbot<\/span><\/span>/);
+});
+
+test('incluye el contenedor de brillo de fondo y la tarjeta con id para zoom', () => {
+  const html = composicion(entrada());
+  assert.ok(html.includes('<div id="brillo-fondo"></div>'));
+  assert.ok(html.includes('id="cap-1"'));
 });
 
 test('nada se carga de la red: las fuentes van embebidas y GSAP es un archivo de al lado', () => {
