@@ -30,7 +30,9 @@ Ante la incomodidad, la lentitud o el rechazo de la venta directa, surge el impu
 La prospección B2B se vuelve sostenible cuando se elimina la fricción mecánica (no guardar contactos en el celular, no tipear mensajes en frío).
 
 * **Herramienta:** [`prospecting-tools/outreach/panel-outreach.html`](file:///Users/luisviteri/Proyectos/prospecting-tools/outreach/panel-outreach.html).
-* **Canal:** WhatsApp directo (`wa.me`) con el mensaje y el video de 2 min precargados.
+* **Canal:** WhatsApp directo (`wa.me`) con estrategia de **2 pasos** (sin enlaces en el primer mensaje para maximizar tasa de respuesta).
+  * **Paso 1 (Mensaje 1 - Variante C):** Pregunta corta de 1 línea: *«Hola, buen día. Le escribo una consulta puntual sobre su consultorio [Nombre]: ¿las fichas de pacientes y fotos de evolución todavía las llevan en papel, o ya usan software?»*
+  * **Paso 2 (Mensaje 2 - Cuando responden):** Presentar PodoClinic + enlace al video de 1 min + oferta de los 15 días gratis.
 * **Cadencia diaria (10 contactos al día):**
   * **5 contactos en la mañana (09:00 – 10:00):** Apertura de consultorios.
   * **5 contactos en la tarde/noche (17:30 – 18:30):** Cierre de jornada. Es cuando el doctor está en el escritorio sufriendo el dolor del archivo de papel y las facturas pendientes al SRI.
