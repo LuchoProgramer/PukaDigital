@@ -187,30 +187,30 @@ Actualiza el marcado HTML generado para que admita las máscaras de texto palabr
 
 ### Pasos
 
-- [ ] **4.1 Escribir tests de marcado en `lib/reels/composicion.test.ts`:**
+- [x] **4.1 Escribir tests de marcado en `lib/reels/composicion.test.ts`:**
   - Cada palabra del titular está envuelta en un `span.palabra-wrapper > span.palabra` para permitir el corte de máscara con `overflow: hidden`.
   - La captura está envuelta en un contenedor con marco que controla el zoom y el recorte.
   - Existe la capa del brillo ambiental `#brillo-fondo` con el color de acento de los tokens del sistema.
   - El script generado dentro del HTML llama a la coreografía modular y no tiene `repeat: -1` ni callbacks en línea.
   - El primer fotograma no tiene opacidad 0 en el titular de la primera escena.
 
-- [ ] **4.2 Modificar `lib/reels/composicion.ts`:**
+- [x] **4.2 Modificar `lib/reels/composicion.ts`:**
   - Separar palabras del titular con su contenedor de máscara CSS.
   - Agregar CSS de máscaras (`.palabra-wrapper { display: inline-block; overflow: hidden; vertical-align: top; }`).
   - Agregar capa del brillo de fondo con el acento del sistema visual.
   - Reemplazar la generación rígida de la timeline en el HTML por el script devuelto por `generarTimelineReel`.
 
-- [ ] **4.3 Verificar:**
+- [x] **4.3 Verificar:**
   ```bash
   npm test lib/reels/composicion.test.ts
   npm test
   npx tsc --noEmit
   ```
 
-- [ ] **4.4 Mutación:**
+- [x] **4.4 Mutación:**
   - Quitar el contenedor de máscara de las palabras → el test de estructura de máscara debe fallar.
 
-- [ ] **4.5 Commit:**
+- [x] **4.5 Commit:**
   `refactor(reels): integracion de marcado para mascaras, brillo y coreografia`
 
 ---
