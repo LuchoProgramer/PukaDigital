@@ -97,7 +97,7 @@ El render salta de frame en frame (30 fps). Para evitar inconsistencias de `onUp
 
 ### Pasos
 
-- [ ] **2.1 Escribir los tests en `lib/reels/contador.test.ts`:**
+- [x] **2.1 Escribir los tests en `lib/reels/contador.test.ts`:**
   - `desglosarNumero('$14.99')` devuelve prefijo `'$'`, número `14.99`, 2 decimales, sufijo `''`.
   - `desglosarNumero('7')` devuelve prefijo `''`, número `7`, 0 decimales, sufijo `''`.
   - `desglosarNumero('+400 pacientes')` devuelve prefijo `'+'`, número `400`, 0 decimales, sufijo `' pacientes'`.
@@ -108,23 +108,23 @@ El render salta de frame en frame (30 fps). Para evitar inconsistencias de `onUp
     - Los frames intermedios tienen 2 decimales y prefijo `$`.
     - La duración total no supera 1 segundo.
 
-- [ ] **2.2 Implementar `lib/reels/contador.ts`:**
+- [x] **2.2 Implementar `lib/reels/contador.ts`:**
   - `desglosarNumero(valor: string)`: parsea con regex prefijos (`$`, `+`), valor numérico (con punto o coma), y sufijo. Devuelve `null` si no hay un único número identificable o si contiene barras (`24/7`).
   - `calcularFotogramasContador(valor: string, opciones?: { fps?: number; duracionMax?: number })`:
     - Easing `power2.out` evaluado matemáticamente en Node para cada frame $k \in [0, N]$.
     - Formateo con los mismos decimales que el original.
     - Forzar que el fotograma final $N$ sea idéntico al `valor` literal original.
 
-- [ ] **2.3 Verificar:**
+- [x] **2.3 Verificar:**
   ```bash
   npm test lib/reels/contador.test.ts
   npx tsc --noEmit
   ```
 
-- [ ] **2.4 Mutación:**
+- [x] **2.4 Mutación:**
   - Cambiar el último fotograma para que use `toFixed` en vez del literal original → el test de identidad literal debe fallar.
 
-- [ ] **2.5 Commit:**
+- [x] **2.5 Commit:**
   `feat(reels): modulo contador determinista frame a frame para datos`
 
 ---
