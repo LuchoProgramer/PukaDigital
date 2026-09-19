@@ -55,8 +55,8 @@ Aquí se compila en local. **No todos los repos del ecosistema lo hacen** — ve
 mano con `npm run deploy:cloudflare` desde la máquina.
 
 El cron de publicación también vive ahí (`0 14` y `0 23` UTC = 09:00 y 18:00 de
-Ecuador), con precisión al minuto. Vercel sigue detrás como origen de respaldo y
-se apaga a partir del 2026-09-15.
+Ecuador), con precisión al minuto. El origen Vercel y su proyecto fueron eliminados
+el 2026-09-19 tras culminar la migración.
 
 Detalle, vuelta atrás y lo que falta: @/Users/luisviteri/Proyectos/PukaDigital/docs/ESTADO_2026-09-19.md
 
