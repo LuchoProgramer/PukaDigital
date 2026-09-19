@@ -49,13 +49,13 @@ Al terminar: **~265 tests** (225 base + ~40 nuevos), `tsc` limpio, `render --str
 
 ### Pasos
 
-- [ ] **1.1 Escribir los tests primero en `lib/piezas/validar.test.ts`:**
+- [x] **1.1 Escribir los tests primero en `lib/piezas/validar.test.ts`:**
   - `foco` válido con `x`, `y` entre 0 y 1, y `escala` opcional entre 1.2 y 3 pasa la validación.
   - `foco` sin `captura` en la misma slide es rechazado con mensaje descriptivo.
   - `foco` con `x < 0` o `x > 1` o `y < 0` o `y > 1` es rechazado.
   - `foco` con `escala < 1.2` o `escala > 3` es rechazado.
 
-- [ ] **1.2 Extender los tipos en `lib/piezas/tipos.ts`:**
+- [x] **1.2 Extender los tipos en `lib/piezas/tipos.ts`:**
   ```typescript
   export interface FocoCaptura {
     x: number;      // 0 a 1 (fracción del ancho)
@@ -65,24 +65,24 @@ Al terminar: **~265 tests** (225 base + ~40 nuevos), `tsc` limpio, `render --str
   ```
   Y añadir `foco?: FocoCaptura;` a `Slide`.
 
-- [ ] **1.3 Implementar la validación en `lib/piezas/validar.ts`:**
+- [x] **1.3 Implementar la validación en `lib/piezas/validar.ts`:**
   - Si `slide.foco` existe:
     - Exigir que `slide.captura` esté definido.
     - Exigir `0 <= slide.foco.x <= 1` y `0 <= slide.foco.y <= 1`.
     - Si `slide.foco.escala` está definido, exigir `1.2 <= slide.foco.escala <= 3`.
 
-- [ ] **1.4 Verificar:**
+- [x] **1.4 Verificar:**
   ```bash
   npm test lib/piezas/validar.test.ts
   npm run piezas -- --check
   npx tsc --noEmit
   ```
 
-- [ ] **1.5 Mutación:**
+- [x] **1.5 Mutación:**
   - Comentar la comprobación de `x > 1` → el test correspondiente debe fallar.
   - Comentar la comprobación de `slide.captura` → el test correspondiente debe fallar.
 
-- [ ] **1.6 Commit:**
+- [x] **1.6 Commit:**
   `feat(piezas): campo foco para capturas en slides y validacion`
 
 ---
