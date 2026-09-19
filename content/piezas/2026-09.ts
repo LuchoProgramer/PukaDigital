@@ -282,6 +282,18 @@ const piezas: Pieza[] = [
         cta: 'Escríbenos',
       },
     ],
+    reel: {
+      guion:
+        'Si manejas tus ventas por WhatsApp, un chatbot básico no te alcanza.\n\n' +
+        'El bot solo responde preguntas sueltas y mañana no recuerda quién era esa persona.\n\n' +
+        'Un verdadero CRM guarda cada conversación como un cliente con historial y siguiente paso.\n\n' +
+        'Incluye inbox centralizado, embudo en Kanban y reportes claros para tu equipo.\n\n' +
+        'Pruébalo gratis un mes por catorce dólares con noventa y nueve centavos al mes.',
+      caption:
+        'Un bot contesta mensajes sueltos. Un CRM te organiza las ventas de todo tu equipo.\n\n' +
+        'PukaIA centraliza tus chats de WhatsApp con Kanban y seguimiento de clientes.\n\n' +
+        'pukadigital.com/agentes-ia',
+    },
   },
 
   // ─────────────────────────────  martes 15  ·  PukaHealth  ─────────────────

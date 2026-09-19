@@ -138,16 +138,26 @@ export function coreografiaReel(
     }
 
     // Respiración sutil del contenido mientras habla Dora
-    const duracionRespiracion = escena.duracion - (esUltima ? 0 : energia.salidaDuracion);
-    lineas.push(
-      `tl.to('#c${i}', { scale: ${energia.respiracionScale}, duration: ${duracionRespiracion}, ease: 'none' }, ${escena.inicio});`
-    );
+    // Inicia 0.05s después de la entrada de la escena y termina 0.05s antes de la salida
+    const inicioRespiracion = esPrimera ? 0 : Number((escena.inicio + energia.entradaDuracion + 0.05).toFixed(3));
+    const finRespiracion = esUltima
+      ? escena.inicio + escena.duracion
+      : Number((escena.inicio + escena.duracion - energia.salidaDuracion - 0.05).toFixed(3));
+    const duracionRespiracion = Number((finRespiracion - inicioRespiracion).toFixed(3));
+
+    if (duracionRespiracion > 0.1) {
+      lineas.push(
+        `tl.to('#c${i}', { scale: ${energia.respiracionScale}, duration: ${duracionRespiracion}, ease: 'none' }, ${inicioRespiracion});`
+      );
+    }
 
     // Transición de salida de escena (hacia el espectador con desenfoque)
     if (!esUltima) {
       const tSalida = Number((escena.inicio + escena.duracion - energia.salidaDuracion).toFixed(3));
+      const tFinEscena = Number((escena.inicio + escena.duracion).toFixed(3));
       lineas.push(
-        `tl.to('#c${i}', { opacity: 0, scale: ${energia.salidaScale}, filter: 'blur(${energia.salidaBlur}px)', duration: ${energia.salidaDuracion}, ease: '${energia.salidaEase}' }, ${tSalida});`
+        `tl.to('#c${i}', { opacity: 0, scale: ${energia.salidaScale}, filter: 'blur(${energia.salidaBlur}px)', duration: ${energia.salidaDuracion}, ease: '${energia.salidaEase}' }, ${tSalida});`,
+        `tl.set('#c${i}', { opacity: 0 }, ${tFinEscena});`
       );
     }
 
