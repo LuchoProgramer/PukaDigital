@@ -761,6 +761,21 @@ día. Los dos se corrigieron en el plan y en el código, y sus mutaciones ya cae
   comando saliendo en 1. Es la regla de §14 con otro caso: el código de salida se
   mide sin tubería.
 
+### 🔴 Y un hueco que solo encontró producción
+
+El primer Reel real, publicado a mano el 2026-09-14, **salió bien en Facebook y el
+código lo dio por fallido**. El plan 1 afirmaba «el estado final es `completed`,
+no `complete`», verificado contra la guía de Meta. La API respondió `complete`.
+
+Los fixtures copiaban la afirmación del plan, así que los tests pasaban y la
+mutación —que probaba justo el cambio a `complete`— confirmaba el error. Es el
+tipo 4 de §9 en su forma más pura: **ninguna mutación lo encuentra, porque el test
+y el código comparten el mismo supuesto.** Lo encuentra una respuesta real.
+
+🔑 **Los fixtures de una API externa se copian de una respuesta real, con fecha**,
+no de la documentación. Mientras no haya respuesta real, el fixture es un supuesto
+y se marca como tal.
+
 ---
 
 ## Documentación relacionada

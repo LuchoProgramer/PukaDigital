@@ -999,7 +999,13 @@ git commit -m "feat(reels): publicar el reel en Instagram con su propia espera"
 - Modify: `lib/publicar/facebook.ts`
 - Test: `lib/publicar/facebook.test.ts`
 
-Detalles de la API verificados el 2026-09-13 contra la guía de Meta (*Publish a Reel*): `start` devuelve `video_id` y `upload_url`; la subida por URL es un POST a esa `upload_url` con las cabeceras `Authorization: OAuth <token>` y `file_url`; `finish` lleva `video_id`, `video_state=PUBLISHED` y `description`; el estado final es **`completed`**, no `complete`.
+Detalles de la API verificados el 2026-09-13 contra la guía de Meta (*Publish a Reel*): `start` devuelve `video_id` y `upload_url`; la subida por URL es un POST a esa `upload_url` con las cabeceras `Authorization: OAuth <token>` y `file_url`; `finish` lleva `video_id`, `video_state=PUBLISHED` y `description`; el estado final es **`complete`**.
+
+⚠️ **Corregido el 2026-09-14.** Aquí decía «el estado final es `completed`, no
+`complete`», verificado contra la guía. La respuesta real del primer Reel
+publicado dijo `complete` en las tres fases: con `completed`, el Reel salía y el
+código lo daba por fallido tras agotar la espera. **Un dato de la API se
+verifica con una respuesta real, no con la documentación.**
 
 - [x] **Step 1: escribir los tests que fallan**
 
@@ -1049,8 +1055,8 @@ const INICIO = (id: string) => ({ video_id: id, upload_url: `https://rupload.fac
 const PUBLICADO = {
   status: {
     video_status: 'ready',
-    processing_phase: { status: 'completed' },
-    publishing_phase: { status: 'completed', publish_status: 'published' },
+    processing_phase: { status: 'complete' },
+    publishing_phase: { status: 'complete', publish_status: 'published' },
   },
 };
 const PROCESANDO = {
@@ -1223,7 +1229,7 @@ async function esperarPublicacion(videoId: string, opciones: OpcionesFacebook): 
     if (fallo) {
       throw new Error(`Facebook rechazo el Reel ${videoId}: ${estado?.video_status ?? 'error'}`);
     }
-    if (estado?.publishing_phase?.status === 'completed') return;
+    if (estado?.publishing_phase?.status === 'complete') return;
 
     await dormir(espera);
   }
@@ -1297,7 +1303,7 @@ Expected: `ℹ fail 0`
 | Mutación | Test que tiene que caer |
 |---|---|
 | borrar `await esperarPublicacion(videoId, opciones);` | «un success del finish no basta» |
-| `=== 'completed'` → `=== 'complete'` | «un Reel de Facebook abre la subida…» (se agota la espera) |
+| `=== 'complete'` → `=== 'completed'` | «un Reel de Facebook abre la subida…» (se agota la espera). Hasta el 2026-09-14 estaba al revés: la mutación daba por bueno el valor inventado |
 | borrar `estado?.processing_phase?.status === 'error' \|\|` y `estado?.publishing_phase?.status === 'error'`, dejando solo `video_status` | **no cae**: el fixture de rechazo trae `video_status: 'error'`. Anotarlo: el test cubre el caso que Meta documenta, no las fases por separado |
 | `cuerpoSubida.success !== true` → `false` | «si Facebook no puede descargar el video» |
 
@@ -1389,8 +1395,8 @@ function falsoFetch(
       return json({
         status: {
           video_status: 'ready',
-          processing_phase: { status: 'completed' },
-          publishing_phase: { status: 'completed', publish_status: 'published' },
+          processing_phase: { status: 'complete' },
+          publishing_phase: { status: 'complete', publish_status: 'published' },
         },
       });
     }

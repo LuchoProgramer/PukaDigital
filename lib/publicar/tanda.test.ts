@@ -62,11 +62,12 @@ function falsoFetch(
       return json({ success: true });
     }
     if (u.includes('fields=status&') && metodo === 'GET') {
+      // La respuesta real de Meta, no una inventada: ver PUBLICADO en facebook.test.ts.
       return json({
         status: {
           video_status: 'ready',
-          processing_phase: { status: 'completed' },
-          publishing_phase: { status: 'completed', publish_status: 'published' },
+          processing_phase: { status: 'complete' },
+          publishing_phase: { status: 'complete', publish_status: 'published' },
         },
       });
     }
