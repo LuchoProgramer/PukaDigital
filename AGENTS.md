@@ -58,7 +58,7 @@ El cron de publicación también vive ahí (`0 14` y `0 23` UTC = 09:00 y 18:00 
 Ecuador), con precisión al minuto. Vercel sigue detrás como origen de respaldo y
 se apaga a partir del 2026-09-15.
 
-Detalle, vuelta atrás y lo que falta: @docs/ESTADO_2026-09-13.md
+Detalle, vuelta atrás y lo que falta: @/Users/luisviteri/Proyectos/PukaDigital/docs/ESTADO_2026-09-19.md
 
 ## Productos y URLs canónicas
 
@@ -209,7 +209,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
 - `docs/METODO_AGENTES_PARALELOS.md` — método de contraste, ejecución y verificación con `agy`
-- `docs/ESTADO_2026-09-13.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
+- `docs/ESTADO_2026-09-19.md` — **estado vigente**: infraestructura, vueltas atrás y lo que falta
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión
