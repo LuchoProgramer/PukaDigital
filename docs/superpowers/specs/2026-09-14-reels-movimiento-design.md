@@ -1,8 +1,7 @@
 # Reels con más movimiento — diseño
 
-Fecha: **2026-09-14**. Estado: 🟡 **en diseño, a medias.** Las partes 1 y 2 están
-aprobadas; la 3 y la 4 son propuestas **sin aprobar**. Se retoma en la próxima
-sesión por la parte 3.
+Fecha: **2026-09-14** (aprobada el **2026-09-19**). Estado: ✅ **aprobada**.
+Las partes 1, 2, 3 y 4 están aprobadas. Preguntas abiertas resueltas el 2026-09-19.
 
 Continúa la spec de los Reels (`2026-09-13-reels-hyperframes-design.md`): allí se
 decidió **qué** es un Reel; aquí, **cómo se mueve**. La investigación, con sus
@@ -223,39 +222,13 @@ encontró cuatro fallos que ningún test veía. Mirar en concreto:
 
 ---
 
-## Preguntas abiertas, para antes del plan
+## Preguntas abiertas (Resueltas el 2026-09-19)
 
-- 🔴 **La portada del Reel sale negra.** Luis lo confirmó el 14/09 con
-  `crm-no-chatbot`. La publicación no fija portada (`lib/publicar/meta.ts`,
-  `facebook.ts`), y el fotograma 0 tiene el contenido con opacidad 0. Con las
-  entradas nuevas seguiría igual. Lo que ofrece Meta, leído en su documentación
-  el 14/09:
-
-  | | Cómo | Límites |
-  |---|---|---|
-  | Instagram | `thumb_offset` en el contenedor: el milisegundo del fotograma. **Por defecto 0**, el primero | — |
-  | Instagram | `cover_url` en el contenedor: una imagen por URL pública. Si van los dos, gana esta | JPEG, ≤ 8 MB, sRGB, 9:16 ideal |
-  | Facebook | `POST /{video_id}/thumbnails` con `source` e `is_preferred=true`, **aparte** de las fases de `video_reels`, que no tienen parámetro de portada | el **archivo**, no una URL · ≤ 10 MB |
-
-  Sin verificar: si el token de Página tiene los permisos que pide
-  `/thumbnails` (`pages_read_user_content`, `pages_manage_engagement`,
-  `pages_show_list`); si ese endpoint funciona con Reels —la guía de Reels lo
-  enlaza para «añadir una portada», su referencia no lo dice—; y si la portada de
-  Instagram se puede cambiar después de publicar: la documentación no lo menciona.
-
-  **Dos caminos:**
-  1. **Recomendado:** la fábrica saca con `ffmpeg` un fotograma del MP4 con el
-     gancho entero, lo sube a R2 como `portada.jpg` junto al video, y la misma
-     imagen sirve a las dos redes: `cover_url` en Instagram y `/thumbnails` en
-     Facebook.
-  2. **El más simple:** el fotograma 0 ya trae el titular. Arregla las dos redes
-     sin tocar la API, y nadie ve un inicio en negro al hacer scroll; a cambio,
-     la primera escena pierde su entrada.
-
-  La portada del Reel ya publicado: `/thumbnails` en Facebook, si funciona con
-  Reels; en Instagram, a mano en la app, si lo permite.
-- **El rebote de los subtítulos en PukaHealth**: no se vio en demo.
-- **Dónde vive `foco`**: parte 3.
+- ✅ **La portada del Reel no saldrá negra (Decidido: Opción 2 — Fotograma 0 visible):**
+  En la línea de tiempo de la primera escena, el titular y el badge arrancan en $t = 0$ con `opacity: 1` y posición final.
+  Como Meta (Instagram y Facebook) toma por defecto el fotograma 0 como portada, el gancho queda visible de inmediato sin llamadas extra a la API, sin endpoints adicionales de `/thumbnails` ni archivos extra en R2. Además, retiene mejor en el scroll de redes.
+- ✅ **Dónde vive `foco`:** En la `slide` (Parte 3 aprobada: `slide.foco?: { x: number, y: number, escala?: number }`), validado por `piezas --check`.
+- ✅ **Subtítulos en PukaHealth:** Rebote suave con curva `sine` sin overshoot agresivo, acorde al sistema visual tranquilo de salud.
 
 ---
 
