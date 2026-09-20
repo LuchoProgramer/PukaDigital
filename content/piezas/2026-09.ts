@@ -499,6 +499,199 @@ const piezas: Pieza[] = [
       },
     ],
   },
+
+  // ─────────────────────────────  jueves 24  ·  la casa  ────────────────────
+  {
+    id: 'cuanto-cuesta-tu-excel',
+    sistema: 'puka',
+    publicarEl: '2026-09-24T18:00',
+    caption:
+      '¿Cuánto te cuesta de verdad llevar tu negocio en Excel?\n\n' +
+      'Parece gratis porque no pagas suscripción mensual. Pero el costo real aparece ' +
+      'a las 7:00 PM cuando te quedas una hora cuadrando cobros, transferencias y ' +
+      'notas sueltas a mano.\n\n' +
+      'Una hora al día son más de 20 horas al mes que le quitas a tu descanso o a ' +
+      'hacer crecer tus ventas. El software no es un gasto: te devuelve tu tiempo.\n\n' +
+      'pukadigital.com\n\n' +
+      '#negociosecuador #productividad #emprendimiento #gestionempresarial',
+    facebook: {
+      publicarEl: '2026-09-25T09:00',
+      imagen: {
+        titular: 'Tu Excel te cuesta\nuna hora cada noche',
+      },
+      caption:
+        'Tu Excel no es gratis\n' +
+        'El error común es creer que por no pagar mensualidad estás ahorrando.\n\n' +
+        'El costo oculto\n' +
+        'Una hora al final del día revisando cobros, cruzando datos y cuadrando caja a mano.\n\n' +
+        '20 horas al mes\n' +
+        'Es el tiempo que pierdes en tareas mecánicas en vez de atender clientes o descansar con tu familia.\n\n' +
+        'La solución real\n' +
+        'Un sistema en la nube automatiza el cuadre y deja todo listo al instante en que cobras.\n\n' +
+        'pukadigital.com',
+    },
+    slides: [
+      {
+        badge: 'COSTO OCULTO',
+        titular: 'Tu Excel no es gratis',
+        bajada: 'Parece gratis porque no pagas licencia, pero el costo real se paga en tiempo.',
+      },
+      {
+        titular: 'Una hora cada noche',
+        bajada:
+          'Cruzar cobros del día, conciliar transferencias y buscar un número que no ' +
+          'cuadra en la celda.',
+      },
+      {
+        titular: '20 horas al mes perdidas',
+        bajada:
+          'Es casi una semana completa de trabajo al año consumida en digitar datos ' +
+          'a mano.',
+      },
+      {
+        titular: 'El riesgo del error humano',
+        bajada:
+          'Una fórmula borrada sin querer o un archivo corrupto pueden dejarte sin ' +
+          'el historial de meses.',
+      },
+      {
+        titular: 'El software te devuelve tiempo',
+        bajada:
+          'Tus ventas y caja cuadradas en el mismo segundo en que cobras al cliente.',
+        cta: 'Conoce más en la web',
+      },
+    ],
+  },
+
+  // ─────────────────────────────  sábado 26  ·  PukaHealth  ─────────────────
+  {
+    id: 'software-extranjero-sri',
+    sistema: 'health',
+    producto: 'pukahealth',
+    publicarEl: '2026-09-26T09:00',
+    caption:
+      'Lo que el software médico extranjero no te dice al llegar a Ecuador:\n\n' +
+      'Sistemas creados en Chile, México o España se ven bonitos para agendar citas. ' +
+      'Pero cuando terminas la consulta, te das cuenta de que no están conectados al SRI.\n\n' +
+      'Te toca abrir la página del SRI o un sistema contable por fuera, digitar los datos ' +
+      'otra vez y duplicar tu trabajo administrativo.\n\n' +
+      'PukaHealth emite y autoriza tu factura electrónica al SRI en la misma consulta, en un clic.\n\n' +
+      'pukadigital.com/pukahealth\n\n' +
+      '#softwaremedico #SRI #facturacionelectronica #consultoriomedico #Ecuador',
+    facebook: {
+      publicarEl: '2026-09-26T18:00',
+      imagen: {
+        titular: 'El software extranjero\nte deja colgado\ncon el SRI',
+      },
+      caption:
+        'El problema del software extranjero en Ecuador\n' +
+        'Te venden una agenda bonita, pero te dejan solo frente al SRI.\n\n' +
+        'Doble trabajo administrativo\n' +
+        'Terminas de atender al paciente y tienes que abrir otro sistema o el portal del SRI para tipear la factura a mano.\n\n' +
+        'No están adaptados al país\n' +
+        'Fueron diseñados para otros países. No entienden los esquemas XML del SRI ni sus validaciones estrictas.\n\n' +
+        'Facturación en la misma consulta\n' +
+        'PukaHealth integra la ficha clínica con la factura electrónica autorizada en un solo clic.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
+    slides: [
+      {
+        badge: 'REALIDAD ECUADOR',
+        titular: 'El software extranjero y el SRI',
+        bajada: 'Se ven modernos para agendar citas, pero te dejan solo a la hora de facturar.',
+      },
+      {
+        titular: 'Doble trabajo cada día',
+        bajada:
+          'Atiendes la consulta y luego debes abrir otra pestaña para emitir la ' +
+          'factura en el SRI.',
+      },
+      {
+        titular: 'No conocen la normativa local',
+        bajada:
+          'Los sistemas de otros países no están integrados con la firma digital ni ' +
+          'los esquemas del SRI.',
+      },
+      {
+        titular: 'Todo en una sola pantalla',
+        bajada:
+          'En PukaHealth la ficha clínica genera la factura electrónica autorizada ' +
+          'en un solo clic.',
+      },
+      {
+        titular: 'Ahorra horas administrativas',
+        bajada:
+          'Menos tiempo en pantallas del SRI y más tiempo para tus pacientes y tu ' +
+          'familia.',
+        cta: 'Empieza gratis hoy',
+      },
+    ],
+  },
+
+  // ─────────────────────────────  martes 29  ·  PukaHealth  ─────────────────
+  {
+    id: 'paciente-se-fue-sin-pagar',
+    sistema: 'health',
+    producto: 'pukahealth',
+    publicarEl: '2026-09-29T09:00',
+    caption:
+      '«Doctor, más tarde le hago la transferencia y me envía la factura»:\n\n' +
+      'Es la frase que más dinero le hace perder a un consultorio cada mes. Entre el ' +
+      'ajetreo del día, el paciente lo olvida o tú no tienes tiempo de hacer seguimiento.\n\n' +
+      'Llevar el control de cobros y facturación desde la misma tablet en el sillón de ' +
+      'atención evita que se queden cuentas en el aire.\n\n' +
+      'En PukaHealth registras el cobro y emites la factura antes de que el paciente salga por la puerta.\n\n' +
+      'pukadigital.com/pukahealth\n\n' +
+      '#consultoriomedico #gestionclinica #podologia #Ecuador #PukaHealth',
+    facebook: {
+      publicarEl: '2026-09-29T18:00',
+      imagen: {
+        titular: '«Después le transfiero»:\nla frase que más\nte cuesta',
+      },
+      caption:
+        'El peligro de cobrar después de la consulta\n' +
+        '«Más tarde le transfiero y me manda la factura». Y al final del mes faltan cobros.\n\n' +
+        'El desorden de transferencias\n' +
+        'Buscar comprobantes en WhatsApp al final de la semana es una pérdida de tiempo agotadora.\n\n' +
+        'Cobro y factura en la misma consulta\n' +
+        'Al cerrar la ficha clínica, registras el método de pago y emites la factura electrónica al instante.\n\n' +
+        'Cero cuentas en el aire\n' +
+        'El paciente se va con su tratamiento y su factura autorizada en el correo.\n\n' +
+        'pukadigital.com/pukahealth',
+    },
+    slides: [
+      {
+        badge: 'COBROS Y CONTROL',
+        titular: '«Más tarde le transfiero»',
+        bajada: 'La frase que más dinero y tiempo le quema a los consultorios cada mes.',
+      },
+      {
+        titular: 'El desorden de los comprobantes',
+        bajada:
+          'Pacientes que olvidan transferir y tú perdiendo horas revisando capturas ' +
+          'en WhatsApp.',
+      },
+      {
+        titular: 'Cobro en el momento de atención',
+        bajada:
+          'Registrar el pago y emitir la factura en la tablet antes de que el ' +
+          'paciente salga.',
+      },
+      {
+        titular: 'Cuentas claras al instante',
+        bajada:
+          'Sabes exactamente cuánto ingresó en efectivo y cuánto en transferencias ' +
+          'cada día.',
+      },
+      {
+        titular: 'Tu consultorio bajo control',
+        bajada:
+          'Protege tus ingresos con un sistema profesional de historia clínica y ' +
+          'facturación integrada.',
+        cta: 'Empieza gratis hoy',
+      },
+    ],
+  },
 ];
 
 export default piezas;

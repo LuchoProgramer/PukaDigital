@@ -1,5 +1,6 @@
 import type { Pieza } from '../../lib/piezas/tipos.ts';
 import septiembre from './2026-09.ts';
+import octubre from './2026-10.ts';
 
 /**
  * Los meses con calendario escrito.
@@ -16,6 +17,7 @@ import septiembre from './2026-09.ts';
  */
 export const MESES: Record<string, Pieza[]> = {
   '2026-09': septiembre,
+  '2026-10': octubre,
 };
 
 /** Las piezas de un mes, o `null` si ese mes no tiene calendario escrito. */

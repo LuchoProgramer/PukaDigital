@@ -129,3 +129,33 @@ La regla corta: **los evals no bloquean, el validador sí.**
 marzo de 2026 · el autocompletado desde el SRI cubre el **70%** medido sobre 40
 cédulas reales, y el resto cae a llenado manual sin error · la adopción de
 historia clínica electrónica en Ecuador ronda el **24,5%**.
+
+---
+
+## Producción Especial Octubre 2026 (2 Veo AI + 2 Hablando a Cámara)
+
+Para completar la cadencia de 20 contenidos mensuales (16 piezas fábrica + 2 Veo + 2 Cámara):
+
+### 1. Video Veo AI 1 — «El consultorio a las 7:00 PM»
+- **Concepto visual**: Contraste cinematográfico entre el caos analógico y la paz digital.
+- **Prompt de video (Google Veo / Sora)**:
+  > `Cinematic realistic shot, 9:16 vertical. A doctor's medical office at night, 7:00 PM. Desaturated warm moody lighting. A tired Latin American doctor in scrubs rubbing his eyes, desk overwhelmed with towering stacks of manila paper folders and loose receipts. Clock ticking fast on the wall. Sudden smooth transition to a bright, modern, minimalist clinic desk: same doctor smiling calmly, closing an iPad with a clean medical interface, putting on his coat, and leaving on time. 4k resolution, cinematic depth of field, photorealistic, 24fps.`
+- **Voz en off / Guion (30s)**:
+  > «Son las 7 de la noche. Terminaste de atender pacientes hace dos horas... pero sigues en el consultorio cuadrando recetas a mano y llenando facturas en el SRI. Trabajar hasta tarde no te hace mejor médico: te quita tiempo con tu familia. PukaHealth centraliza historia clínica y facturación electrónica en un solo clic. Prueba 30 días gratis en pukadigital.com/pukahealth».
+
+### 2. Video Veo AI 2 — «La búsqueda de la carpeta perdida»
+- **Concepto visual**: La frustración en recepción al buscar un expediente físico.
+- **Prompt de video (Google Veo / Sora)**:
+  > `Cinematic realistic vertical 9:16. Close-up in a medical reception area in Ecuador. A receptionist frantically searching through hundreds of old physical patient folders in a rusty metal filing cabinet. Papers slip and fall to the floor. A patient waits impatiently tapping their foot at the front desk. Cut to a sleek computer screen displaying a clean cloud search bar: typing 3 letters of a patient's name instantly reveals their complete verified clinical history and digital prescriptions in 0.5 seconds. Clean aesthetic, cinematic lighting.`
+- **Voz en off / Guion (25s)**:
+  > «¿Sabías que un consultorio pierde en promedio 7 minutos por paciente solo buscando su carpeta de papel? Si atiendes 15 pacientes al día, son casi dos horas botadas a la basura. Pásate a la historia clínica digital segura. PukaHealth te da respaldo inalterable y búsqueda instantánea. Conoce más en pukadigital.com/pukahealth».
+
+### 3. Hablando a Cámara 1 (Luis) — «Por qué el software extranjero te sale caro en Ecuador»
+- **Formato**: Vertical 9:16, plano medio, iluminación natural, Luis hablando con convicción y ritmo ágil (45s).
+- **Guion palabra por palabra**:
+  > «Veo a decenas de doctores en Quito y Guayaquil pagando 60 u 80 dólares mensuales por softwares médicos chilenos, mexicanos o gringos. La interfaz se ve bonita, sí... pero cuando termina la consulta viene la pesadilla: tienen que abrir el portal del SRI en otra pestaña y tipear la factura a mano, o pagar un módulo extra que siempre se desconfigura. Un software médico que no emite facturas autorizadas al SRI de forma nativa no te ahorra tiempo: te duplica el trabajo. Por eso construimos PukaHealth pensando 100% en las leyes de Ecuador. Cero doble digitación. Pruébalo 30 días gratis en el link de mi perfil».
+
+### 4. Hablando a Cámara 2 (Luis) — «La mentira de "mi consultorio se maneja bien con cuadernos"»
+- **Formato**: Vertical 9:16, plano medio en espacio de trabajo / oficina tech (45s).
+- **Guion palabra por palabra**:
+  > «Muchos especialistas me dicen: "Luis, yo tengo 10 años atendiendo con carpetas de cartón y nunca me ha pasado nada". Y les creo. El problema es que el día que te cae una auditoría del ACESS o un paciente te pide un historial de hace tres años, el papel no te defiende. Un tachón anula una nota, una firma ilegible te expone a sanciones y el papel se moja o se traspapela. La tecnología no es un lujo para clínicas grandes; es la armadura legal de tu consultorio privado. No esperes a tener un susto para proteger tu práctica médica. Entra a pukadigital.com/pukahealth y pruébalo gratis este mes».
