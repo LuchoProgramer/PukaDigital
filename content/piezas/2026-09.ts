@@ -498,6 +498,25 @@ const piezas: Pieza[] = [
         cta: 'Empieza gratis hoy',
       },
     ],
+    reel: {
+      guion:
+        'Son las siete de la tarde.\n\n' +
+        'Tus recetas en papel podrían reprobar una auditoría médica.\n\n' +
+        'Si no incluye el código CIE diez, la vigencia de tres días o el registro ACESS,\n\n' +
+        'la farmacia no la puede dispensar. Puka Health emite recetas electrónicas automáticas con código QR de verificación.\n\n' +
+        'Pruébalo gratis en pukadigital punto com diagonal pukahealth.',
+      caption:
+        'Tus recetas médicas en papel podrían no pasar una auditoría de ACESS.\n\n' +
+        'Si no incluyen el código CIE-10, la vigencia exacta o el registro ACESS del prescriptor, ' +
+        'la farmacia no las puede dispensar.\n\n' +
+        'PukaHealth emite recetas electrónicas automáticas con código QR de verificación.\n\n' +
+        'Prueba 15 días gratis en pukadigital.com/pukahealth\n\n' +
+        '✨ Contenido generado con Inteligencia Artificial.\n\n' +
+        '#pukahealth #recetamedica #ACESS #medicosEcuador #generadoconIA #saludEcuador',
+      publicarEl: '2026-09-21T09:00',
+      video: 'https://reels.pukadigital.com/reels/2026-09/receta-contenido-minimo-6a8d37af.mp4',
+      duracion: 22,
+    },
   },
 
   // ─────────────────────────────  jueves 24  ·  la casa  ────────────────────
