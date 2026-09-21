@@ -44,7 +44,7 @@ export const CATALOGO: Record<ProductoId, Producto> = {
     url: '/pukahealth',
     sistema: 'health',
     precios: ['50', '480'],
-    ofertas: ['30 dias gratis'],
+    ofertas: ['15 dias gratis'],
   },
   pukasalud: {
     nombre: 'PukaSalud',
@@ -76,7 +76,7 @@ export function preciosEn(texto: string): string[] {
   return [...encontrados].map((m) => m[1].replace(',', '.'));
 }
 
-/** Extrae las promesas de gratuidad: «30 días gratis», «1 mes gratis». */
+/** Extrae las promesas de gratuidad: «15 días gratis», «1 mes gratis». */
 export function ofertasEn(texto: string): string[] {
   const encontradas = normalizar(texto).matchAll(
     /(\d+)\s+(dias?|mes(?:es)?)\s+grati\w*/g,

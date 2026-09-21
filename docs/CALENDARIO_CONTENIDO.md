@@ -141,7 +141,7 @@ Para completar la cadencia de 20 contenidos mensuales (16 piezas fábrica + 2 Ve
 - **Prompt de video (Google Veo / Sora)**:
   > `Cinematic realistic shot, 9:16 vertical. A doctor's medical office at night, 7:00 PM. Desaturated warm moody lighting. A tired Latin American doctor in scrubs rubbing his eyes, desk overwhelmed with towering stacks of manila paper folders and loose receipts. Clock ticking fast on the wall. Sudden smooth transition to a bright, modern, minimalist clinic desk: same doctor smiling calmly, closing an iPad with a clean medical interface, putting on his coat, and leaving on time. 4k resolution, cinematic depth of field, photorealistic, 24fps.`
 - **Voz en off / Guion (30s)**:
-  > «Son las 7 de la noche. Terminaste de atender pacientes hace dos horas... pero sigues en el consultorio cuadrando recetas a mano y llenando facturas en el SRI. Trabajar hasta tarde no te hace mejor médico: te quita tiempo con tu familia. PukaHealth centraliza historia clínica y facturación electrónica en un solo clic. Prueba 30 días gratis en pukadigital.com/pukahealth».
+  > «Son las 7 de la noche. Terminaste de atender pacientes hace dos horas... pero sigues en el consultorio cuadrando recetas a mano y llenando facturas en el SRI. Trabajar hasta tarde no te hace mejor médico: te quita tiempo con tu familia. PukaHealth centraliza historia clínica y facturación electrónica en un solo clic. Prueba 15 días gratis en pukadigital.com/pukahealth».
 
 ### 2. Video Veo AI 2 — «La búsqueda de la carpeta perdida»
 - **Concepto visual**: La frustración en recepción al buscar un expediente físico.
@@ -153,7 +153,7 @@ Para completar la cadencia de 20 contenidos mensuales (16 piezas fábrica + 2 Ve
 ### 3. Hablando a Cámara 1 (Luis) — «Por qué el software extranjero te sale caro en Ecuador»
 - **Formato**: Vertical 9:16, plano medio, iluminación natural, Luis hablando con convicción y ritmo ágil (45s).
 - **Guion palabra por palabra**:
-  > «Veo a decenas de doctores en Quito y Guayaquil pagando 60 u 80 dólares mensuales por softwares médicos chilenos, mexicanos o gringos. La interfaz se ve bonita, sí... pero cuando termina la consulta viene la pesadilla: tienen que abrir el portal del SRI en otra pestaña y tipear la factura a mano, o pagar un módulo extra que siempre se desconfigura. Un software médico que no emite facturas autorizadas al SRI de forma nativa no te ahorra tiempo: te duplica el trabajo. Por eso construimos PukaHealth pensando 100% en las leyes de Ecuador. Cero doble digitación. Pruébalo 30 días gratis en el link de mi perfil».
+  > «Veo a decenas de doctores en Quito y Guayaquil pagando 60 u 80 dólares mensuales por softwares médicos chilenos, mexicanos o gringos. La interfaz se ve bonita, sí... pero cuando termina la consulta viene la pesadilla: tienen que abrir el portal del SRI en otra pestaña y tipear la factura a mano, o pagar un módulo extra que siempre se desconfigura. Un software médico que no emite facturas autorizadas al SRI de forma nativa no te ahorra tiempo: te duplica el trabajo. Por eso construimos PukaHealth pensando 100% en las leyes de Ecuador. Cero doble digitación. Pruébalo 15 días gratis en el link de mi perfil».
 
 ### 4. Hablando a Cámara 2 (Luis) — «La mentira de "mi consultorio se maneja bien con cuadernos"»
 - **Formato**: Vertical 9:16, plano medio en espacio de trabajo / oficina tech (45s).

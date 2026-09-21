@@ -62,14 +62,35 @@ No lo cambies porque lo diga un blog: es una hipótesis, y el dato viene de agre
 - [ ] Enviar enlace directo de reseña de [Clutch.co](https://clutch.co/profile/pukadigital) a los clientes clave.
 - [ ] Obtener 3 a 5 reseñas verificadas (vía email corporativo o LinkedIn) para desbloquear la insignia de **Top Verified Agency** en Clutch.
 
-## 8. Conexión de WhatsApp Coexistence para PukaDigital (+593 96 406 5880)
+## 8. WhatsApp de ventas por coexistencia — ✅ hecho el 2026-09-21
 
-- [ ] Conectar el número oficial de la agencia (`+593 96 406 5880`) a la WABA `PukaIA` (`1124927996392227`) usando **WhatsApp Coexistence (Coexistencia)**.
-- [ ] Conectar al backend `chatbot-python` en Hetzner (`https://bot.pukadigital.com/webhook`):
-  - El bot de IA responde automáticamente con el contexto de PukaDigital y califica leads 24/7.
-  - Cuando Luis contesta manualmente desde su app móvil de WhatsApp Business, el bot se pausa en ese chat vía `smb_message_echoes`.
-  - Sirve como entorno de prueba y "dogfooding" del producto comercial de PukaIA para clientes.
+El `+593 96 406 5880` quedó conectado por coexistencia desde `chatbot-python`: el bot
+(tenant «PukaDigital Ventas») responde y se calla solo en el chat donde Luis contesta a
+mano. Quedó en la WABA `1371993187962176`, **no** en `PukaIA`. Detalle en
+`chatbot-python/docs/claude/estado.md`, sesión 2026-09-21.
 
+- [ ] 🔴 **El historial no sincroniza** (`/smb_app_data` da `131000`): el bot no sabe qué
+  chats ya existían y ya se metió una vez en uno personal. Se resuelve en `chatbot-python`.
+- [ ] Caso de soporte de Meta `#29666578639598061`, abierto por el error `#1690130`
+  (Tech Provider dueño del mismo portfolio).
+
+## 9. Pendientes que dejó `chatbot-python` el 2026-09-21
+
+Llegaron como nota en `CLAUDE.md`; se movieron aquí porque `CLAUDE.md` es para el método.
+
+- [ ] 🔴 **Migrar `lib/genai.ts`** de `gemini-2.5-flash` a Gemini 3 antes del
+  **2026-10-16**. Usa la Gemini API con API key, no Vertex: verificar sus fechas de retiro
+  en ai.google.dev. El bot eligió `gemini-3.7-flash` con su gate de evals (13/0 contra 7/2
+  de 3.8). Gemini 3 solo existe en la región `global`. Decisión completa en
+  `chatbot-python/docs/decisions/2026-09-21-migracion-gemini-3-7-flash.md`.
+- [x] Prueba de PukaHealth de 30 a **15 días**, y fuera la oferta de «primeros 10 médicos
+  sin instalación» — hecho el 2026-09-21.
+- [ ] **«Cualquier especialidad»**: la FAQ de `/pukahealth`, la tabla comparativa y
+  `public/llms.txt` lo afirman, y `PUKAHEALTH_LIMITES.md` lo prohíbe. Luis dice que ya está
+  listo: se decide en un brainstorming, junto con el prompt inicial del bot, y se alinea
+  con `chatbot-python`.
+- [ ] La FAQ compara con Orpheus ($60–80/mes, «formularios fijos») y promete «Cumplimiento
+  MSP», sin fuente en el repo.
 
 ## Lo que está bien y conviene no romper
 

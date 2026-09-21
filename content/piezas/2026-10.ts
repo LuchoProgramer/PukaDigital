@@ -99,7 +99,7 @@ const piezas: Pieza[] = [
         'Facturación en un solo paso\n' +
         'Al terminar la atención, la factura electrónica se emite al SRI sin abrir otras páginas.\n\n' +
         'Todo conectado en la nube\n' +
-        'PukaHealth organiza tu práctica médica desde $50 al mes con 30 días gratis.\n\n' +
+        'PukaHealth organiza tu práctica médica desde $50 al mes con 15 días gratis.\n\n' +
         'pukadigital.com/pukahealth',
     },
     slides: [
@@ -130,7 +130,7 @@ const piezas: Pieza[] = [
         titular: 'Tu consultorio ordenado',
         bajada:
           'Menos fricción administrativa y más profesionalismo para tus pacientes.',
-        cta: 'Prueba 30 días gratis',
+        cta: 'Prueba 15 días gratis',
       },
     ],
   },
@@ -192,7 +192,7 @@ const piezas: Pieza[] = [
       {
         titular: 'Factura sin dolores de cabeza',
         bajada:
-          'PukaHealth cuida tu facturación médica en cada consulta. 30 días gratis.',
+          'PukaHealth cuida tu facturación médica en cada consulta. 15 días gratis.',
         cta: 'Empieza gratis hoy',
       },
     ],
@@ -274,7 +274,7 @@ const piezas: Pieza[] = [
       'a revisar carpetas viejas entre decenas de nombres parecidos.\n\n' +
       'La confianza médica también entra por los ojos: abrir su ficha en la tablet en 2 ' +
       'segundos y mostrarle sus fotos anteriores cambia por completo su percepción.\n\n' +
-      'PukaHealth moderniza tu consultorio. 30 días gratis.\n\n' +
+      'PukaHealth moderniza tu consultorio. 15 días gratis.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#consultoriomedico #podologia #historiaclinica #Ecuador',
     facebook: {
@@ -318,7 +318,7 @@ const piezas: Pieza[] = [
       {
         titular: 'Eleva el nivel de tu clínica',
         bajada:
-          'PukaHealth transforma la experiencia de tus pacientes. Pruébalo 30 días.',
+          'PukaHealth transforma la experiencia de tus pacientes. Pruébalo 15 días.',
         cta: 'Empieza gratis hoy',
       },
     ],
@@ -381,8 +381,8 @@ const piezas: Pieza[] = [
       {
         titular: 'Software médico a tu medida',
         bajada:
-          'Diseñado específicamente para la normativa y realidad de Ecuador. 30 días gratis.',
-        cta: 'Prueba 30 días gratis',
+          'Diseñado específicamente para la normativa y realidad de Ecuador. 15 días gratis.',
+        cta: 'Prueba 15 días gratis',
       },
     ],
   },
@@ -527,7 +527,7 @@ const piezas: Pieza[] = [
       'años de carpetas viejas de golpe. No funciona así.\n\n' +
       'Solo digitalizas al paciente que llega hoy a su consulta. En pocas semanas, tus ' +
       'pacientes activos están en la nube sin que hayas tenido que pasar noches escaneando.\n\n' +
-      'PukaHealth hace la transición simple y progresiva. 30 días gratis.\n\n' +
+      'PukaHealth hace la transición simple y progresiva. 15 días gratis.\n\n' +
       'pukadigital.com/pukahealth\n\n' +
       '#consultoriomedico #digitalizacion #historiasclinicas #podologia #Ecuador',
     facebook: {
@@ -572,8 +572,8 @@ const piezas: Pieza[] = [
       {
         titular: 'Da el paso con PukaHealth',
         bajada:
-          'Acompañamos a tu consultorio para dejarlo andando en 30 minutos. 30 días gratis.',
-        cta: 'Prueba 30 días gratis',
+          'Acompañamos a tu consultorio para dejarlo andando en 30 minutos. 15 días gratis.',
+        cta: 'Prueba 15 días gratis',
       },
     ],
   },
@@ -699,7 +699,7 @@ const piezas: Pieza[] = [
       {
         titular: 'Pacientes que valoran tu labor',
         bajada:
-          'Tecnología que respalda tu diagnóstico y fideliza a quienes atiendes. 30 días gratis.',
+          'Tecnología que respalda tu diagnóstico y fideliza a quienes atiendes. 15 días gratis.',
         cta: 'Empieza gratis hoy',
       },
     ],
@@ -763,8 +763,8 @@ const piezas: Pieza[] = [
       {
         titular: 'Protege tu ejercicio médico',
         bajada:
-          'PukaHealth te da la seguridad jurídica que tu consultorio necesita. 30 días gratis.',
-        cta: 'Prueba 30 días gratis',
+          'PukaHealth te da la seguridad jurídica que tu consultorio necesita. 15 días gratis.',
+        cta: 'Prueba 15 días gratis',
       },
     ],
   },
@@ -859,7 +859,7 @@ const piezas: Pieza[] = [
         'La nube hace el trabajo pesado\n' +
         'Las fichas se organizan solas, las facturas se emiten al instante y nada se traspapela.\n\n' +
         'Clínicas más eficientes y humanas\n' +
-        'PukaHealth le devuelve el tiempo a tu equipo. Pruébalo 30 días sin costo.\n\n' +
+        'PukaHealth le devuelve el tiempo a tu equipo. Pruébalo 15 días sin costo.\n\n' +
         'pukadigital.com/pukahealth',
     },
     slides: [
@@ -889,7 +889,7 @@ const piezas: Pieza[] = [
       {
         titular: 'Transforma tu consultorio',
         bajada:
-          'Moderniza la operación de tu clínica con PukaHealth. 30 días de prueba gratis.',
+          'Moderniza la operación de tu clínica con PukaHealth. 15 días de prueba gratis.',
         cta: 'Empieza gratis hoy',
       },
     ],
