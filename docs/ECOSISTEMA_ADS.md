@@ -17,7 +17,7 @@ Para el trabajo orgánico de redes, ver `COMMUNITY_MANAGEMENT.md`.
 | Píxel / dataset | `2045774666297992` | `PukaDigital Web` · conectado a `PukaDigital Ads` |
 | Dominio verificado | `pukadigital.com` | Meta tag `zb46u0vripnq10zx6svtlcgj2n7k5o` en `app/layout.tsx` |
 | Cuenta de WhatsApp (WABA) | `1124927996392227` | `PukaIA` · **sin números registrados** (consultado por API el 2026-09-21) |
-| WhatsApp de ventas | `+593 96 406 5880` | En la **app WhatsApp Business**, no en la Cloud API. Es el número principal de la Página: los anuncios de clic a WhatsApp llegan ahí |
+| WhatsApp de ventas | `+593 96 406 5880` | App WhatsApp Business **en coexistencia** con la Cloud API desde el 2026-09-21: WABA `1371993187962176`, tenant «PukaDigital Ventas» de `chatbot-python`. Es el número principal de la Página: los anuncios de clic a WhatsApp llegan ahí, y el bot atiende hasta que Luis contesta a mano |
 | Instagram | `17841476784325626` | `@pukadigital`, conectado a la página `PukaDigital` |
 | Página de Facebook | `764585143409223` | `PukaDigital` |
 | Usuario del sistema | `61585035184971` | `PukaDigital_Api` · admin · dueño de `META_ADS_TOKEN` |
@@ -207,4 +207,4 @@ como métrica de éxito.
 | 2026-08-30 | Se crea el dataset `PukaDigital Web` y se instala el píxel de Meta en producción (PR #4). Antes el sitio solo tenía GA4, Google Ads, Clarity y TikTok, pese a que la política de privacidad ya declaraba el Facebook Pixel |
 | 2026-08-31 | Se registran cuenta publicitaria de Meta, Business Center de TikTok y vinculación orgánica de `@pukadigital` con Spark Ads |
 | 2026-09-20 | Se conecta la Marketing API con un token del usuario del sistema `PukaDigital_Api`, se asigna la Visa a `PukaDigital Ads` y se fija un límite de gasto de $50 al mes. Se descarta el MCP oficial de Meta |
-| 2026-09-21 | Se corrige el inventario: la WABA `PukaIA` no tiene números. El `+593 96 406 5880` vive en la app WhatsApp Business y ya era el número principal de la Página |
+| 2026-09-21 | Se corrige el inventario: la WABA `PukaIA` no tiene números. El `+593 96 406 5880` ya era el número principal de la Página, y ese día quedó en coexistencia con el bot (WABA `1371993187962176`) |
