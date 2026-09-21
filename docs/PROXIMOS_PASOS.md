@@ -55,6 +55,7 @@ No lo cambies porque lo diga un blog: es una hipótesis, y el dato viene de agre
 ## 6. Documento de Estrategia de Ads / Pauta Publicitaria (Pendiente próxima sesión)
 
 - [ ] Crear `docs/ADS_STRATEGY.md` con estructura de campañas (Meta, TikTok, Google), copies, presupuestos mínimos ($3-$5/día), retargeting y automatización por API.
+- [x] Conectar la Marketing API de Meta: token, tarjeta y límite de gasto. Hecho el 2026-09-20, ver `ECOSISTEMA_ADS.md` → «Pautar por API». El script `npm run pautar` espera instrucciones.
 
 ## 7. Estrategia de Reseñas Verificadas en Clutch.co & Directorios
 

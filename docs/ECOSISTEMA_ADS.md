@@ -1,7 +1,7 @@
 # Ecosistema de publicidad — Meta y TikTok
 
 Inventario de cuentas, píxeles e identificadores, más las reglas de qué se pauta
-y cuándo. Actualizado: **2026-08-31**.
+y cuándo. Actualizado: **2026-09-20**.
 
 Para las convenciones de eventos en el código, ver `ANALYTICS_TRACKING.md`.
 Para el trabajo orgánico de redes, ver `COMMUNITY_MANAGEMENT.md`.
@@ -16,12 +16,69 @@ Para el trabajo orgánico de redes, ver `COMMUNITY_MANAGEMENT.md`.
 | Cuenta publicitaria | `1097475412619983` | `PukaDigital Ads` · USD · America/Guayaquil |
 | Píxel / dataset | `2045774666297992` | `PukaDigital Web` · conectado a `PukaDigital Ads` |
 | Dominio verificado | `pukadigital.com` | Meta tag `zb46u0vripnq10zx6svtlcgj2n7k5o` en `app/layout.tsx` |
-| WhatsApp Cloud API | `1124927996392227` | `PukaIA` · `+593 96 406 5880` · verificada |
+| Cuenta de WhatsApp (WABA) | `1124927996392227` | `PukaIA` · **sin números registrados** (consultado por API el 2026-09-21) |
+| WhatsApp de ventas | `+593 96 406 5880` | App WhatsApp Business **en coexistencia** con la Cloud API desde el 2026-09-21: WABA `1371993187962176`, tenant «PukaDigital Ventas» de `chatbot-python`. Es el número principal de la Página: los anuncios de clic a WhatsApp llegan ahí, y el bot atiende hasta que Luis contesta a mano |
 | Instagram | `17841476784325626` | `@pukadigital`, conectado a la página `PukaDigital` |
+| Página de Facebook | `764585143409223` | `PukaDigital` |
+| Usuario del sistema | `61585035184971` | `PukaDigital_Api` · admin · dueño de `META_ADS_TOKEN` |
 
-⚠️ **Bloquea pautar:** falta asociar tarjeta en el
-[Billing Hub](https://business.facebook.com/billing_hub/payment_methods) para
-`PukaDigital Ads`.
+**Pago:** Visa ···· 6230 asignada a `PukaDigital Ads` desde el 2026-09-20, con
+**límite de gasto de $50 al mes** que se reinicia el día 1. Al llegar al tope,
+Meta pausa todos los anuncios.
+
+⚠️ La tarjeta se carga **en el portfolio** y luego hay que **asignarla aparte a
+la cuenta publicitaria**. Con solo el primer paso, la cuenta sigue sin método de
+pago.
+
+El límite se cambia en el
+[Billing Hub](https://business.facebook.com/billing_hub/accounts/details?asset_id=1097475412619983&business_id=758680150376625),
+no por API: el token no tiene acceso a finanzas, a propósito. Por API
+`spend_cap` se lee en **centavos**: `"5000"` son $50.
+
+### Pautar por API
+
+La Marketing API se usa con **`META_ADS_TOKEN`** en `.env.local`, solo en local:
+el Worker no lo necesita. Es un token del usuario del sistema `PukaDigital_Api`
+sobre la app **PukaDigital Social**, y **no caduca**.
+
+| Permiso | Para qué |
+|---|---|
+| `ads_management` · `ads_read` | crear, editar y pausar campañas; leer sus métricas |
+| `business_management` | leer los activos del portfolio |
+| `pages_show_list` · `pages_read_engagement` · `pages_manage_ads` | anuncios a nombre de la Página y sus comentarios |
+| `instagram_basic` | usar `@pukadigital` y sus Reels en anuncios |
+| `read_insights` · `instagram_manage_insights` | métricas orgánicas, para compararlas con la pauta |
+
+Los activos se asignaron con **acceso parcial**: en la cuenta publicitaria,
+campañas y rendimiento, sin finanzas; en la Página y en Instagram, solo anuncios
+y estadísticas.
+
+⚠️ **No tiene permisos de publicar** (`pages_manage_posts`,
+`instagram_content_publish`), y es deliberado: publicar es trabajo del token del
+cron. Un error en un script de pauta no puede publicar en el feed.
+
+🔴 **Nunca usar el botón «Obtener token» de la API de marketing** en
+developers.facebook.com. Meta avisa ahí mismo que revoca los permisos que el
+usuario ya le dio a la app, y de esos permisos salen los tokens de Página del
+cron: la publicación se rompería **sin dar error**. Un token nuevo se genera
+desde *Configuración del negocio → Usuarios del sistema → PukaDigital_Api →
+Generar token*.
+
+Para cargarlo sin que pase por pantalla, con el token copiado:
+
+```bash
+T="$(pbpaste | tr -d '[:space:]')"; sed -i '' '/^META_ADS_TOKEN=/d' .env.local
+[ -n "$(tail -c1 .env.local)" ] && echo >> .env.local   # sin esto se pega a la última línea
+printf 'META_ADS_TOKEN=%s\n' "$T" >> .env.local; pbcopy < /dev/null
+curl -s "https://graph.facebook.com/v21.0/debug_token?input_token=$T&access_token=$T"
+```
+
+Tiene que decir `"type": "SYSTEM_USER"`, `"expires_at": 0` y los nueve permisos.
+
+**El MCP oficial de Meta (`mcp.facebook.com/ads`) se descartó** el 2026-09-20:
+con la API alcanza. Además no conecta desde Claude Code por terminal, porque Meta
+rechaza el registro OAuth con `localhost` (issues #55002, #57191 y #58054 de
+`anthropics/claude-code`), y solo funciona como conector de claude.ai.
 
 ### El píxel
 
@@ -149,3 +206,5 @@ como métrica de éxito.
 |---|---|
 | 2026-08-30 | Se crea el dataset `PukaDigital Web` y se instala el píxel de Meta en producción (PR #4). Antes el sitio solo tenía GA4, Google Ads, Clarity y TikTok, pese a que la política de privacidad ya declaraba el Facebook Pixel |
 | 2026-08-31 | Se registran cuenta publicitaria de Meta, Business Center de TikTok y vinculación orgánica de `@pukadigital` con Spark Ads |
+| 2026-09-20 | Se conecta la Marketing API con un token del usuario del sistema `PukaDigital_Api`, se asigna la Visa a `PukaDigital Ads` y se fija un límite de gasto de $50 al mes. Se descarta el MCP oficial de Meta |
+| 2026-09-21 | Se corrige el inventario: la WABA `PukaIA` no tiene números. El `+593 96 406 5880` ya era el número principal de la Página, y ese día quedó en coexistencia con el bot (WABA `1371993187962176`) |

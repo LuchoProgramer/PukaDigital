@@ -30,7 +30,7 @@
 ### ⚠️ Pendientes
 
 #### 1. Configurar Método de Pago para Pauta
-- [ ] Entrar a [Billing Hub de Meta](https://business.facebook.com/billing_hub/payment_methods) y agregar tarjeta de crédito/débito a `PukaDigital Ads` (`1097475412619983`).
+- [x] Entrar a [Billing Hub de Meta](https://business.facebook.com/billing_hub/payment_methods) y agregar tarjeta de crédito/débito a `PukaDigital Ads` (`1097475412619983`). Hecho el 2026-09-20: Visa ···· 6230, con límite de $50 al mes. Ver `ECOSISTEMA_ADS.md`.
 
 #### 2. Google Cloud Console (Verificación de Marca / Brand Verification)
 - [ ] Diseñar el logo definitivo de PukaIA (120x120px).

@@ -216,7 +216,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/ANALYTICS_TRACKING.md` — convenciones de tracking
 - `docs/HISTORIAL_SEO.md` — auditorías cerradas y keyword research (historial, no doctrina)
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
-- `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles y reglas de pauta en Meta y TikTok
+- `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles, token de la Marketing API y reglas de pauta
 - `docs/PUBLICACION_EN_REDES.md` — cómo publica la fábrica en Instagram y Facebook
 - `docs/ENVIRONMENT_VARIABLES.md` — las variables, y **cómo se sacan los tokens de Meta**
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico

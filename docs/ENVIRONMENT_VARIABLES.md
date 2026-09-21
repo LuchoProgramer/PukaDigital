@@ -43,6 +43,9 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-VSGYR0EJSZ
 
 # Email Service (Resend)
 RESEND_API_KEY=re_your_resend_api_key
+
+# Meta Marketing API — pauta desde la terminal (solo local)
+META_ADS_TOKEN=EAA...
 ```
 
 ---
@@ -190,6 +193,16 @@ npm run deploy:cloudflare   # 🔴 sin esto el Worker no los ve
 token actual dice el tipo, la caducidad y los permisos. Así se descubrió el
 2026-09-09 que el `IG_ACCESS_TOKEN` era de Página, no caducaba, y solo le faltaba
 `pages_manage_posts` para servir también a Facebook.
+
+### Meta — pauta por API (META_ADS_TOKEN)
+
+> Añadida el **2026-09-20**. Solo local: el Worker no la usa y **no** va a
+> `wrangler secret`.
+
+Token del usuario del sistema `PukaDigital_Api`, que no caduca. **No es el mismo
+tipo de token que los de arriba**: es de usuario del sistema, no de Página, y no
+tiene permisos de publicar. Cómo se genera, qué permisos lleva y qué botón no
+hay que pulsar nunca: `ECOSISTEMA_ADS.md` → «Pautar por API».
 
 ---
 
