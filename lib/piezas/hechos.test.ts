@@ -59,15 +59,22 @@ test('la oferta de gratuidad tiene que ser la del producto', () => {
     ...base,
     sistema: 'health',
     producto: 'pukahealth',
-    slides: [{ titular: 'Historia clinica', cta: 'Prueba 30 dias gratis' }],
+    slides: [{ titular: 'Historia clinica', cta: 'Prueba 15 dias gratis' }],
   };
   assert.deepEqual(validar([ok]), []);
+
+  // La prueba bajó de 30 a 15 días el 2026-09-21: la oferta vieja ya no vale.
+  const vieja: Pieza = {
+    ...ok,
+    slides: [{ titular: 'Historia clinica', cta: 'Prueba 30 dias gratis' }],
+  };
+  assert.deepEqual(campos([vieja]), ['cta']);
 
   // El otro fallo real: la oferta de PukaHealth en una pieza de LedgerXpertz.
   const mal: Pieza = {
     ...base,
     producto: 'ledgerxpertz',
-    slides: [{ titular: 'Facturacion SRI', cta: 'Prueba 30 dias gratis' }],
+    slides: [{ titular: 'Facturacion SRI', cta: 'Prueba 15 dias gratis' }],
   };
   assert.deepEqual(campos([mal]), ['cta']);
 });
@@ -80,7 +87,7 @@ test('la pieza frankenstein del experimento produce los tres errores', () => {
     slides: [{
       titular: 'Facturacion SRI en segundos',
       dato: { valor: '$14.99', etiqueta: 'al mes' },
-      cta: 'Prueba 30 dias gratis',
+      cta: 'Prueba 15 dias gratis',
     }],
   };
   assert.deepEqual(campos([frankenstein]), ['sistema', 'dato.valor', 'cta']);
@@ -194,7 +201,7 @@ test('ofertas no permitidas en facebook.caption rompen la validacion', () => {
     producto: 'ledgerxpertz',
     facebook: {
       publicarEl: '2026-09-03T18:00',
-      caption: 'Prueba 30 dias gratis con LedgerXpertz.',
+      caption: 'Prueba 15 dias gratis con LedgerXpertz.',
     },
   };
   assert.deepEqual(campos([malaOferta]), ['facebook.caption']);

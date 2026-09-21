@@ -79,7 +79,7 @@ Detalle, vuelta atrás y lo que falta: @/Users/luisviteri/Proyectos/PukaDigital/
 |---|---|
 | PukaIA | Básico $14.99/mes · Pro $25/mes · Business $60/mes — 1 mes gratis, sin plan gratuito permanente |
 | LedgerXpertz | Starter $15 · Grow $20 · Pro $25 (+IVA) — anual: 2 meses gratis |
-| PukaHealth | Individual $50/mes · Anual $480/año — 30 días gratis |
+| PukaHealth | Individual $50/mes · Anual $480/año — 15 días gratis |
 | PukaSalud, Agencia, Desarrollo web | Sin precio visible, cotización por WhatsApp |
 
 ### PukaHealth: leer antes de escribir sobre él

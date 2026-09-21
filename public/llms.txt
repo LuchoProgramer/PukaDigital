@@ -59,8 +59,7 @@ ERP SaaS multi-tenant para médicos en Ecuador: historias clínicas electrónica
 - 100% en la nube — acceso desde computadora, tablet o celular sin instalaciones
 - **Precios:** Individual $50/mes | Anual $480/año ($40/mes equivalente, 2 meses gratis)
 - Sin permanencia. Sin contrato. Soporte directo por WhatsApp.
-- Primeros 10 médicos: sin costo de instalación
-- Prueba 30 días gratis | Demo disponible por WhatsApp: +593964065880
+- Prueba 15 días gratis | Demo disponible por WhatsApp: +593964065880
 - Caso de éxito: Dra. Cristina Muñoz, Podoclinic (ahorra 2 horas diarias en facturación)
 
 ### 5. PukaSalud — Marketing Médico Ético

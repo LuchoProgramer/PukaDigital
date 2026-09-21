@@ -56,7 +56,7 @@ const SOCIAL_PROOF = [
 const TESTIMONIAL_STATS = [
   { value: '100%', label: 'SRI v&aacute;lido' },
   { value: '$0',   label: 'Setup' },
-  { value: '30 d&iacute;as', label: 'gratis' },
+  { value: '15 d&iacute;as', label: 'gratis' },
 ];
 
 const PLAN_INCLUDES = [
@@ -118,7 +118,7 @@ const DEMO_VIDEO_CHAPTERS = [
 const FAQS = [
   {
     q: '¿Cuánto cuesta PukaHealth?',
-    a: 'PukaHealth cuesta $50 por médico al mes. También hay un plan anual por $480 al año (equivalente a $40/mes, 2 meses gratis). Los primeros 10 médicos no pagan costo de instalación. Ofrecemos 30 días de prueba gratuita sin tarjeta de crédito.',
+    a: 'PukaHealth cuesta $50 por médico al mes. También hay un plan anual por $480 al año (equivalente a $40/mes, 2 meses gratis). Ofrecemos 15 días de prueba gratuita sin tarjeta de crédito.',
   },
   {
     q: '¿PukaHealth emite facturas al SRI de Ecuador?',
@@ -134,7 +134,7 @@ const FAQS = [
   },
   {
     q: '¿Tiene período de prueba gratuito?',
-    a: 'Sí, 30 días de prueba completamente gratis. No se requiere tarjeta de crédito ni pago por adelantado.',
+    a: 'Sí, 15 días de prueba completamente gratis. No se requiere tarjeta de crédito ni pago por adelantado.',
   },
   {
     q: '¿Qué diferencia hay entre PukaHealth y Orpheus?',
@@ -329,7 +329,7 @@ export default function PukaHealthPage() {
               </button>
             </div>
             <p style={{ color: '#94a3b8', fontSize: '13px' }}>
-              Sin tarjeta de cr&eacute;dito &middot; Primeros 10 m&eacute;dicos sin costo de instalaci&oacute;n
+              Sin tarjeta de cr&eacute;dito &middot; 15 d&iacute;as gratis
             </p>
             <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '12px' }}>
               Una soluci&oacute;n tecnol&oacute;gica desarrollada con ❤️ por{' '}
@@ -723,7 +723,7 @@ export default function PukaHealthPage() {
             &iquest;Listo para digitalizar tu consultorio?
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '18px', marginBottom: '36px' }}>
-            Primeros 10 m&eacute;dicos sin costo de instalaci&oacute;n. Solo $50/mes.
+            15 d&iacute;as gratis. Despu&eacute;s, $50/mes.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button
