@@ -1,6 +1,6 @@
 import { piezasDe } from '../../content/piezas/index.ts';
-import { archivosDe, publicarPieza, urlPublica } from './meta.ts';
-import { publicarPiezaFacebook } from './facebook.ts';
+import { archivosDe, publicarPieza, publicarReelInstagram, urlPublica } from './meta.ts';
+import { publicarPiezaFacebook, publicarReelFacebook } from './facebook.ts';
 import { captionFacebook } from './programado.ts';
 
 function argumento(nombre: string): string | undefined {
@@ -19,9 +19,10 @@ async function main() {
   // Publicar no se deshace: hay que pedirlo explicitamente.
   const enSerio = process.argv.includes('--publicar');
   const esFacebook = process.argv.includes('--facebook');
+  const esReel = process.argv.includes('--reel');
 
   if (!id) {
-    console.error('Falta --id <pieza>. Ejemplo: npm run publicar -- --id sri-rechazo-01');
+    console.error('Falta --id <pieza>. Ejemplo: npm run publicar -- --id sri-rechazo-01 [--reel] [--facebook] [--publicar]');
     process.exit(1);
   }
 
@@ -37,17 +38,53 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`${pieza.id} · ${pieza.producto ?? 'sin producto'} · ${pieza.slides.length} slide(s)`);
-  if (esFacebook) {
-    console.log(`  ${urlPublica(mes, `${pieza.id}-fb.png`)}`);
-    console.log(`  caption: ${captionFacebook(pieza)}`);
+  if (esReel) {
+    if (!pieza.reel?.video) {
+      console.error(`La pieza ${pieza.id} no tiene un video de Reel configurado.`);
+      process.exit(1);
+    }
+    console.log(`Reel: ${pieza.id} · ${pieza.producto ?? 'sin producto'} · ${pieza.reel.duracion ?? '?'} s`);
+    console.log(`  video: ${pieza.reel.video}`);
+    console.log(`  caption: ${pieza.reel.caption}`);
   } else {
-    for (const archivo of archivosDe(pieza)) console.log(`  ${urlPublica(mes, archivo)}`);
-    console.log(`  caption: ${pieza.caption ?? '(vacio)'}`);
+    console.log(`${pieza.id} · ${pieza.producto ?? 'sin producto'} · ${pieza.slides.length} slide(s)`);
+    if (esFacebook) {
+      console.log(`  ${urlPublica(mes, `${pieza.id}-fb.png`)}`);
+      console.log(`  caption: ${captionFacebook(pieza)}`);
+    } else {
+      for (const archivo of archivosDe(pieza)) console.log(`  ${urlPublica(mes, archivo)}`);
+      console.log(`  caption: ${pieza.caption ?? '(vacio)'}`);
+    }
   }
 
   if (!enSerio) {
     console.log('\nEnsayo. Nada se publico. Anade --publicar para hacerlo de verdad.');
+    return;
+  }
+
+  if (esReel) {
+    if (esFacebook) {
+      const pageId = process.env.FB_PAGE_ID;
+      const token = process.env.FB_PAGE_ACCESS_TOKEN;
+      if (!pageId || !token) {
+        console.error('\nFaltan FB_PAGE_ID o FB_PAGE_ACCESS_TOKEN en el entorno.');
+        process.exit(1);
+      }
+      console.log('\nPublicando Reel en Facebook...');
+      const { id: publicado } = await publicarReelFacebook(pieza, { pageId, token });
+      console.log(`Publicado Reel en Facebook: https://facebook.com/${publicado}`);
+    } else {
+      const igUserId = process.env.IG_USER_ID;
+      const token = process.env.IG_ACCESS_TOKEN;
+      if (!igUserId || !token) {
+        console.error('\nFaltan IG_USER_ID o IG_ACCESS_TOKEN en el entorno.');
+        process.exit(1);
+      }
+      console.log('\nPublicando Reel en Instagram...');
+      const { id: publicado } = await publicarReelInstagram(pieza, { igUserId, token });
+      console.log(`Publicado Reel en Instagram: ${publicado}`);
+      console.log(`https://www.instagram.com/reel/ (revisa el perfil para confirmarlo)`);
+    }
     return;
   }
 
