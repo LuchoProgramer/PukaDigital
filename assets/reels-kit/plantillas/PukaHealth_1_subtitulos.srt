@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:01,800
+Son las 7:00 PM...
+
+2
+00:00:01,800 --> 00:00:03,600
+y sigo en el consultorio
+
+3
+00:00:03,600 --> 00:00:05,600
+llenando carpetas a mano.
+
+4
+00:00:05,800 --> 00:00:07,500
+Y si mañana te cae
+
+5
+00:00:07,500 --> 00:00:09,600
+una inspección del ACESS,
+
+6
+00:00:09,600 --> 00:00:12,100
+el papel no te defiende de una sanción.
+
+7
+00:00:12,400 --> 00:00:14,500
+PukaHealth centraliza
+
+8
+00:00:14,500 --> 00:00:16,800
+tus historias clínicas
+
+9
+00:00:16,800 --> 00:00:18,800
+y factura al SRI en un solo clic.
+
+10
+00:00:18,800 --> 00:00:21,800
+Prueba 30 días gratis en pukadigital.com

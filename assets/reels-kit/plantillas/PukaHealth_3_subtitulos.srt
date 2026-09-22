@@ -1,0 +1,52 @@
+1
+00:00:00,000 --> 00:00:01,800
+Son las 7 de la tarde...
+
+2
+00:00:02,320 --> 00:00:04,100
+y tus recetas en papel
+
+3
+00:00:04,100 --> 00:00:05,900
+podrían reprobar una
+
+4
+00:00:05,900 --> 00:00:07,200
+auditoría médica.
+
+5
+00:00:07,200 --> 00:00:09,300
+Si no incluye el CIE-10,
+
+6
+00:00:09,300 --> 00:00:11,500
+la vigencia de 3 días
+
+7
+00:00:11,500 --> 00:00:13,200
+o el registro ACESS,
+
+8
+00:00:13,200 --> 00:00:14,800
+la farmacia no la
+
+9
+00:00:14,800 --> 00:00:16,200
+puede dispensar.
+
+10
+00:00:16,200 --> 00:00:18,500
+PukaHealth emite recetas
+
+11
+00:00:18,500 --> 00:00:20,500
+electrónicas automáticas
+
+12
+00:00:20,500 --> 00:00:22,200
+con código QR legal.
+
+13
+00:00:22,200 --> 00:00:24,300
+Pruébalo gratis en:
+pukadigital.com
