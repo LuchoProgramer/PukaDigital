@@ -4,7 +4,7 @@ Cómo una pieza escrita en `content/piezas/` acaba publicada en Instagram y en
 Facebook. Referenciado desde `AGENTS.md`, que se queda con lo de uso diario.
 
 Para el trabajo manual de la community manager, ver `COMMUNITY_MANAGEMENT.md`.
-Para el estado de hoy y lo que falta, `ESTADO_2026-09-19.md`.
+Para el estado de hoy y lo que falta, `ESTADO_2026-09-21.md`.
 
 ---
 
