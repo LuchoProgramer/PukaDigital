@@ -4,6 +4,149 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Shield, Lock, Eye, Globe, Database, Users, FileText, AlertCircle, Mail } from 'lucide-react';
 
+interface Tratamiento {
+    quien: string;
+    datos: string;
+    finalidad: string;
+    base: string;
+    plazo: string;
+}
+
+interface Proveedor {
+    nombre: string;
+    ubicacion: string;
+    dato: string;
+    proposito: string;
+}
+
+interface Derecho {
+    nombre: string;
+    descripcion: string;
+}
+
+const TRATAMIENTOS: Tratamiento[] = [
+    {
+        quien: 'Visitantes del sitio',
+        datos: 'cookies, IP, dispositivo, navegación (GA4, Google Ads, Clarity, píxeles de Meta y TikTok)',
+        finalidad: 'analítica y publicidad de PukaDigital',
+        base: 'Interés legítimo, con derecho de oposición',
+        plazo: '14 meses',
+    },
+    {
+        quien: 'Prospectos (formularios y WhatsApp de ventas)',
+        datos: 'nombre, teléfono, correo, mensajes',
+        finalidad: 'responder y cotizar',
+        base: 'Consentimiento y medidas precontractuales',
+        plazo: '2 años desde el último contacto',
+    },
+    {
+        quien: 'Clientes que contratan',
+        datos: 'datos del negocio y de contacto',
+        finalidad: 'prestar el servicio contratado',
+        base: 'Ejecución del contrato',
+        plazo: 'Mientras dure el contrato, más los plazos legales',
+    },
+    {
+        quien: 'Facturación',
+        datos: 'RUC o cédula, razón social, montos',
+        finalidad: 'emitir facturas al SRI',
+        base: 'Obligación legal',
+        plazo: '7 años',
+    },
+];
+
+const PROVEEDORES: Proveedor[] = [
+    {
+        nombre: 'Hetzner',
+        ubicacion: 'Alemania (Núremberg)',
+        dato: 'Datos de aplicaciones y bases de datos de PukaHealth, LedgerXpertz y bot',
+        proposito: 'Servidor principal de aplicaciones y almacenamiento de bases de datos',
+    },
+    {
+        nombre: 'Google Cloud (Firestore, Vertex AI, Speech)',
+        ubicacion: 'Brasil (Firestore); Vertex AI y Speech en la infraestructura global de Google',
+        dato: 'Mensajes de WhatsApp, historial de conversaciones, tokens OAuth, datos del negocio',
+        proposito: 'Base de datos conversacional, IA conversacional y procesamiento de voz',
+    },
+    {
+        nombre: 'Meta (WhatsApp Business API)',
+        ubicacion: 'Estados Unidos',
+        dato: 'Número de teléfono, mensajes y datos de recordatorios de citas',
+        proposito: 'Envío y recepción de mensajes y recordatorios de citas por WhatsApp',
+    },
+    {
+        nombre: 'Cloudflare',
+        ubicacion: 'Red global (empresa de Estados Unidos)',
+        dato: 'Tráfico web, dirección IP y respaldos diarios de bases de datos cifrados con AES-256',
+        proposito: 'Distribución del sitio web (Workers) y almacenamiento seguro de respaldos (R2)',
+    },
+    {
+        nombre: 'Google Analytics 4',
+        ubicacion: 'Estados Unidos',
+        dato: 'Datos de navegación, ubicación aproximada y tipo de dispositivo',
+        proposito: 'Análisis estadístico de tráfico y uso del sitio web',
+    },
+    {
+        nombre: 'Google Ads',
+        ubicacion: 'Estados Unidos',
+        dato: 'Cookies de remarketing y datos de interacción',
+        proposito: 'Medición de conversiones y publicidad de PukaDigital',
+    },
+    {
+        nombre: 'Microsoft Clarity',
+        ubicacion: 'Estados Unidos',
+        dato: 'Grabaciones de sesiones, mapas de calor y datos de navegación',
+        proposito: 'Análisis de experiencia de usuario y comportamiento en el sitio',
+    },
+    {
+        nombre: 'Píxel de Meta',
+        ubicacion: 'Estados Unidos',
+        dato: 'Cookies y eventos de navegación',
+        proposito: 'Medición y optimización de campañas publicitarias en Meta',
+    },
+    {
+        nombre: 'Píxel de TikTok',
+        ubicacion: 'Estados Unidos',
+        dato: 'Cookies y eventos de navegación',
+        proposito: 'Medición y optimización de campañas publicitarias en TikTok',
+    },
+];
+
+const DERECHOS: Derecho[] = [
+    {
+        nombre: 'Acceso',
+        descripcion: 'Solicitar y obtener una copia de los datos personales que tratamos sobre ti.',
+    },
+    {
+        nombre: 'Rectificación y actualización',
+        descripcion: 'Corregir o actualizar datos personales inexactos, erróneos o incompletos.',
+    },
+    {
+        nombre: 'Eliminación',
+        descripcion: 'Solicitar la supresión o eliminación de tus datos personales, sujeto a obligaciones legales de retención.',
+    },
+    {
+        nombre: 'Oposición',
+        descripcion: 'Oponerte al tratamiento de tus datos personales para finalidades como publicidad o mercadeo.',
+    },
+    {
+        nombre: 'Limitación',
+        descripcion: 'Solicitar la restricción del tratamiento de tus datos en los casos establecidos por la ley.',
+    },
+    {
+        nombre: 'Suspensión',
+        descripcion: 'Solicitar la cesación temporal del tratamiento mientras se verifica una impugnación o reclamo.',
+    },
+    {
+        nombre: 'Portabilidad',
+        descripcion: 'Recibir tus datos en formato estructurado y legible por máquina, o solicitar su transferencia a otro responsable.',
+    },
+    {
+        nombre: 'No ser objeto de decisiones automatizadas',
+        descripcion: 'Solicitar que decisiones con efectos jurídicos no se basen únicamente en tratamiento automatizado, y pedir intervención humana.',
+    },
+];
+
 const PoliticaPrivacidadPage = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 py-12 md:py-20">
