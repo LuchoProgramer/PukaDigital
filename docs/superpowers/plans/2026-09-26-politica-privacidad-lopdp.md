@@ -30,13 +30,13 @@ verifica y se añade a esta tabla antes de escribirlo.
 |---|---|
 | Servidor de PukaHealth, LedgerXpertz y el bot: Hetzner, **Núremberg, Alemania** | Consola de Hetzner, servidor `puka-api-prod` |
 | Conversaciones del bot: Firestore **`southamerica-east1`, São Paulo, Brasil** | `gcloud firestore databases list --project agentes-ia-6c41e` |
-| Respaldo diario del servidor, se retienen 7 | `SistemaSalud/docs/claude/deployment.md` |
+| Respaldos en dos capas: imagen diaria del servidor en Hetzner (se retienen 7) y volcado diario de las bases de PukaHealth y LedgerXpertz, cifrado con AES-256, en **Cloudflare R2** (se retiene 30 días) | `SistemaSalud/docs/claude/deployment.md:263-275` |
 | Contraseñas con hash PBKDF2-SHA256 (default de Django), sesión por JWT | `SistemaSalud`: `simplejwt`; `PASSWORD_HASHERS` solo en settings de test |
 | Tokens de Google Calendar cifrados con AES-256-GCM | `chatbot-python/app/utils/crypto.py` |
-| El recordatorio envía por la plantilla de Meta: nombre del paciente, fecha, hora y nombre del médico, al teléfono del paciente | `chatbot-python/app/health/router.py:30` (`_template_params`) |
-| Las respuestas del paciente al recordatorio no pasan por el LLM (`reminders_only: True`) | `chatbot-python/app/models/health.py:35` |
+| El recordatorio envía por la plantilla de Meta: nombre del paciente, fecha, hora y nombre del médico, al teléfono del paciente; los botones llevan un identificador técnico de la cita | `chatbot-python/app/health/router.py:30-45` |
+| Si el consultorio activa el reagendamiento (`reagenda_habilitada`, apagado por defecto), el **texto libre del paciente se envía a Gemini** para detectar si quiere mover la cita. Con él apagado, las respuestas no pasan por un LLM | `chatbot-python/app/health/reagenda/intencion.py:44-63`, `app/webhook/router.py:171` |
 | El bot ofrece «Hablar con asesor» | `chatbot-python/app/middleware/consent.py` (`_BUTTONS`) |
-| Píxeles que cargan sin consentimiento: GA4, Google Ads, Meta, TikTok | `app/layout.tsx:134-185` |
+| Scripts de terceros que cargan sin consentimiento: GA4, Google Ads, **Microsoft Clarity** (graba sesiones y mapas de calor), píxel de Meta, píxel de TikTok | `app/layout.tsx:134-185` |
 | El sitio lo sirve Cloudflare Workers desde el 2026-09-08 | `AGENTS.md` § Deploy |
 
 ## Archivos
@@ -58,7 +58,7 @@ verifica y se añade a esta tabla antes de escribirlo.
   Anotar la salida. Lo que ya falle antes no es de este cambio; lo que falle después sí.
 - [ ] **Step 3:** Guardar las secciones que no se reescriben, para compararlas al final:
   ```bash
-  sed -n '96,142p' app/legal/politica-de-privacidad/page.tsx > /tmp/pp-google-meta.antes
+  sed -n '96,142p' app/legal/politica-de-privacidad/page.tsx > "$SCRATCH/pp-google-meta.antes"
   ```
 
 ### Task 2: Arrays de datos a nivel de módulo
@@ -73,18 +73,18 @@ interface Proveedor   { nombre: string; ubicacion: string; dato: string; proposi
 interface Derecho     { nombre: string; descripcion: string }
 
 const TRATAMIENTOS: Tratamiento[]   // 4 filas: visitantes, prospectos, clientes, facturación
-const PROVEEDORES: Proveedor[]      // Hetzner, Google Cloud (Firestore/Vertex/Speech), Meta, Cloudflare, GA4, Google Ads, píxel Meta, píxel TikTok
+const PROVEEDORES: Proveedor[]      // Hetzner, Google Cloud (Firestore/Vertex/Speech), Meta, Cloudflare (sitio y respaldos en R2), GA4, Google Ads, Microsoft Clarity, píxel Meta, píxel TikTok
 const DERECHOS: Derecho[]           // acceso, rectificación y actualización, eliminación, oposición, limitación, suspensión, portabilidad, no ser objeto de decisiones automatizadas
 ```
 
 Filas de `TRATAMIENTOS`, tal como las aprobó el spec:
 
-| quien | base | plazo |
-|---|---|---|
-| Visitantes del sitio | Interés legítimo, con derecho de oposición | 14 meses |
-| Prospectos (formularios y WhatsApp de ventas) | Consentimiento y medidas precontractuales | 2 años desde el último contacto |
-| Clientes que contratan | Ejecución del contrato | Mientras dure el contrato, más los plazos legales |
-| Facturación | Obligación legal | 7 años |
+| quien | datos | finalidad | base | plazo |
+|---|---|---|---|---|
+| Visitantes del sitio | cookies, IP, dispositivo, navegación (GA4, Google Ads, Clarity, píxeles de Meta y TikTok) | analítica y publicidad de PukaDigital | Interés legítimo, con derecho de oposición | 14 meses |
+| Prospectos (formularios y WhatsApp de ventas) | nombre, teléfono, correo, mensajes | responder y cotizar | Consentimiento y medidas precontractuales | 2 años desde el último contacto |
+| Clientes que contratan | datos del negocio y de contacto | prestar el servicio contratado | Ejecución del contrato | Mientras dure el contrato, más los plazos legales |
+| Facturación | RUC o cédula, razón social, montos | emitir facturas al SRI | Obligación legal | 7 años |
 
 `PROVEEDORES` **no** lleva Stripe.
 
@@ -102,8 +102,10 @@ Filas de `TRATAMIENTOS`, tal como las aprobó el spec:
 - **1. Quiénes somos** — el texto actual.
 - **2. Responsable y encargado** — cuándo PukaDigital decide (Parte 1) y cuándo trata
   por cuenta de su cliente (Parte 2).
-- **3.** Tabla renderizada desde `TRATAMIENTOS`. Debajo, un párrafo que dice que los
-  píxeles de GA4, Google Ads, Meta y TikTok **cargan al entrar** y cómo oponerse.
+- **3.** Tabla renderizada desde `TRATAMIENTOS`. Debajo, un párrafo que dice que GA4,
+  Google Ads, Microsoft Clarity y los píxeles de Meta y TikTok **cargan al entrar** y cómo
+  oponerse. Aquí va, **movida literal**, la subsección «Google Analytics 4 y Google Ads»
+  de la actual sección 3 (líneas 120-124): es tratamiento de PukaDigital como responsable.
   Mencionar que el WhatsApp de ventas lo contesta un bot con IA.
 - **4. Lo opcional** — comunicaciones comerciales con consentimiento aparte; negarse
   no limita el servicio; revocable sin afectar lo tratado antes.
@@ -122,19 +124,31 @@ La tabla, a ancho de teléfono, va dentro de un contenedor con `overflow-x-auto`
 - **5. PukaHealth** — el médico es responsable; la historia clínica es dato sensible de
   salud. Recordatorios: lo que sale es exactamente lo de la tabla de hechos (nombre del
   paciente, fecha, hora, nombre del médico, al teléfono del paciente), pasa por el bot y
-  por Meta, y **ningún dato clínico sale**. El paciente ejerce sus derechos ante su
-  médico; PukaDigital lo asiste.
+  por Meta; **la historia clínica no sale**. Si el consultorio activa el reagendamiento,
+  lo que el paciente escribe se analiza con Gemini solo para saber si quiere mover su
+  cita — y se dice que conviene no escribir datos de salud por ese canal. El paciente
+  ejerce sus derechos ante su médico; PukaDigital lo asiste.
 - **6. PukaIA** — la actual «3 bis», movida.
 - **7. LedgerXpertz** — el negocio es responsable de los datos de sus compradores
   (cédula/RUC, nombre, dirección para la factura al SRI).
-- **8. APIs de Google** — la actual «3», movida.
+- **8. APIs de Google** — la actual «3» **sin** la subsección de GA4 y Google Ads, que pasó a la sección 3.
 
 🔴 Las secciones 6 y 8 se **mueven, no se reescriben**: las leen los revisores de Google
-(OAuth) y Meta (Tech Provider). Solo cambia el número del título.
+(OAuth) y Meta (Tech Provider). Cambian **solo** estas cuatro cosas, porque el texto
+anterior queda falso o roto:
+
+1. El número del título.
+2. Línea 139: «conforme a la secci&oacute;n 6» → «conforme a la secci&oacute;n 11»
+   (la conservación pasa a ser la 11).
+3. Línea 117: «No se env&iacute;an datos sensibles (historias cl&iacute;nicas, datos
+   financieros) a Gemini.» → que no se envían historias clínicas ni datos financieros, y
+   que si el consultorio activa el reagendamiento, el mensaje del paciente se analiza con
+   Gemini solo para detectar la intención.
+4. La subsección GA4 / Google Ads (líneas 120-124) sale hacia la sección 3.
 
 - [ ] **Step 1:** Implementar.
-- [ ] **Step 2:** Comparar el cuerpo de 6 y 8 con `/tmp/pp-google-meta.antes`: el texto
-  entre `<h2>` y el cierre de cada `<section>` debe ser idéntico salvo el número.
+- [ ] **Step 2:** Comparar el cuerpo de 6 y 8 con `$SCRATCH/pp-google-meta.antes`: las
+  únicas diferencias permitidas son las cuatro de arriba.
 - [ ] **Step 3:** Commit: `feat(legal): PukaDigital como encargado — PukaHealth, PukaIA y LedgerXpertz`
 
 ### Task 5: Secciones comunes (9-18)
@@ -143,17 +157,18 @@ La tabla, a ancho de teléfono, va dentro de un contenedor con `overflow-x-auto`
 
 - **9.** Tabla desde `PROVEEDORES`.
 - **10. Transferencias** — Alemania (Hetzner), Brasil (Firestore) y Estados Unidos
-  (Google, Meta, Cloudflare); con las garantías contractuales de cada proveedor.
+  (Google, Meta, Cloudflare, Microsoft); con las garantías contractuales de cada proveedor.
 - **11. Conservación** — la lista actual, sin contradecir `TRATAMIENTOS`.
 - **12. Seguridad** — solo lo de la tabla de hechos: PBKDF2-SHA256, JWT, AES-256-GCM,
-  TLS, respaldo diario con 7 retenidos, acceso por tenant.
+  TLS, respaldos en dos capas (imagen del servidor, 7 retenidas; volcado de bases cifrado
+  con AES-256 en Cloudflare R2, 30 días), acceso por tenant.
 - **13. Decisiones automatizadas** — el bot responde solo; no hay decisiones con efectos
   jurídicos o similares; siempre se puede pedir una persona («Hablar con asesor»).
 - **14. Derechos** — desde `DERECHOS`, más: qué pasa si no se entrega un dato
   obligatorio, y el plazo de respuesta actual (15 días hábiles, se mantiene; lo revisa
   el abogado).
 - **15. Reclamo** ante la Superintendencia de Protección de Datos Personales.
-- **16. Cookies** — la lista actual más el píxel de TikTok.
+- **16. Cookies** — la lista actual más el píxel de TikTok y Microsoft Clarity.
 - **17. Cambios** y **18. Contacto** — el pie usa `ULTIMA_ACTUALIZACION`.
 
 - [ ] **Step 1:** Implementar.
@@ -166,6 +181,8 @@ La tabla, a ancho de teléfono, va dentro de un contenedor con `overflow-x-auto`
   grep -c '<h1' $F                             # 1
   grep -c 'Superintendencia' $F                # ≥1
   grep -c 'TikTok' $F                          # ≥1
+  grep -c 'Clarity' $F                         # ≥1
+  grep -c 'secci&oacute;n 6' $F                # 0
   ```
 - [ ] **Step 3:** `npx tsc --noEmit` y `npx eslint app/legal/politica-de-privacidad/page.tsx` — sin problemas nuevos.
 - [ ] **Step 4:** Commit: `feat(legal): proveedores, transferencias, derechos y reclamo`

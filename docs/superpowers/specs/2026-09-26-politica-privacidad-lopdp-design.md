@@ -19,7 +19,9 @@ con revisión humana, reclamo ante la autoridad.
 | «Datos almacenados en Google Cloud Firestore» / «se procesan en Google Cloud en Estados Unidos» | PukaHealth, LedgerXpertz y el bot corren en un VPS de Hetzner en **Núremberg, Alemania**. Las conversaciones del bot están en Firestore **`southamerica-east1` (São Paulo)** | Consola de Hetzner (`puka-api-prod`, CX33, `178.104.71.228`); `gcloud firestore databases list` |
 | Stripe «(próximamente)» como subprocesador | No es proveedor hoy | — |
 | — | Falta Cloudflare, que sirve el sitio desde el 2026-09-08 | `AGENTS.md` § Deploy |
-| — | Falta el píxel de TikTok, que carga en todas las páginas | `app/layout.tsx:161` |
+| — | Faltan el píxel de TikTok y Microsoft Clarity, que cargan en todas las páginas | `app/layout.tsx:150,161` |
+| «No se envían datos sensibles… a Gemini» | Con el reagendamiento activo, el texto libre del paciente va a Gemini para detectar la intención | `chatbot-python/app/health/reagenda/intencion.py` |
+| — | Los volcados de las bases van cifrados a Cloudflare R2, 30 días | `SistemaSalud/docs/claude/deployment.md:266` |
 | Dos fechas: «08 de abril de 2026» arriba, «30 de agosto de 2026» al pie | Una sola | — |
 | No dice quién es responsable de las historias clínicas | El médico es el responsable; PukaDigital, encargado | — |
 | No declara los recordatorios de citas por WhatsApp | Se activan el 2026-09-26: teléfono y datos de la cita pasan de PukaHealth al bot y a Meta | `chatbot-python`: `feat(health): recordatorio 2 días antes`, 2026-09-24 |
@@ -64,13 +66,13 @@ Sí es cierto y se mantiene: tokens de Google Calendar cifrados con AES-256-GCM
 
 **Común**
 - **9. Proveedores y ubicación:** Hetzner (Alemania), Google Cloud — Firestore (Brasil),
-  Vertex AI/Gemini y Speech —, Meta (WhatsApp), Cloudflare, GA4, Google Ads, píxel de
-  Meta, píxel de TikTok. Sale Stripe.
+  Vertex AI/Gemini y Speech —, Meta (WhatsApp), Cloudflare (sitio y respaldos en R2), GA4, Google Ads, Microsoft
+  Clarity, píxel de Meta, píxel de TikTok. Sale Stripe.
 - **10. Transferencias internacionales:** Alemania, Brasil y Estados Unidos, y con qué
   garantías.
 - **11. Conservación:** la lista actual, revisada contra la tabla de la sección 3.
 - **12. Seguridad:** contraseñas con hash (PBKDF2-SHA256), JWT, tokens de Google con
-  AES-256-GCM, TLS, respaldo diario del servidor con 7 días de retención, acceso por
+  AES-256-GCM, TLS, respaldos en dos capas (servidor, 7; bases cifradas en R2, 30 días), acceso por
   tenant.
 - **13. Decisiones automatizadas:** el bot responde de forma automática, no toma
   decisiones con efectos jurídicos o similares, y siempre se puede pedir una persona.
