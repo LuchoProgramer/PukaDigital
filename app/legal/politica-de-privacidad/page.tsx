@@ -15,6 +15,8 @@ import {
     Mail,
     Stethoscope,
     Receipt,
+    Bot,
+    Scale,
 } from 'lucide-react';
 
 interface Tratamiento {
@@ -409,59 +411,77 @@ const PoliticaPrivacidadPage = () => {
                             </ul>
                         </section>
 
-                        {/* 5. Terceros y subprocesadores */}
+                        {/* Común a las dos partes */}
+                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <span className="text-xs font-bold tracking-widest text-puka-red uppercase">
+                                Com&uacute;n a las dos partes
+                            </span>
+                        </div>
+
+                        {/* 9. Proveedores y subprocesadores */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Users size={20} className="text-puka-red" /> 5. Terceros y subprocesadores
+                                <Users size={20} className="text-puka-red" /> 9. Proveedores y subprocesadores
                             </h2>
-                            <p className="mt-4">Compartimos datos con los siguientes proveedores de infraestructura, exclusivamente para prestar el servicio:</p>
+                            <p className="mt-4">
+                                Compartimos o transmitimos datos con los siguientes proveedores de infraestructura, tecnolog&iacute;a y anal&iacute;tica, exclusivamente para la prestaci&oacute;n y operaci&oacute;n de nuestros servicios:
+                            </p>
                             <div className="mt-4 overflow-x-auto">
                                 <table className="w-full text-sm border-collapse">
                                     <thead>
                                         <tr className="bg-gray-100 dark:bg-gray-700">
                                             <th className="text-left p-3 font-bold text-puka-black dark:text-white">Proveedor</th>
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Ubicaci&oacute;n</th>
                                             <th className="text-left p-3 font-bold text-puka-black dark:text-white">Dato compartido</th>
                                             <th className="text-left p-3 font-bold text-puka-black dark:text-white">Prop&oacute;sito</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-                                        <tr>
-                                            <td className="p-3 font-semibold">Google Cloud (Firestore, Vertex AI, Speech)</td>
-                                            <td className="p-3">Mensajes, tokens OAuth, datos del negocio</td>
-                                            <td className="p-3">Infraestructura, IA conversacional</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-3 font-semibold">Meta (WhatsApp Business API)</td>
-                                            <td className="p-3">N&uacute;mero de tel&eacute;fono, mensajes</td>
-                                            <td className="p-3">Env&iacute;o y recepci&oacute;n de mensajes</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-3 font-semibold">Google Analytics 4</td>
-                                            <td className="p-3">Datos de navegaci&oacute;n anonimizados</td>
-                                            <td className="p-3">An&aacute;lisis de tr&aacute;fico</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-3 font-semibold">Google Ads</td>
-                                            <td className="p-3">Cookies de remarketing</td>
-                                            <td className="p-3">Publicidad de PukaDigital</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-3 font-semibold">Stripe (pr&oacute;ximamente)</td>
-                                            <td className="p-3">Datos de pago (procesados directamente por Stripe)</td>
-                                            <td className="p-3">Cobros de suscripciones</td>
-                                        </tr>
+                                        {PROVEEDORES.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="p-3 font-semibold text-puka-black dark:text-white">{item.nombre}</td>
+                                                <td className="p-3">{item.ubicacion}</td>
+                                                <td className="p-3">{item.dato}</td>
+                                                <td className="p-3">{item.proposito}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
                             <p className="mt-4 text-sm">
-                                Ninguno de estos proveedores est&aacute; autorizado a usar los datos para fines propios distintos a los descritos.
+                                Ninguno de estos proveedores est&aacute; autorizado a usar los datos personales para fines propios distintos a los estrictamente contratados y descritos.
                             </p>
                         </section>
 
-                        {/* 6. Retención de datos */}
+                        {/* 10. Jurisdicción y transferencias internacionales */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Lock size={20} className="text-puka-red" /> 6. Retenci&oacute;n y eliminaci&oacute;n de datos
+                                <Globe size={20} className="text-puka-red" /> 10. Jurisdicci&oacute;n y transferencias internacionales
+                            </h2>
+                            <p className="mt-4">
+                                Puka Digital LLC cumple con la normativa de protecci&oacute;n al consumidor y privacidad aplicable en los Estados Unidos (incluyendo los est&aacute;ndares de privacidad de California CCPA/CPRA cuando aplique), as&iacute; como con la <strong>Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP)</strong> del Ecuador para usuarios y operaciones locales.
+                            </p>
+                            <p className="mt-4">
+                                Para la prestaci&oacute;n de nuestros servicios y la operaci&oacute;n de nuestras plataformas, realizamos transferencias internacionales de datos hacia las siguientes ubicaciones, de acuerdo con los proveedores detallados en la secci&oacute;n 9:
+                            </p>
+                            <ul className="list-disc pl-5 mt-2 space-y-1">
+                                <li><strong>Alemania:</strong> servidores principales de aplicaciones y bases de datos en Hetzner Online GmbH (N&uacute;remberg).</li>
+                                <li><strong>Brasil:</strong> base de datos conversacional Firestore de Google Cloud en la regi&oacute;n southamerica-east1 (S&atilde;o Paulo).</li>
+                                <li><strong>Estados Unidos:</strong> servicios de Meta Platforms, Inc. (WhatsApp Business API y p&iacute;xel), Google LLC (Google Analytics 4 y Google Ads) y Microsoft Corporation (Microsoft Clarity).</li>
+                                <li><strong>Red global:</strong> distribuci&oacute;n web y almacenamiento seguro de respaldos en Cloudflare (empresa estadounidense con red global y almacenamiento en R2), as&iacute; como servicios de Vertex AI y Speech en la infraestructura global de Google Cloud.</li>
+                            </ul>
+                            <p className="mt-4">
+                                Estas transferencias se amparan en las condiciones contractuales de protecci&oacute;n de datos que ofrece cada proveedor.
+                            </p>
+                            <p className="mt-4">
+                                Para clientes o usuarios en la Uni&oacute;n Europea o Reino Unido, el tratamiento se realiza conforme a los principios del <strong>RGPD (GDPR)</strong>: minimizaci&oacute;n de datos, limitaci&oacute;n de finalidad, exactitud y derecho a supresi&oacute;n. Las transferencias a proveedores internacionales se amparan en las <strong>Cl&aacute;usulas Contractuales Est&aacute;ndar</strong> de la Comisi&oacute;n Europea y marcos de privacidad de datos reconocidos.
+                            </p>
+                        </section>
+
+                        {/* 11. Conservación y eliminación de datos */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Lock size={20} className="text-puka-red" /> 11. Conservaci&oacute;n y eliminaci&oacute;n de datos
                             </h2>
                             <ul className="list-disc pl-5 mt-4 space-y-2">
                                 <li><strong>Tokens OAuth de Google Calendar:</strong> se eliminan inmediatamente al revocar el acceso o cancelar el servicio.</li>
@@ -473,87 +493,111 @@ const PoliticaPrivacidadPage = () => {
                             </ul>
                         </section>
 
-                        {/* 7. Seguridad */}
+                        {/* 12. Seguridad de los datos */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Shield size={20} className="text-puka-red" /> 7. Seguridad
+                                <Shield size={20} className="text-puka-red" /> 12. Seguridad de los datos
                             </h2>
+                            <p className="mt-4">
+                                Aplicamos medidas t&eacute;cnicas y organizativas apropiadas para proteger la confidencialidad, integridad y disponibilidad de los datos personales:
+                            </p>
                             <ul className="list-disc pl-5 mt-4 space-y-2">
-                                <li>Tokens OAuth cifrados con <strong>AES-256</strong> antes de almacenarse</li>
-                                <li>Comunicaciones protegidas con <strong>TLS 1.2+</strong></li>
-                                <li>Datos almacenados en <strong>Google Cloud Firestore</strong> con reglas de acceso por tenant</li>
-                                <li>Acceso interno restringido al personal autorizado de PukaDigital</li>
-                                <li>Sin almacenamiento de contraseñas — autenticaci&oacute;n delegada a Google OAuth</li>
+                                <li><strong>Cifrado y protecci&oacute;n de credenciales:</strong> las contrase&ntilde;as de usuario en PukaHealth y LedgerXpertz se almacenan mediante hash criptogr&aacute;fico PBKDF2-SHA256, y la autenticaci&oacute;n de sesiones se gestiona mediante tokens JWT.</li>
+                                <li><strong>Cifrado de tokens de integraci&oacute;n:</strong> los tokens de acceso de Google Calendar se cifran con <strong>AES-256-GCM</strong> antes de ser almacenados.</li>
+                                <li><strong>Cifrado en tr&aacute;nsito:</strong> todas las comunicaciones y transferencias web se protegen mediante protocolos seguros <strong>TLS 1.2+</strong> (HTTPS).</li>
+                                <li><strong>Respaldos en dos capas:</strong> se genera una imagen diaria del servidor en Hetzner (con una retenci&oacute;n de 7 d&iacute;as) y un volcado diario de las bases de datos de PukaHealth y LedgerXpertz cifrado con <strong>AES-256</strong> en Cloudflare R2 (con una retenci&oacute;n de 30 d&iacute;as).</li>
+                                <li><strong>Aislamiento por tenant:</strong> pol&iacute;ticas de aislamiento l&oacute;gico y reglas de acceso para que cada negocio o consultorio acceda &uacute;nicamente a sus propios datos.</li>
+                                <li><strong>Control de acceso interno:</strong> acceso administrativo restringido exclusivamente al personal t&eacute;cnico autorizado de PukaDigital.</li>
                             </ul>
                         </section>
 
-                        {/* 8. Jurisdicción y transferencias */}
+                        {/* 13. Decisiones automatizadas */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Globe size={20} className="text-puka-red" /> 8. Jurisdicci&oacute;n y transferencias internacionales
+                                <Bot size={20} className="text-puka-red" /> 13. Decisiones automatizadas
                             </h2>
                             <p className="mt-4">
-                                Puka Digital LLC cumple con la normativa de protecci&oacute;n al consumidor y privacidad aplicable en los Estados Unidos (incluyendo los est&aacute;ndares de privacidad de California CCPA/CPRA cuando aplique), as&iacute; como con la <strong>Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP)</strong> del Ecuador para usuarios y operaciones locales. Los datos se procesan en infraestructura segura de Google Cloud en Estados Unidos.
+                                Nuestros agentes conversacionales y bots con inteligencia artificial responden consultas de forma autom&aacute;tica a trav&eacute;s de canales como WhatsApp. En relaci&oacute;n con este tratamiento:
                             </p>
-                            <p className="mt-4">
-                                Para clientes o usuarios en la Uni&oacute;n Europea o Reino Unido, el tratamiento se realiza conforme a los principios del <strong>RGPD (GDPR)</strong>: minimizaci&oacute;n de datos, limitaci&oacute;n de finalidad, exactitud y derecho a supresi&oacute;n. Las transferencias a Google LLC y Meta se amparan en las <strong>Cl&aacute;usulas Contractuales Est&aacute;ndar</strong> de la Comisi&oacute;n Europea y marcos de privacidad de datos reconocidos.
-                            </p>
+                            <ul className="list-disc pl-5 mt-4 space-y-2">
+                                <li><strong>Sin efectos jur&iacute;dicos:</strong> no adoptamos decisiones que produzcan efectos jur&iacute;dicos sobre ti ni que te afecten de manera significativamente similar basadas &uacute;nicamente en el tratamiento automatizado de tus datos personales.</li>
+                                <li><strong>Intervenci&oacute;n humana:</strong> en los canales de PukaDigital puedes solicitar hablar con una persona del equipo; en los bots de nuestros clientes, esa opci&oacute;n la define cada negocio. En el canal de WhatsApp de ventas de PukaDigital, en cuanto una persona de nuestro equipo responde en la conversaci&oacute;n, el bot deja de intervenir en ella.</li>
+                            </ul>
                         </section>
 
-                        {/* 9. Derechos del usuario */}
+                        {/* 14. Tus derechos */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <AlertCircle size={20} className="text-puka-red" /> 9. Tus derechos
+                                <AlertCircle size={20} className="text-puka-red" /> 14. Tus derechos
                             </h2>
-                            <p className="mt-4">Conforme a la LOPDP y al RGPD, tienes derecho a:</p>
-                            <ul className="list-disc pl-5 mt-2 space-y-2">
-                                <li><strong>Acceso:</strong> solicitar una copia de los datos personales que tenemos sobre ti.</li>
-                                <li><strong>Rectificaci&oacute;n:</strong> corregir datos inexactos o incompletos.</li>
-                                <li><strong>Supresi&oacute;n:</strong> solicitar la eliminaci&oacute;n de tus datos (sujeto a obligaciones legales de retenci&oacute;n).</li>
-                                <li><strong>Oposici&oacute;n:</strong> oponerte al tratamiento para fines de marketing.</li>
-                                <li><strong>Portabilidad:</strong> recibir tus datos en formato estructurado y legible por m&aacute;quina.</li>
-                                <li><strong>Revocaci&oacute;n de Google Calendar:</strong> directamente en <strong>myaccount.google.com/permissions</strong>, sin necesidad de contactarnos.</li>
+                            <p className="mt-4">
+                                Conforme a la Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP), al RGPD y a las normativas de privacidad aplicables, te asisten los siguientes derechos:
+                            </p>
+                            <ul className="list-disc pl-5 mt-4 space-y-2">
+                                {DERECHOS.map((item, index) => (
+                                    <li key={index}>
+                                        <strong>{item.nombre}:</strong> {item.descripcion}
+                                    </li>
+                                ))}
                             </ul>
                             <p className="mt-4">
-                                Para ejercer cualquiera de estos derechos, escribe a <strong>legal@pukadigital.com</strong>. Respondemos en un m&aacute;ximo de <strong>15 d&iacute;as h&aacute;biles</strong>.
+                                <strong>Consecuencias de no proporcionar datos obligatorios:</strong> La entrega de determinados datos personales es indispensable para la contrataci&oacute;n y prestaci&oacute;n de nuestros servicios. Si no entregas un dato obligatorio para un servicio (por ejemplo, los datos de facturaci&oacute;n como RUC o c&eacute;dula y raz&oacute;n social exigidos por la normativa tributaria), no podremos prestarte el servicio correspondiente.
+                            </p>
+                            <p className="mt-4">
+                                Para ejercer cualquiera de tus derechos, escribe a <strong>legal@pukadigital.com</strong> indicando tu solicitud y datos de identificaci&oacute;n. Respondemos a todas las solicitudes en un plazo m&aacute;ximo de <strong>15 d&iacute;as h&aacute;biles</strong>.
+                            </p>
+                            <p className="mt-2 text-sm">
+                                En el caso del acceso a Google Calendar, puedes revocar la autorizaci&oacute;n en cualquier momento directamente desde <strong>myaccount.google.com/permissions</strong>, sin necesidad de tr&aacute;mite previo.
                             </p>
                         </section>
 
-                        {/* 10. Cookies */}
+                        {/* 15. Reclamo ante la autoridad */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Eye size={20} className="text-puka-red" /> 10. Cookies
+                                <Scale size={20} className="text-puka-red" /> 15. Reclamo ante la autoridad de control
+                            </h2>
+                            <p className="mt-4">
+                                Si consideras que el tratamiento de tus datos personales vulnera la normativa aplicable o si no has obtenido una respuesta satisfactoria al ejercicio de tus derechos, tienes derecho a presentar un reclamo ante la <strong>Superintendencia de Protecci&oacute;n de Datos Personales del Ecuador</strong>, o ante la autoridad de control en materia de protecci&oacute;n de datos de tu pa&iacute;s o lugar de residencia habitual.
+                            </p>
+                        </section>
+
+                        {/* 16. Cookies y tecnologías de rastreo */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Eye size={20} className="text-puka-red" /> 16. Cookies y tecnolog&iacute;as de rastreo
                             </h2>
                             <ul className="list-disc pl-5 mt-4 space-y-2">
                                 <li><strong>Cookies esenciales:</strong> necesarias para el funcionamiento del sitio. No requieren consentimiento.</li>
-                                <li><strong>Google Analytics 4:</strong> anal&iacute;tica de tr&aacute;fico anonimizada. Puedes desactivarlas con el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">opt-out de GA</a>.</li>
+                                <li><strong>Google Analytics 4:</strong> anal&iacute;tica de tr&aacute;fico del sitio. Puedes desactivarlas con el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">opt-out de GA</a>.</li>
                                 <li><strong>Google Ads / Remarketing:</strong> para mostrar anuncios de PukaDigital en otros sitios. Puedes gestionarlas en <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">adssettings.google.com</a>.</li>
                                 <li><strong>Facebook Pixel:</strong> para campa&ntilde;as en Meta. Puedes desactivarlo en la configuraci&oacute;n de tu cuenta de Facebook.</li>
+                                <li><strong>P&iacute;xel de TikTok:</strong> para medici&oacute;n y optimizaci&oacute;n de publicidad en TikTok. Puedes bloquear su seguimiento desde la configuraci&oacute;n de tu navegador.</li>
+                                <li><strong>Microsoft Clarity:</strong> para grabaciones de sesiones y mapas de calor destinados a analizar la experiencia de usuario en el sitio. Puedes bloquear su seguimiento desde la configuraci&oacute;n de tu navegador.</li>
                             </ul>
                         </section>
 
-                        {/* 11. Cambios */}
+                        {/* 17. Cambios a esta política */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <FileText size={20} className="text-puka-red" /> 11. Cambios a esta pol&iacute;tica
+                                <FileText size={20} className="text-puka-red" /> 17. Cambios a esta pol&iacute;tica
                             </h2>
                             <p className="mt-4">
                                 Podemos actualizar esta pol&iacute;tica cuando a&ntilde;adamos nuevos productos o integraciones. La fecha de &uacute;ltima actualizaci&oacute;n aparece en el encabezado. Para cambios sustanciales, notificaremos por correo electr&oacute;nico a los clientes activos con al menos <strong>30 d&iacute;as de anticipaci&oacute;n</strong>.
                             </p>
                         </section>
 
-                        {/* 12. Contacto */}
+                        {/* 18. Contacto */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Mail size={20} className="text-puka-red" /> 12. Contacto
+                                <Mail size={20} className="text-puka-red" /> 18. Contacto
                             </h2>
                             <p className="mt-4">Para consultas sobre privacidad, ejercicio de derechos o reporte de incidentes:</p>
                             <p className="mt-2">
-                                <strong>Razón Social:</strong> Puka Digital LLC (EIN: 320856610)<br />
+                                <strong>Raz&oacute;n Social:</strong> Puka Digital LLC (EIN: 320856610)<br />
                                 <strong>Direcci&oacute;n principal:</strong> 5830 East 2nd Street, Ste 7000, Casper, Wyoming 82609, USA<br />
                                 <strong>Oficina Regional LATAM:</strong> Quito, Pichincha, Ecuador<br />
                                 <strong>Email:</strong> legal@pukadigital.com<br />
-                                <strong>WhatsApp / Teléfono:</strong> +593 96 406 5880
+                                <strong>WhatsApp / Tel&eacute;fono:</strong> +593 96 406 5880
                             </p>
                         </section>
 
