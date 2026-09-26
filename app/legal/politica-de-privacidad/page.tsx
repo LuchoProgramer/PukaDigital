@@ -147,6 +147,8 @@ const DERECHOS: Derecho[] = [
     },
 ];
 
+const ULTIMA_ACTUALIZACION = '26 de septiembre de 2026';
+
 const PoliticaPrivacidadPage = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 py-12 md:py-20">
@@ -167,7 +169,7 @@ const PoliticaPrivacidadPage = () => {
                             <h1 className="font-display text-3xl md:text-4xl font-black text-puka-black dark:text-white uppercase tracking-tighter">
                                 Pol&iacute;tica de Privacidad
                             </h1>
-                            <p className="text-sm text-gray-500 mt-1">&Uacute;ltima actualizaci&oacute;n: 08 de abril de 2026</p>
+                            <p className="text-sm text-gray-500 mt-1">&Uacute;ltima actualizaci&oacute;n: {ULTIMA_ACTUALIZACION}</p>
                         </div>
                     </div>
 
@@ -201,38 +203,96 @@ const PoliticaPrivacidadPage = () => {
                             </p>
                         </section>
 
-                        {/* 2. Datos que recopilamos */}
+                        {/* 2. Responsable y encargado */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Database size={20} className="text-puka-red" /> 2. Datos que recopilamos
+                                <Users size={20} className="text-puka-red" /> 2. Responsable y encargado del tratamiento
                             </h2>
-                            <p className="mt-4">Recopilamos informaci&oacute;n seg&uacute;n el servicio utilizado:</p>
+                            <p className="mt-4">
+                                Conforme a la Ley Org&aacute;nica de Protecci&oacute;n de Datos Personales (LOPDP), el rol de PukaDigital respecto a tus datos personales depende de la relaci&oacute;n y del servicio utilizado:
+                            </p>
+                            <ul className="list-disc pl-5 mt-2 space-y-2">
+                                <li>
+                                    <strong>PukaDigital como Responsable del tratamiento (Parte 1):</strong> PukaDigital decide sobre los fines y medios del tratamiento cuando navegas en nuestro sitio web, cuando nos contactas o solicitas cotizaciones como prospecto (por formularios o v&iacute;a WhatsApp), cuando contratas directamente nuestros servicios como cliente, y para la emisi&oacute;n de nuestras facturas legales ante el SRI.
+                                </li>
+                                <li>
+                                    <strong>PukaDigital como Encargado del tratamiento (Parte 2):</strong> Cuando utilizas nuestros servicios SaaS como cliente (PukaHealth, PukaIA, LedgerXpertz), t&uacute; o tu negocio act&uacute;an como <strong>responsable del tratamiento</strong> de los datos personales de tus propios pacientes o clientes. En estos casos, PukaDigital act&uacute;a &uacute;nicamente como <strong>encargado del tratamiento</strong> (procesador), tratando dichos datos &uacute;nicamente por tu cuenta, bajo tus instrucciones y para prestar el servicio contratado.
+                                </li>
+                            </ul>
+                        </section>
 
-                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Todos los servicios</p>
+                        {/* Parte 1: PukaDigital como responsable */}
+                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <span className="text-xs font-bold tracking-widest text-puka-red uppercase">
+                                Parte 1 &mdash; PukaDigital como responsable
+                            </span>
+                        </div>
+
+                        {/* 3. Qué tratamos, para qué, con qué base legal y por cuánto tiempo */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Database size={20} className="text-puka-red" /> 3. Qu&eacute; tratamos, para qu&eacute;, con qu&eacute; base legal y por cu&aacute;nto tiempo
+                            </h2>
+                            <p className="mt-4">
+                                En los tratamientos en los que PukaDigital es responsable, tratamos los siguientes datos personales conforme a las bases legales y plazos establecidos en la LOPDP:
+                            </p>
+                            <div className="mt-4 overflow-x-auto">
+                                <table className="w-full text-sm border-collapse">
+                                    <thead>
+                                        <tr className="bg-gray-100 dark:bg-gray-700">
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Titular</th>
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Datos</th>
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Finalidad</th>
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Base legal</th>
+                                            <th className="text-left p-3 font-bold text-puka-black dark:text-white">Plazo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
+                                        {TRATAMIENTOS.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="p-3 font-semibold text-puka-black dark:text-white">{item.quien}</td>
+                                                <td className="p-3">{item.datos}</td>
+                                                <td className="p-3">{item.finalidad}</td>
+                                                <td className="p-3">{item.base}</td>
+                                                <td className="p-3">{item.plazo}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p className="mt-4">
+                                Los servicios de anal&iacute;tica y publicidad de terceros &mdash;Google Analytics 4, Google Ads, Microsoft Clarity (que graba sesiones y mapas de calor para evaluar la experiencia de navegaci&oacute;n), el p&iacute;xel de Meta y el p&iacute;xel de TikTok&mdash; <strong>cargan autom&aacute;ticamente al entrar al sitio web</strong> sin mediar consentimiento previo, operando bajo la base de inter&eacute;s leg&iacute;timo de PukaDigital para anal&iacute;tica y publicidad. Puedes oponerte a este tratamiento y desactivar su seguimiento bloqueando cookies de terceros en la configuraci&oacute;n de tu navegador, mediante extensiones de privacidad o con las herramientas de inhabilitaci&oacute;n que se detallan a continuaci&oacute;n y en la secci&oacute;n de cookies.
+                            </p>
+
+                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Google Analytics 4 y Google Ads</p>
                             <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>Nombre, correo electr&oacute;nico y tel&eacute;fono (formularios de contacto y registro)</li>
-                                <li>Datos de navegaci&oacute;n (cookies, direcci&oacute;n IP, tipo de dispositivo) mediante Google Analytics 4</li>
+                                <li>Usamos GA4 para analizar el tr&aacute;fico del sitio y Google Ads para mostrar publicidad relevante a visitantes previos.</li>
+                                <li>Puedes desactivar el seguimiento instalando el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">complemento de inhabilitaci&oacute;n de Google Analytics</a>.</li>
                             </ul>
 
-                            <p className="mt-4 font-semibold text-puka-black dark:text-white">PukaIA (agente WhatsApp)</p>
-                            <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>N&uacute;mero de tel&eacute;fono y mensajes de WhatsApp del cliente final (procesados para generar respuestas autom&aacute;ticas)</li>
-                                <li>Historial de conversaciones almacenado en Firestore (Google Cloud) asociado al identificador del negocio (tenant)</li>
-                                <li>Token OAuth 2.0 de Google Calendar, cifrado con AES-256, cuando el negocio autoriza la integraci&oacute;n de agendamiento</li>
-                            </ul>
+                            <p className="mt-4">
+                                En el caso de los prospectos comerciales, nuestro canal de WhatsApp de ventas es atendido inicialmente por un bot con inteligencia artificial que responde consultas. Puedes pedir en cualquier momento que te atienda una persona: cuando alguien de nuestro equipo responde en tu conversaci&oacute;n, el bot deja de intervenir en ella.
+                            </p>
+                        </section>
 
-                            <p className="mt-4 font-semibold text-puka-black dark:text-white">LedgerXpertz y PukaHealth</p>
+                        {/* 4. Lo opcional */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Eye size={20} className="text-puka-red" /> 4. Comunicaciones comerciales y tratamientos opcionales
+                            </h2>
+                            <p className="mt-4">
+                                Cualquier env&iacute;o de comunicaciones comerciales, promociones o novedades de PukaDigital se realiza &uacute;nicamente si has otorgado tu consentimiento espec&iacute;fico de forma separada a la contrataci&oacute;n del servicio.
+                            </p>
                             <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>Datos del negocio: RUC, raz&oacute;n social, direcci&oacute;n</li>
-                                <li>Datos de clientes del negocio: c&eacute;dula/RUC, nombre, direcci&oacute;n (requeridos para facturaci&oacute;n SRI)</li>
-                                <li>PukaHealth: historia cl&iacute;nica del paciente ingresada por el m&eacute;dico tratante</li>
-                                <li>Transacciones y movimientos de inventario</li>
-                            </ul>
-
-                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Agencia y PukaSalud</p>
-                            <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>Datos de contacto del prospecto (formulario web o WhatsApp)</li>
-                                <li>Informaci&oacute;n del negocio del cliente para configuraci&oacute;n de campa&ntilde;as</li>
+                                <li>
+                                    <strong>No condicionamiento:</strong> Negarte a recibir comunicaciones comerciales o no otorgar este consentimiento opcional no condiciona ni limita en modo alguno la contrataci&oacute;n, prestaci&oacute;n o continuidad de los servicios de PukaDigital.
+                                </li>
+                                <li>
+                                    <strong>Revocaci&oacute;n libre e inmediata:</strong> Puedes revocar tu consentimiento para comunicaciones comerciales en cualquier momento, escribiendo a <strong>legal@pukadigital.com</strong> o respondiendo al mismo mensaje.
+                                </li>
+                                <li>
+                                    <strong>Efectos hacia el futuro:</strong> La revocaci&oacute;n no tiene efectos retroactivos ni afecta la licitud del tratamiento realizado con anterioridad a la misma.
+                                </li>
                             </ul>
                         </section>
 
@@ -259,12 +319,6 @@ const PoliticaPrivacidadPage = () => {
                                 <li>Los mensajes de WhatsApp se env&iacute;an a Gemini para generar respuestas. Google procesa estos datos conforme a su <a href="https://cloud.google.com/terms/data-processing-addendum" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">DPA de Google Cloud</a>.</li>
                                 <li>No se env&iacute;an datos sensibles (historias cl&iacute;nicas, datos financieros) a Gemini.</li>
                             </ul>
-
-                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Google Analytics 4 y Google Ads</p>
-                            <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>Usamos GA4 para analizar el tr&aacute;fico del sitio y Google Ads para mostrar publicidad relevante a visitantes previos.</li>
-                                <li>Puedes desactivar el seguimiento instalando el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">complemento de inhabilitaci&oacute;n de Google Analytics</a>.</li>
-                            </ul>
                         </section>
 
                         {/* 3 bis. Uso de la Plataforma de WhatsApp Business (Meta) */}
@@ -281,24 +335,6 @@ const PoliticaPrivacidadPage = () => {
                                 <li><strong>No</strong> usamos los datos de la Plataforma de Meta para publicidad, no los vendemos ni cedemos a terceros, y <strong>no</strong> los utilizamos para entrenar modelos de IA propios.</li>
                                 <li>El negocio puede desconectar su cuenta de WhatsApp en cualquier momento desde su Administrador de WhatsApp de Meta o escribiendo a <strong>legal@pukadigital.com</strong>; al hacerlo cesamos el procesamiento y eliminamos los datos asociados conforme a la secci&oacute;n 6.</li>
                             </ul>
-                        </section>
-
-                        {/* 4. Cómo usamos los datos */}
-                        <section>
-                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Eye size={20} className="text-puka-red" /> 4. C&oacute;mo usamos tus datos
-                            </h2>
-                            <ul className="list-disc pl-5 mt-4 space-y-2">
-                                <li>Prestar y mejorar los servicios contratados</li>
-                                <li>Generar y enviar facturas electr&oacute;nicas al SRI (Ecuador)</li>
-                                <li>Responder consultas y dar soporte t&eacute;cnico</li>
-                                <li>Enviar comunicaciones operativas del servicio (no publicidad sin consentimiento)</li>
-                                <li>Analizar el uso del sitio para mejorar la experiencia (GA4)</li>
-                                <li>Cumplir obligaciones legales y fiscales en Ecuador</li>
-                            </ul>
-                            <p className="mt-4">
-                                <strong>No usamos datos personales para:</strong> venta a terceros, publicidad de terceros, perfilado autom&aacute;tico con efectos legales, ni entrenamiento de modelos de IA propios.
-                            </p>
                         </section>
 
                         {/* 5. Terceros y subprocesadores */}
@@ -451,7 +487,7 @@ const PoliticaPrivacidadPage = () => {
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                &Uacute;ltima actualizaci&oacute;n: 30 de agosto de 2026. Esta pol&iacute;tica aplica a todos los servicios operados por Puka Digital LLC en <strong>pukadigital.com</strong> y sus subdominios.
+                                &Uacute;ltima actualizaci&oacute;n: {ULTIMA_ACTUALIZACION}. Esta pol&iacute;tica aplica a todos los servicios operados por Puka Digital LLC en <strong>pukadigital.com</strong> y sus subdominios.
                             </p>
                         </div>
                     </div>
