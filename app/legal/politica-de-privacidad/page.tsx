@@ -2,7 +2,20 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Shield, Lock, Eye, Globe, Database, Users, FileText, AlertCircle, Mail } from 'lucide-react';
+import {
+    ArrowLeft,
+    Shield,
+    Lock,
+    Eye,
+    Globe,
+    Database,
+    Users,
+    FileText,
+    AlertCircle,
+    Mail,
+    Stethoscope,
+    Receipt,
+} from 'lucide-react';
 
 interface Tratamiento {
     quien: string;
@@ -296,10 +309,85 @@ const PoliticaPrivacidadPage = () => {
                             </ul>
                         </section>
 
-                        {/* 3. Uso de Google APIs */}
+                        {/* Parte 2: PukaDigital como encargado */}
+                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <span className="text-xs font-bold tracking-widest text-puka-red uppercase">
+                                Parte 2 &mdash; PukaDigital como encargado
+                            </span>
+                        </div>
+
+                        {/* 5. PukaHealth */}
                         <section>
                             <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Shield size={20} className="text-puka-red" /> 3. Uso de Google APIs y datos de usuarios de Google
+                                <Stethoscope size={20} className="text-puka-red" /> 5. PukaHealth
+                            </h2>
+                            <p className="mt-4">
+                                En PukaHealth, el profesional de la salud o consultorio m&eacute;dico que contrata el servicio act&uacute;a como <strong>responsable del tratamiento</strong> de los datos personales de sus pacientes, y PukaDigital opera &uacute;nicamente como <strong>encargado del tratamiento</strong> (procesador). Las historias cl&iacute;nicas electr&oacute;nicas contienen <strong>datos sensibles de salud</strong> conforme a la LOPDP, los cuales se procesan y almacenan bajo estrictas medidas de seguridad y confidencialidad, &uacute;nicamente bajo las instrucciones del profesional o instituci&oacute;n responsable.
+                            </p>
+
+                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Recordatorios de citas por WhatsApp</p>
+                            <p className="mt-2">
+                                Si el consultorio m&eacute;dico tiene habilitada la funcionalidad de recordatorios, se env&iacute;an notificaciones al tel&eacute;fono del paciente mediante la plantilla autorizada de Meta (WhatsApp Business API). Los datos que se transmiten se limitan estrictamente a los siguientes:
+                            </p>
+                            <ul className="list-disc pl-5 mt-2 space-y-1">
+                                <li>Nombre del paciente</li>
+                                <li>Fecha de la cita</li>
+                                <li>Hora de la cita</li>
+                                <li>Nombre del m&eacute;dico</li>
+                                <li>N&uacute;mero de tel&eacute;fono del paciente</li>
+                                <li>Identificador t&eacute;cnico de la cita (asociado a los botones interactivos del mensaje)</li>
+                            </ul>
+                            <p className="mt-2">
+                                Estos datos pasan por el bot de PukaDigital y por la plataforma de Meta &uacute;nicamente para la entrega del recordatorio. <strong>La historia cl&iacute;nica no sale de PukaHealth</strong> ni se comparte con Meta ni con terceros.
+                            </p>
+
+                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Reagendamiento con inteligencia artificial</p>
+                            <p className="mt-2">
+                                El reagendamiento autom&aacute;tico es una funci&oacute;n opcional que est&aacute; apagada por defecto y solo opera si el consultorio decide activarla. Si el consultorio activa el reagendamiento, el texto libre que el paciente escribe en esa conversaci&oacute;n de WhatsApp se env&iacute;a a Gemini (Google Cloud Vertex AI) &uacute;nicamente para detectar si el paciente desea mover o reagendar su cita. Con el reagendamiento apagado y el canal configurado solo para recordatorios, las respuestas del paciente no pasan por ning&uacute;n modelo de lenguaje (LLM). En todo caso, se recomienda a los pacientes no escribir datos sensibles de salud por este canal.
+                            </p>
+
+                            <p className="mt-4 font-semibold text-puka-black dark:text-white">Ejercicio de derechos del paciente</p>
+                            <p className="mt-2">
+                                Como paciente, debes ejercer tus derechos de acceso, rectificaci&oacute;n, actualizaci&oacute;n o eliminaci&oacute;n directamente ante tu m&eacute;dico o consultorio tratante, quien es el responsable del tratamiento de tu informaci&oacute;n cl&iacute;nica. PukaDigital asiste al profesional de la salud en la atenci&oacute;n t&eacute;cnica de dichas solicitudes cuando este lo requiera.
+                            </p>
+                        </section>
+
+                        {/* 6. Uso de la Plataforma de WhatsApp Business (Meta) */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Globe size={20} className="text-puka-red" /> 6. Uso de la Plataforma de WhatsApp Business (Meta)
+                            </h2>
+                            <p className="mt-4">
+                                PukaDigital opera como Proveedor de Tecnolog&iacute;a (Tech Provider) de la Plataforma de WhatsApp Business de Meta, conforme a los <a href="https://developers.facebook.com/terms/" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">T&eacute;rminos de la Plataforma de Meta</a>, las Pol&iacute;ticas para Desarrolladores y la Pol&iacute;tica de Uso Aceptable de WhatsApp Business.
+                            </p>
+                            <ul className="list-disc pl-5 mt-2 space-y-1">
+                                <li>Procesamos el n&uacute;mero de tel&eacute;fono y el contenido de los mensajes de los clientes finales <strong>por cuenta del negocio</strong> que contrata el servicio y que conecta su cuenta de WhatsApp mediante el registro incorporado (Embedded Signup). En esta relaci&oacute;n el negocio es el <strong>responsable del tratamiento</strong> y PukaDigital act&uacute;a como <strong>encargado (procesador)</strong>.</li>
+                                <li>Usamos estos datos <strong>exclusivamente</strong> para prestar el servicio contratado: generar respuestas autom&aacute;ticas y enviar recordatorios y notificaciones en nombre del negocio.</li>
+                                <li><strong>No</strong> usamos los datos de la Plataforma de Meta para publicidad, no los vendemos ni cedemos a terceros, y <strong>no</strong> los utilizamos para entrenar modelos de IA propios.</li>
+                                <li>El negocio puede desconectar su cuenta de WhatsApp en cualquier momento desde su Administrador de WhatsApp de Meta o escribiendo a <strong>legal@pukadigital.com</strong>; al hacerlo cesamos el procesamiento y eliminamos los datos asociados conforme a la secci&oacute;n 11.</li>
+                            </ul>
+                        </section>
+
+                        {/* 7. LedgerXpertz */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Receipt size={20} className="text-puka-red" /> 7. LedgerXpertz
+                            </h2>
+                            <p className="mt-4">
+                                En LedgerXpertz (sistema POS, inventario y facturaci&oacute;n electr&oacute;nica), el negocio o empresa que contrata el servicio act&uacute;a como <strong>responsable del tratamiento</strong> de los datos personales de sus compradores o clientes, y PukaDigital opera &uacute;nicamente como <strong>encargado del tratamiento</strong> (procesador).
+                            </p>
+                            <p className="mt-4">
+                                Para la emisi&oacute;n de comprobantes electr&oacute;nicos exigidos por el Servicio de Rentas Internas (SRI), el negocio recopila y procesa datos de sus compradores que incluyen c&eacute;dula o RUC, nombre o raz&oacute;n social, direcci&oacute;n, tel&eacute;fono y correo electr&oacute;nico. PukaDigital almacena y transmite esta informaci&oacute;n exclusivamente para generar los comprobantes, interactuar con los servicios del SRI y operar las funciones del punto de venta e inventario contratadas.
+                            </p>
+                            <p className="mt-4">
+                                Los compradores finales que requieran ejercer sus derechos de acceso, rectificaci&oacute;n, actualizaci&oacute;n o eliminaci&oacute;n sobre sus datos de facturaci&oacute;n deben dirigir su solicitud directamente al negocio emisor del comprobante, sujeto a los plazos legales de conservaci&oacute;n tributaria.
+                            </p>
+                        </section>
+
+                        {/* 8. APIs de Google */}
+                        <section>
+                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <Shield size={20} className="text-puka-red" /> 8. Uso de Google APIs y datos de usuarios de Google
                             </h2>
                             <p className="mt-4">
                                 PukaDigital utiliza las siguientes APIs de Google bajo los t&eacute;rminos de los <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">Servicios de API de Google</a>:
@@ -317,23 +405,7 @@ const PoliticaPrivacidadPage = () => {
                             <p className="mt-4 font-semibold text-puka-black dark:text-white">Google Cloud Vertex AI / Gemini</p>
                             <ul className="list-disc pl-5 mt-2 space-y-1">
                                 <li>Los mensajes de WhatsApp se env&iacute;an a Gemini para generar respuestas. Google procesa estos datos conforme a su <a href="https://cloud.google.com/terms/data-processing-addendum" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">DPA de Google Cloud</a>.</li>
-                                <li>No se env&iacute;an datos sensibles (historias cl&iacute;nicas, datos financieros) a Gemini.</li>
-                            </ul>
-                        </section>
-
-                        {/* 3 bis. Uso de la Plataforma de WhatsApp Business (Meta) */}
-                        <section>
-                            <h2 className="text-xl font-bold text-puka-black dark:text-white flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                <Globe size={20} className="text-puka-red" /> 3 bis. Uso de la Plataforma de WhatsApp Business (Meta)
-                            </h2>
-                            <p className="mt-4">
-                                PukaDigital opera como Proveedor de Tecnolog&iacute;a (Tech Provider) de la Plataforma de WhatsApp Business de Meta, conforme a los <a href="https://developers.facebook.com/terms/" target="_blank" rel="noopener noreferrer" className="text-puka-red underline">T&eacute;rminos de la Plataforma de Meta</a>, las Pol&iacute;ticas para Desarrolladores y la Pol&iacute;tica de Uso Aceptable de WhatsApp Business.
-                            </p>
-                            <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li>Procesamos el n&uacute;mero de tel&eacute;fono y el contenido de los mensajes de los clientes finales <strong>por cuenta del negocio</strong> que contrata el servicio y que conecta su cuenta de WhatsApp mediante el registro incorporado (Embedded Signup). En esta relaci&oacute;n el negocio es el <strong>responsable del tratamiento</strong> y PukaDigital act&uacute;a como <strong>encargado (procesador)</strong>.</li>
-                                <li>Usamos estos datos <strong>exclusivamente</strong> para prestar el servicio contratado: generar respuestas autom&aacute;ticas y enviar recordatorios y notificaciones en nombre del negocio.</li>
-                                <li><strong>No</strong> usamos los datos de la Plataforma de Meta para publicidad, no los vendemos ni cedemos a terceros, y <strong>no</strong> los utilizamos para entrenar modelos de IA propios.</li>
-                                <li>El negocio puede desconectar su cuenta de WhatsApp en cualquier momento desde su Administrador de WhatsApp de Meta o escribiendo a <strong>legal@pukadigital.com</strong>; al hacerlo cesamos el procesamiento y eliminamos los datos asociados conforme a la secci&oacute;n 6.</li>
+                                <li>No se env&iacute;an historias cl&iacute;nicas ni datos financieros a Gemini. Si el consultorio activa el reagendamiento, el mensaje del paciente se analiza con Gemini solo para detectar la intenci&oacute;n.</li>
                             </ul>
                         </section>
 
