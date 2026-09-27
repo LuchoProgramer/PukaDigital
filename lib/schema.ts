@@ -331,12 +331,23 @@ export interface BreadcrumbItem {
 export const getBreadcrumbSchema = (items: BreadcrumbItem[]) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.name,
-    "item": item.url
-  }))
+  "itemListElement": items.map((item, index) => {
+    const rawUrl = item.url || '/';
+    let absoluteUrl: string;
+    if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
+      absoluteUrl = rawUrl;
+    } else {
+      const cleanPath = rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`;
+      absoluteUrl = cleanPath === '/' ? BASE_URL : `${BASE_URL}${cleanPath}`;
+    }
+
+    return {
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": absoluteUrl
+    };
+  })
 });
 
 /**

@@ -74,120 +74,130 @@ export default function PukaIAPage() {
     <div className="bg-white dark:bg-puka-black min-h-screen text-puka-black dark:text-white selection:bg-puka-red selection:text-white">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-32 overflow-hidden bg-[#080808]">
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[#080808]">
         <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-puka-red/20 blur-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-[#7c3aed]/15 blur-[100px] translate-x-1/4 translate-y-1/4 rounded-full pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 md:p-12 mb-8">
-
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full mb-8 text-sm font-bold tracking-wider">
+          <div className="grid lg:grid-cols-12 gap-12 items-center max-w-6xl mx-auto">
+            
+            {/* Columna Izquierda: Mensaje y CTAs */}
+            <div className="lg:col-span-7 text-left">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full mb-6 text-sm font-bold tracking-wider">
                 <Sparkles size={16} className="text-puka-red" />
-                ✓ FUNCIONANDO EN ECUADOR
+                ✓ CRM + AGENTES IA PARA WHATSAPP
               </div>
 
-              <h1 className="font-display font-bold text-5xl md:text-7xl mb-6 leading-[1.1] tracking-tight text-white">
-                Integramos la API de WhatsApp Business con IA para que vendas en piloto autom&aacute;tico.
+              <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.1] tracking-tight text-white">
+                Tu WhatsApp respondiendo y cerrando ventas <span className="text-puka-red">24/7</span> con Inteligencia Artificial.
               </h1>
 
-              <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto font-sans">
-                Olvida las configuraciones t&eacute;cnicas. Conectamos WhatsApp IA a tu negocio para calificar leads y agendar citas{' '}
-                <span className="text-white font-bold">24/7</span>.{' '}
-                <span className="text-puka-red font-bold">Primer mes completamente gratis.</span>
+              <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed font-sans max-w-xl">
+                Olvida las configuraciones complejas. PukaIA califica prospectos, responde consultas y agenda citas con la <strong>API Oficial de Meta</strong>.{' '}
+                <span className="text-white font-bold">1 mes gratis</span>, sin contratos obligatorios.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center mb-6">
                 <button
                   type="button"
                   onClick={() => openWA('agentes_ia_hero_primary')}
-                  className="group bg-puka-red text-white px-10 py-5 rounded-sm font-display font-bold text-xl hover:bg-white hover:text-puka-black transition-all flex items-center gap-3 shadow-xl cursor-pointer"
+                  className="group bg-puka-red text-white px-8 py-4 rounded-sm font-display font-bold text-lg hover:bg-white hover:text-puka-black transition-all flex items-center justify-center gap-3 shadow-xl cursor-pointer"
                 >
                   <MessageCircle size={22} />
-                  Obtener mi API &mdash; 1 mes gratis
-                  <ArrowRight className="group-hover:translate-x-2 transition-transform" size={20} />
+                  Probar Bot en WhatsApp &mdash; 1 mes gratis
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </button>
 
                 <a
                   href="#pricing"
-                  className="group border-2 border-white/30 text-white px-8 py-5 rounded-sm font-display font-bold text-xl hover:border-white hover:bg-white/10 transition-all flex items-center gap-2"
+                  className="group border border-white/30 text-white px-6 py-4 rounded-sm font-display font-bold text-lg hover:border-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-center"
                 >
-                  Ver precios de WhatsApp IA
+                  Ver planes desde $14.99/mes
                 </a>
               </div>
 
-              <p className="mt-6 text-sm text-gray-400 font-bold">
-                &uarr; Est&aacute;s hablando con el bot real. Si te gusta, es tuyo.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── DEMO MOCKUP ─── */}
-      <section className="py-24 bg-[#0d1117]">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-              Chatbots con IA en tu WhatsApp: Pr&uacute;ebalo gratis en vivo
-            </h2>
-            <p className="text-gray-400 text-lg">As&iacute; responde PukaIA en el WhatsApp de tu negocio.</p>
-          </div>
-
-          <div className="max-w-sm mx-auto">
-            {/* Cabecera estilo WhatsApp */}
-            <div className="bg-[#075E54] rounded-t-2xl px-4 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-puka-red flex items-center justify-center text-white font-black text-sm">IA</div>
-              <div>
-                <p className="text-white font-bold text-sm">PukaIA &mdash; Tu Negocio</p>
-                <p className="text-green-300 text-xs">en l&iacute;nea</p>
+              <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs md:text-sm text-gray-400 font-medium">
+                <span className="flex items-center gap-1.5 text-green-400 font-bold">
+                  <CheckCircle size={15} /> API Oficial de Meta (sin baneos)
+                </span>
+                <span>•</span>
+                <span>Setup guiado en 24h</span>
+                <span>•</span>
+                <span>Desde $14.99/mes</span>
               </div>
             </div>
 
-            {/* Burbujas de conversación */}
-            <div className="bg-[#ECE5DD] p-4 space-y-3 rounded-b-2xl">
-              {/* Usuario */}
-              <div className="flex justify-end">
-                <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%] shadow-sm">
-                  <p className="text-gray-800 text-sm">Hola, &iquest;cu&aacute;nto cuesta el plan b&aacute;sico?</p>
-                  <p className="text-gray-400 text-[10px] text-right mt-1">9:41 ✓✓</p>
+            {/* Columna Derecha: Mockup Visual Interactivo de WhatsApp */}
+            <div className="lg:col-span-5 w-full max-w-sm mx-auto lg:max-w-none">
+              <div className="bg-[#0f141c] border border-white/10 rounded-2xl p-3 shadow-2xl backdrop-blur-xl">
+                {/* Cabecera estilo WhatsApp */}
+                <div className="bg-[#075E54] rounded-t-xl px-4 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-puka-red flex items-center justify-center text-white font-black text-sm shadow-md">
+                      IA
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm leading-tight">PukaIA &mdash; Tu Negocio</p>
+                      <p className="text-green-300 text-xs flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" /> en l&iacute;nea
+                      </p>
+                    </div>
+                  </div>
+                  <span className="bg-white/10 text-white/90 text-[10px] uppercase font-bold px-2 py-0.5 rounded">Oficial API</span>
                 </div>
-              </div>
 
-              {/* Bot */}
-              <div className="flex justify-start">
-                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[85%] shadow-sm">
-                  <p className="text-gray-800 text-sm">¡Hola! 👋 El plan b&aacute;sico de PukaIA cuesta <strong>$14.99/mes</strong> e incluye 500 respuestas y WhatsApp Business API Oficial.</p>
-                  <p className="text-gray-400 text-[10px] text-right mt-1">9:41</p>
+                {/* Burbujas de conversación */}
+                <div className="bg-[#ECE5DD] p-4 space-y-3 rounded-b-xl max-h-[360px] overflow-y-auto">
+                  {/* Usuario */}
+                  <div className="flex justify-end">
+                    <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-3.5 py-2 max-w-[85%] shadow-sm">
+                      <p className="text-gray-800 text-xs sm:text-sm">Hola, &iquest;cu&aacute;nto cuesta el plan b&aacute;sico?</p>
+                      <p className="text-gray-400 text-[10px] text-right mt-0.5">9:41 ✓✓</p>
+                    </div>
+                  </div>
+
+                  {/* Bot */}
+                  <div className="flex justify-start">
+                    <div className="bg-white rounded-2xl rounded-tl-sm px-3.5 py-2 max-w-[90%] shadow-sm">
+                      <p className="text-gray-800 text-xs sm:text-sm">
+                        ¡Hola! 👋 El plan b&aacute;sico cuesta <strong>$14.99/mes</strong> con 500 respuestas y WhatsApp Business API Oficial.
+                      </p>
+                      <p className="text-gray-400 text-[10px] text-right mt-0.5">9:41</p>
+                    </div>
+                  </div>
+
+                  {/* Usuario */}
+                  <div className="flex justify-end">
+                    <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-3.5 py-2 max-w-[85%] shadow-sm">
+                      <p className="text-gray-800 text-xs sm:text-sm">&iquest;Puedo agendar una demo?</p>
+                      <p className="text-gray-400 text-[10px] text-right mt-0.5">9:42 ✓✓</p>
+                    </div>
+                  </div>
+
+                  {/* Bot */}
+                  <div className="flex justify-start">
+                    <div className="bg-white rounded-2xl rounded-tl-sm px-3.5 py-2 max-w-[90%] shadow-sm">
+                      <p className="text-gray-800 text-xs sm:text-sm">
+                        ¡Claro! Tengo disponibilidad ma&ntilde;ana a las <strong>10:00 AM</strong> o <strong>3:00 PM</strong>. &iquest;Cu&aacute;l te queda mejor? 📅
+                      </p>
+                      <p className="text-gray-400 text-[10px] text-right mt-0.5">9:42</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-gray-300">
+                    <button
+                      type="button"
+                      onClick={() => openWA('agentes_ia_demo_hero')}
+                      className="flex items-center justify-center gap-1.5 text-[#075E54] font-bold text-xs py-1.5 hover:text-[#128C7E] transition-colors w-full cursor-pointer bg-white/70 rounded-md"
+                    >
+                      <MessageCircle size={14} />
+                      Chatear con el bot en vivo &rarr;
+                    </button>
+                  </div>
                 </div>
-              </div>
-
-              {/* Usuario */}
-              <div className="flex justify-end">
-                <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%] shadow-sm">
-                  <p className="text-gray-800 text-sm">&iquest;Puedo agendar una demo?</p>
-                  <p className="text-gray-400 text-[10px] text-right mt-1">9:42 ✓✓</p>
-                </div>
-              </div>
-
-              {/* Bot */}
-              <div className="flex justify-start">
-                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[85%] shadow-sm">
-                  <p className="text-gray-800 text-sm">¡Claro! Tengo disponibilidad ma&ntilde;ana a las <strong>10:00 AM</strong> o <strong>3:00 PM</strong>. &iquest;Cu&aacute;l prefieres? Te agendo ahora mismo. 📅</p>
-                  <p className="text-gray-400 text-[10px] text-right mt-1">9:42</p>
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-gray-300">
-                <button
-                  type="button"
-                  onClick={() => openWA('agentes_ia_demo')}
-                  className="flex items-center justify-center gap-2 text-[#075E54] font-bold text-sm py-2 hover:text-[#128C7E] transition-colors w-full cursor-pointer"
-                >
-                  Continuar esta conversaci&oacute;n en WhatsApp real &rarr;
-                </button>
               </div>
             </div>
+
           </div>
         </div>
       </section>

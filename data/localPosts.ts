@@ -3,25 +3,36 @@ import { BlogPost } from '@/types';
 export const LOCAL_POSTS: BlogPost[] = [
   {
     id: 'local-12',
-    title: '¿Cuánto Cuesta Realmente una Página Web en Ecuador? Agencia vs PukaDigital',
-    excerpt: 'Desglose real de costos: agencias tradicionales cobran $2,000-$5,000 + $200/mes eternos. Comparamos precios sin trucos ni letra chica.',
+    title: '¿Cuánto Cuesta Realmente una Página Web en Ecuador? Guía de Precios 2026',
+    excerpt: 'Desglose real de precios en Ecuador: Landing page ($350-$600), sitio web para pyme ($900-$1,500) y tienda online. Tabla comparativa: agencias vs freelancers vs PukaDigital.',
     content: `
-## La pregunta que nadie responde con honestidad
+## Resumen Rápido: ¿Cuánto cuesta una web en Ecuador en 2026?
+
+Si buscas una respuesta rápida sin rodeos, estos son los **rangos de precios reales en el mercado ecuatoriano**:
+
+* **Landing page básica / captura de leads:** $350 – $600 (Freelancer) | $600 – $1,200 (Agencia tradicional) | **Desde $490 + IVA en PukaDigital**
+* **Sitio web corporativo / PYME (5 a 8 secciones):** $700 – $1,500 (Freelancer) | $1,500 – $4,000 (Agencia tradicional)
+* **Tienda online / E-commerce (con pasarela SRI):** $1,200 – $2,500 (Freelancer) | $3,000 – $8,000 (Agencia tradicional)
+* **Mantenimiento y hosting mensual:** $0 – $15/mes (Autónomo en la nube) | $100 – $300/mes (Agencia tradicional con dependencia)
+
+---
+
+## La pregunta que casi nadie responde con honestidad
 
 Buscas en Google: *"cuánto cuesta una página web en Ecuador"*
 
-**Respuestas que encuentras:**
-- "Desde $500" (pero no te dicen que luego son $300/mes de mantenimiento)
-- "Depende de tus necesidades" (la forma elegante de decir "te vamos a cobrar lo que aguantes")
-- "Contáctanos para cotización" (porque no quieren que compares precios)
+**Respuestas típicas que encuentras:**
+- "Desde $300" (pero no te dicen que luego te cobran $200/mes de mantenimiento forzoso).
+- "Depende de tus necesidades" (la forma elegante de decirte que cobrarán lo que consideren que puedes pagar).
+- "Contáctanos para una cotización" (porque evitan que compares precios en público).
 
-**Hoy vamos a hablar con n&uacute;meros reales.**
+**Hoy desglosamos los costos con números transparentes y casos reales.**
 
 ---
 
 ## Precios por Tipo de Web en Ecuador 2026
 
-Antes de comparar proveedores, la pregunta correcta es: **&iquest;qu&eacute; tipo de web necesitas?**
+Antes de elegir proveedor, define con claridad: **&iquest;qu&eacute; tipo de plataforma necesita tu negocio?**
 
 | Tipo de Web | &iquest;Qu&eacute; incluye? | Precio Mercado (Agencia) | Precio PukaDigital |
 |-------------|---------------------------|--------------------------|-------------------|
@@ -241,16 +252,16 @@ Agenda tu entrevista gratuita:
     slug: 'cuanto-cuesta-pagina-web-ecuador',
     source: 'local',
     author: 'Equipo Puka',
-    metaTitle: '¿Cuánto Cuesta una Página Web en Ecuador? Precios 2026 [Tabla]',
-    metaDescription: 'Tabla de precios 2026: landing page desde $600, sitio corporativo $1,500–$4,000, e-commerce $3,000–$8,000. Comparativa agencia vs freelancer vs PukaDigital con números reales.',
+    metaTitle: '¿Cuánto Cuesta una Web en Ecuador? Precios 2026',
+    metaDescription: 'Precios reales 2026 en Ecuador: Landing page ($350-$600), sitio web ($900-$1,500) y tienda online. Tabla comparativa: agencias vs freelancers vs PukaDigital.',
     tags: [
       'cuanto cuesta una pagina web en ecuador',
-      'precio pagina web ecuador 2026',
-      'cuanto cuesta una landing page ecuador',
-      'cuanto cuesta tienda online ecuador',
-      'diseño web ecuador precios',
-      'agencia web ecuador',
-      'desarrollo web pymes ecuador',
+      'precio pagina web ecuador',
+      'cuanto cuesta una landing page',
+      'paginas web quito precios',
+      'desarrollo tienda online ecuador',
+      'precio de diseño de pagina web en ecuador',
+      'cuanto cuesta hacer una landing page',
     ],
   },
   {

@@ -30,8 +30,16 @@ function getLocale(request: NextRequest): string {
 }
 
 export function proxy(request: NextRequest) {
-  // Option B Migration: Disable automatic language redirection to /es/
-  // as it conflicts with the new clean URL structure in next.config.ts
+  const pathname = request.nextUrl.pathname;
+
+  // Redirecciones 301 para URLs legacy/inglés detectadas en GA4
+  if (pathname === '/about-us' || pathname === '/about') {
+    return NextResponse.redirect(new URL('/nosotros', request.url), 301);
+  }
+  if (pathname === '/contact' || pathname === '/contact-us') {
+    return NextResponse.redirect(new URL('/contacto', request.url), 301);
+  }
+
   return NextResponse.next();
 }
 

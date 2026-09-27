@@ -9,7 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import OptimizedImage from '@/components/OptimizedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import VideoTestimonial from '@/components/VideoTestimonial';
-import { getArticleSchema, getBreadcrumbSchema } from '@/lib/schema';
+import { getArticleSchema } from '@/lib/schema';
 import BlogClientWrapper, { ShareButton } from './BlogClientWrapper';
 
 interface BlogPostPageProps {
@@ -132,9 +132,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // Breadcrumbs data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://pukadigital.com' },
-    { name: 'Blog', url: 'https://pukadigital.com/blog' },
-    { name: post.title, url: `https://pukadigital.com/blog/${post.slug}` }
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: post.title, url: `/blog/${post.slug}` }
   ];
 
   // Article schema
@@ -154,9 +154,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     keywords: post.tags,
   });
 
-  // Breadcrumb schema
-  const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
-
   return (
     <BlogClientWrapper post={post}>
       <div className="bg-gray-50 dark:bg-black min-h-screen transition-colors">
@@ -164,10 +161,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
 
         {/* HERO IMAGE */}
