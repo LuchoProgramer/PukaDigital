@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { HybridCMSService } from '@/lib/cms';
-import { Calendar, User, ArrowLeft, Sparkles, Database } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Database } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -21,7 +21,6 @@ interface BlogPostPageProps {
 // Helper para traducciones mínimas en el servidor
 const t = {
   back: 'Volver a la Academia',
-  ai: 'GENERADO CON IA',
   related: 'Artículos Relacionados',
 };
 
@@ -189,11 +188,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Source Badge */}
           <div className="absolute top-6 right-6 z-20 flex gap-2">
-            {post.source === 'ai' && (
-              <span className="bg-purple-600 text-white text-xs font-bold px-3 py-2 rounded-sm shadow-lg flex items-center gap-1">
-                <Sparkles size={14} /> {t.ai}
-              </span>
-            )}
             {post.source === 'cms' && (
               <span className="bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-sm shadow-lg flex items-center gap-1">
                 <Database size={14} /> CMS
