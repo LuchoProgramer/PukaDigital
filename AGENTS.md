@@ -34,6 +34,7 @@ npm test             # tests de la fabrica de piezas
 npm run reels -- --mes 2026-10 --id <pieza>   # produce el Reel de una pieza. --ensayo no sube nada
 
 npm run deploy:cloudflare   # build de OpenNext + wrangler deploy. Es como se despliega
+npm run gsc -- inspect <url>   # Search Console y GA4 por API, solo lectura. Llave en scripts/, fuera de git
 npm run build:cloudflare    # solo construye, sin desplegar
 ```
 
