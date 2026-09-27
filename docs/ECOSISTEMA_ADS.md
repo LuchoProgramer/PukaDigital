@@ -5,6 +5,7 @@ y cuándo. Actualizado: **2026-09-20**.
 
 Para las convenciones de eventos en el código, ver `ANALYTICS_TRACKING.md`.
 Para el trabajo orgánico de redes, ver `COMMUNITY_MANAGEMENT.md`.
+Para el framework de pruebas A/B, métricas del Top 1% y blueprint de la Skill, ver `METODO_ADS_Y_EXPERIMENTACION.md`.
 
 ---
 

@@ -217,6 +217,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/HISTORIAL_SEO.md` — auditorías cerradas y keyword research (historial, no doctrina)
 - `docs/TRANSICION_LLC.md` — checklist pendiente de Puka Digital LLC / Stripe Atlas
 - `docs/ECOSISTEMA_ADS.md` — cuentas, píxeles, token de la Marketing API y reglas de pauta
+- `docs/METODO_ADS_Y_EXPERIMENTACION.md` — métricas Top 1%, pruebas A/B de hooks y blueprint de la skill
 - `docs/PUBLICACION_EN_REDES.md` — cómo publica la fábrica en Instagram y Facebook
 - `docs/ENVIRONMENT_VARIABLES.md` — las variables, y **cómo se sacan los tokens de Meta**
 - `docs/COMMUNITY_MANAGEMENT.md` — cadencia, mezcla y calendario del orgánico
