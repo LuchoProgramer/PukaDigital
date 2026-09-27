@@ -43,6 +43,9 @@ next-env.d.ts
 # automation & security
 /scripts/
 check-api.js
+*credentials*.json
+*service-account*.json
+gsc-key.json
 
 # OpenNext / Cloudflare
 .open-next/
