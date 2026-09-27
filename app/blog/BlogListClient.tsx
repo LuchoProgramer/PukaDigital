@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { BlogPost, CMSStatus } from '@/types';
-import { Calendar, User, ArrowRight, Wifi, WifiOff, Database, Search, X, Sparkles, Bot, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, User, ArrowRight, Wifi, WifiOff, Database, Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
 
 const POSTS_PER_PAGE = 6;
@@ -14,61 +14,15 @@ interface BlogListClientProps {
 }
 
 export default function BlogListClient({ initialPosts, initialStatus }: BlogListClientProps) {
-    const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
+    const [posts] = useState<BlogPost[]>(initialPosts);
     const [status] = useState<CMSStatus>(initialStatus);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
-    // AI Generator State
-    const [showGenerator, setShowGenerator] = useState(false);
-    const [aiTopic, setAiTopic] = useState('');
-    const [isGenerating, setIsGenerating] = useState(false);
-
-    // Reset pagination when search changes
-    useEffect(() => {
+    // Cambiar la búsqueda vuelve a la primera página
+    const cambiarBusqueda = (query: string) => {
+        setSearchQuery(query);
         setCurrentPage(1);
-    }, [searchQuery]);
-
-    const handleGeneratePost = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!aiTopic.trim()) return;
-
-        setIsGenerating(true);
-        try {
-            const response = await fetch('/api/generate-blog', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic: aiTopic }),
-            });
-
-            if (!response.ok) throw new Error('Failed to generate post');
-
-            const generated = await response.json();
-
-            const newPost: BlogPost = {
-                id: `ai-${Date.now()}`,
-                title: generated.title,
-                excerpt: generated.excerpt,
-                content: generated.content,
-                coverImage: `https://image.pollinations.ai/prompt/${encodeURIComponent(generated.imagePrompt)}?width=800&height=600&nologo=true`,
-                date: new Date().toISOString(),
-                category: generated.category,
-                slug: generated.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-                source: 'ai',
-                author: 'Puka AI'
-            };
-
-            setPosts(prev => [newPost, ...prev]);
-            setShowGenerator(false);
-            setAiTopic('');
-            setSearchQuery(''); // Clear search to show the new post at top
-            setCurrentPage(1); // Ensure we are on the first page
-        } catch (error) {
-            console.error("Error generating post:", error);
-            alert("Hubo un error generando el contenido. Intenta de nuevo.");
-        } finally {
-            setIsGenerating(false);
-        }
     };
 
     const handlePageChange = (newPage: number) => {
@@ -126,7 +80,7 @@ export default function BlogListClient({ initialPosts, initialStatus }: BlogList
                 </div>
             </div>
 
-            {/* SEARCH BAR & AI TOOL SECTION */}
+            {/* SEARCH BAR */}
             <div className="container mx-auto px-4 md:px-6 -mt-8 relative z-10">
                 <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
 
@@ -137,12 +91,12 @@ export default function BlogListClient({ initialPosts, initialStatus }: BlogList
                             type="text"
                             placeholder="Buscar artículos por tema o tecnología..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={(e) => cambiarBusqueda(e.target.value)}
                             className="flex-1 outline-none text-lg text-puka-black dark:text-white placeholder-gray-400 bg-transparent"
                         />
                         {searchQuery && (
                             <button
-                                onClick={() => setSearchQuery('')}
+                                onClick={() => cambiarBusqueda('')}
                                 className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-400 transition-colors"
                                 aria-label="Limpiar búsqueda"
                             >
@@ -151,58 +105,8 @@ export default function BlogListClient({ initialPosts, initialStatus }: BlogList
                         )}
                     </div>
 
-                    {/* AI Toggle Button */}
-                    <button
-                        onClick={() => setShowGenerator(!showGenerator)}
-                        className={`px-6 py-4 rounded-sm shadow-lg font-bold flex items-center gap-2 transition-all ${showGenerator
-                                ? 'bg-puka-black text-white ring-2 ring-puka-red'
-                                : 'bg-white dark:bg-gray-800 text-puka-red hover:bg-red-50 dark:hover:bg-gray-700'
-                            }`}
-                    >
-                        <Sparkles size={20} className={isGenerating ? "animate-spin" : ""} />
-                        <span className="whitespace-nowrap">Crear con IA</span>
-                    </button>
                 </div>
 
-                {/* AI Generator Panel */}
-                {showGenerator && (
-                    <div className="max-w-4xl mx-auto mt-4 bg-white dark:bg-gray-800 rounded-sm shadow-xl border-l-4 border-puka-red p-6 animate-in slide-in-from-top-4 fade-in duration-300">
-                        <div className="flex items-start gap-4">
-                            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full hidden md:block">
-                                <Bot className="text-puka-red" size={24} />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="font-bold text-lg mb-1 text-puka-black dark:text-white">Laboratorio de Contenido IA</h3>
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                    Escribe un tema y nuestra inteligencia artificial redactará un borrador educativo basado en nuestra metodología.
-                                </p>
-                                <form onSubmit={handleGeneratePost} className="flex gap-3">
-                                    <input
-                                        type="text"
-                                        value={aiTopic}
-                                        onChange={(e) => setAiTopic(e.target.value)}
-                                        placeholder="Ej: Cómo configurar un chatbot para ventas..."
-                                        className="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 px-4 py-2 rounded-sm focus:outline-none focus:border-puka-red transition-colors text-puka-black dark:text-white"
-                                        disabled={isGenerating}
-                                    />
-                                    <button
-                                        type="submit"
-                                        disabled={isGenerating || !aiTopic.trim()}
-                                        className="bg-puka-red text-white px-6 py-2 rounded-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                                    >
-                                        {isGenerating ? (
-                                            <>
-                                                <Loader2 size={18} className="animate-spin" /> GENERANDO...
-                                            </>
-                                        ) : (
-                                            <>GENERAR ARTÍCULO</>
-                                        )}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
 
             {/* CONTENT GRID */}
@@ -227,11 +131,6 @@ export default function BlogListClient({ initialPosts, initialStatus }: BlogList
                                             {post.source === 'local' && (
                                                 <span className="bg-gray-800 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-sm">
                                                     LOCAL
-                                                </span>
-                                            )}
-                                            {post.source === 'ai' && (
-                                                <span className="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-sm flex items-center gap-1">
-                                                    <Sparkles size={10} /> IA GENERADO
                                                 </span>
                                             )}
                                         </div>
@@ -317,14 +216,10 @@ export default function BlogListClient({ initialPosts, initialStatus }: BlogList
                         <p className="text-gray-500 dark:text-gray-400 mb-6">No encontramos artículos que coincidan con tu búsqueda.</p>
 
                         <button
-                            onClick={() => {
-                                setSearchQuery('');
-                                setShowGenerator(true);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }}
+                            onClick={() => cambiarBusqueda('')}
                             className="bg-puka-red text-white px-6 py-2 rounded-sm font-bold shadow-md hover:bg-red-700 transition-colors inline-flex items-center gap-2"
                         >
-                            <Sparkles size={16} /> Probar con IA
+                            <X size={16} /> Limpiar búsqueda
                         </button>
                     </div>
                 )}

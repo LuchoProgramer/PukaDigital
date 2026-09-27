@@ -17,7 +17,7 @@ export interface BlogPost {
   date: string;
   category: string;
   slug: string;
-  source?: 'cms' | 'local' | 'ai';
+  source?: 'cms' | 'local';
   author?: string;
   metaTitle?: string;
   metaDescription?: string;

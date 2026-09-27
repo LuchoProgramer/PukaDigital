@@ -79,7 +79,9 @@ mano. Quedó en la WABA `1371993187962176`, **no** en `PukaIA`. Detalle en
 
 Llegaron como nota en `CLAUDE.md`; se movieron aquí porque `CLAUDE.md` es para el método.
 
-- [ ] 🔴 **Migrar `lib/genai.ts`** de `gemini-2.5-flash` a Gemini 3 antes del
+- [x] ~~Migrar `lib/genai.ts` a Gemini 3~~ — **se quitó** el 2026-09-27: era el botón
+  público «Crear con IA» de `/blog`, que gastaba la `API_KEY` sin login y avisaba a
+  IndexNow de URLs inexistentes. Lo que sigue es historia: antes del
   **2026-10-16**. Usa la Gemini API con API key, no Vertex: verificar sus fechas de retiro
   en ai.google.dev. El bot eligió `gemini-3.7-flash` con su gate de evals (13/0 contra 7/2
   de 3.8). Gemini 3 solo existe en la región `global`. Decisión completa en
