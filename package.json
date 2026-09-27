@@ -10,6 +10,7 @@
     "lint": "eslint",
     "test": "node --import tsx --test 'lib/**/*.test.ts' 'lib/*.test.ts'",
     "piezas": "tsx lib/piezas/cli.ts",
+    "gsc": "tsx tools/gsc.ts",
     "piezas:muestra": "tsx lib/piezas/muestra.ts",
     "captions": "node --import tsx --env-file-if-exists=.env.local lib/captions/cli.ts",
     "publicar": "node --import tsx --env-file-if-exists=.env.local lib/publicar/cli.ts",

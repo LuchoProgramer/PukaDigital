@@ -12,13 +12,13 @@ Se integraron las APIs oficiales con acceso programático mediante Service Accou
 * **Google Search Console:** Propiedad `sc-domain:pukadigital.com` (Rol: *siteOwner*)
 * **Google Analytics 4 (GA4):** Propiedad `514366233` (*Puka Digital*, Rol: *Viewer*)
 * **Ubicación de clave local:** `scripts/gsc-key.json` (Excluido en `.gitignore`)
-* **Herramienta CLI unificada:** [`scripts/gsc.ts`](file:///Users/luisviteri/Proyectos/PukaDigital/scripts/gsc.ts)
+* **Herramienta CLI unificada:** `tools/gsc.ts` (`npm run gsc`)
 
 ### Comandos disponibles:
 ```bash
-npx tsx scripts/gsc.ts              # Auditoría completa (GSC URLs + Analytics GA4)
-npx tsx scripts/gsc.ts inspect <url> # Inspección técnica de Schema e indexación en GSC
-npx tsx scripts/gsc.ts analytics 30  # Rendimiento de keywords de los últimos N días
+npm run gsc                  # Auditoría completa (GSC URLs + Analytics GA4)
+npm run gsc -- inspect <url> # Inspección técnica de Schema e indexación en GSC
+npm run gsc -- analytics 30  # Rendimiento de keywords de los últimos N días
 ```
 
 ---
@@ -57,7 +57,7 @@ npx tsx scripts/gsc.ts analytics 30  # Rendimiento de keywords de los últimos N
 Para no saturarse con métricas diarias pero no dejar escapar oportunidades, esta es la rutina óptima:
 
 ### 🕒 1. Quincenal (Cada 15 días) — *Chequeo Rápido de Salud (5 minutos)*
-* **Qué hacer:** Ejecutar `npx tsx scripts/gsc.ts`.
+* **Qué hacer:** Ejecutar `npm run gsc`.
 * **Qué mirar:**
   1. Que no existan nuevos errores en **Inspección de URLs / Schemas**.
   2. Número de leads a WhatsApp generados en el periodo.
