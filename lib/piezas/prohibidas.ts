@@ -28,8 +28,8 @@ export const PROHIBIDAS: Prohibida[] = [
   {
     nombre: 'whatsapp',
     patron: /(recordatorio|recordatorios|aviso|avisos|notificacion|notificaciones|mensaje|mensajes)\s*(automatico|automaticos|automático|automáticos)?[^.]{0,40}whatsapp/,
-    motivo: 'El enganche entre el sistema clínico y el bot de WhatsApp no está construido',
-    enCambio: 'no prometerlo hasta que exista',
+    motivo: 'Los recordatorios por WhatsApp existen desde el 2026-09-26, pero PukaHealth no registra que el paciente los aceptó',
+    enCambio: 'no prometerlos hasta que exista el consentimiento del paciente',
   },
   {
     nombre: 'calendar-bidireccional',

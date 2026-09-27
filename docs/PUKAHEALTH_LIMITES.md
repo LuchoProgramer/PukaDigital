@@ -16,7 +16,7 @@ producto.
 | No escribir | La verdad |
 |---|---|
 | «Se adapta a cualquier especialidad» | **Hay dos verticales clínicas: podología y hemodiálisis** (verificado contra el código de `SistemaSalud` el 2026-09-09: `LedgerXpertz/hemodialisis/`, 260 commits en un mes, ~32.700 líneas, 50 migraciones en producción, y un cliente real —`dialife`— con 166 sesiones registradas). Las demás especialidades **usan el sistema completo** —historia clínica, SOAP, CIE-10, recetas, certificados, estudios en PDF y facturación al SRI— pero sin bloque clínico propio de su rubro. Añadir uno es **desarrollo a medida**, no configuración. Sí vale: «la arquitectura permite sumar especialidades sin reescribir el sistema» |
-| «Recordatorios por WhatsApp» | **No existe.** El bot vive en otro proyecto y el enganche no está construido |
+| «Recordatorios por WhatsApp» | **Existen desde el 2026-09-26**, dos días antes de la cita y solo en los consultorios que los tienen habilitados. **Todavía no se prometen**: PukaHealth no registra que el paciente los aceptó. Se levanta cuando exista ese consentimiento — ver `ESTADO_2026-09-27.md` |
 | «Sincronización bidireccional con Google Calendar» | **Es unidireccional**, sistema → Google |
 | «Nuestra app» | Es web instalable, no nativa. «Funciona en el celular» sí |
 | «Firma electrónica del profesional» | Hay autoría y auditoría; no firma criptográfica |
