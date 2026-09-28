@@ -33,12 +33,12 @@
   "images": {
     "binding": "IMAGES"
   },
-  // 09:00 y 18:00 de Ecuador (UTC-5, sin horario de verano).
+  // 09:00, 18:00 y 21:00 de Ecuador (UTC-5, sin horario de verano).
   // ⚠️ No armar esto hasta que el deploy de Vercel que vacia vercel.json figure
   // como Ready y su pestana Cron Jobs este vacia: antes de eso habria dos crons
   // vivos publicando sobre la misma cuenta de Instagram.
   "triggers": {
-    "crons": ["0 14 * * *", "0 23 * * *"]
+    "crons": ["0 14 * * *", "0 23 * * *", "0 2 * * *"]
   },
   "observability": {
     "enabled": true
