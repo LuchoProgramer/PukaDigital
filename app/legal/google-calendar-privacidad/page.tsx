@@ -133,7 +133,7 @@ const GoogleCalendarPrivacidadPage = () => {
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                &Uacute;ltima actualizaci&oacute;n: 30 de agosto de 2026. Esta pol&iacute;tica aplica espec&iacute;ficamente al uso de Google Calendar API mediante OAuth 2.0 en los servicios de Puka Digital LLC.
+                                &Uacute;ltima actualizaci&oacute;n: 26 de septiembre de 2026. Esta pol&iacute;tica aplica espec&iacute;ficamente al uso de Google Calendar API mediante OAuth 2.0 en los servicios de Puka Digital LLC.
                             </p>
                         </div>
                     </div>

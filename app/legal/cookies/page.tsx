@@ -44,10 +44,10 @@ const CookiesPage = () => {
                                     <strong className="text-puka-black dark:text-white">Cookies Técnicas:</strong> Esenciales para que el sitio web funcione correctamente, como navegar por las páginas o acceder a áreas seguras.
                                 </li>
                                 <li>
-                                    <strong className="text-puka-black dark:text-white">Cookies de Análisis:</strong> Utilizamos Google Analytics para entender cómo interactúan los usuarios con nuestra web, lo que nos permite mejorar la experiencia de usuario.
+                                    <strong className="text-puka-black dark:text-white">Cookies de Análisis y Experiencia:</strong> Utilizamos Google Analytics (GA4) y Microsoft Clarity para entender cómo interactúan los usuarios con nuestra web, generar métricas de navegación y mejorar la experiencia visual de usuario.
                                 </li>
                                 <li>
-                                    <strong className="text-puka-black dark:text-white">Cookies de Conversión:</strong> Nos ayudan a medir el éxito de nuestras campañas publicitarias en Google Ads y Meta Business.
+                                    <strong className="text-puka-black dark:text-white">Cookies de Conversión y Publicidad:</strong> Nos ayudan a medir el éxito y optimizar nuestras campañas publicitarias en Google Ads, Meta Business (Facebook/Instagram) y el Píxel de TikTok.
                                 </li>
                             </ul>
                         </section>
@@ -63,7 +63,7 @@ const CookiesPage = () => {
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                Última actualización: 28 de diciembre de 2025.
+                                &Uacute;ltima actualizaci&oacute;n: 26 de septiembre de 2026. Empresa: Puka Digital LLC (Wyoming, USA).
                             </p>
                         </div>
                     </div>
