@@ -36,14 +36,14 @@ export const googleAdsServiceSchema = {
 export const whatsappAgentsServiceSchema = {
   "@type": "Service",
   "@id": `${BASE_URL}/#service-pukaia`,
-  "name": "PukaIA - Agentes de Inteligencia Artificial",
-  "description": "PukaIA automatiza la atención al cliente de empresas ecuatorianas mediante agentes de IA para WhatsApp. Respuestas automáticas 24/7, integración con sistemas existentes y configuración personalizada.",
+  "name": "PukaIA - Agentes de Inteligencia Artificial para WhatsApp",
+  "description": "PukaIA automatiza la atención al cliente de empresas ecuatorianas mediante la Cloud API Oficial de WhatsApp con soporte de Coexistencia móvil (Meta Tech Provider). Respuestas automáticas 24/7, calificación de prospectos y agendamiento sin riesgo de baneo.",
   "provider": { "@id": `${BASE_URL}/#organization` },
   "areaServed": {
     "@type": "Country",
     "name": "Ecuador"
   },
-  "serviceType": "Inteligencia Artificial para Negocios",
+  "serviceType": "Meta Tech Provider - WhatsApp Business Automation",
   "url": `${BASE_URL}/agentes-ia`,
   "inLanguage": "es-EC"
 };
@@ -51,14 +51,14 @@ export const whatsappAgentsServiceSchema = {
 export const pukaHealthServiceSchema = {
   "@type": "Service",
   "@id": `${BASE_URL}/#service-pukahealth`,
-  "name": "PukaHealth - Sistema de Historias Clínicas",
-  "description": "Software especializado PukaHealth para médicos y clínicas que deseen digitalizar su consulta. Seguridad de datos, recetas electrónicas y acceso desde cualquier dispositivo.",
+  "name": "PukaHealth - Historias Clínicas Electrónicas y Facturación SRI",
+  "description": "Software médico en la nube para consultorios y clínicas en Ecuador: historias clínicas, facturación electrónica SRI y WhatsApp Oficial en Coexistencia para médicos sin perder la app móvil.",
   "provider": { "@id": `${BASE_URL}/#organization` },
   "areaServed": {
     "@type": "Country",
     "name": "Ecuador"
   },
-  "serviceType": "Software Médico",
+  "serviceType": "Software Médico y Gestión Clínica",
   "url": `${BASE_URL}/pukahealth`,
   "inLanguage": "es-EC"
 };

@@ -24,6 +24,8 @@ export const medicalSoftwareSchema = {
     "Expedientes médicos digitales",
     "Historial de consultas y diagnósticos",
     "Recetas y órdenes médicas digitales",
+    "Facturación electrónica SRI integrada",
+    "WhatsApp Oficial en Coexistencia (Meta Tech Provider)",
     "Acceso multi-usuario y multi-sede",
     "Búsqueda instantánea de pacientes",
     "Respaldo automático en la nube",

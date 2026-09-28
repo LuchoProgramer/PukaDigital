@@ -32,7 +32,11 @@ const faqs = [
   },
   {
     q: '¿Me pueden bloquear el número por usar automatización o scripts no oficiales?',
-    a: 'No. Al utilizar la API de WhatsApp Business oficial aprobada por Meta, tu número está 100% seguro. Evitas el riesgo de baneos masivos que ocurren al usar herramientas piratas, extensiones dudosas o Callmebot.'
+    a: 'No. Al ser Puka Digital un Proveedor de Tecnología de Meta verificado (Meta Tech Provider) y utilizar la API oficial de WhatsApp Cloud con soporte de Coexistencia, tu número está 100% blindado. Además, no pierdes la app de WhatsApp Business en tu celular: sigues respondiendo audios y chats normalmente en tu teléfono mientras el bot atiende en paralelo.'
+  },
+  {
+    q: '¿Pierdo la aplicación de WhatsApp de mi teléfono celular al conectar el bot?',
+    a: 'No. Gracias a la tecnología de Coexistencia de Meta, mantienes la aplicación de WhatsApp Business en tu teléfono móvil activa exactamente igual que siempre. Puedes enviar audios, fotos y chatear de forma personal, mientras que en la misma línea nuestro agente con Inteligencia Artificial responde consultas y califica prospectos en segundo plano sin interrupciones ni interfaces complicadas.'
   },
   {
     q: '¿Cuáles son los precios de WhatsApp API y cuánto cuesta la IA?',
@@ -83,9 +87,11 @@ export default function PukaIAPage() {
             
             {/* Columna Izquierda: Mensaje y CTAs */}
             <div className="lg:col-span-7 text-left">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full mb-6 text-sm font-bold tracking-wider">
+              <div className="inline-flex flex-wrap items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full mb-6 text-sm font-bold tracking-wider">
                 <Sparkles size={16} className="text-puka-red" />
-                ✓ CRM + AGENTES IA PARA WHATSAPP
+                <span>CRM + AGENTES IA PARA WHATSAPP</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-emerald-300 font-semibold text-xs tracking-normal">Meta Tech Provider Oficial</span>
               </div>
 
               <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.1] tracking-tight text-white">
@@ -93,7 +99,7 @@ export default function PukaIAPage() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed font-sans max-w-xl">
-                Olvida las configuraciones complejas. PukaIA califica prospectos, responde consultas y agenda citas con la <strong>API Oficial de Meta</strong>.{' '}
+                Olvida las configuraciones complejas. PukaIA califica prospectos, responde consultas y agenda citas con la <strong>API Oficial de Meta en Coexistencia</strong> (sigues usando tu app m&oacute;vil como siempre).{' '}
                 <span className="text-white font-bold">1 mes gratis</span>, sin contratos obligatorios.
               </p>
 
@@ -118,8 +124,10 @@ export default function PukaIAPage() {
 
               <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs md:text-sm text-gray-400 font-medium">
                 <span className="flex items-center gap-1.5 text-green-400 font-bold">
-                  <CheckCircle size={15} /> API Oficial de Meta (sin baneos)
+                  <CheckCircle size={15} /> Meta Tech Provider Oficial
                 </span>
+                <span>•</span>
+                <span className="text-white font-medium">Coexistencia con tu app m&oacute;vil</span>
                 <span>•</span>
                 <span>Setup guiado en 24h</span>
                 <span>•</span>
@@ -212,7 +220,7 @@ export default function PukaIAPage() {
                 <span className="text-puka-red">API de WhatsApp</span>
               </h2>
               <p className="text-xl text-gray-400 mb-8 leading-relaxed max-w-lg">
-                Nos encargamos de la conexi&oacute;n oficial con Meta &mdash; m&aacute;s segura y confiable que Callmebot o scripts piratas. T&uacute; solo te concentras en atender a tus clientes.
+                Como <strong>Meta Tech Provider verificado</strong>, conectamos tu negocio directamente a la Cloud API oficial con <strong>soporte de Coexistencia</strong>: mantienes tu app de WhatsApp Business en el celular para atender como siempre, mientras la IA trabaja en paralelo en la misma línea. Cero emuladores piratas, cero riesgo de baneo.
               </p>
 
               <div className="space-y-6">
@@ -232,10 +240,10 @@ export default function PukaIAPage() {
               <h3 className="font-display font-bold text-3xl mb-6">PukaIA de Alto Rendimiento</h3>
 
               <div className="space-y-4 mb-8 text-lg font-bold">
+                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Meta Tech Provider Oficial</div>
+                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Coexistencia (conservas tu app m&oacute;vil)</div>
                 <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Entiende contexto (IA Real)</div>
-                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Agenda citas solo</div>
-                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Califica prospectos</div>
-                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Habla como t&uacute;</div>
+                <div className="flex items-center gap-3"><CheckCircle className="text-puka-red" /> Califica prospectos y agenda solo</div>
               </div>
 
               <div className="bg-puka-black text-white p-6 rounded-sm text-center">

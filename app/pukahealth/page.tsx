@@ -9,6 +9,7 @@ import {
   Cloud,
   ShieldCheck,
   BarChart3,
+  MessageSquare,
   Phone,
   Check,
   CheckCircle,
@@ -38,19 +39,20 @@ const WA_LINKS = {
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
 const FEATURES = [
-  { icon: FileText,    title: 'Historias Clínicas',   desc: 'Gestión de historias clínicas y ficha clínica digital, adaptable a tu especialidad' },
-  { icon: Receipt,     title: 'Facturación SRI',       desc: 'Facturas electrónicas válidas al SRI con un clic' },
-  { icon: Stethoscope, title: 'Multi-especialidad',    desc: 'Ficha clínica con campos personalizados por especialidad: podología, medicina general, pediatría y más' },
-  { icon: Cloud,       title: '100% en la nube',       desc: 'Accede desde computadora, tablet o celular sin instalaciones' },
-  { icon: ShieldCheck, title: 'Cumplimiento MSP',      desc: 'Formularios según normativa del Ministerio de Salud Ecuador' },
-  { icon: BarChart3,   title: 'Reportes',              desc: 'Estadísticas de consultas, diagnósticos frecuentes y facturación' },
+  { icon: FileText,      title: 'Historias Clínicas',       desc: 'Gestión de historias clínicas y ficha clínica digital, adaptable a tu especialidad' },
+  { icon: Receipt,       title: 'Facturación SRI',           desc: 'Facturas electrónicas válidas al SRI con un clic' },
+  { icon: Stethoscope,   title: 'Multi-especialidad',        desc: 'Ficha clínica con campos personalizados por especialidad: podología, medicina general, pediatría y más' },
+  { icon: MessageSquare, title: 'WhatsApp en Coexistencia',  desc: 'Meta Tech Provider oficial: mantén tu app de WhatsApp Business en el celular para atender como siempre, sin interfaces complejas ni riesgo de suspensión' },
+  { icon: Cloud,         title: '100% en la nube',           desc: 'Accede desde computadora, tablet o celular sin instalaciones' },
+  { icon: ShieldCheck,   title: 'Cumplimiento MSP',          desc: 'Formularios según normativa del Ministerio de Salud Ecuador' },
+  { icon: BarChart3,     title: 'Reportes',                  desc: 'Estadísticas de consultas, diagnósticos frecuentes y facturación' },
 ];
 
 const SOCIAL_PROOF = [
-  { value: '100%',            label: 'SRI Compliance' },
-  { value: 'En la nube',      label: 'Sin instalación' },
+  { value: '100%',               label: 'SRI Compliance' },
+  { value: 'Meta Partner',       label: 'Tech Provider' },
+  { value: 'Coexistencia',       label: 'WhatsApp móvil' },
   { value: 'Multi-especialidad', label: 'Campos adaptables' },
-  { value: '$0',              label: 'Setup (10 primeros)' },
 ];
 
 const TESTIMONIAL_STATS = [
@@ -63,7 +65,7 @@ const PLAN_INCLUDES = [
   'Historias clínicas ilimitadas',
   'Facturación SRI',
   'Multi-especialidad',
-  'Soporte WhatsApp',
+  'WhatsApp Oficial en Coexistencia (Meta Tech Provider)',
   'Actualizaciones incluidas',
 ];
 
@@ -147,6 +149,10 @@ const FAQS = [
   {
     q: '¿Cumple con las normativas del Ministerio de Salud (MSP)?',
     a: 'Sí. PukaHealth incluye los formularios clínicos según la normativa del Ministerio de Salud Pública del Ecuador (MSP), incluyendo la historia clínica única.',
+  },
+  {
+    q: '¿Cómo funciona la integración con WhatsApp y qué es la Coexistencia?',
+    a: 'Puka Digital es Proveedor de Tecnología de Meta verificado (Meta Tech Provider). La integración opera con la Cloud API oficial bajo la modalidad de Coexistencia: tanto tú como tu recepcionista conservan la aplicación móvil de WhatsApp Business en el teléfono para responder audios y mensajes con total naturalidad, mientras el sistema opera en paralelo en la misma línea sin riesgo de bloqueo de cuenta ni interfaces complicadas.',
   },
 ];
 
@@ -285,13 +291,24 @@ export default function PukaHealthPage() {
         }}>
           <div>
             <div style={{
-              display: 'inline-block',
-              background: '#eff6ff', border: '1px solid #bfdbfe',
-              borderRadius: '20px', padding: '4px 14px',
-              fontSize: '11px', color: '#1d4ed8', fontWeight: 700,
-              letterSpacing: '1px', marginBottom: '20px',
+              display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap',
+              marginBottom: '20px',
             }}>
-              HISTORIAS CL&Iacute;NICAS &middot; FACTURACI&Oacute;N SRI &middot; ECUADOR
+              <span style={{
+                background: '#eff6ff', border: '1px solid #bfdbfe',
+                borderRadius: '20px', padding: '4px 14px',
+                fontSize: '11px', color: '#1d4ed8', fontWeight: 700,
+                letterSpacing: '1px',
+              }}>
+                HISTORIAS CL&Iacute;NICAS &middot; FACTURACI&Oacute;N SRI &middot; ECUADOR
+              </span>
+              <span style={{
+                background: '#f0fdf4', border: '1px solid #bbf7d0',
+                borderRadius: '20px', padding: '4px 12px',
+                fontSize: '11px', color: '#15803d', fontWeight: 700,
+              }}>
+                Meta Tech Provider Oficial
+              </span>
             </div>
             <h1 className="font-display font-bold" style={{ lineHeight: 1.1, marginBottom: '16px' }}>
               <span style={{ display: 'block', color: '#0f172a', fontSize: 'clamp(36px, 5vw, 58px)' }}>

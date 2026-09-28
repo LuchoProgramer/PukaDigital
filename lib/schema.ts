@@ -83,8 +83,30 @@ export const getOrganizationSchema = () => ({
   "@type": "Organization",
   "@id": `${BASE_URL}/#organization`,
   "name": "PukaDigital - Agencia de Marketing Digital y Desarrollo Web",
+  "legalName": "Puka Digital LLC",
   "alternateName": "Puka Digital",
   "url": BASE_URL,
+  "memberOf": {
+    "@type": "ProgramMembership",
+    "programName": "Meta Tech Provider",
+    "hostingOrganization": {
+      "@type": "Organization",
+      "name": "Meta Platforms, Inc.",
+      "sameAs": "https://www.wikidata.org/wiki/Q380"
+    }
+  },
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Meta Tech Provider",
+      "credentialCategory": "certification",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Meta Platforms, Inc.",
+        "sameAs": "https://www.wikidata.org/wiki/Q380"
+      }
+    }
+  ],
   "logo": {
     "@type": "ImageObject",
     "url": "https://res.cloudinary.com/dltfsttr7/image/upload/v1764125716/logo_ekusea.svg",
@@ -124,7 +146,11 @@ export const getOrganizationSchema = () => ({
     "SME Technology Education",
     "Google Ads",
     "SEO",
-    "WhatsApp Business Automation"
+    "WhatsApp Business Automation",
+    "WhatsApp Cloud API",
+    "Meta Tech Provider",
+    "WhatsApp Business Coexistence",
+    "Facturación Electrónica SRI"
   ],
   "sameAs": [
     CONTACT_INFO.social.facebook,
