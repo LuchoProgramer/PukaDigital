@@ -372,7 +372,7 @@ export default function PukaHealthPage() {
               pacientes en segundos. La facturaci&oacute;n al SRI me ahorra 2 horas al d&iacute;a.&rdquo;
             </p>
             <p style={{ color: '#64748b', fontSize: '14px', fontWeight: 600 }}>
-              &mdash; Dra. Cristina Mu&ntilde;oz, Podoclinic
+              &mdash; Pdlga. Cristina Mu&ntilde;oz, Podoclinic
             </p>
             <div style={{
               display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',

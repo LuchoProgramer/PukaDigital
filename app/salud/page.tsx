@@ -149,7 +149,7 @@ const OptimizedSaludPage = () => {
                             <p className="text-blue-900 font-semibold text-lg mb-2">
                                 &quot;Pasé de 3 a 53 pacientes mensuales sin contratar más personal.&quot;
                             </p>
-                            <p className="text-blue-700 text-sm">— Dra. Cristina Muñoz, Podoclinic</p>
+                            <p className="text-blue-700 text-sm">— Pdlga. Cristina Muñoz, Podoclinic</p>
                         </div>
 
                         <div className="space-y-3">
@@ -231,7 +231,7 @@ const OptimizedSaludPage = () => {
                             <p className="text-2xl font-semibold mb-4">
                                 &quot;Antes dependíamos del boca a boca. Ahora los pacientes nos encuentran solos mientras dormimos.&quot;
                             </p>
-                            <p className="text-blue-200">— Dra. Cristina Muñoz, Especialista en Podología</p>
+                            <p className="text-blue-200">— Pdlga. Cristina Muñoz, Especialista en Podología</p>
                         </div>
 
                         <div className="shadow-2xl rounded-b-2xl overflow-hidden">
@@ -259,7 +259,7 @@ const OptimizedSaludPage = () => {
                                     <iframe
                                         className="absolute top-0 left-0 w-full h-full"
                                         src="https://www.youtube.com/embed/bSge9e1Se4w?rel=0&autoplay=1"
-                                        title="Testimonio Dra. Cristina Muñoz"
+                                        title="Testimonio Pdlga. Cristina Muñoz"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     />
