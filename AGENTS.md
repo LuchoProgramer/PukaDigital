@@ -6,8 +6,8 @@ añade encima lo específico de ese agente. **Cada regla tiene un solo dueño: l
 del proyecto vive aquí y no se copia al otro archivo.**
 
 ⚠️ **Tope de 12.000 caracteres.** Antigravity trunca los archivos de reglas ahí,
-en silencio y por el final. Este archivo va por ~11.000 —medido el 2026-09-14—, a
-menos de 1.000 del tope: lo que crece son los detalles de producto. **Al añadir algo, sacar el detalle a
+en silencio y por el final. Este archivo va por ~11.750 —medido el 2026-09-29—, a
+menos de 300 del tope: lo que crece son los detalles de producto. **Al añadir algo, sacar el detalle a
 `docs/` y referenciarlo con `@`.** Aquí solo lo que se usa a diario.
 
 Comprobar el tamaño: `wc -m AGENTS.md`
@@ -59,7 +59,7 @@ El cron de publicación también vive ahí (`0 14` y `0 23` UTC = 09:00 y 18:00 
 Ecuador), con precisión al minuto. El origen Vercel y su proyecto fueron eliminados
 el 2026-09-19 tras culminar la migración.
 
-Detalle, vuelta atrás y lo que falta: @/Users/luisviteri/Proyectos/PukaDigital/docs/ESTADO_2026-09-27.md
+Detalle, vuelta atrás y lo que falta: @/Users/luisviteri/Proyectos/PukaDigital/docs/ESTADO_2026-09-29.md
 
 ## Productos y URLs canónicas
 
@@ -174,6 +174,7 @@ El porqué de todo esto, y el formato de las FAQ, en @docs/GEO_LLM_VISIBILITY.md
 ⚠️ En resumen: Google dice expresamente que **no** necesita `llms.txt` ni schema
 para citarte en su IA. Se mantienen porque el schema alimenta los rich results y
 `llms.txt` lo leen crawlers no-Google. No inventes tácticas «para LLMs».
+**Los rich results de FAQ ya no existen** (2026-05-07). Auditar con la skill `visibilidad-ia`.
 
 ## Convenciones
 
@@ -211,7 +212,7 @@ fix(analytics): eliminar el doble conteo de conversiones
 - `docs/PUKAHEALTH_LIMITES.md` — lo que el producto no hace y el aviso de capturas
 - `docs/TRABAJO_CON_AGENTES.md` — cómo se coordinan Claude Code y Antigravity (`agy`)
 - `docs/METODO_AGENTES_PARALELOS.md` — método de contraste, ejecución y verificación con `agy`
-- `docs/ESTADO_2026-09-27.md` — **estado vigente**: la política LOPDP, los recordatorios y lo que falta
+- `docs/ESTADO_2026-09-29.md` — **estado vigente**: skill `visibilidad-ia`, vigilancia y lo que falta
 - `docs/PROXIMOS_PASOS.md` — auditoría del 2026-08-29 y backlog priorizado
 - `docs/GEO_LLM_VISIBILITY.md` — guía de GEO/LLM SEO
 - `docs/CRO_MASTERY_GUIDE.md` — landing pages de alta conversión

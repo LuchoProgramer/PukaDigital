@@ -46,7 +46,7 @@ npm run gsc -- analytics 30  # Rendimiento de keywords de los últimos N días
 | `/blog/por-que-me-bloquearon-whatsapp...` | 0 | 115 | 0.00% | 11.0 | A las puertas del top 10 (página 2). |
 
 ### B. Comportamiento y Conversiones (GA4)
-* **Tráfico GEO / IAs:** 9 sesiones desde `chatgpt.com / ai-assistant` con **77.8% de engagement**. Confirma que ChatGPT recomienda PukaDigital gracias a `llms.txt`.
+* **Tráfico GEO / IAs:** 9 sesiones desde `chatgpt.com / ai-assistant` con **77.8% de engagement**. Confirma que ChatGPT ya trae visitas. *(Corregido el 2026-09-29: decía «gracias a `llms.txt`»; esa causa no está medida.)*
 * **Redes Sociales:** 22 sesiones desde Facebook e Instagram impulsadas por la fábrica de contenido.
 * **Leads a WhatsApp:** **9 clics directos al botón de WhatsApp** de 7 usuarios distintos (~6.7% tasa de conversión a lead).
 
