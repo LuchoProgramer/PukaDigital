@@ -70,7 +70,7 @@ const TerminosPage = () => {
                                 <CheckCircle size={20} className="text-puka-red" /> 5. Uso Responsable de IA
                             </h2>
                             <p className="mt-4">
-                                Nuestros chatbots y agentes utilizan modelos de Inteligencia Artificial de terceros (Google Gemini, OpenAI). PukaDigital implementa prompts y bases de conocimiento supervisadas, pero no se hace responsable por interpretaciones o alucinaciones generadas por los modelos fuera de los flujos programados.
+                                Nuestros chatbots y agentes utilizan modelos de Inteligencia Artificial de terceros (Google Gemini a trav&eacute;s de Google Cloud). PukaDigital implementa prompts y bases de conocimiento supervisadas, pero no se hace responsable por interpretaciones o alucinaciones generadas por los modelos fuera de los flujos programados.
                             </p>
                         </section>
 
@@ -85,7 +85,7 @@ const TerminosPage = () => {
 
                         <div className="mt-12 p-6 bg-puka-red/5 rounded-sm border border-puka-red/10">
                             <p className="text-sm italic text-gray-500">
-                                &Uacute;ltima actualizaci&oacute;n: 30 de agosto de 2026. Empresa: Puka Digital LLC (Wyoming, USA). Para dudas legales espec&iacute;ficas, cont&aacute;ctanos a <strong>legal@pukadigital.com</strong>
+                                &Uacute;ltima actualizaci&oacute;n: 26 de septiembre de 2026. Empresa: Puka Digital LLC (Wyoming, USA). Para dudas legales espec&iacute;ficas, cont&aacute;ctanos a <strong>legal@pukadigital.com</strong>
                             </p>
                         </div>
                     </div>

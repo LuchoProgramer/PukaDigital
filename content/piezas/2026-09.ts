@@ -513,7 +513,7 @@ const piezas: Pieza[] = [
         'Prueba 15 días gratis en pukadigital.com/pukahealth\n\n' +
         '✨ Contenido generado con Inteligencia Artificial.\n\n' +
         '#pukahealth #recetamedica #ACESS #medicosEcuador #generadoconIA #saludEcuador',
-      publicarEl: '2026-09-21T09:00',
+      publicarEl: '2026-09-28T21:00',
       video: 'https://reels.pukadigital.com/reels/2026-09/receta-contenido-minimo-6a8d37af.mp4',
       duracion: 22,
     },

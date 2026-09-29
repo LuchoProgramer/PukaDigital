@@ -1,5 +1,18 @@
 # GEO — Optimización para Motores de IA (LLM Visibility)
 
+> ⚠️ **Actualización 2026-09-29 — leer antes que el resto.** La doctrina vigente de GEO para todos
+> los proyectos es la skill `visibilidad-ia` (`~/.claude/skills/visibilidad-ia/`), y la auditoría se
+> hace con su `scripts/auditar.py` contra el sitio servido. Este documento es de marzo de 2026 y
+> quedó desactualizado en tres puntos:
+>
+> - **Los rich results de FAQ ya no existen**: Google los retiró para todos los sitios el
+>   2026-05-07. `FAQPage` se mantiene con las mismas preguntas que la FAQ visible, por los
+>   sistemas no-Google, sin prometer beneficio en Google.
+> - **Las cifras de este documento** (46,7% de Reddit, «6.5x», correlaciones por plataforma) son
+>   de terceros, sin verificar por nosotros y con más de 6 meses: no se citan como hechos.
+> - **La sección 6 describe el componente SEO con `useEffect`**: es falso desde el 2026-08-28. El
+>   JSON-LD se renderiza en el JSX (ver `docs/ARQUITECTURA.md`).
+
 Guía de mejores prácticas para que las páginas de PukaDigital y sus clientes aparezcan citadas en ChatGPT, Perplexity, Google AI Overviews, Claude y Gemini.
 
 Investigado y aplicado en: `pukadigital.com/ledgerxpertz` — marzo 2026.

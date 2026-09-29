@@ -6,6 +6,8 @@
 ## EMPRESA
 
 **Nombre:** PukaDigital
+**Empresa Registrada:** Puka Digital LLC (Casper, Wyoming, USA · EIN: 320856610)
+**Acreditación Oficial:** Proveedor de Tecnología de Meta verificado (Meta Tech Provider · Portfolio Comercial: 758680150376625)
 **Fundador:** Luis Omar Viteri Sarango (alias LuchoDev)
 **Fundación:** 2025
 **Ubicación:** Quito, Pichincha, Ecuador (cobertura nacional y LATAM)
@@ -32,7 +34,7 @@ PukaIA es la solución principal de Puka Digital para conectar la API Oficial de
 - Dashboard de configuración sin código — ajusta el bot sin programar
 - Entrenamiento con datos del negocio del cliente (productos, precios, FAQs, personalidad)
 - **Casos de uso:** clínicas, restaurantes, tiendas, consultoras, inmobiliarias, academias, hoteles
-- **Diferenciador:** conexión oficial Meta (más segura que Callmebot o scripts piratas), sin costo por mensaje entrante
+- **Diferenciador:** Desarrollado por Puka Digital LLC como Meta Tech Provider verificado. Conexión directa a Meta Cloud API con **coexistencia** con la aplicación móvil de WhatsApp Business: los negocios conservan la app en su teléfono celular en el mismo número sin perder audios ni chats humanos, eliminando riesgos de bloqueo de línea. Sin costo por mensaje entrante
 - **Precios:** Básico $14.99/mes (500 respuestas) | Pro $25/mes (2,000 respuestas) | Business $60/mes (6,000 respuestas + setup asistido incluido)
 - **Prueba gratuita:** 1 mes gratis sin tarjeta de crédito
 - Setup en 24 horas después de aprobación del número con Meta
@@ -57,6 +59,7 @@ ERP SaaS multi-tenant para médicos en Ecuador: historias clínicas electrónica
 - Facturación electrónica 100% compatible con el SRI de Ecuador, con un solo clic desde el expediente
 - Formularios según normativa del Ministerio de Salud Pública del Ecuador (MSP)
 - 100% en la nube — acceso desde computadora, tablet o celular sin instalaciones
+- **WhatsApp Oficial en Coexistencia:** Confirmación de citas y notificaciones con la API Oficial de Meta (Puka Digital es Meta Tech Provider). Médicos y recepcionistas mantienen su app de WhatsApp Business en el teléfono para responder audios y mensajes naturales, mientras el sistema opera en paralelo en la misma línea sin riesgo de baneo ni interfaces rígidas.
 - **Precios:** Individual $50/mes | Anual $480/año ($40/mes equivalente, 2 meses gratis)
 - Sin permanencia. Sin contrato. Soporte directo por WhatsApp.
 - Prueba 15 días gratis | Demo disponible por WhatsApp: +593964065880

@@ -123,7 +123,15 @@ const faqSchema = {
       "name": "¿Me pueden bloquear el número por usar automatización o scripts no oficiales?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Al utilizar la API de WhatsApp Business oficial aprobada por Meta, tu número está 100% seguro. Evitas el riesgo de baneos masivos que ocurren al usar herramientas piratas, extensiones dudosas o Callmebot."
+        "text": "No. Al ser Puka Digital un Proveedor de Tecnología de Meta verificado (Meta Tech Provider) y utilizar la API oficial de WhatsApp Cloud con soporte de Coexistencia, tu número está 100% blindado. Además, no pierdes la app de WhatsApp Business en tu celular: sigues respondiendo audios y chats normalmente en tu teléfono mientras el bot atiende en paralelo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pierdo la aplicación de WhatsApp de mi teléfono celular al conectar el bot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Gracias a la tecnología de Coexistencia de Meta, mantienes la aplicación de WhatsApp Business en tu teléfono móvil activa exactamente igual que siempre. Puedes enviar audios, fotos y chatear de forma personal, mientras que en la misma línea nuestro agente con Inteligencia Artificial responde consultas y califica prospectos en segundo plano sin interrupciones ni interfaces complicadas."
       }
     },
     {
