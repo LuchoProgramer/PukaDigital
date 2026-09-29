@@ -229,7 +229,7 @@ export const trackVerSistemaGraduacion = () => {
 
 /**
  * 4. Product Module Click
- * Location: Products page (/productos)
+ * Location: Products page
  */
 export const trackProductoModuloClick = (
   moduloName: 'CMS, Mapas & SEO' | 'ERP Cloud' | 'Chatbot IA',

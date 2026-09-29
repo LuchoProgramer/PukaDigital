@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Agencia de Marketing Digital y Desarrollo Web en Ecuador | PukaDigital',
+  title: 'Agencia de Marketing Digital y Desarrollo Web en Ecuador',
   description: 'Agencia especializada en desarrollo web Next.js y Google Ads de alto rendimiento desde Quito. Tecnología propia, sin contratos, 100% de propiedad del código.',
   keywords: [
     'agencia marketing digital ecuador',

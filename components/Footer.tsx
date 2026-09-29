@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Package, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Users, HelpCircle, DollarSign } from 'lucide-react';
+import { Home, PlayCircle, Mail, ChevronRight, FileText, Shield, AlertCircle, Users, HelpCircle, DollarSign } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -52,7 +52,6 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {[
                 { href: '/', icon: Home, label: 'El Método' },
-                { href: '/productos', icon: Package, label: 'El Programa' },
                 { href: '/blog', icon: FileText, label: 'Blog' },
                 { href: '/demos', icon: PlayCircle, label: 'Demos' },
                 { href: '/nosotros', icon: Users, label: 'Nosotros' },

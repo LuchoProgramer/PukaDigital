@@ -10,7 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Páginas estáticas principales
   const staticPages = [
     { path: '', priority: 1.0, changeFreq: 'daily' as const },
-    { path: '/productos', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/demos', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/blog', priority: 0.9, changeFreq: 'daily' as const },
     { path: '/contacto', priority: 0.8, changeFreq: 'monthly' as const },
@@ -46,7 +45,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticUrls: MetadataRoute.Sitemap = allStaticRoutes.map(page => ({
     url: `${baseUrl}${page.path}`,
-    lastModified: new Date(),
     changeFrequency: page.changeFreq,
     priority: page.priority,
   }));

@@ -55,7 +55,6 @@ const Navbar: React.FC = () => {
 
   const navItems: NavItem[] = [
     { label: 'El Método', path: '/' },
-    { label: 'El Programa', path: '/productos' },
     { label: 'Casos de Éxito', path: '/casos' },
     { label: 'Blog', path: '/blog' },
     { label: 'Demos', path: '/demos' },

@@ -43,7 +43,6 @@ export function getMainSiteUrls(): string[] {
   
   const pages = [
     '', // homepage
-    '/productos',
     '/blog',
     '/demos',
     '/contacto',
