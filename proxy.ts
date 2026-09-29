@@ -31,7 +31,7 @@ function getLocale(request: NextRequest): string {
 }
 
 export function proxy(request: NextRequest) {
-  const destinoWww = redireccionWww(request.nextUrl);
+  const destinoWww = redireccionWww(request.nextUrl, request.headers.get('host'));
   if (destinoWww) {
     return conCabeceras(NextResponse.redirect(destinoWww, 301));
   }

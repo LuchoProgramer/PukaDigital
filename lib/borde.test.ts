@@ -49,3 +49,11 @@ test('conCabeceras: setea las cuatro cabeceras sobre un Response', () => {
   assert.equal(resultado.headers.get('Referrer-Policy'), 'strict-origin-when-cross-origin');
   assert.equal(resultado.headers.get('X-Frame-Options'), 'DENY');
 });
+
+test('redireccionWww: usa el header Host aunque la URL interna sea otra (next start, Workers)', () => {
+  // Medido el 2026-09-29: con `next start`, request.nextUrl trae localhost aunque el Host sea www.
+  const interna = new URL('http://localhost:3456/agencia?gclid=x');
+  assert.equal(redireccionWww(interna, 'www.pukadigital.com')?.href, 'https://pukadigital.com/agencia?gclid=x');
+  assert.equal(redireccionWww(interna, 'www.pukadigital.com:443')?.href, 'https://pukadigital.com/agencia?gclid=x');
+  assert.equal(redireccionWww(interna, 'pukadigital.com'), null);
+});
