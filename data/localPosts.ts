@@ -227,7 +227,7 @@ R: S&iacute;. Las redes sociales pueden banearte o cambiar el algoritmo sin avis
 **Si quieres:**
 - ✅ **Dependencia eterna** → Agencia tradicional
 - ✅ **Riesgo de abandono** → Freelancer
-- ✅ **Independencia real** → [Conoce el Programa PukaDigital](/productos)
+- ✅ **Independencia real** → [Conoce el Programa PukaDigital](/)
 
 **No estamos compitiendo en "quién tiene la web más bonita".**
 
@@ -490,7 +490,7 @@ Tus clientes esperan respuesta **inmediata**. Si no la das tú, la competencia s
 - Resultado: Básico, sin IA real
 
 ### Opción 2: PukaDigital (Listo en 48h)
-- **Incluido en el [programa de 3 meses](/productos)** ($300/mes)
+- **Incluido en el [programa de 3 meses](/)** ($300/mes)
 - Chatbot IA con GPT-4
 - Integración WhatsApp Business API
 - Entrenamiento personalizado con tu info

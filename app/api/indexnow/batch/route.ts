@@ -24,7 +24,7 @@ export async function POST() {
 
     // Add main pages too
     const mainPages = [
-      '', '/productos', '/blog', '/demos', '/contacto', 
+      '', '/blog', '/demos', '/contacto', 
       '/nosotros', '/preguntas-frecuentes',
       '/chatbot-ia-whatsapp', '/desarrollo-web-pymes', '/sistema-erp-cloud'
     ];
