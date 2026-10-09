@@ -5,6 +5,7 @@
 > **ID de Registro (Wyoming):** `2026-001966448`  
 > **Fecha de Constitución:** 1 de mayo de 2026 (`05/01/2026`)  
 > **EIN (Federal Tax ID):** `320856610`  
+> **D-U-N-S (Dun & Bradstreet):** `146736048` — obtenido el 2026-10-09 vía Apple; dirección registrada en D&B: Miami  
 > **Estructura Fiscal:** Single-Member LLC / Disregarded Entity (Propiedad de residente extranjero no estadounidense: Luis Omar Viteri Sarango)  
 > **Cierre del Año Fiscal:** 31 de Diciembre  
 
