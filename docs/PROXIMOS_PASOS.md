@@ -59,9 +59,11 @@ No lo cambies porque lo diga un blog: es una hipótesis, y el dato viene de agre
 
 ## 7. Estrategia de Reseñas Verificadas en Clutch.co & Directorios
 
-- [ ] Configurar Cloudflare Email Routing (o Zoho Mail Free) para clientes reales (`podoclinicec.com`, `healppypets.com`, `hoteleudiq.com`) para crear alias corporativos (ej. `contacto@podoclinicec.com` reenviando a sus Gmails).
-- [ ] Enviar enlace directo de reseña de [Clutch.co](https://clutch.co/profile/pukadigital) a los clientes clave.
-- [ ] Obtener 3 a 5 reseñas verificadas (vía email corporativo o LinkedIn) para desbloquear la insignia de **Top Verified Agency** en Clutch.
+- [x] Correo corporativo para clientes con Cloudflare Email Routing: `healppypets.com`, `lahuequitaquitena.com` y `podoclinicec.com` (2026-09-29, ver `ESTADO_2026-09-29.md`).
+- [x] Enviar el enlace de reseña de [Clutch.co](https://clutch.co/profile/pukadigital) a los clientes clave.
+- [ ] Llegar a **3 reseñas verificadas**. Al 2026-10-09 hay 1 publicada (HealppyPets). La de La Huequita, enviada el 29-sep, no figura ni en «In Progress»: se abrió un caso con soporte de Clutch el 2026-10-09. Falta la de Podoclinic, que Cristina debe enviar **desde su propio equipo y conexión**, no desde el nuestro.
+
+⚠️ **Las reseñas no dan la insignia de verificado.** *Clutch Verified* **se paga** (499 USD/año, según el panel) y exige comprobar el registro legal y el crédito en Creditsafe; las 3+ reseñas son solo una de las dos vías de elegibilidad, para quien no tiene historial de crédito, como una LLC de 2026. *Premier Verified* pide además 3+ reseñas (una en los últimos 12 meses) y promedio de 3.0 o más. Lo que sí sale de las reseñas es *Clutch Certified*: 3+ reseñas verificadas de 4.0 o más en 24 meses por línea de servicio. Fuente: help.clutch.co, revisado el 2026-10-09. **No pagar Verified antes de tener las 3 reseñas.**
 
 ## 8. WhatsApp de ventas por coexistencia — ✅ hecho el 2026-09-21
 
