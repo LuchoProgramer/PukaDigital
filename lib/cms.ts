@@ -2,6 +2,74 @@ import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
 import { estaPublicado } from './cmsPublicado';
 
+export interface BloqueCMS {
+  type?: string;
+  style?: string;
+  content?: string;
+  url?: string;
+  src?: string;
+  alt?: string;
+  caption?: string;
+}
+
+export function bloqueAMarkdown(block: BloqueCMS): string {
+  if (block.type === 'image') {
+    const imgSrc = block.url || block.src || '';
+    if (!imgSrc) return '';
+    const caption = block.caption
+      ? `<figcaption class="text-center text-sm text-gray-500 mt-2 italic">${block.caption}</figcaption>`
+      : '';
+    return `\n<figure class="my-8">\n<img src="${imgSrc}" alt="${block.alt || 'Imagen'}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm" />\n${caption}\n</figure>\n`;
+  }
+
+  if (block.type === 'video') {
+    const videoSrc = block.url || block.src || '';
+    return videoSrc ? `\n${videoSrc}\n` : '';
+  }
+
+  const content = block.content || '';
+
+  switch (block.style) {
+    case 'heading': {
+      const texto = content.replace(/[\r\n]+/g, ' ').trim();
+      if (!texto) return '';
+      if (texto.startsWith('#')) return texto;
+      return `## ${texto}`;
+    }
+    case 'subheading': {
+      const texto = content.replace(/[\r\n]+/g, ' ').trim();
+      if (!texto) return '';
+      if (texto.startsWith('#')) return texto;
+      return `### ${texto}`;
+    }
+    case 'list-bullet': {
+      const lineas = content
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l.length > 0);
+      return lineas.map(l => `- ${l}`).join('\n');
+    }
+    case 'list-number': {
+      const lineas = content
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l.length > 0);
+      return lineas.map(l => `1. ${l}`).join('\n');
+    }
+    case 'quote': {
+      return `<blockquote>${content}</blockquote>`;
+    }
+    case 'callout': {
+      return `<aside class="callout">${content}</aside>`;
+    }
+    case 'paragraph':
+    case 'code':
+    default: {
+      return content;
+    }
+  }
+}
+
 export class HybridCMSService {
 
 
@@ -132,24 +200,7 @@ export class HybridCMSService {
    */
   private static mapCMSToBlogPost(cmsPost: any): BlogPost {
     // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
-    const content = cmsPost.blocks?.map((block: any) => {
-      if (block.type === 'text') {
-        return block.content;
-      }
-      if (block.type === 'image') {
-        const imgSrc = block.url || block.src || '';
-        if (!imgSrc) return '';
-        const caption = block.caption
-          ? `<figcaption class="text-center text-sm text-gray-500 mt-2 italic">${block.caption}</figcaption>`
-          : '';
-        return `\n<figure class="my-8">\n<img src="${imgSrc}" alt="${block.alt || 'Imagen'}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm" />\n${caption}\n</figure>\n`;
-      }
-      if (block.type === 'video') {
-        const videoSrc = block.url || block.src || '';
-        return videoSrc ? `\n${videoSrc}\n` : '';
-      }
-      return '';
-    }).join('\n\n') || '';
+    const content = cmsPost.blocks?.map((block: BloqueCMS) => bloqueAMarkdown(block)).join('\n\n') || '';
 
     // Extraer excerpt del primer bloque de texto si no tiene
     const firstTextBlock = cmsPost.blocks?.find((b: any) => b.type === 'text');
