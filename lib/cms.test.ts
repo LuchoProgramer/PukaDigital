@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bloqueAMarkdown, BloqueCMS, extraerFaqs, FaqBlog } from './cms.ts';
+import { bloqueAMarkdown, BloqueCMS, extraerFaqs, FaqBlog, mapearPostCMS } from './cms.ts';
 
 test('bloqueAMarkdown: heading "Por qué todos los chatbots olvidan" -> "## Por qué todos los chatbots olvidan"', () => {
   const bloque: BloqueCMS = {
@@ -205,5 +205,28 @@ test('extraerFaqs: subheading con ? fuera de una sección FAQ -> no cuenta', () 
 
   const faqs = extraerFaqs(bloques);
   assert.deepEqual(faqs, []);
+});
+
+test('mapearPostCMS: con updatedAt y bloques de FAQ, el resultado trae dateModified y faqs.length === 2', () => {
+  const cmsPost = {
+    id: 'post-123',
+    title: 'Post de prueba',
+    createdAt: '2026-04-10T10:00:00.000Z',
+    updatedAt: '2026-04-13T15:28:43.189Z',
+    slug: 'post-de-prueba',
+    blocks: [
+      { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+      { type: 'text', style: 'subheading', content: '¿Primera pregunta?' },
+      { type: 'text', content: 'Primera respuesta.' },
+      { type: 'text', style: 'subheading', content: '¿Segunda pregunta?' },
+      { type: 'text', content: 'Segunda respuesta.' },
+    ],
+  };
+
+  const post = mapearPostCMS(cmsPost);
+  assert.equal(post.dateModified, '2026-04-13T15:28:43.189Z');
+  assert.equal(post.faqs?.length, 2);
+  assert.equal(post.faqs?.[0]?.pregunta, '¿Primera pregunta?');
+  assert.equal(post.faqs?.[1]?.pregunta, '¿Segunda pregunta?');
 });
 
