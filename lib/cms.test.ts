@@ -262,3 +262,8 @@ test('mapearPostCMS: sin fecha de publicación, la fecha es la de creación', ()
   const post = mapearPostCMS({ id: 'x', title: 'T', slug: 't', createdAt: '2026-10-11T01:01:00.000Z' });
   assert.equal(post.date, '2026-10-11T01:01:00.000Z');
 });
+
+test('mapearPostCMS: el extracto no muestra &nbsp; literal', () => {
+  const post = mapearPostCMS({ id: 'x', title: 'T', slug: 't', excerpt: 'WhatsApp".&nbsp;Si te han suspendido' });
+  assert.equal(post.excerpt, 'WhatsApp". Si te han suspendido');
+});

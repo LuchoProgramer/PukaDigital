@@ -257,7 +257,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Markdown Content */}
-          <div className="prose prose-lg dark:prose-invert max-w-none
+          <div className="contenido-blog prose prose-lg dark:prose-invert max-w-none
             prose-headings:font-display prose-headings:font-bold prose-headings:text-puka-black dark:prose-headings:text-white
             prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
             prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4

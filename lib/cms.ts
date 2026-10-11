@@ -173,7 +173,7 @@ export function mapearPostCMS(cmsPost: CMSPostInput): BlogPost {
 
   // Extraer excerpt del primer bloque de texto si no tiene
   const firstTextBlock = cmsPost.blocks?.find((b) => b.type === 'text');
-  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/[#*`]/g, '').trim();
   const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content ? firstTextBlock.content.substring(0, 300) + '...' : '');
   const excerpt = stripHtml(rawExcerpt);
   const faqs = extraerFaqs(cmsPost.blocks || []);
