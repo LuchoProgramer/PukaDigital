@@ -145,31 +145,50 @@ export function extraerFaqs(blocks: BloqueCMS[]): FaqBlog[] {
   return pares.length >= 2 ? pares : [];
 }
 
+export interface CMSPostInput {
+  id?: string | number;
+  title?: string;
+  excerpt?: string;
+  content?: string;
+  image?: string;
+  alt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  category?: string;
+  slug?: string;
+  author?: { name?: string };
+  metaTitle?: string;
+  metaDescription?: string;
+  tags?: string[];
+  blocks?: BloqueCMS[];
+}
+
 /**
  * Mapea un post del CMS al formato BlogPost de PukaDigital
  */
-export function mapearPostCMS(cmsPost: any): BlogPost {
+export function mapearPostCMS(cmsPost: CMSPostInput): BlogPost {
   // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
   const content = cmsPost.blocks?.map((block: BloqueCMS) => bloqueAMarkdown(block)).join('\n\n') || '';
 
   // Extraer excerpt del primer bloque de texto si no tiene
-  const firstTextBlock = cmsPost.blocks?.find((b: any) => b.type === 'text');
+  const firstTextBlock = cmsPost.blocks?.find((b) => b.type === 'text');
   const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
-  const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content?.substring(0, 300) + '...') || '';
+  const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content ? firstTextBlock.content.substring(0, 300) + '...' : '');
   const excerpt = stripHtml(rawExcerpt);
   const faqs = extraerFaqs(cmsPost.blocks || []);
+  const imageBlock = cmsPost.blocks?.find((b) => b.type === 'image');
 
   return {
-    id: `cms-${cmsPost.id}`,
-    title: cmsPost.title,
+    id: `cms-${cmsPost.id ?? ''}`,
+    title: cmsPost.title || '',
     excerpt: excerpt,
     content: content,
-    coverImage: cmsPost.image || cmsPost.blocks?.find((b: any) => b.type === 'image')?.url || cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg',
+    coverImage: cmsPost.image || imageBlock?.url || imageBlock?.src || 'https://pukadigital.com/og-image.jpg',
     coverImageAlt: cmsPost.alt || cmsPost.title,
     date: cmsPost.createdAt || new Date().toISOString(),
     dateModified: cmsPost.updatedAt || undefined,
     category: cmsPost.category || 'General',
-    slug: cmsPost.slug || cmsPost.id,
+    slug: (cmsPost.slug || cmsPost.id || '').toString(),
     source: 'cms' as const,
     author: cmsPost.author?.name || 'Equipo PukaDigital',
     metaTitle: cmsPost.metaTitle || undefined,
@@ -307,7 +326,7 @@ export class HybridCMSService {
   /**
    * Mapea un post del CMS al formato BlogPost de PukaDigital
    */
-  private static mapCMSToBlogPost(cmsPost: any): BlogPost {
+  private static mapCMSToBlogPost(cmsPost: CMSPostInput): BlogPost {
     return mapearPostCMS(cmsPost);
   }
 }

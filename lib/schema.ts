@@ -578,3 +578,25 @@ export const generateBreadcrumbs = (path: string[]): BreadcrumbItem[] => {
 
   return breadcrumbs;
 };
+
+/**
+ * FAQPage Schema - For blog posts and FAQ sections
+ */
+export interface FAQItem {
+  pregunta: string;
+  respuesta: string;
+}
+
+export const getFAQPageSchema = (faqs: FAQItem[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.pregunta,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.respuesta,
+    },
+  })),
+});
+

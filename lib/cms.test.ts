@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { bloqueAMarkdown, BloqueCMS, extraerFaqs, FaqBlog, mapearPostCMS } from './cms.ts';
+import { getFAQPageSchema } from './schema.ts';
 
 test('bloqueAMarkdown: heading "Por qué todos los chatbots olvidan" -> "## Por qué todos los chatbots olvidan"', () => {
   const bloque: BloqueCMS = {
@@ -228,5 +229,24 @@ test('mapearPostCMS: con updatedAt y bloques de FAQ, el resultado trae dateModif
   assert.equal(post.faqs?.length, 2);
   assert.equal(post.faqs?.[0]?.pregunta, '¿Primera pregunta?');
   assert.equal(post.faqs?.[1]?.pregunta, '¿Segunda pregunta?');
+});
+
+test('getFAQPageSchema: genera estructura FAQPage con Question y acceptedAnswer', () => {
+  const faqs = [
+    { pregunta: '¿Pregunta 1?', respuesta: 'Respuesta 1' },
+    { pregunta: '¿Pregunta 2?', respuesta: 'Respuesta 2' },
+  ];
+  const schema = getFAQPageSchema(faqs);
+  assert.equal(schema['@context'], 'https://schema.org');
+  assert.equal(schema['@type'], 'FAQPage');
+  assert.equal(schema.mainEntity.length, 2);
+  assert.deepEqual(schema.mainEntity[0], {
+    '@type': 'Question',
+    name: '¿Pregunta 1?',
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: 'Respuesta 1',
+    },
+  });
 });
 
