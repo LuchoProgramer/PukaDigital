@@ -10,8 +10,15 @@ resultado sea cual sea**: las definiciones van antes que los números.
 |---|---|---|---|
 | 1 | «¿Cómo reducir los pacientes que no llegan a su cita?» — coexistencia, el caso y el anuncio de la serie | 2026-10-13 09:00 (programado en PukaPress) | ✅ escrito y programado |
 | 2 | **Cómo medimos**: definiciones, punto de partida y la lección de no haber medido desde el día 1 | escribir el 2026-10-12; publicar cuando SistemaSalud despliegue el reagendamiento que conserva la cita | ⏳ |
-| 3 | **Primer mes** con datos completos: números, sin conclusión | un mes después del post 2 | ⏳ |
-| 4 | **Conclusión**, sea cual sea | ~4 meses después del post 2 | ⏳ |
+| 3 | **Mes 2**: avance con datos completos y los ajustes hechos, sin conclusión | mes 2 | ⏳ |
+| 4 | **Mes 3**: avance y ajustes, sin conclusión | mes 3 | ⏳ |
+| 5 | **Conclusión, mes 4**, sea cual sea | mes 4 | ⏳ |
+
+Los meses se cuentan desde que SistemaSalud registra bien los reagendamientos (post 2).
+Cada avance cuenta también **los ajustes** que se hagan en el camino: cambios en los
+recordatorios, en el registro o en el proceso del consultorio, con su fecha, para que el
+lector sepa qué cambió entre una medición y la siguiente. Avances sin conclusión: con unas
+150 citas al mes, recién el mes 4 alcanza para distinguir 21% de 15%.
 
 Ritmo del blog: un post por semana, los martes a las 09:00 (hora de Ecuador).
 
