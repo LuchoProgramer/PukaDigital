@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
+import { estaPublicado } from '@/lib/cmsPublicado';
 
 export async function GET(request: NextRequest) {
     try {
@@ -41,6 +42,16 @@ export async function GET(request: NextRequest) {
         }
 
         const data = await response.json();
+
+        // Los borradores no salen del sitio, tampoco por el proxy
+        if (data?.id) {
+            return estaPublicado(data)
+                ? NextResponse.json(data)
+                : NextResponse.json({ error: 'Not found' }, { status: 404 });
+        }
+        if (Array.isArray(data?.blogs)) {
+            return NextResponse.json({ ...data, blogs: data.blogs.filter(estaPublicado) });
+        }
         return NextResponse.json(data);
 
     } catch (error) {
