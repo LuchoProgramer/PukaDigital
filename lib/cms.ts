@@ -1,5 +1,6 @@
 import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
+import { estaPublicado } from './cmsPublicado';
 
 export class HybridCMSService {
 
@@ -43,7 +44,7 @@ export class HybridCMSService {
       }
 
       // Mapear al formato de PukaDigital
-      const formattedCmsPosts = blogsRaw.map(p => this.mapCMSToBlogPost(p));
+      const formattedCmsPosts = blogsRaw.filter(estaPublicado).map(p => this.mapCMSToBlogPost(p));
       const endTime = performance.now();
 
       return {
@@ -116,7 +117,7 @@ export class HybridCMSService {
         }
       }
 
-      if (blogRaw) {
+      if (blogRaw && estaPublicado(blogRaw)) {
         return this.mapCMSToBlogPost(blogRaw);
       }
     } catch (e) {
