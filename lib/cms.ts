@@ -1,6 +1,203 @@
 import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
-import { estaPublicado } from './cmsPublicado';
+import { estaPublicado, fechaDePublicacion } from './cmsPublicado';
+
+export interface BloqueCMS {
+  type?: string;
+  style?: string;
+  content?: string;
+  url?: string;
+  src?: string;
+  alt?: string;
+  caption?: string;
+}
+
+export function bloqueAMarkdown(block: BloqueCMS): string {
+  if (block.type === 'image') {
+    const imgSrc = block.url || block.src || '';
+    if (!imgSrc) return '';
+    const caption = block.caption
+      ? `<figcaption class="text-center text-sm text-gray-500 mt-2 italic">${block.caption}</figcaption>`
+      : '';
+    return `\n<figure class="my-8">\n<img src="${imgSrc}" alt="${block.alt || 'Imagen'}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm" />\n${caption}\n</figure>\n`;
+  }
+
+  if (block.type === 'video') {
+    const videoSrc = block.url || block.src || '';
+    return videoSrc ? `\n${videoSrc}\n` : '';
+  }
+
+  const content = block.content || '';
+
+  switch (block.style) {
+    case 'heading': {
+      const texto = content.replace(/[\r\n]+/g, ' ').trim();
+      if (!texto) return '';
+      if (texto.startsWith('#')) return texto;
+      return `## ${texto}`;
+    }
+    case 'subheading': {
+      const texto = content.replace(/[\r\n]+/g, ' ').trim();
+      if (!texto) return '';
+      if (texto.startsWith('#')) return texto;
+      return `### ${texto}`;
+    }
+    case 'list-bullet': {
+      const lineas = content
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l.length > 0);
+      return lineas.map(l => `- ${l}`).join('\n');
+    }
+    case 'list-number': {
+      const lineas = content
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l.length > 0);
+      return lineas.map(l => `1. ${l}`).join('\n');
+    }
+    case 'quote': {
+      return `<blockquote>${content}</blockquote>`;
+    }
+    case 'callout': {
+      return `<aside class="callout">${content}</aside>`;
+    }
+    case 'paragraph':
+    case 'code':
+    default: {
+      return content;
+    }
+  }
+}
+
+export interface FaqBlog {
+  pregunta: string;
+  respuesta: string;
+}
+
+function limpiarTextoPlano(texto: string): string {
+  return texto
+    .replace(/<\/(?:p|div|li|h[1-6]|tr|blockquote|aside)>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`#]/g, '')
+    .replace(/\s+([.,;:!?])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function extraerFaqs(blocks: BloqueCMS[]): FaqBlog[] {
+  let enSeccionFaq = false;
+  let preguntaActual: string | null = null;
+  let partesRespuesta: string[] = [];
+  const pares: FaqBlog[] = [];
+
+  function guardarPreguntaActual() {
+    if (preguntaActual) {
+      const respuesta = partesRespuesta.filter(Boolean).join(' ').trim();
+      if (respuesta.length > 0) {
+        pares.push({ pregunta: preguntaActual, respuesta });
+      }
+    }
+    preguntaActual = null;
+    partesRespuesta = [];
+  }
+
+  for (const block of blocks) {
+    const esEncabezado = block.style === 'heading' || block.style === 'subheading';
+
+    if (!enSeccionFaq) {
+      if (esEncabezado) {
+        const cleanText = (block.content || '').replace(/^#+\s*/, '').trim();
+        const norm = cleanText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        if (norm.includes('preguntas frecuentes') || norm === 'faq' || norm === 'faqs') {
+          enSeccionFaq = true;
+        }
+      }
+    } else {
+      if (esEncabezado) {
+        const cleanText = (block.content || '')
+          .replace(/^#+\s*/, '')
+          .replace(/[\r\n]+/g, ' ')
+          .trim();
+
+        if (cleanText.endsWith('?')) {
+          guardarPreguntaActual();
+          preguntaActual = cleanText;
+        } else {
+          guardarPreguntaActual();
+          enSeccionFaq = false;
+        }
+      } else {
+        if (preguntaActual && block.type !== 'image' && block.type !== 'video') {
+          const plano = limpiarTextoPlano(block.content || '');
+          if (plano) {
+            partesRespuesta.push(plano);
+          }
+        }
+      }
+    }
+  }
+
+  guardarPreguntaActual();
+
+  return pares.length >= 2 ? pares : [];
+}
+
+export interface CMSPostInput {
+  id?: string | number;
+  title?: string;
+  excerpt?: string;
+  content?: string;
+  image?: string;
+  alt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishDate?: string;
+  category?: string;
+  slug?: string;
+  author?: { name?: string };
+  metaTitle?: string;
+  metaDescription?: string;
+  tags?: string[];
+  blocks?: BloqueCMS[];
+}
+
+/**
+ * Mapea un post del CMS al formato BlogPost de PukaDigital
+ */
+export function mapearPostCMS(cmsPost: CMSPostInput): BlogPost {
+  // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
+  const content = cmsPost.blocks?.map((block: BloqueCMS) => bloqueAMarkdown(block)).join('\n\n') || '';
+
+  // Extraer excerpt del primer bloque de texto si no tiene
+  const firstTextBlock = cmsPost.blocks?.find((b) => b.type === 'text');
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
+  const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content ? firstTextBlock.content.substring(0, 300) + '...' : '');
+  const excerpt = stripHtml(rawExcerpt);
+  const faqs = extraerFaqs(cmsPost.blocks || []);
+  const imageBlock = cmsPost.blocks?.find((b) => b.type === 'image');
+
+  return {
+    id: `cms-${cmsPost.id ?? ''}`,
+    title: cmsPost.title || '',
+    excerpt: excerpt,
+    content: content,
+    coverImage: cmsPost.image || imageBlock?.url || imageBlock?.src || 'https://pukadigital.com/og-image.jpg',
+    coverImageAlt: cmsPost.alt || cmsPost.title,
+    date: fechaDePublicacion(cmsPost)?.toISOString() || cmsPost.createdAt || new Date().toISOString(),
+    dateModified: cmsPost.updatedAt || undefined,
+    category: cmsPost.category || 'General',
+    slug: (cmsPost.slug || cmsPost.id || '').toString(),
+    source: 'cms' as const,
+    author: cmsPost.author?.name || 'Equipo PukaDigital',
+    metaTitle: cmsPost.metaTitle || undefined,
+    metaDescription: cmsPost.metaDescription || undefined,
+    tags: Array.isArray(cmsPost.tags) && cmsPost.tags.length > 0 ? cmsPost.tags : undefined,
+    faqs: faqs.length > 0 ? faqs : undefined,
+  };
+}
 
 export class HybridCMSService {
 
@@ -44,7 +241,7 @@ export class HybridCMSService {
       }
 
       // Mapear al formato de PukaDigital
-      const formattedCmsPosts = blogsRaw.filter(estaPublicado).map(p => this.mapCMSToBlogPost(p));
+      const formattedCmsPosts = blogsRaw.filter((p) => estaPublicado(p)).map(p => this.mapCMSToBlogPost(p));
       const endTime = performance.now();
 
       return {
@@ -130,48 +327,7 @@ export class HybridCMSService {
   /**
    * Mapea un post del CMS al formato BlogPost de PukaDigital
    */
-  private static mapCMSToBlogPost(cmsPost: any): BlogPost {
-    // Convertir bloques a Markdown para que sea compatible con el renderizador de PukaDigital
-    const content = cmsPost.blocks?.map((block: any) => {
-      if (block.type === 'text') {
-        return block.content;
-      }
-      if (block.type === 'image') {
-        const imgSrc = block.url || block.src || '';
-        if (!imgSrc) return '';
-        const caption = block.caption
-          ? `<figcaption class="text-center text-sm text-gray-500 mt-2 italic">${block.caption}</figcaption>`
-          : '';
-        return `\n<figure class="my-8">\n<img src="${imgSrc}" alt="${block.alt || 'Imagen'}" class="max-w-full h-auto rounded-lg mx-auto shadow-sm" />\n${caption}\n</figure>\n`;
-      }
-      if (block.type === 'video') {
-        const videoSrc = block.url || block.src || '';
-        return videoSrc ? `\n${videoSrc}\n` : '';
-      }
-      return '';
-    }).join('\n\n') || '';
-
-    // Extraer excerpt del primer bloque de texto si no tiene
-    const firstTextBlock = cmsPost.blocks?.find((b: any) => b.type === 'text');
-    const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
-    const rawExcerpt = cmsPost.excerpt || (firstTextBlock?.content?.substring(0, 300) + '...') || '';
-    const excerpt = stripHtml(rawExcerpt);
-
-    return {
-      id: `cms-${cmsPost.id}`,
-      title: cmsPost.title,
-      excerpt: excerpt,
-      content: content,
-      coverImage: cmsPost.image || cmsPost.blocks?.find((b: any) => b.type === 'image')?.url || cmsPost.blocks?.find((b: any) => b.type === 'image')?.src || 'https://pukadigital.com/og-image.jpg',
-      coverImageAlt: cmsPost.alt || cmsPost.title,
-      date: cmsPost.createdAt || new Date().toISOString(),
-      category: cmsPost.category || 'General',
-      slug: cmsPost.slug || cmsPost.id,
-      source: 'cms' as const,
-      author: cmsPost.author?.name || 'Equipo PukaDigital',
-      metaTitle: cmsPost.metaTitle || undefined,
-      metaDescription: cmsPost.metaDescription || undefined,
-      tags: Array.isArray(cmsPost.tags) && cmsPost.tags.length > 0 ? cmsPost.tags : undefined,
-    };
+  private static mapCMSToBlogPost(cmsPost: CMSPostInput): BlogPost {
+    return mapearPostCMS(cmsPost);
   }
 }

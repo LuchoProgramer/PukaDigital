@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
                 : NextResponse.json({ error: 'Not found' }, { status: 404 });
         }
         if (Array.isArray(data?.blogs)) {
-            return NextResponse.json({ ...data, blogs: data.blogs.filter(estaPublicado) });
+            return NextResponse.json({ ...data, blogs: data.blogs.filter((p: { status?: unknown; publishDate?: unknown }) => estaPublicado(p)) });
         }
         return NextResponse.json(data);
 

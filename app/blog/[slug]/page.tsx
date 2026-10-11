@@ -9,7 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import OptimizedImage from '@/components/OptimizedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import VideoTestimonial from '@/components/VideoTestimonial';
-import { getArticleSchema } from '@/lib/schema';
+import { getArticleSchema, getFAQPageSchema } from '@/lib/schema';
 import BlogClientWrapper, { ShareButton } from './BlogClientWrapper';
 
 interface BlogPostPageProps {
@@ -146,6 +146,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.metaDescription || post.excerpt,
     slug: post.slug,
     datePublished: post.date,
+    dateModified: post.dateModified,
     author: post.author || 'Equipo PukaDigital',
     image: post.coverImage,
     wordCount,
@@ -153,20 +154,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     keywords: post.tags,
   });
 
+  const faqSchema = post.faqs && post.faqs.length > 0
+    ? getFAQPageSchema(post.faqs)
+    : null;
+
   return (
     <BlogClientWrapper post={post}>
       <div className="bg-gray-50 dark:bg-black min-h-screen transition-colors">
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleSchema).replace(/</g, '\\u003c')
+          }}
         />
+        {faqSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c')
+            }}
+          />
+        )}
 
         {/* HERO IMAGE */}
         <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
           <OptimizedImage
             src={post.coverImage}
-            alt={post.title}
+            alt={post.coverImageAlt || post.title}
             className="w-full h-full"
             priority
           />

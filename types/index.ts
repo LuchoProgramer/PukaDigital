@@ -6,6 +6,8 @@ export interface NavItem {
   isPrimary?: boolean;
 }
 
+import type { FaqBlog } from '@/lib/cms';
+
 // Blog Types
 export interface BlogPost {
   id: string;
@@ -15,6 +17,7 @@ export interface BlogPost {
   coverImage: string;
   coverImageAlt?: string;
   date: string;
+  dateModified?: string;
   category: string;
   slug: string;
   source?: 'cms' | 'local';
@@ -22,6 +25,7 @@ export interface BlogPost {
   metaTitle?: string;
   metaDescription?: string;
   tags?: string[];
+  faqs?: FaqBlog[];
 }
 
 // CMS Status Types
