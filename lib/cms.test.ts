@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bloqueAMarkdown, BloqueCMS } from './cms.ts';
+import { bloqueAMarkdown, BloqueCMS, extraerFaqs, FaqBlog } from './cms.ts';
 
 test('bloqueAMarkdown: heading "Por qué todos los chatbots olvidan" -> "## Por qué todos los chatbots olvidan"', () => {
   const bloque: BloqueCMS = {
@@ -81,3 +81,129 @@ test('bloqueAMarkdown: paragraph y sin style -> contenido intacto', () => {
   assert.equal(bloqueAMarkdown(parrafo), 'Este es un párrafo normal.');
   assert.equal(bloqueAMarkdown(sinEstilo), 'Texto sin estilo asignado.');
 });
+
+test('extraerFaqs: sección «Preguntas frecuentes» (heading) + 3 preguntas subheading con <p>...</p> -> 3 pares, respuestas sin HTML', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+    { type: 'text', style: 'subheading', content: '¿Qué es PukaIA?' },
+    { type: 'text', style: 'paragraph', content: '<p>Es un CRM con IA para WhatsApp.</p>' },
+    { type: 'text', style: 'subheading', content: '¿Tiene costo de instalación?' },
+    { type: 'text', style: 'paragraph', content: '<p>No, la instalación es <strong>gratuita</strong>.</p>' },
+    { type: 'text', style: 'subheading', content: '¿Puedo cancelar en cualquier momento?' },
+    { type: 'text', style: 'paragraph', content: '<p>Sí, no hay contratos de permanencia.</p>' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.equal(faqs.length, 3);
+  assert.deepEqual(faqs, [
+    { pregunta: '¿Qué es PukaIA?', respuesta: 'Es un CRM con IA para WhatsApp.' },
+    { pregunta: '¿Tiene costo de instalación?', respuesta: 'No, la instalación es gratuita.' },
+    { pregunta: '¿Puedo cancelar en cualquier momento?', respuesta: 'Sí, no hay contratos de permanencia.' },
+  ]);
+});
+
+test('extraerFaqs: encabezado «PREGUNTAS FRECUENTES» y «preguntas frecuéntes» -> detectado; «FAQ» también', () => {
+  const bloquesMayus: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'PREGUNTAS FRECUENTES' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta 1?' },
+    { type: 'text', content: 'Respuesta 1' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta 2?' },
+    { type: 'text', content: 'Respuesta 2' },
+  ];
+  assert.equal(extraerFaqs(bloquesMayus).length, 2);
+
+  const bloquesTildes: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'preguntas frecuéntes' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta A?' },
+    { type: 'text', content: 'Respuesta A' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta B?' },
+    { type: 'text', content: 'Respuesta B' },
+  ];
+  assert.equal(extraerFaqs(bloquesTildes).length, 2);
+
+  const bloquesFaq: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'FAQ' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta X?' },
+    { type: 'text', content: 'Respuesta X' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta Y?' },
+    { type: 'text', content: 'Respuesta Y' },
+  ];
+  assert.equal(extraerFaqs(bloquesFaq).length, 2);
+});
+
+test('extraerFaqs: una pregunta con dos párrafos -> respuesta con los dos, separados por un espacio', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+    { type: 'text', style: 'subheading', content: '¿Cómo funciona el soporte?' },
+    { type: 'text', content: '<p>Ofrecemos soporte técnico 24/7 vía WhatsApp.</p>' },
+    { type: 'text', content: '<p>También contamos con sesiones 1 a 1 por Google Meet.</p>' },
+    { type: 'text', style: 'subheading', content: '¿Dónde están ubicados?' },
+    { type: 'text', content: 'En Quito, Ecuador.' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.equal(faqs.length, 2);
+  assert.equal(
+    faqs[0].respuesta,
+    'Ofrecemos soporte técnico 24/7 vía WhatsApp. También contamos con sesiones 1 a 1 por Google Meet.'
+  );
+});
+
+test('extraerFaqs: pregunta sin respuesta -> se descarta', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta sin respuesta?' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta con respuesta 1?' },
+    { type: 'text', content: 'Esta sí tiene respuesta.' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta con respuesta 2?' },
+    { type: 'text', content: 'Esta también tiene respuesta.' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.equal(faqs.length, 2);
+  assert.equal(faqs[0].pregunta, '¿Pregunta con respuesta 1?');
+  assert.equal(faqs[1].pregunta, '¿Pregunta con respuesta 2?');
+});
+
+test('extraerFaqs: un heading sin ? después de las preguntas -> corta la sección; lo que sigue no entra', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta 1?' },
+    { type: 'text', content: 'Respuesta 1.' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta 2?' },
+    { type: 'text', content: 'Respuesta 2.' },
+    { type: 'text', style: 'heading', content: 'Conclusión y siguientes pasos' },
+    { type: 'text', style: 'subheading', content: '¿Pregunta fuera de sección?' },
+    { type: 'text', content: 'Respuesta fuera.' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.equal(faqs.length, 2);
+  assert.equal(faqs[0].pregunta, '¿Pregunta 1?');
+  assert.equal(faqs[1].pregunta, '¿Pregunta 2?');
+});
+
+test('extraerFaqs: solo 1 par válido -> []', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Preguntas frecuentes' },
+    { type: 'text', style: 'subheading', content: '¿Única pregunta?' },
+    { type: 'text', content: 'Única respuesta válida.' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.deepEqual(faqs, []);
+});
+
+test('extraerFaqs: subheading con ? fuera de una sección FAQ -> no cuenta', () => {
+  const bloques: BloqueCMS[] = [
+    { type: 'text', style: 'heading', content: 'Introducción' },
+    { type: 'text', style: 'subheading', content: '¿Por qué deberías automatizar?' },
+    { type: 'text', content: 'Porque ahorra mucho tiempo.' },
+    { type: 'text', style: 'subheading', content: '¿Cómo empezar hoy?' },
+    { type: 'text', content: 'Registrándote en la plataforma.' },
+  ];
+
+  const faqs = extraerFaqs(bloques);
+  assert.deepEqual(faqs, []);
+});
+

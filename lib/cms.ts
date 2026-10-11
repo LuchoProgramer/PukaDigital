@@ -70,6 +70,81 @@ export function bloqueAMarkdown(block: BloqueCMS): string {
   }
 }
 
+export interface FaqBlog {
+  pregunta: string;
+  respuesta: string;
+}
+
+function limpiarTextoPlano(texto: string): string {
+  return texto
+    .replace(/<\/(?:p|div|li|h[1-6]|tr|blockquote|aside)>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`#]/g, '')
+    .replace(/\s+([.,;:!?])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function extraerFaqs(blocks: BloqueCMS[]): FaqBlog[] {
+  let enSeccionFaq = false;
+  let preguntaActual: string | null = null;
+  let partesRespuesta: string[] = [];
+  const pares: FaqBlog[] = [];
+
+  function guardarPreguntaActual() {
+    if (preguntaActual) {
+      const respuesta = partesRespuesta.filter(Boolean).join(' ').trim();
+      if (respuesta.length > 0) {
+        pares.push({ pregunta: preguntaActual, respuesta });
+      }
+    }
+    preguntaActual = null;
+    partesRespuesta = [];
+  }
+
+  for (const block of blocks) {
+    const esEncabezado = block.style === 'heading' || block.style === 'subheading';
+
+    if (!enSeccionFaq) {
+      if (esEncabezado) {
+        const cleanText = (block.content || '').replace(/^#+\s*/, '').trim();
+        const norm = cleanText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        if (norm.includes('preguntas frecuentes') || norm === 'faq' || norm === 'faqs') {
+          enSeccionFaq = true;
+        }
+      }
+    } else {
+      if (esEncabezado) {
+        const cleanText = (block.content || '')
+          .replace(/^#+\s*/, '')
+          .replace(/[\r\n]+/g, ' ')
+          .trim();
+
+        if (cleanText.endsWith('?')) {
+          guardarPreguntaActual();
+          preguntaActual = cleanText;
+        } else {
+          guardarPreguntaActual();
+          enSeccionFaq = false;
+        }
+      } else {
+        if (preguntaActual && block.type !== 'image' && block.type !== 'video') {
+          const plano = limpiarTextoPlano(block.content || '');
+          if (plano) {
+            partesRespuesta.push(plano);
+          }
+        }
+      }
+    }
+  }
+
+  guardarPreguntaActual();
+
+  return pares.length >= 2 ? pares : [];
+}
+
 export class HybridCMSService {
 
 
