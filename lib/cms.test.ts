@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bloqueAMarkdown, BloqueCMS, extraerFaqs, FaqBlog, mapearPostCMS } from './cms.ts';
+import { bloqueAMarkdown, BloqueCMS, extraerFaqs, mapearPostCMS } from './cms.ts';
 import { getFAQPageSchema } from './schema.ts';
 
 test('bloqueAMarkdown: heading "Por qué todos los chatbots olvidan" -> "## Por qué todos los chatbots olvidan"', () => {
@@ -250,3 +250,15 @@ test('getFAQPageSchema: genera estructura FAQPage con Question y acceptedAnswer'
   });
 });
 
+
+test('mapearPostCMS: la fecha del post es la de publicación, en hora de Ecuador, no la de creación', () => {
+  const post = mapearPostCMS({
+    id: 'x', title: 'T', slug: 't', createdAt: '2026-10-11T01:01:00.000Z', publishDate: '2026-10-20T09:00',
+  });
+  assert.equal(post.date, '2026-10-20T14:00:00.000Z');
+});
+
+test('mapearPostCMS: sin fecha de publicación, la fecha es la de creación', () => {
+  const post = mapearPostCMS({ id: 'x', title: 'T', slug: 't', createdAt: '2026-10-11T01:01:00.000Z' });
+  assert.equal(post.date, '2026-10-11T01:01:00.000Z');
+});

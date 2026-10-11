@@ -1,6 +1,6 @@
 import { BlogPost, CMSStatus } from '@/types';
 import { LOCAL_POSTS } from '../data/localPosts';
-import { estaPublicado } from './cmsPublicado';
+import { estaPublicado, fechaDePublicacion } from './cmsPublicado';
 
 export interface BloqueCMS {
   type?: string;
@@ -154,6 +154,7 @@ export interface CMSPostInput {
   alt?: string;
   createdAt?: string;
   updatedAt?: string;
+  publishDate?: string;
   category?: string;
   slug?: string;
   author?: { name?: string };
@@ -185,7 +186,7 @@ export function mapearPostCMS(cmsPost: CMSPostInput): BlogPost {
     content: content,
     coverImage: cmsPost.image || imageBlock?.url || imageBlock?.src || 'https://pukadigital.com/og-image.jpg',
     coverImageAlt: cmsPost.alt || cmsPost.title,
-    date: cmsPost.createdAt || new Date().toISOString(),
+    date: fechaDePublicacion(cmsPost)?.toISOString() || cmsPost.createdAt || new Date().toISOString(),
     dateModified: cmsPost.updatedAt || undefined,
     category: cmsPost.category || 'General',
     slug: (cmsPost.slug || cmsPost.id || '').toString(),
@@ -240,7 +241,7 @@ export class HybridCMSService {
       }
 
       // Mapear al formato de PukaDigital
-      const formattedCmsPosts = blogsRaw.filter(estaPublicado).map(p => this.mapCMSToBlogPost(p));
+      const formattedCmsPosts = blogsRaw.filter((p) => estaPublicado(p)).map(p => this.mapCMSToBlogPost(p));
       const endTime = performance.now();
 
       return {
