@@ -19,3 +19,34 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans-marca), system-ui, sans-serif;
 }
+
+/*
+ * Cuerpo de los posts del blog. La página usa clases `prose-*`, pero el plugin
+ * @tailwindcss/typography nunca se instaló: no hacían nada y el preflight dejaba
+ * los títulos del tamaño del texto y las listas sin viñetas. Acotado al blog para
+ * no cambiar las páginas legales, que usan las mismas clases.
+ */
+@layer components {
+  .contenido-blog h2 {
+    @apply font-display font-bold text-3xl mt-12 mb-6 leading-tight text-puka-black dark:text-white;
+  }
+  .contenido-blog h3 {
+    @apply font-display font-bold text-2xl mt-8 mb-4 leading-snug text-puka-black dark:text-white;
+  }
+  .contenido-blog ul {
+    @apply list-disc pl-6 mb-6 space-y-2;
+  }
+  .contenido-blog ol {
+    @apply list-decimal pl-6 mb-6 space-y-2;
+  }
+  .contenido-blog li::marker {
+    @apply text-puka-red;
+  }
+  .contenido-blog blockquote,
+  .contenido-blog aside.callout {
+    @apply border-l-4 border-puka-red bg-gray-50 dark:bg-gray-900 py-4 px-6 my-8 rounded-r-lg;
+  }
+  .contenido-blog a {
+    @apply text-puka-red hover:underline;
+  }
+}
