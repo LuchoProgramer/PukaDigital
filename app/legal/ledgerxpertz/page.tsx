@@ -109,7 +109,10 @@ const TerminosLedgerXpertzPage = () => {
                                 <CheckCircle size={20} className="text-puka-red" /> 8. Tus datos
                             </h2>
                             <p className="mt-4">
-                                Los datos que registras en LedgerXpertz <strong>son tuyos</strong>. Puedes exportarlos en Excel o PDF cuando quieras, tambi&eacute;n al cancelar. Los tratamos con confidencialidad y solo para prestarte el servicio, como explica la <Link href="/legal/politica-de-privacidad" className="text-puka-red hover:underline">Pol&iacute;tica de Privacidad</Link>.
+                                Los datos que registras en LedgerXpertz <strong>son tuyos</strong>. Puedes descargar en cualquier momento tus reportes (ventas, inventario y kardex, compras, gastos y cierres de caja) en Excel o PDF, y los XML de tus comprobantes electr&oacute;nicos. Un per&iacute;odo largo se descarga en partes.
+                            </p>
+                            <p>
+                                Al cancelar, te entregamos a pedido una exportaci&oacute;n completa de tus datos. Los tratamos con confidencialidad y solo para prestarte el servicio, como explica la <Link href="/legal/politica-de-privacidad" className="text-puka-red hover:underline">Pol&iacute;tica de Privacidad</Link>.
                             </p>
                         </section>
 
