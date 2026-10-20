@@ -14,6 +14,7 @@ import {
   CheckCircle,
   XCircle,
 } from 'lucide-react';
+import Link from 'next/link';
 import SEO from '@/components/SEO';
 import * as ga from '@/lib/analytics';
 
@@ -78,6 +79,12 @@ const glass = {
 
 type BillingPeriod = 'mensual' | 'anual';
 
+const LEGAL_LINKS = [
+  { href: '/legal/ledgerxpertz', label: 'Términos de LedgerXpertz' },
+  { href: '/legal/terminos', label: 'Términos generales' },
+  { href: '/legal/politica-de-privacidad', label: 'Privacidad' },
+];
+
 const PLANS = [
   { name: 'Starter', monthly: 15, annual: 144, annualMonthly: 12, sucursales: 1, popular: false },
   { name: 'Grow',    monthly: 20, annual: 192, annualMonthly: 16, sucursales: 2, popular: true },
@@ -114,7 +121,7 @@ const SOCIAL_PROOF = [
 const FAQS = [
   {
     q: '¿Cuánto cuesta un sistema POS con facturación SRI en Ecuador?',
-    a: 'LedgerXpertz cuesta desde $15/mes + IVA para 1 sucursal (plan Starter), $20/mes + IVA para 2 sucursales (plan Grow) y $25/mes + IVA para 3 sucursales (plan Pro). Todos los planes incluyen POS, inventario en tiempo real, facturación electrónica SRI y e-commerce. Si pagas anual, ahorras 2 meses: $144, $192 y $240 al año respectivamente (+ IVA).',
+    a: 'LedgerXpertz cuesta desde $15/mes + IVA para 1 sucursal (plan Starter), $20/mes + IVA para 2 sucursales (plan Grow) y $25/mes + IVA para 3 sucursales (plan Pro). Todos los planes incluyen POS, inventario en tiempo real, facturación electrónica SRI y e-commerce. Si pagas anual, tienes 20% de descuento: $144, $192 y $240 al año respectivamente (+ IVA).',
   },
   {
     q: '¿LedgerXpertz funciona con el SRI de Ecuador?',
@@ -339,7 +346,7 @@ export default function LedgerXpertzPage() {
                     textTransform: 'capitalize',
                   }}
                 >
-                  {period === 'anual' ? 'Anual — 2 meses gratis' : 'Mensual'}
+                  {period === 'anual' ? 'Anual — 20% de descuento' : 'Mensual'}
                 </button>
               ))}
             </div>
@@ -420,6 +427,11 @@ export default function LedgerXpertzPage() {
           </div>
           <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.18)', fontSize: '12px', marginTop: '20px' }}>
             Sin permanencia · Cancela cuando quieras · Soporte por WhatsApp
+          </p>
+          <p style={{ textAlign: 'center', fontSize: '12px', marginTop: '8px' }}>
+            <Link href="/legal/ledgerxpertz" style={{ color: 'rgba(255,255,255,0.40)', textDecoration: 'underline' }}>
+              Qu&eacute; incluye tu plan: T&eacute;rminos de LedgerXpertz
+            </Link>
           </p>
         </section>
 
@@ -503,6 +515,11 @@ export default function LedgerXpertzPage() {
       {/* ── FOOTER ── */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px', textAlign: 'center', color: 'rgba(255,255,255,0.20)', fontSize: '12px' }}>
         &copy; {new Date().getFullYear()} LedgerXpertz &mdash; Powered by PukaDigital
+        <nav style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '16px', marginTop: '10px' }}>
+          {LEGAL_LINKS.map(({ href, label }) => (
+            <Link key={href} href={href} style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</Link>
+          ))}
+        </nav>
       </footer>
     </div>
   );
